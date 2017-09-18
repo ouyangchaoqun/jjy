@@ -1,0 +1,657 @@
+
+html,body{height: 100%; width: 100%;}
+
+html { /*375*/
+    font-family: -apple-system-font, Helvetica Neue, sans-serif;
+    font-size: 17px!important;
+}
+@media only screen and ( min-width:300px ) and (max-width: 321px) {
+    html {
+        font-size:13.5px !important
+    }
+}
+
+@media only screen and (min-width:376px)and ( max-width: 414px) {
+    html {
+        font-size: 18.768px !important
+    }
+}
+
+.hide_title{ display: none}
+
+@media only screen and (min-width:414px) and ( max-width: 481px) {
+    html {
+        font-size: 19.56px !important
+    }
+}
+@media only screen and (min-width:481px) and ( max-width: 561px) {
+    html {
+        font-size: 25.432px !important
+    }
+}
+
+@media only screen and (min-width:561px) and ( max-width: 640px) {
+    html {
+        font-size: 29.01333333333333px !important
+    }
+}
+@media only screen and (min-width:640px) and ( max-width: 750px) {
+    html {
+        font-size: 34px !important
+    }
+}
+
+@media only screen and (min-width:750px) and ( max-width: 1242px) {
+    html {
+        font-size: 34px !important
+    }
+}
+
+
+img[src=""],img:not([src]){opacity:0;}
+*:not(input,textarea){
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    user-select:none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+input,textarea{  -webkit-appearance:none;}
+
+.active:active{ background: #ECECEC !important}
+
+
+.heartUp {
+    -webkit-animation: heart 0.1s linear;
+    -moz-animation: heart 0.1s linear;
+    -ms-animation: heart 0.1s linear;
+    -o-animation: heart 0.1s linear;
+    animation: heart 0.1s linear;
+}
+
+@-webkit-keyframes heart {
+    from {
+        -webkit-transform: scale(1, 1);
+        -moz-transform: scale(1, 1);
+        -ms-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+    to {
+        -webkit-transform: scale(1.2,1.2);
+        -moz-transform: scale(1.2,1.2);
+        -ms-transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
+    }
+}
+@keyframes heart {
+    from {
+        -webkit-transform: scale(1, 1);
+        -moz-transform: scale(1, 1);
+        -ms-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+    to {
+        -webkit-transform: scale(1.2,1.2);
+        -moz-transform: scale(1.2,1.2);
+        -ms-transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
+    }
+}
+
+.happy_txt_color {
+    color: #ff6f02;
+}
+.unhappy_txt_color {
+    color: #1AAD19;
+}
+.modle_txt_color{
+    color: #747474;
+}
+
+
+
+/*文本输入*/
+.comment_box .placeholder{ font-size: 14px; color:#999; line-height: 32px; width: 60%; overflow: hidden; position: absolute; top:4px; left:15px; z-index: 20}
+.comment_box{
+    width: 100%;
+    background: #f5f5f5;
+    position: fixed;
+    left: 0;
+    z-index: 10000;
+    border-top:1px solid #ccc;
+}
+.comment_header{
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+    padding:0 15px;
+}
+.comment_box .cancel{
+    margin-left: 3px;
+    color: #333333;
+    float: left;
+}
+.comment_p{
+    color: #999;
+    font-size:13px;
+    line-height: 26px;
+    position: absolute;
+    left:10px;
+    width: 50px;
+}
+.comment_box .release{
+    position: absolute;
+    right: 5px;
+    width:60px ;
+    height: 30px ;
+    font-size: 13px;
+    border-radius: 3px;
+    background: #94db93  ;
+    border:1px solid #91cc91;
+    line-height: 30px;
+    text-align: center;
+    color:#fff;
+    top: 50%;
+    margin-top: -16px;
+
+}
+.comment_box .box{
+    border: 1px solid #e4e4e4;
+    border-radius: 4px;
+    margin:6px;
+    padding: 5px 0 ;
+    width: 75%;padding-left: 6px;
+    position: relative;
+    background: #ffffff;
+    font-size: 0;
+
+}
+.comment_box .comment_text{
+
+    border-radius: 4px;
+    outline: none;
+    min-height: 20px;height: 20px;
+    background: #ffffff;
+    max-height: 60px;
+    overflow-y: auto;
+    font-size: 16px;
+    line-height: 20px;
+    width: 100%;
+
+     border: none;
+}
+.comment_box.addactive{
+    /*animation: addheight .2s linear;*/
+    bottom: 0;
+}
+.comment_box.subactive{
+    /*animation: subheight .2s linear;*/
+}
+@keyframes addheight
+{
+    from {bottom: -186px;}
+    to {bottom: 0;}
+}
+
+@-moz-keyframes addheight /* Firefox */
+{
+    from {bottom: -186px;}
+    to {bottom: 0;}
+}
+
+@-webkit-keyframes addheight /* Safari 和 Chrome */
+{
+    from {bottom: -186px;}
+    to {bottom: 0;}
+}
+
+@-o-keyframes addheight /* Opera */
+{
+    from {bottom: -186px;}
+    to {bottom: 0;}
+}
+
+@keyframes subheight
+{
+    from {bottom: 0;}
+    to {bottom: -186px;}
+}
+
+@-moz-keyframes subheight /* Firefox */
+{
+    from {bottom: 0;}
+    to {bottom: -186px;}
+}
+
+@-webkit-keyframes subheight /* Safari 和 Chrome */
+{
+    from {bottom: 0;}
+    to {bottom: -186px;}
+}
+
+@-o-keyframes subheight /* Opera */
+{
+    from {bottom: 0;}
+    to {bottom: -186px;}
+}
+input { border: 0}
+li{list-style: none}
+
+
+
+
+/*心情详列表*/
+/*.userHeaderImg {
+    height: 64px;
+    width: 64px;
+}*/
+.headBox{
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 1.7647rem;
+    margin-left: -1.882rem;
+
+}
+.IndexAdd{
+    height: 2.88rem;
+    width:100%;
+    background:rgba(204,204,204,0.2);
+    position: absolute;
+    bottom:0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.IndexAdd>div{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.588rem;
+    padding-top: 0.411rem;
+    line-height: 0.647rem;
+}
+.IndexAdd>div:active{
+    background: #6C7587;
+}
+.IndexAdd p{
+    font-size: 1.058rem;
+    color: #fff;
+    margin-bottom: 0.294rem;
+    line-height: 1.058rem;
+}
+.IndexAddBorder{
+    position: relative;
+}
+.IndexAddBorder span{
+    width: 1px;
+    height: 0.88rem;
+    background: rgba(255,255,255,0.7);
+    position: absolute;
+    display: block;
+    top: 50%;
+    margin-top:-0.44rem;
+}
+.IndexAddBorder span:nth-of-type(1){
+    left:0;
+}
+.IndexAddBorder span:nth-of-type(2){
+    right:0;
+}
+.addName{
+    width: 7rem;
+    font-size: 0.8235rem;
+    color: #fff;
+    position: absolute;
+    top:5.647rem;
+    line-height: 0.88235rem;
+    left:50%;
+    margin-top: 0.88235rem;
+    margin-left: -3.5rem;
+    text-align: center;
+
+}
+.addSwiper{
+    height: 2.588rem;
+    font-size: 13px;
+    border-bottom: 0.0588rem solid #eee;
+}
+.addSwiper a{
+    float: left;
+    background: #eeeeee;
+    width:50%;
+    text-align: center;
+    line-height: 2.588rem;
+    color: #999999;
+    height: 2.588rem;
+}
+.addSwiper .AddActive{
+    background: #fff;
+    color: #333;
+}
+
+
+
+
+
+.banner .userHeaderImg img {
+    height: 3.529rem;
+    width: 3.529rem;
+    border-radius: 50%;
+    border: rgba(255,255,255,0.6) 2px solid;
+}
+
+
+
+.myMood_list {
+    background: #ffffff;
+    padding: 10px 12px 12px 12px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.moodImg {
+    width: 44px;
+   border-radius: 50%;
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 10px;
+}
+
+.moodImg_right {
+    margin-left: 55px;
+}
+
+.moodState {
+    font-size: 14px;
+    margin-bottom: 6px;
+    line-height: 24px;
+}
+
+.moodContext {
+    border-radius: 4px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
+    padding: 4px 16px 8px 0px;
+}
+
+.moodPhotoLists {
+    display: flex;
+    height: auto;
+    margin-top: 2px;
+    margin-bottom: 9px;
+}
+
+.moodPhotoList {
+    float: left;
+    margin-right: 0.2941176470588235rem;
+    width: 4.6rem;
+    height: 4.6rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.moodLoc {
+    font-size: 12px;
+    color: #516591;
+    margin-bottom: 5px;
+}
+
+.moodTime {
+    height: 17px;
+    font-size: 12px;
+    color: #999;
+    position: relative;
+
+}
+
+.moodFollow {
+    float: right;
+    /*padding-top: 2px;*/
+}
+
+.followCount {
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.followtype {
+    width: 14px;
+    vertical-align: middle;
+    margin-top: 3px !important;
+    margin-bottom: 4px;
+}
+
+.moodImg_right .moodPhotoLists.two > div {
+    width: 7.058823529411765rem;
+    height: 5.647058823529412rem;
+
+}
+
+.moodImg_right .moodPhotoLists.one > div {
+    width: 10.07058823529412rem;
+    height: 7.623529411764706rem;
+}
+
+.moodFunnPicList {
+    height: auto !important;
+}
+.moodFunnPicList img{
+    max-width:9rem;
+}
+
+
+.actionSheet_wrap .doAction{
+    font-size: 16px;
+    color: red;
+}
+.actionSheet_wrap .weui-actionsheet__title-text{
+    color: #999;
+    font-size: 13px;
+    height: 40px;
+
+}
+
+/*mood item*/
+.show_box {
+    width: 100%;
+    background: #F9F9F9;
+    border-radius: 5px;
+    margin-top: 15px;
+    position: relative;
+}
+
+.show_box .arraw {
+    background: #f9f9f9;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -4px;
+    left: 11px;
+    transform: rotate(45deg);
+}
+
+.show_top {
+    padding-left: 30px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    overflow: auto;
+    position: relative;
+}
+
+.show_top .show_img1 {
+    position: absolute;
+    top: 15px;
+    left: 9px;
+    width: 18px;
+    height: auto;
+    margin: 0;
+}
+
+.show_top img {
+    width: 33px;
+    height: 33px;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 6px;
+}
+
+.show_bottom {
+    position: relative;
+    padding-left: 30px;
+    padding-bottom: 4px;
+    padding-right: 12px;
+    height: auto !important;
+
+}
+
+.show_img2 {
+    width: 18px;
+    position: absolute;
+    top: 15px;
+    left: 9px;
+}
+
+.show_bottom li {
+    position: relative;
+    padding-top: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.show_bottom li:last-child {
+    border-bottom: none;
+}
+
+.show_bottom_img {
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    top: 7px;
+    left: 0px;
+}
+
+.show_bottom_text {
+    margin-left: 45px;
+}
+
+.show_bottom_text span {
+    font-size: 13px;
+    color: #333;
+}
+
+.show_bottom_text .reply_content {
+    font-size: 13px;
+    color: #333333;
+    line-height: 20px;
+   min-height:8px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.show_bottom_text .pname {
+    color: #5e61a2;
+    font-size: 13px;
+}
+
+.show_box .show_img1, .show_box .show_img2 {
+    width: 14px;
+}
+
+.btn_del {
+    display: inline-block;
+    margin-left: 13px;
+    color: #5e61a2;
+    font-size: 12px;
+}
+
+.editMood {
+    font-size: 15px;
+    line-height: 22px;
+    color: #999999;
+    background: #dfdfdf;
+    display: block;
+    padding:8px;
+    margin-bottom: 8px;
+    position: relative;
+    border-radius: 4px;
+}
+
+.editMood img {
+    width:25px;
+    height:25px;
+    position: absolute;
+    top: 7px;
+    right: 10px;
+}
+.addCj{
+    height: 16px;
+    vertical-align: middle;
+    margin-top: -3px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+a{
+    -webkit-touch-callout: none;
+}
+.line_comment {
+    height: 1px;
+    background: #eee;
+}
+
+.weui-mask{ -webkit-tap-highlight-color: rgba(0,0,0,0)}
+.weui-toast{
+    height:6.48rem !important;
+    width:6.48rem !important;
+    min-height: 0 !important;
+    background:rgba(0, 0, 0, 0.5) !important;
+    top:50% !important;
+    margin-top: -3.24rem !important;
+    margin-left: -3.24rem !important;
+}
+
+.weui-icon_toast.weui-icon-success-no-circle:before{
+    font-size: 2.823rem !important;
+}
+.weui-toast__content{
+    font-size: 13px !important;
+    line-height: 14px !important;
+
+}
+.weui-icon_toast.weui-loading{
+    width: 2.3529rem !important;
+    height: 2.3529rem !important;
+    margin-top: 1.529rem !important;
+    margin-bottom: 1.176rem !important;
+    vertical-align:middle !important;
+}
+.weui-icon-success-no-circle{
+    margin-top: 1.176rem !important;
+    margin-bottom: 0.8235rem !important;
+}
+
+.share{
+
+    line-height: 40px;
+    height: 40px;
+    font-size: 14px;
+    margin: 25px 15px 30px 15px;
+    color: #696969;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.weui_tip{ position: absolute; top:50%; margin-top: -14px; line-height: 28px !important; z-index: 10000; background:rgba(0,0,0,0.8); border-radius: 10px; font-size: 13px; color:#fff; left:50%; padding: 0 10px;}
