@@ -1,0 +1,17 @@
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+composer.bat
+phpunit.phar
+composer.phar
+artisan
+phpunit.xml
+.env.example
+/public/node_modules
+/composer.json
+/composer.zip
+*.map
+public/index.html
+.env.production
