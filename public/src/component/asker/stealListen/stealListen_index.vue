@@ -14,7 +14,7 @@
                     <ul>
                         <li>
                             <div class="index_li_header">
-                                <img src="" alt=""><div>陈小刚 回答了</div>
+                                <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                             </div>
                             <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                             <div class="index_li_bottom">
@@ -53,7 +53,15 @@
                         </li>
                     </ul>
                 </div>
-                <div>情感困惑</div>
+                <div>
+                    <div class="index_nocontent">
+                        <div>
+                            <img src="../../../images/34.jpg" alt="">
+                            暂无该方面问题
+                        </div>
+
+                    </div>
+                </div>
                 <div>性心理</div>
                 <div>人际关系</div>
                 <div>职场事业</div>
@@ -93,6 +101,10 @@
             }
         },
         mounted: function () {
+            var minHeight = $(window).height()-$('nav').height()-10
+            //$('.index_box').css('minHeight',minHeight)
+            $('.index_nocontent').css('minHeight',minHeight)
+            console.log(minHeight)
             var navSwiper = new Swiper('.navSwiper', {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
@@ -200,6 +212,7 @@
     }
     .index_box>div{
         display: none;
+
     }
     .index_box .index_content_active{
         display: block;
@@ -273,5 +286,27 @@
         font-size: 13px;
         color: #999;
         bottom:10px;
+    }
+    .index_nocontent{
+        background: #fff;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 13px;
+        color: #B3B3B3;
+        position: relative;
+    }
+    .index_nocontent img{
+        display: block;
+        width:90px;
+        height:90px;
+        margin:0 auto;
+        margin-bottom: 26px;
+    }
+    .index_nocontent div{
+        position: absolute;
+        width:100px;
+        top:95px;
+        left: 50%;
+        margin-left:-50px;
     }
 </style>
