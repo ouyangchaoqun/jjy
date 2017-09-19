@@ -9,7 +9,9 @@ let routers =
             name: 'appTransition',
             component: appTransition, // 引入页面切换组件
             children: [
-                require('./routes/index')
+                require('./routes/index'),
+                require('./routes/asker/index'),
+                require('./routes/answer/race')
             ]
         }
     ];
