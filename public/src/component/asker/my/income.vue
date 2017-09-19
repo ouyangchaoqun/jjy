@@ -1,12 +1,12 @@
 <template id="myCenter">
     <div style="height: 100%">
 
-        <div v-title>抢答</div>
+        <div v-title>心情指数</div>
 
         <div style="height: 500px;">
 
+            index
 
-race
         </div>
     </div>
 </template>
