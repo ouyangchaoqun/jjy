@@ -655,3 +655,5 @@ a{
 }
 
 .weui_tip{ position: absolute; top:50%; margin-top: -14px; line-height: 28px !important; z-index: 10000; background:rgba(0,0,0,0.8); border-radius: 10px; font-size: 13px; color:#fff; left:50%; padding: 0 10px;}
+
+.clear{ clear: both;}

@@ -13,5 +13,4 @@ phpunit.xml
 /composer.json
 /composer.zip
 *.map
-public/index.html
 .env.production
