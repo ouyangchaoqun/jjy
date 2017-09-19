@@ -90,11 +90,21 @@
    .answer_list .info .other .price{ color:#FF6600}
    .answer_list .info .other .ml{ margin-left:0.8rem; }
    .answer_list .info .audio{ margin-top: 0.8rem; margin-bottom: 0.3rem;}
-    .answer_list .info .audio .audio_btn{   width:70%; float:left;
+    .answer_list .info .audio .audio_btn{   width:70%; float:left; position: relative;
         height:2.4rem; line-height: 2.4rem;
         background:rgba(0,184,230,1);
         border-radius: 1.2rem ; text-align: center; color:#fff;  }
    .answer_list .info .audio .audio_btn:active{ background: rgb(0, 138, 182);
    }
    .answer_list .info .audio .minute{ color:#999; font-size: 1rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
+   .answer_list .info .audio .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
+       content:" "; display: block; height: 0.97rem; background: url(../../images/sond.png); background-size: 0.6764705882352941rem;  top:0.6rem; left:0.8rem;}
+   .answer_list .info .audio .audio_btn:after{
+       content:" "; display: block;position: absolute; bottom:-0.6rem;left:0.9rem;
+        width: 0;
+        height: 0;
+        border-top: 0.6764705882352941rem solid #00B8E6;
+        border-right: 0.6764705882352941rem solid transparent;
+    }
+
 </style>
