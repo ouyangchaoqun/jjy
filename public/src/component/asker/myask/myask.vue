@@ -147,6 +147,7 @@
         background: rgba(241,241,245,0);
         border-radius: 5px;
         line-height: 20px;
+        color: #666;
     }
     .myask_content textarea::-webkit-input-placeholder{color:#BAB9B9;}
     .myask_content div{
