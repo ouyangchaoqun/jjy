@@ -17,6 +17,7 @@ let routers =
                 require('./routes/asker/my/listen_list'),
                 require('./routes/asker/my/answer_list'),
                 require('./routes/asker/stealListen/stealListen_index'),
+                require('./routes/asker/stealListen/steal_detail'),
                 require('./routes/answer/race_list'),
                 require('./routes/answer/race'),
                 require('./routes/answer/detail'),

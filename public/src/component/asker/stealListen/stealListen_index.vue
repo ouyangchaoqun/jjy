@@ -1,5 +1,5 @@
 <template id="stealListen_index">
-    <div style="background: #f4f4f8;">
+    <div>
         <!--头部导航栏-->
         <nav>
             <div class="swiper-container navSwiper">
