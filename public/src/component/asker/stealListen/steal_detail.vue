@@ -9,15 +9,16 @@
         <ul>
             <li class="steal_detail_answer">
                 <div class="steal_answer_top">
-                    <img src="../../../images/34.jpg" alt="">
+                    <img class="steal_answer_topimg" src="../../../images/asker/34.jpg" alt="">
                     <div class="steal_answer_yy">
-                        <img src="../../../images/nocharge.png" alt="">
+                        <img class="steal_answer_ly" src="../../../images/nocharge.png" alt="">
                         <div>点击播放</div>
+                        <img class="steal_answer_sond" src="../../../images/sond.png" alt="">
                     </div>
                     <div>58”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div><img src="../image/zan_nor.png" alt="">  <span>48</span></div>
+                    <div><img src="../../../images/asker/zan_nor.png" alt="">  <span>48</span></div>
                     <div>听过  <span>48</span></div>
                 </div>
                 <div class="steal_expert_info">
@@ -25,20 +26,21 @@
                         <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
                     </div>
                     <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                    <img src="../image/listenin.png" alt="">
+                    <img src="../../../images/asker/listenin.png" alt="">
                 </div>
             </li>
             <li class="steal_detail_answer">
                 <div class="steal_answer_top">
-                    <img src="../../../images/34.jpg" alt="">
+                    <img class="steal_answer_topimg" src="../../../images/34.jpg" alt="">
                     <div class="steal_answer_yy">
-                        <img src="../../../images/nocharge.png" alt="">
+                        <img class="steal_answer_ly" src="../../../images/nocharge.png" alt="">
                         <div>点击播放</div>
+                        <img class="steal_answer_sond" src="../../../images/sond.png" alt="">
                     </div>
                     <div>58”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div><img src="../image/zan_nor.png" alt="">  <span>48</span></div>
+                    <div><img src="../../../images/asker/zan_por.png" alt="">  <span>48</span></div>
                     <div>听过  <span>48</span></div>
                 </div>
                 <div class="steal_expert_info">
@@ -46,10 +48,11 @@
                         <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
                     </div>
                     <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                    <img src="../image/listenin.png" alt="">
+                    <img src="../../../images/asker/listenin.png" alt="">
                 </div>
             </li>
         </ul>
+
     </div>
 
 </template>
@@ -114,7 +117,7 @@
         margin-bottom: 8px;
         padding:0 15px;
     }
-    .steal_answer_top img{
+    .steal_answer_topimg{
         display: block;
         height:44px;
         width: 44px;
@@ -123,22 +126,22 @@
     }
     .steal_answer_yy{
         position: relative;
+        margin-top:3px;
+        margin-right:7px;
     }
     .steal_answer_yy div{
         position: absolute;
         color: #fff;
         font-size: 15px;
         width: 100px;
-        top:-2px;
+        top:-5px;
         left:50%;
         margin-left: -50px;
         text-align: center;
     }
-     .steal_answer_yy img{
+     .steal_answer_ly{
         display: block;
         height:45px;
-        margin-top:3px;
-        margin-right:7px;
          width:auto;
          border-radius: 0;
     }
@@ -207,5 +210,13 @@
         white-space: nowrap;
         line-height: 1;
         padding-top: 8px;
+    }
+    .steal_answer_sond{
+        display: block;
+        margin-top:-11px;
+        height:16px;
+        position: absolute;
+        top:50%;
+        left:15px;
     }
 </style>
