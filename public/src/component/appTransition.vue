@@ -66,7 +66,7 @@
         methods: {
             initData:function () {
                 var _this = this;
-                if(_this.user.isLookFriend!==0){
+                if(_this.user&&_this.user.isLookFriend&&_this.user.isLookFriend!==0){
                     //用户 朋友当天心情 特别关系
                     _this.$http({
                         method: 'GET',
