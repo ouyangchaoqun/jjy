@@ -67,6 +67,8 @@
                 e.stopPropagation();
                 $('.myask_class_list span').removeClass('myask_class_listactive')
                 $(this).addClass('myask_class_listactive')
+                console.log($(this).html())
+                $('.myask_top span').html($(this).html())
             })
         },
         methods:{
@@ -124,6 +126,8 @@
         position: absolute;
         margin-left:18px;
         top: 0;
+        text-align: center;
+        font-size: 15px;
     }
     .myask_content{
         height:189px;
