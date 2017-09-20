@@ -1,4 +1,4 @@
-<template id="myCenter">
+<template  >
     <div style="height: 100% " class="answer_list_box">
 
         <div v-title>抢答</div>

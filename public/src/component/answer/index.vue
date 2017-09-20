@@ -1,4 +1,4 @@
-<template id="myCenter">
+<template >
     <div style="height: 100%" class="answer_index">
         <div v-title>加加油</div>
         <div class="class_list">
