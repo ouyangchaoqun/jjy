@@ -11,7 +11,6 @@
 */
 $app->get('/guest/','Controller@guest');
 $app->get('/','Controller@index');
-$app->get('befriend','Controller@befriend');
 
 $app->group(['prefix'=>'wx'],function () use($app){
     $app->get('/index','WeixinController@index');
@@ -29,5 +28,6 @@ $app->post('/api/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@url');
 $app->delete('/api/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@url');
 $app->put('/api/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@url');
 
+$app->get('{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','Controller@index');
 
 
