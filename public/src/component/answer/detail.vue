@@ -137,7 +137,9 @@
                                        </div>
                                 <div class="status">
                                     <div class="ask_time">刚刚</div>
-                                    <div class="ask_status">听过 148 <span><img src="../../images/answer/good.png"></span><span>48</span></div>
+                                    <div class="ask_status">听过 148
+                                       <div class="icon2"><span>48</span></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="clear"></div>
@@ -147,8 +149,9 @@
             </div>
             <div class="ask_bottom">
                 <div class="listen">
-                    <img src="../../images/answer/listen.png" alt=""/>
+                    <div class="icon1">
                     <span>收听</span>
+                    </div>
                 </div>
                 <div class="pay_ask">￥19.99提问</div>
             </div>
@@ -180,7 +183,8 @@
         height: 16.6rem;
     }
     .answer_detail_box .answer_banner{
-        background:#00B8E6;
+        background: url("../../images/answer/banner.jpg") 100% no-repeat;
+        background-size: 100%;
         height: 12.91rem;
         padding-top: 0.88rem;
     }
@@ -369,7 +373,7 @@
     .answer_detail_box .answer{margin-top: 0.88rem}
     .answer_detail_box .ask_status{float: right;}
     .answer_detail_box .ask_status img{width: 0.94rem;}
-    .answer_detail_box .ask_status span{margin: 0 5px;}
+
     .answer_detail_box .ask_bottom{
         margin-top: 2rem;
         height: 2.588rem;
@@ -383,6 +387,19 @@
         height: 2.588rem;
     }
     .answer_detail_box .listen span{color: #999;}
-    .answer_detail_box .listen img{width: 1.05rem;height: 1.05rem;margin-top: 0.70rem}
+   .answer_detail_box .icon1{
+       margin-top: 0.588rem;
+       background: url("../../images/answer/listen.png") no-repeat;
+       background-size: 1.05rem;
+       padding-left: 0.8rem;
+       background-position: 0.9rem 0.294rem;
+   }
+    .answer_detail_box .icon2{
+        float: right;
+        background: url("../../images/answer/good.png") no-repeat;
+        background-size: 1.05rem;
+        padding-left: 2rem;
+        background-position: 0.9rem 0;
+    }
     .answer_detail_box .pay_ask{width: 75%;float: right; background: #0BB20C;color: white;line-height: 2.588rem;height: 2.588rem}
 </style>
