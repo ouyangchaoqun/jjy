@@ -14,7 +14,8 @@
             <div class="myask_set_money">
                 设置赏金：<input type="text" placeholder="10元起">
             </div>
-            <div class="weui-btn weui-btn_disabled weui-btn_primary">提交</div>
+            <div class="weui-btn weui-btn_disabled weui-btn_primary" v-if="!myask_content">提交</div>
+            <div class="weui-btn weui-btn_primary" v-if="myask_content">提交</div>
         </div>
         <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
             <div class="myask_class" v-if="class_box_flag" @click.stop>
