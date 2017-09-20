@@ -304,6 +304,11 @@
         border-top: 0.6764705882352941rem solid #00B8E6;
         border-right: 0.6764705882352941rem solid transparent;
     }
+
+
+    .answer_detail_box  .audio_btn:active:after{
+        border-top: 0.6764705882352941rem solid rgb(0, 138, 182);;
+    }
     .answer_detail_box .answer_detail{
         background: white;
         margin-top: 0.88rem;
