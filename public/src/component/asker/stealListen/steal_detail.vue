@@ -171,46 +171,6 @@
         float: left;
         margin-top:1px;
     }
-    .steal_expert_info{
-        border-top: 1px solid #eee;
-        background: #fff;
-        position: relative;
-        padding:15px;
-    }
-    .steal_expert_info div:nth-of-type(1){
-        height:20px;
-        line-height: 20px;
-    }
-    .steal_expert_info img{
-        height:30px;
-        width:30px;
-        display: block;
-        position: absolute;
-        right:15px;
-        top:50%;
-        margin-top:-15px;
-    }
-    .steal_expert_name{
-        color: #333;
-        font-size: 18px;
-        margin-right: 12px;
-        float: left;
-    }
-    .steal_expert_fans{
-        color: #999;
-        font-size: 13px;
-        float: left;
-    }
-    .steal_expert_des{
-        width:85%;
-        color: #767474;
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        line-height: 1;
-        padding-top: 8px;
-    }
     .steal_answer_sond{
         display: block;
         margin-top:-11px;
