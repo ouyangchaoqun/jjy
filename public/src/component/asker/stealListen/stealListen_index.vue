@@ -142,45 +142,45 @@
     nav{
         width: 100%;
         background: #fff;
-        height:36px;
-        line-height: 36px;
-        font-size: 13px;
+        height:2.1176471rem;
+        line-height: 2.1176471rem;
+        font-size: 0.76471rem;
         color: #666;
         text-align: center;
     }
     .navSwiper .swiper-slide{
-        width:80px;
+        width:4.70588rem;
     }
     .nav_active{
-        font-size: 14px;
+        font-size: 0.8235rem;
         color: #0DBC0B ;
         position: relative;
         transition:all .1s linear;
     }
     .nav_active:after{
         content: '';
-        width:14px;
+        width:0.8235rem;
         height:2px;
         background: #0DBC0B;
         position: absolute;
         bottom:0;
         left:50%;
-        margin-left: -7px;
+        margin-left: -0.41176rem;
     }
     .moodGasStation_menu{
-        height:44px;
+        height:2.588rem;
         border-top: 1px solid rgba(0,0,0,0.2);
         display: flex;
         position: fixed;
         bottom: 0;
         width:100%;
-        padding-top: 5px;
+        padding-top: 0.294rem;
         background: #fff;
     }
     .moodGasStation_menu div{
         flex: 1;
         text-align: center;
-        font-size: 10px;
+        font-size: 0.588235rem;
         vertical-align: text-bottom;
     }
     .moodGasStation_menu img{
@@ -193,18 +193,18 @@
         position: relative;
     }
     .moodGasStation_wen{
-        width:44px;
-        height:44px;
+        width:2.588rem;
+        height:2.588rem;
         border-radius: 50%;
         background: #0DBC0B;
         font-size: 20px;
         color: #fff;
         text-align: center;
-        line-height:44px;
+        line-height:2.588rem;
         position: absolute;
         left:50%;
-        margin-left:-22px;
-        top:-15px;
+        margin-left:-1.294rem;
+        top:-0.88235rem;
     }
     .index_box{
         width:100%;
@@ -219,46 +219,46 @@
     }
     .index_box li{
         background: #fff;
-        padding:12px 15px 20px 15px;
-        margin-top: 10px;
+        padding:0.70588rem 0.88235rem 1.176471rem 0.88235rem;
+        margin-top: 0.588235rem;
     }
     .index_box li:last-of-type{
-        margin-bottom: 60px;
+        margin-bottom: 3.5294rem;
     }
     .index_li_header{
-        font-size: 12px;
+        font-size: 0.70588rem;
         color: #666;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         line-height: 29px;
-        margin-bottom: 10px;
+        margin-bottom: 0.588235rem;
     }
     .index_li_header img{
         height:29px;
         width:29px;
         display:block;
         border-radius: 50%;
-        margin-right: 8px;
+        margin-right: 0.470588rem;
     }
     .index_li_content{
-        font-size:15px;
+        font-size:0.88235rem;
         color: #474747;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        margin-bottom: 10px;
+        margin-bottom: 0.588235rem;
     }
     .index_li_bottom{
         position: relative;
     }
     .index_li_voice{
        position: relative;
-        font-size: 15px;
+        font-size: 0.88235rem;
         color: #fff;
-        width: 174px;
+        width: 10.235rem;
     }
     .index_li_voice img{
         width:100%;
@@ -266,32 +266,32 @@
         display: block;
     }
     .index_li_voice div{
-        width: 100px;
+        width: 5.88235rem;
         position: absolute;
         top:50%;
         left:50%;
-        margin-left:-50px;
+        margin-left:-2.941175rem;
         text-align: center;
 
     }
     .position_change1{
-        margin-top: -3px;
+        margin-top: -0.176471rem;
     }
     .position_change2{
-        margin-top: -15px;
+        margin-top: -0.88235rem;
     }
     .index_li_count{
         position: absolute;
         right:0;
-        font-size: 13px;
+        font-size: 0.76471rem;
         color: #999;
-        bottom:10px;
+        bottom:0.588235rem;
     }
     .index_nocontent{
         background: #fff;
-        margin-top: 10px;
+        margin-top: 0.588235rem;
         text-align: center;
-        font-size: 13px;
+        font-size: 0.76471rem;
         color: #B3B3B3;
         position: relative;
     }
@@ -300,13 +300,13 @@
         width:90px;
         height:90px;
         margin:0 auto;
-        margin-bottom: 26px;
+        margin-bottom: 1.5294rem;
     }
     .index_nocontent div{
         position: absolute;
-        width:100px;
-        top:95px;
+        width:5.88235rem;
+        top:5.588235rem;
         left: 50%;
-        margin-left:-50px;
+        margin-left:-2.941175rem;
     }
 </style>
