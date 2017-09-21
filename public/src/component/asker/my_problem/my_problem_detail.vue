@@ -133,9 +133,9 @@
         margin-bottom: 0.88235rem;
     }
     .problem_answer_info img{
-        height:2.588rem;
+        height:44px;
         display: block;
-        width:2.588rem;
+        width:44px;
         border-radius: 50%;
         margin-right: 0.88235rem;
     }

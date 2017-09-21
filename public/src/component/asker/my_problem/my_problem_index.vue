@@ -71,15 +71,15 @@
 <style>
     .my_problem_tabs{
         color: #333;
-        font-size: 15px;
+        font-size: 0.88235rem;
         text-align: center;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         background: #fff;
         border-bottom: 1px solid #eee;
-        height:40px;
-        line-height: 40px;
+        height:2.35294rem;
+        line-height: 2.35294rem;
     }
     .my_problem_tabs>div{
         flex: 1;
@@ -87,13 +87,13 @@
     }
     .my_problem_tabs>div:nth-of-type(1)::after{
         content: '';
-        height:19px;
+        height:1.1176rem;
         width:1px;
         background: #E0E0E0;
         position: absolute;
         right:0;
         top:50%;
-        margin-top:-9.5px;
+        margin-top:-0.5588rem;
     }
     .my_problem_active{
         border-bottom: 2px solid #6DC12E;
@@ -111,10 +111,10 @@
         display: block;
     }
     .my_problem_list1{
-        padding:12px 15px 10px 15px;
+        padding:12px 0.88235rem 0.588235rem 0.88235rem;
         background: #fff;
-        line-height: 30px;
-        margin-bottom: 10px;
+        line-height: 1.76471rem;
+        margin-bottom: 0.588235rem;
     }
     .problem_header{
         display: -webkit-box;
@@ -122,8 +122,8 @@
         display: flex;
         position: relative;
         color: #666;
-        font-size: 12px;
-        margin-bottom: 15px;
+        font-size: 0.70588rem;
+        margin-bottom: 0.88235rem;
     }
     .wait_Answer{
         color: #69BA2D;
@@ -137,18 +137,18 @@
         width:29px;
         display: block;
         border-radius: 50%;
-        margin-right: 10px;
+        margin-right: 0.588235rem;
     }
     .my_problem_content{
         color: #474747;
-        font-size: 15px;
-        line-height: 21px;
+        font-size: 0.88235rem;
+        line-height: 1.235rem;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        margin-bottom: 15px;
+        margin-bottom: 0.88235rem;
     }
     .my_problem_bottom{
         display: -webkit-box;
@@ -156,11 +156,11 @@
         display: flex;
         position: relative;
         color: #999;
-        font-size: 13px;
+        font-size: 0.76471rem;
         line-height: 1;
     }
     .my_problem_bottom>div{
-        margin-right: 15px;
+        margin-right: 0.88235rem;
     }
     .my_problem_bottom .my_problem_money{
         position: absolute;
