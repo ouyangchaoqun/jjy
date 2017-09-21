@@ -74,7 +74,7 @@
 </script>
 <style>
     .steal_detail_header{
-        padding:12px 15px 0 15px;
+        padding:0.70588rem 0.88235rem 0 0.88235rem;
         background: #fff;
     }
     .steal_detail_top{
@@ -82,7 +82,7 @@
         display: -webkit-flex;
         display: -webkit-box;
         color: #999;
-        font-size: 12px;
+        font-size: 0.70588rem;
         line-height: 29px;
     }
     .steal_detail_top img{
@@ -90,133 +90,93 @@
         height:29px;
         width:29px;
         border-radius: 50%;
-        margin-right: 10px;
-        margin-bottom: 12px;
+        margin-right: 0.588235rem;
+        margin-bottom: 0.70588rem;
     }
     .steal_detail_top span{
         color: #333;
     }
     .steal_detail_content{
         color: #333;
-        font-size: 15px;
-        line-height: 21px;
+        font-size:0.88235rem;
+        line-height: 1.235294rem;
     }
     .steal_detail_answer{
         background: #fff;
-        padding-top:20px;
-        margin-bottom: 10px;
+        padding-top:1.176471rem;
+        margin-bottom: 0.588235rem;
     }
     .steal_answer_top{
         display: flex;
         display: -webkit-flex;
         display: -webkit-box;
-        height:48px;
-        line-height: 48px;
+        height:2.8235rem;
+        line-height: 2.8235rem;
         color: #999;
-        font-size: 14px;
-        margin-bottom: 8px;
-        padding:0 15px;
+        font-size: 0.8235rem;
+        margin-bottom: 0.471rem;
+        padding:0 0.88235rem;
     }
     .steal_answer_topimg{
         display: block;
         height:44px;
         width: 44px;
         border-radius: 50%;
-        margin-right: 10px;
+        margin-right: 0.588235rem;
     }
     .steal_answer_yy{
         position: relative;
-        margin-top:3px;
-        margin-right:7px;
+        margin-top:0.176471rem;
+        margin-right:0.41176471rem;
     }
     .steal_answer_yy div{
         position: absolute;
         color: #fff;
-        font-size: 15px;
-        width: 100px;
-        top:-5px;
+        font-size: 0.88235rem;
+        width: 5.882352rem;
+        top:-0.29411764471rem;
         left:50%;
-        margin-left: -50px;
+        margin-left: -2.941176rem;
         text-align: center;
     }
      .steal_answer_ly{
         display: block;
-        height:45px;
+        height:2.6471rem;
          width:auto;
          border-radius: 0;
     }
     .steal_answer_zan{
         color: #999;
-        font-size: 12px;
-        height:16px;
-        line-height: 16px;
-        margin-bottom:10px;
-        padding-right: 15px;
+        font-size: 0.70588rem;
+        height:0.941176471rem;
+        line-height: 0.941176471rem;
+        margin-bottom:0.588235rem;
+        padding-right: 0.88235rem;
     }
     .steal_answer_zan div{
         float: right;
     }
     .steal_answer_zan img{
         display: inline-block;
-        width:16px;
+        width:0.941176471rem;
     }
     .steal_answer_zan div:nth-of-type(2){
-        margin-right:21px ;
+        margin-right:1.235rem;
     }
     .steal_answer_zan div:nth-of-type(1) img{
         float: left;
-        margin-right:5px;
+        margin-right:0.29411rem;
     }
     .steal_answer_zan div:nth-of-type(1) span{
         float: left;
         margin-top:1px;
     }
-    .steal_expert_info{
-        border-top: 1px solid #eee;
-        background: #fff;
-        position: relative;
-        padding:15px;
-    }
-    .steal_expert_info div:nth-of-type(1){
-        height:20px;
-        line-height: 20px;
-    }
-    .steal_expert_info img{
-        height:30px;
-        width:30px;
-        display: block;
-        position: absolute;
-        right:15px;
-        top:50%;
-        margin-top:-15px;
-    }
-    .steal_expert_name{
-        color: #333;
-        font-size: 18px;
-        margin-right: 12px;
-        float: left;
-    }
-    .steal_expert_fans{
-        color: #999;
-        font-size: 13px;
-        float: left;
-    }
-    .steal_expert_des{
-        width:85%;
-        color: #767474;
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        line-height: 1;
-        padding-top: 8px;
-    }
     .steal_answer_sond{
         display: block;
-        margin-top:-11px;
-        height:16px;
+        margin-top:-0.6471rem;
+        height:0.941176rem;
         position: absolute;
         top:50%;
-        left:15px;
+        left:0.88235rem;
     }
 </style>

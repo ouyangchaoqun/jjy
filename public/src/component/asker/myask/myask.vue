@@ -8,8 +8,11 @@
                 <textarea maxlength="140" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。" @input="get_myask_content()" v-model="myask_content"></textarea>
                 <div>{{content_num}}/140</div>
             </div>
-            <div class="myask_need_know" @click.stop="show_know_box()">
-                <img src="../../../images/asker/need_know.png" alt=""> 提问须知
+            <div class="myask_need_know">
+                <div @click.stop="show_know_box()" style="float: right">
+                    <img src="../../../images/asker/need_know.png" alt="">
+                    <div>提问须知</div>
+                </div>
             </div>
             <div class="myask_set_money">
                 设置赏金：<input type="text" placeholder="10元起">
@@ -105,38 +108,38 @@
         background: #fff;
     }
     .myask_box_style{
-        padding:26px 15px 0 15px;
+        padding:1.5294rem 0.88235rem 0 0.88235rem;
     }
     .myask_top{
-        font-size: 15px;
+        font-size: 0.88235rem;
         color: #666;
         position: relative;
-        height: 30px;
-        line-height: 30px;
-        margin-bottom: 25px;
+        height: 1.76471rem;
+        line-height: 1.76471rem;
+        margin-bottom: 1.470588rem;
     }
 
     .myask_top span{
-        width:130px;
-        height:29px;
-        line-height: 29px;
+        width:7.6471rem;
+        height:1.70588rem;
+        line-height: 1.70588rem;
         outline: none;
         border:1px solid #69BA2D;
         border-radius: 5px;
         position: absolute;
-        margin-left:18px;
+        margin-left:1.0588235rem;
         top: 0;
         text-align: center;
-        font-size: 15px;
+        font-size: 0.88235rem;
     }
     .myask_content{
-        height:189px;
-        padding:12px 14px 8px 12px;
+        height:11.117647rem;
+        padding:0.70588235rem 0.8235rem 0.470588rem 0.70588235rem;
         background: rgba(241,241,245,0.7);
         color: #BAB9B9;
         position: relative;
-        font-size: 13px;
-        margin-bottom: 14px;
+        font-size: 0.76471rem;
+        margin-bottom: 0.8235rem;
     }
     .myask_content textarea{
         height:100%;
@@ -146,91 +149,95 @@
         resize: none;
         background: rgba(241,241,245,0);
         border-radius: 5px;
-        line-height: 20px;
+        line-height: 1.176471rem;
         color: #666;
     }
     .myask_content textarea::-webkit-input-placeholder{color:#BAB9B9;}
     .myask_content div{
         position: absolute;
-        right:12px;
-        bottom:8px;
+        right:0.70588rem;
+        bottom:0.470588rem;
     }
     .myask_need_know{
         color: #666;
-        font-size: 12px;
+        font-size: 0.70588rem;
         text-align: right;
-        height:14px;
-        line-height: 14px;
+        height:0.8235rem;
+        line-height: 0.8235rem;
         position: relative;
-        margin-bottom: 60px;
+        margin-bottom: 3.5294rem;
+    }
+    .myask_need_know>div div{
+        float: left;
+        line-height:1;
+        margin-top:1px;
     }
     .myask_need_know img{
         width:14px;
         height:14px;
         display: inline-block;
-        position: absolute;
-        right:55px;
-        top:0;
+        float: left;
+        margin-right: 5px;
     }
     .myask_set_money{
-        font-size: 15px;
+        font-size: 0.88235rem;
         color: #333;
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 2.3529rem;
     }
     .myask_set_money input{
         outline: none;
         border-bottom: 1px solid #ccc;
         padding-bottom: 5px;
-        width: 90px;
+        width: 5.294rem;
         text-align: center;
-        font-size: 18px;
+        font-size: 1.0588235rem;
     }
     .myask_set_money input::-webkit-input-placeholder{color:#FF9900;}
     .myask_class{
-        width:280px;
+        width:16.470588rem;
         text-align: center;
-        padding-top: 32px;
+        padding-top: 1.88235rem;
         background: #fff;
         color: #999;
-        font-size: 12px;
+        font-size: 0.70588rem;
         border-radius: 5px;
         position: absolute;
         top:30%;
         left:50%;
-        margin-left: -140px;
+        margin-left: -8.235294rem;
         overflow: hidden;
     }
     .myask_class h3{
-        font-size:18px;
+        font-size:1.0588235rem;
         font-family:PingFangSC-Regular;
         color:rgba(51,51,51,1);
         line-height:1;
-        margin-bottom: 34px;
+        margin-bottom: 2rem;
     }
     .myask_class_list{
         display: flex;
         display: -webkit-box;
         display: -webkit-flex;
-        margin-bottom: 38px;
-        padding: 0 15px;
+        margin-bottom: 2.235294rem;
+        padding: 0 0.88235rem;
     }
     .myask_class_list div{
         flex: 1;
     }
     .myask_class_list span{
         border: 1px solid #999;
-        border-radius: 12px;
-        width: 75px;
+        border-radius: 0.70588235rem;
+        width: 4.4117647rem;
         display: block;
         margin:0 auto;
-        height:22px;
-        line-height: 22px;
+        height:1.29411764rem;
+        line-height: 1.29411764rem;
     }
     .myask_class_true{
-        font-size: 18px;
-        height:50px;
-        line-height: 50px;
+        font-size: 1.0588235rem;
+        height:2.941176rem;
+        line-height: 2.941176rem;
         color: #69BA2D;
         text-align: center;
         border-top: 1px solid #eee;
@@ -243,24 +250,24 @@
         color: #69BA2D;
     }
     .myask_know_box{
-        padding-top: 19px;
+        padding-top: 1.1176471rem;
         text-align: left;
         color: #666;
-        font-size: 14px;
-        line-height: 20px;
+        font-size:0.8235rem;
+        line-height: 1.176471rem;
     }
     .myask_know_box h3{
         text-align: center;
-        margin-bottom: 15px;
+        margin-bottom: 0.88235rem;
     }
     .myask_know_box li{
-        padding: 0 15px;
-        margin-bottom: 10px;
+        padding: 0 0.88235rem;
+        margin-bottom: 0.588235rem;
     }
     .myask_know_box b{
         color: #333;
     }
     .myask_last_list{
-        margin-bottom: 50px;
+        margin-bottom: 2.941176rem;
     }
 </style>

@@ -87,7 +87,7 @@
     export default {
         data() {
             return {
-                isSelectAnswer: true
+                isSelectAnswer: false
             }
         },
         mounted: function () {
