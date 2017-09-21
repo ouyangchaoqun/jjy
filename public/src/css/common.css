@@ -741,3 +741,62 @@ a{
     line-height: 1;
     padding-top: 8px;
 }
+/*一对一、抢答问题描述详情*/
+.my_problem_detail{
+    background: #fff;
+}
+.problem_detail_header{
+    padding:1.176rem 0.88235rem 0 0.88235rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    color: #666;
+    font-size: 0.7647rem;
+    position: relative;
+    margin-bottom: 0.88235rem;
+}
+.problem_detail_header>div:nth-of-type(1){
+    color: #333;
+    margin-left: 0.588235rem;
+}
+.problem_detail_header>div:nth-of-type(2){
+    color: #FF9900;
+    position: absolute;
+    right:0.88235rem;
+}
+.problem_detail_content{
+    padding:0 0.88235rem;
+    color: #333;
+    font-size: 0.88235rem;
+    line-height: 1.235294rem;
+    margin-bottom: 0.88235rem;
+}
+/*底部 信息展示 听过 点赞*/
+.problem_answer_bottom{
+    color: #999;
+    font-size: 0.70588rem;
+    height: 0.941176rem;
+    line-height: 0.941176rem;
+    margin-bottom: 0.588235rem;
+    padding:0 0.88235rem;
+}
+.problem_answer_time{
+    float: left;
+}
+.problem_answer_zan{
+    float: right;
+}
+.problem_answer_zan div{
+    float: left;
+    margin-left: 1.176471rem;
+}
+.problem_answer_zan img{
+    display: inline-block;
+    width: 0.941176rem;
+    margin-right: 5px;
+    float: left;
+}
+.problem_answer_zan span{
+    float: left;
+    margin-top:1px;
+}

@@ -37,7 +37,34 @@
                     </li>
                 </ul>
             </div>
-            <div>222</div>
+            <div>
+                <ul>
+                    <li class="my_problem_list1">
+                        <div class="problem_header">
+                            问题类型：<div style="color: #333;margin-left: 10px">情感困惑</div>
+                            <div class="wait_Answer">正在进行</div>
+                        </div>
+                        <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                        <div class="my_problem_bottom">
+                            <div>4分钟前</div>
+                            <div>回复2</div>
+                            <div class="my_problem_money">￥19.99</div>
+                        </div>
+                    </li>
+                    <li class="my_problem_list1">
+                        <div class="problem_header">
+                            问题类型：<div style="color: #333;margin-left: 10px">情感困惑</div>
+                            <div class="wait_Answer">正在进行</div>
+                        </div>
+                        <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                        <div class="my_problem_bottom">
+                            <div>4分钟前</div>
+                            <div>回复2</div>
+                            <div class="my_problem_money">￥19.99</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
