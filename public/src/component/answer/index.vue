@@ -1,6 +1,7 @@
 <template >
     <div style="height: 100%" class="answer_index">
         <div v-title>加加油</div>
+        <div class="weui-tab__panel main">
         <div class="class_list">
             <div class="class_item" v-for="(item,index) in classList"><span>{{item.name}}</span></div>
             <div class="clear"></div>
@@ -31,15 +32,15 @@
             </div>
 
         </div>
+        </div>
 
-
-
+        <v-asker-bottom ></v-asker-bottom>
     </div>
 </template>
 
 <script type="es6">
 
-
+    import askerBottom from "../asker/include/bottom.vue";
 
     export default {
         data() {
@@ -59,9 +60,12 @@
             }
         },
 
+        components: {
+            "v-asker-bottom": askerBottom
+        },
 
         mounted: function () {
-
+            $(".weui-tab__panel").height($(window).height()-100);
 
         }
 

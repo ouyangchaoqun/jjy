@@ -1,96 +1,90 @@
 <template id="stealListen_index">
     <div>
         <!--头部导航栏-->
-        <nav>
-            <div class="swiper-container navSwiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="navList in navLists">{{navList.item}}</div>
-                </div>
-            </div>
-        </nav>
-        <div>
-            <div class="index_box">
-                <div class="index_content_active">
-                    <ul>
-                        <li>
-                            <div class="index_li_header">
-                                <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
-                            </div>
-                            <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="index_li_bottom">
-                                <div class="index_li_voice">
-                                    <img src="../../../images/charge.png" alt="">
-                                    <div class="position_change1">1元偷听</div>
-                                </div>
-                                <div class="index_li_count">听过122</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="index_li_header">
-                                <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
-                            </div>
-                            <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="index_li_bottom">
-                                <div class="index_li_voice">
-                                    <img src="../../../images/nocharge.png" alt="">
-                                    <div class="position_change2">点击播放</div>
-                                </div>
-                                <div class="index_li_count">听过122</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="index_li_header">
-                                <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
-                            </div>
-                            <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="index_li_bottom">
-                                <div class="index_li_voice">
-                                    <img src="../../../images/nocharge.png" alt="">
-                                    <div class="position_change2">限时免费听</div>
-                                </div>
-                                <div class="index_li_count">听过122</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <div class="index_nocontent">
-                        <div>
-                            <img src="../../../images/34.jpg" alt="">
-                            暂无该方面问题
-                        </div>
-
+        <div class="weui-tab__panel main">
+            <nav>
+                <div class="swiper-container navSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="navList in navLists">{{navList.item}}</div>
                     </div>
                 </div>
-                <div>性心理</div>
-                <div>人际关系</div>
-                <div>职场事业</div>
-                <div>婚姻家庭</div>
-                <div>个人成长</div>
-                <div>情绪管理</div>
-                <div>心理健康</div>
-                <div>亲子教育</div>
+            </nav>
+            <div>
+                <div class="index_box">
+                    <div class="index_content_active">
+                        <ul>
+                            <li>
+                                <div class="index_li_header">
+                                    <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                </div>
+                                <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                <div class="index_li_bottom">
+                                    <div class="index_li_voice">
+                                        <img src="../../../images/charge.png" alt="">
+                                        <div class="position_change1">1元偷听</div>
+                                    </div>
+                                    <div class="index_li_count">听过122</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="index_li_header">
+                                    <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                </div>
+                                <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                <div class="index_li_bottom">
+                                    <div class="index_li_voice">
+                                        <img src="../../../images/nocharge.png" alt="">
+                                        <div class="position_change2">点击播放</div>
+                                    </div>
+                                    <div class="index_li_count">听过122</div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="index_li_header">
+                                    <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                </div>
+                                <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                <div class="index_li_bottom">
+                                    <div class="index_li_voice">
+                                        <img src="../../../images/nocharge.png" alt="">
+                                        <div class="position_change2">限时免费听</div>
+                                    </div>
+                                    <div class="index_li_count">听过122</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="index_nocontent">
+                            <div>
+                                <img src="../../../images/34.jpg" alt="">
+                                暂无该方面问题
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>性心理</div>
+                    <div>人际关系</div>
+                    <div>职场事业</div>
+                    <div>婚姻家庭</div>
+                    <div>个人成长</div>
+                    <div>情绪管理</div>
+                    <div>心理健康</div>
+                    <div>亲子教育</div>
+                </div>
             </div>
+
         </div>
 
+        <v-asker-bottom ></v-asker-bottom>
 
 
 
-
-
-
-        <!--底部菜单栏-->
-        <div class="moodGasStation_menu">
-            <div><img src="../../../images/34.jpg" alt="">偷听</div>
-            <div><img src="../../../images/34.jpg" alt="">找专家</div>
-            <div><span class="moodGasStation_wen">问</span></div>
-            <div><img src="../../../images/34.jpg" alt="">我问</div>
-            <div><img src="../../../images/34.jpg" alt="">我的</div>
-        </div>
     </div>
 
 </template>
 <script>
+    import askerBottom from "../include/bottom.vue";
     var stealListen_index = {
         template: '#stealListen_index'
     };
@@ -99,6 +93,9 @@
             return {
                 navLists:[{item:'全部'},{item:'情感困惑'},{item:'性心理'},{item:'人际关系'},{item:'职场事业'},{item:'婚姻家庭'},{item:'个人成长'},{item:'情绪管理'},{item:'心理健康'},{item:'亲子教育'}]
             }
+        },
+        components: {
+            "v-asker-bottom": askerBottom
         },
         mounted: function () {
             var minHeight = $(window).height()-$('nav').height()-10
@@ -167,45 +164,7 @@
         left:50%;
         margin-left: -0.41176rem;
     }
-    .moodGasStation_menu{
-        height:2.588rem;
-        border-top: 1px solid rgba(0,0,0,0.2);
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        width:100%;
-        padding-top: 0.294rem;
-        background: #fff;
-    }
-    .moodGasStation_menu div{
-        flex: 1;
-        text-align: center;
-        font-size: 0.588235rem;
-        vertical-align: text-bottom;
-    }
-    .moodGasStation_menu img{
-        display: block;
-        width:27px;
-        height:27px;
-        margin:0 auto;
-    }
-    .moodGasStation_menu div:nth-of-type(3){
-        position: relative;
-    }
-    .moodGasStation_wen{
-        width:2.588rem;
-        height:2.588rem;
-        border-radius: 50%;
-        background: #0DBC0B;
-        font-size: 20px;
-        color: #fff;
-        text-align: center;
-        line-height:2.588rem;
-        position: absolute;
-        left:50%;
-        margin-left:-1.294rem;
-        top:-0.88235rem;
-    }
+
     .index_box{
         width:100%;
         height:auto;

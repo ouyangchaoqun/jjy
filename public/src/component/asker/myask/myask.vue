@@ -1,6 +1,6 @@
 <template id="myask">
     <div class="myask_box">
-        <div class="myask_box_style">
+        <div class="myask_box_style weui-tab__panel">
             <div class="myask_top">
                 选择问题类型：<span @click.stop="show_class_box()"></span>
             </div>
@@ -20,6 +20,7 @@
             <div class="weui-btn weui-btn_disabled weui-btn_primary" v-if="!myask_content">提交</div>
             <div class="weui-btn weui-btn_primary" v-if="myask_content">提交</div>
         </div>
+        <v-asker-bottom ></v-asker-bottom>
         <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
             <div class="myask_class" v-if="class_box_flag" @click.stop>
                 <h3>选择问题类型</h3>
@@ -49,6 +50,7 @@
     </div>
 </template>
 <script>
+    import askerBottom from "../include/bottom.vue";
     var myask = {
         template: '#myask'
     };
@@ -62,8 +64,11 @@
                 content_num:0
             }
         },
+        components: {
+            "v-asker-bottom": askerBottom
+        },
         mounted: function () {
-
+            $(".weui-tab__panel").height($(window).height()-100);
         },
         updated:function () {
             $('.myask_class_list span').on('click',function (e) {
