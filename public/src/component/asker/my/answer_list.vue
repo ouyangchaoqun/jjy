@@ -1,7 +1,7 @@
 <template id="myCenter">
     <div style="height: 100%">
 
-        <div v-title>心情指数</div>
+        <div v-title>我的收听</div>
 
         <div style="height: 500px;">
 

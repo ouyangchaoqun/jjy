@@ -1,13 +1,9 @@
-<template id="myCenter">
+<template>
     <div style="height: 100%">
 
-        <div v-title>心情指数</div>
+        <div v-title>我的偷听</div>
 
-        <div style="height: 500px;">
 
-            index
-
-        </div>
     </div>
 </template>
 
