@@ -21,7 +21,9 @@
             <div class="weui-btn weui-btn_primary" v-if="myask_content">提交</div>
         </div>
         <v-asker-bottom ></v-asker-bottom>
+        <!--弹出层-->
         <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
+            <!--类别框-->
             <div class="myask_class" v-if="class_box_flag" @click.stop>
                 <h3>选择问题类型</h3>
                 <div class="myask_class_box">
@@ -37,6 +39,7 @@
                 </div>
                 <div class="myask_class_true" @click.stop="hide_box()">知道了</div>
             </div>
+            <!--须知框-->
             <div class="myask_class myask_know_box" v-if="know_box_flag" @click.stop>
                 <h3>提问须知</h3>
                 <ul>

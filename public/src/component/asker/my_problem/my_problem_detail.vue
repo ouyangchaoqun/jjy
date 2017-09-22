@@ -10,7 +10,7 @@
             </div>
             <div class="problem_answer_info">
                 <img src="../../../images/asker/34.jpg" alt="">
-                <!--专家语音-->
+                <!--回答，专家语音-->
                 <div class="problem_answer_yy" v-if="false">
                     <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                     <div class="problem_answer_play">点击播放</div>
@@ -27,6 +27,7 @@
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>
+            <!--回答后底部显示详情-->
             <div class="problem_answer_bottom">
                 <div class="problem_answer_time">1小时前</div>
                 <div class="problem_answer_zan">
