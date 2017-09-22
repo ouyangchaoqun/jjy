@@ -24,17 +24,17 @@
         <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
             <div class="myask_class" v-if="class_box_flag" @click.stop>
                 <h3>选择问题类型</h3>
-                <ul>
-                    <li class="myask_class_list">
-                        <div><span class="myask_class_listactive">情感困惑</span></div><div><span>性心理</span></div><div><span>人际关系</span></div>
-                    </li>
-                    <li class="myask_class_list">
-                        <div><span>职场事业</span></div><div><span>婚姻家庭</span></div><div><span>个人成长</span></div>
-                    </li>
-                    <li class="myask_class_list myask_last_list">
-                        <div><span>情绪管理</span></div><div><span>心理健康</span></div><div><span>亲子教育</span></div>
-                    </li>
-                </ul>
+                <div class="myask_class_box">
+                    <div><span class="myask_class_listactive">情感困惑</span></div>
+                    <div><span>性心理</span></div>
+                    <div><span>人际关系</span></div>
+                    <div><span>职场事业</span></div>
+                    <div><span>婚姻家庭</span></div>
+                    <div><span>个人成长</span></div>
+                    <div><span>情绪管理</span></div>
+                    <div><span>心理健康</span></div>
+                    <div><span>亲子教育</span></div>
+                </div>
                 <div class="myask_class_true" @click.stop="hide_box()">知道了</div>
             </div>
             <div class="myask_class myask_know_box" v-if="know_box_flag" @click.stop>
@@ -71,9 +71,10 @@
             $(".weui-tab__panel").height($(window).height()-100);
         },
         updated:function () {
-            $('.myask_class_list span').on('click',function (e) {
+            $('.myask_class_box span').on('click',function (e) {
+                console.log(111)
                 e.stopPropagation();
-                $('.myask_class_list span').removeClass('myask_class_listactive')
+                $('.myask_class_box span').removeClass('myask_class_listactive')
                 $(this).addClass('myask_class_listactive')
                 console.log($(this).html())
                 $('.myask_top span').html($(this).html())
@@ -109,6 +110,28 @@
 
 </script>
 <style>
+
+    .myask_class_box{
+        padding:0 0.88235rem;
+        height:8.470588rem;
+        margin-bottom: 2.588235rem;
+    }
+    .myask_class_box div{
+        width: 33.3333%;
+        float: left;
+        margin-bottom: 2.1176471rem;
+        font-size: 0.70588rem;
+        color: #999;
+    }
+    .myask_class_box span{
+        border:1px solid #ccc;
+        width:4.41176471rem;
+        height:1.2941176471rem;
+        display: block;
+        margin:0 auto;
+        border-radius: 0.70588rem;
+        line-height: 1.2941176471rem;
+    }
     .myask_box{
         background: #fff;
     }
@@ -220,25 +243,6 @@
         line-height:1;
         margin-bottom: 2rem;
     }
-    .myask_class_list{
-        display: flex;
-        display: -webkit-box;
-        display: -webkit-flex;
-        margin-bottom: 2.235294rem;
-        padding: 0 0.88235rem;
-    }
-    .myask_class_list div{
-        flex: 1;
-    }
-    .myask_class_list span{
-        border: 1px solid #999;
-        border-radius: 0.70588235rem;
-        width: 4.4117647rem;
-        display: block;
-        margin:0 auto;
-        height:1.29411764rem;
-        line-height: 1.29411764rem;
-    }
     .myask_class_true{
         font-size: 1.0588235rem;
         height:2.941176rem;
@@ -250,7 +254,7 @@
     .myask_class_true:active{
         background: #ccc;
     }
-    .myask_class_list .myask_class_listactive{
+    .myask_class_box .myask_class_listactive{
         border-color: #69BA2D;
         color: #69BA2D;
     }

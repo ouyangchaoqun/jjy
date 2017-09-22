@@ -14,43 +14,49 @@
                     <div class="index_content_active">
                         <ul>
                             <li>
-                                <div class="index_li_header">
-                                    <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
-                                </div>
-                                <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                                <div class="index_li_bottom">
-                                    <div class="index_li_voice">
-                                        <img src="../../../images/charge.png" alt="">
-                                        <div class="position_change1">1元偷听</div>
+                                <router-link to="/asker/stealListen/steal_detail">
+                                    <div class="index_li_header">
+                                        <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                                     </div>
-                                    <div class="index_li_count">听过122</div>
-                                </div>
+                                    <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                    <div class="index_li_bottom">
+                                        <div class="index_li_voice">
+                                            <img src="../../../images/charge.png" alt="">
+                                            <div class="position_change1">1元偷听</div>
+                                        </div>
+                                        <div class="index_li_count">听过122</div>
+                                    </div>
+                                </router-link>
                             </li>
                             <li>
-                                <div class="index_li_header">
-                                    <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
-                                </div>
-                                <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                                <div class="index_li_bottom">
-                                    <div class="index_li_voice">
-                                        <img src="../../../images/nocharge.png" alt="">
-                                        <div class="position_change2">点击播放</div>
+                                <router-link to="/asker/stealListen/steal_detail">
+                                    <div class="index_li_header">
+                                        <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                                     </div>
-                                    <div class="index_li_count">听过122</div>
-                                </div>
+                                    <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                    <div class="index_li_bottom">
+                                        <div class="index_li_voice">
+                                            <img src="../../../images/nocharge.png" alt="">
+                                            <div class="position_change2">点击播放</div>
+                                        </div>
+                                        <div class="index_li_count">听过122</div>
+                                    </div>
+                                </router-link>
                             </li>
                             <li>
-                                <div class="index_li_header">
-                                    <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
-                                </div>
-                                <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                                <div class="index_li_bottom">
-                                    <div class="index_li_voice">
-                                        <img src="../../../images/nocharge.png" alt="">
-                                        <div class="position_change2">限时免费听</div>
+                                <router-link to="/asker/stealListen/steal_detail">
+                                    <div class="index_li_header">
+                                        <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                                     </div>
-                                    <div class="index_li_count">听过122</div>
-                                </div>
+                                    <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                    <div class="index_li_bottom">
+                                        <div class="index_li_voice">
+                                            <img src="../../../images/nocharge.png" alt="">
+                                            <div class="position_change2">限时免费听</div>
+                                        </div>
+                                        <div class="index_li_count">听过122</div>
+                                    </div>
+                                </router-link>
                             </li>
                         </ul>
                     </div>
@@ -180,6 +186,9 @@
         background: #fff;
         padding:0.70588rem 0.88235rem 1.176471rem 0.88235rem;
         margin-top: 0.588235rem;
+    }
+    .index_box li:active{
+        background: #eee;
     }
     .index_box li:last-of-type{
         margin-bottom: 3.5294rem;

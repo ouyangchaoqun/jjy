@@ -3,7 +3,7 @@
  */
 const rob_problem= resolve => require(['../../../component/asker/my_problem/rob_problem.vue'], resolve)
 module.exports = {
-    path: '/asker/my_problem/rob_problem',
+    path: '/asker/my_problem/rob/problem',
     component: rob_problem,
 
 }
