@@ -33,10 +33,15 @@
                         <img class="answer_play" src="../../../images/sond.png" />
                         <div class="paly_html">点击播放</div>
                         <span>60”</span>
-                        <!--选择最佳答案-->
+                        <!--选择最佳答案选框-->
                         <div v-if="false" :class='[{best_answer_true:isactive},{best_answer:true}]'></div>
+                        <!--最佳确定-->
+                        <div class="best_getMoney">
+                            <div>￥13.14</div>
+                            <img src="../../../images/asker/getmoney.png" alt="">
+                        </div>
                         <!--未选择最佳平分赏金-->
-                        <div class="deuce_money_box">
+                        <div class="deuce_money_box" v-if="false">
                             ￥5.00
                         </div>
                     </div>
@@ -304,5 +309,23 @@
         position: absolute;
         top: 0.470588rem;;
         right:0;
+    }
+    .best_getMoney{
+        position: absolute;
+        right:0;
+        top:0.76471rem;
+    }
+    .best_getMoney div{
+        float: left;
+        line-height: 1;
+        margin-right:0.588235rem;
+        color: #FF9900;
+        font-size: 0.8235rem;
+    }
+    .best_getMoney img{
+        width:1.0588235rem;
+        display: block;
+        float: left;
+        margin-top:-0.41176rem;
     }
 </style>
