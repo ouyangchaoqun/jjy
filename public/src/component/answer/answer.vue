@@ -39,6 +39,7 @@
             <template v-if="!outTime">
             <div class="playing play"></div>
             <div class="playing play2"></div>
+            <div class="playing play3"></div>
             <div class="playing">{{answerTime}}</div>
             </template>
         </div>
@@ -180,30 +181,38 @@
 
     .answer_answer_box   .time_go{ position: relative;  height: 4.8rem; width: 4.8rem; margin: 0 auto; margin-top: 2rem;}
     .answer_answer_box  .time_go .playing { height: 4.8rem; width: 4.8rem; border-radius: 50%; background: #00b9e8; position: absolute; top:0;left:0; text-align: center; color:#fff; font-size: 1.764705882352941rem; line-height: 4.8rem;}
-    .answer_answer_box  .time_go .playing:first-child{ width: 7.6rem; height: 7.6rem;opacity: 0.2; top:-1.4rem; left:-1.4rem;}
-    .answer_answer_box  .time_go .playing:nth-child(2){ width: 6rem; height: 6rem;opacity: 0.5;top:-0.6rem; left:-0.6rem;}
     .answer_answer_box  .play_go  .play{
-        animation: playing .9s infinite;
-        -webkit-animation: playing .9s infinite;
-        animation-direction:alternate;
-        -webkit-animation-direction:alternate; /* Safari 和 Chrome */
+        animation: playing 1s infinite;
+        -webkit-animation: playing  1s infinite;
+        animation-delay: -0.8s;
+        -webkit-animation-delay: -0.8s;
     }
     .answer_answer_box  .play_go .play2{
-        animation: playing 0.9s infinite;
-        -webkit-animation: playing 0.9s infinite;
-        animation-direction:alternate;
-        -webkit-animation-direction:alternate; /* Safari 和 Chrome */
+        animation-delay: -0.6s;
+        -webkit-animation-delay: -0.6s;
+            animation: playing 1s infinite;
+            -webkit-animation: playing 1s infinite;
+
+    }
+    .answer_answer_box  .play_go .play3{
+        animation-delay: -0.4s;
+        -webkit-animation-delay: -0.4s;
+        animation: playing 1s infinite;
+        -webkit-animation: playing 1s infinite;
+
     }
     @keyframes  playing {
         0%{
-            transform:scale(0.65,0.65);
-            opacity: 0.5;
+            transform:scale(0.9,0.9);
+            opacity: 0.8;
         }
         100%{
-            transform:scale(1.14,1.14);
-            opacity: 0.1;
+            transform:scale(1.7,1.7);
+            opacity: 0;
         }
     }
+
+
 
 
 
