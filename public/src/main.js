@@ -23,6 +23,7 @@ let routers =
                 require('./routes/asker/myask/myask'),
                 require('./routes/asker/my_problem/my_problem_index'),
                 require('./routes/asker/my_problem/my_problem_detail'),
+                require('./routes/asker/my_problem/rob_problem'),
                 require('./routes/answer/race_list'),
                 require('./routes/answer/answer'),
                 require('./routes/answer/detail'),

@@ -5,39 +5,76 @@
             <div>抢答模式</div>
         </div>
         <div class="my_problem_box">
+            <!--一对一列表-->
             <div class="problem_box_active">
                 <ul>
                     <li class="my_problem_list1">
-                        <div class="problem_header">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <div>陈小刚</div>
-                            <div class="wait_Answer">待回答</div>
-                        </div>
-                        <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                        <div class="my_problem_bottom">
-                            <div>4分钟前</div>
-                            <div>听过0</div>
-                            <div>收入分成￥0.00</div>
-                            <div class="my_problem_money">￥19.99</div>
-                        </div>
+                        <router-link to="/asker/my_problem/my/problem/detail">
+                            <div class="problem_header">
+                                <img src="../../../images/asker/34.jpg" alt="">
+                                <div>陈小刚</div>
+                                <div class="wait_Answer">待回答</div>
+                            </div>
+                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                            <div class="my_problem_bottom">
+                                <div>4分钟前</div>
+                                <div>听过0</div>
+                                <div>收入分成￥0.00</div>
+                                <div class="my_problem_money">￥19.99</div>
+                            </div>
+                        </router-link>
                     </li>
                     <li class="my_problem_list1">
-                        <div class="problem_header">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <div>陈小刚</div>
-                            <div class="wait_Answer">待回答</div>
-                        </div>
-                        <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                        <div class="my_problem_bottom">
-                            <div>4分钟前</div>
-                            <div>听过0</div>
-                            <div>收入分成￥0.00</div>
-                            <div class="my_problem_money">￥19.99</div>
-                        </div>
+                        <router-link to="/asker/my_problem/my/problem/detail">
+                            <div class="problem_header">
+                                <img src="../../../images/asker/34.jpg" alt="">
+                                <div>陈小刚</div>
+                                <div class="wait_Answer">待回答</div>
+                            </div>
+                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                            <div class="my_problem_bottom">
+                                <div>4分钟前</div>
+                                <div>听过0</div>
+                                <div>收入分成￥0.00</div>
+                                <div class="my_problem_money">￥19.99</div>
+                            </div>
+                        </router-link>
                     </li>
                 </ul>
             </div>
-            <div>222</div>
+            <!--抢答列表-->
+            <div>
+                <ul>
+                    <li class="my_problem_list1">
+                        <router-link to="/asker/my_problem/rob/problem">
+                            <div class="problem_header">
+                                问题类型：<div style="color: #333;margin-left: 10px">情感困惑</div>
+                                <div class="wait_Answer">正在进行</div>
+                            </div>
+                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                            <div class="my_problem_bottom">
+                                <div>4分钟前</div>
+                                <div>回复2</div>
+                                <div class="my_problem_money">￥19.99</div>
+                            </div>
+                        </router-link>
+                    </li>
+                    <li class="my_problem_list1">
+                        <router-link to="/asker/my_problem/rob/problem">
+                            <div class="problem_header">
+                                问题类型：<div style="color: #333;margin-left: 10px">情感困惑</div>
+                                <div class="wait_Answer">正在进行</div>
+                            </div>
+                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                            <div class="my_problem_bottom">
+                                <div>4分钟前</div>
+                                <div>回复2</div>
+                                <div class="my_problem_money">￥19.99</div>
+                            </div>
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -115,6 +152,9 @@
         background: #fff;
         line-height: 1.76471rem;
         margin-bottom: 0.588235rem;
+    }
+    .my_problem_list1:active{
+        background: #eee;
     }
     .problem_header{
         display: -webkit-box;

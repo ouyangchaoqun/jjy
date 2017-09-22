@@ -10,7 +10,7 @@
             </div>
             <div class="problem_answer_info">
                 <img src="../../../images/asker/34.jpg" alt="">
-                <!--专家语音-->
+                <!--回答，专家语音-->
                 <div class="problem_answer_yy" v-if="false">
                     <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                     <div class="problem_answer_play">点击播放</div>
@@ -27,6 +27,7 @@
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>
+            <!--回答后底部显示详情-->
             <div class="problem_answer_bottom">
                 <div class="problem_answer_time">1小时前</div>
                 <div class="problem_answer_zan">
@@ -92,35 +93,7 @@
     }
 </script>
 <style>
-    .my_problem_detail{
-        background: #fff;
-    }
-    .problem_detail_header{
-        padding:1.176rem 0.88235rem 0 0.88235rem;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        color: #666;
-        font-size: 0.7647rem;
-        position: relative;
-        margin-bottom: 0.88235rem;
-    }
-    .problem_detail_header>div:nth-of-type(1){
-        color: #333;
-        margin-left: 0.588235rem;
-    }
-    .problem_detail_header>div:nth-of-type(2){
-        color: #FF9900;
-        position: absolute;
-        right:0.88235rem;
-    }
-    .problem_detail_content{
-        padding:0 0.88235rem;
-        color: #333;
-        font-size: 0.88235rem;
-        line-height: 1.235294rem;
-        margin-bottom: 0.88235rem;
-    }
+
     .problem_answer_info{
         padding:0 0.88235rem;
         display: -webkit-box;
@@ -177,34 +150,6 @@
         top:50%;
         margin-top:-0.588235rem;
         left:0.88235rem;
-    }
-    .problem_answer_bottom{
-        color: #999;
-        font-size: 0.70588rem;
-        height: 0.941176rem;
-        line-height: 0.941176rem;
-        margin-bottom: 0.588235rem;
-        padding:0 0.88235rem;
-    }
-    .problem_answer_time{
-        float: left;
-    }
-    .problem_answer_zan{
-        float: right;
-    }
-    .problem_answer_zan div{
-        float: left;
-        margin-left: 1.176471rem;
-    }
-    .problem_answer_zan img{
-        display: inline-block;
-        width: 0.941176rem;
-        margin-right: 5px;
-        float: left;
-    }
-    .problem_answer_zan span{
-        float: left;
-        margin-top:1px;
     }
     .problem_assess{
         background: #fff;
