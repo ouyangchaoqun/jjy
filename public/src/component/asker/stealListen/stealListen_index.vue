@@ -20,7 +20,7 @@
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
-                                        <div class="index_li_voice">
+                                        <div class="index_li_voice" @click="play()">
                                             <img src="../../../images/charge.png" alt="">
                                             <div class="position_change1">1元偷听</div>
                                         </div>
@@ -136,6 +136,11 @@
                     swiper.setWrapperTranslate(-nowTlanslate)
                 }
             })
+        },
+        methods:{
+            play:function () {
+                console.log(111)
+            }
         }
     }
 
