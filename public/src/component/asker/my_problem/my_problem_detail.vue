@@ -11,7 +11,7 @@
             <div class="problem_answer_info">
                 <img src="../../../images/asker/34.jpg" alt="">
                 <!--回答，专家语音-->
-                <div class="problem_answer_yy" v-if="false">
+                <div class="problem_answer_yy" v-if="true">
                     <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                     <div class="problem_answer_play">点击播放</div>
                     <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
@@ -23,7 +23,7 @@
                     <span>待回答</span><span>还剩45小时</span>
                 </div>
                 <!--超时未回答-->
-                <div class="problem_wait_style" v-if="true">
+                <div class="problem_wait_style" v-if="false">
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>

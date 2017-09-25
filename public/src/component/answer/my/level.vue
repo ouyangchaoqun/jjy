@@ -1,13 +1,6 @@
-<template id="myCenter">
-    <div style="height: 100%">
-
-        <div v-title>抢答</div>
-
-        <div style="height: 500px;">
-
-
-race
-        </div>
+<template id="fans">
+    <div>
+        等级
     </div>
 </template>
 
@@ -23,6 +16,9 @@ race
 
         mounted: function () {
 
+
+        },
+        methods:{
 
         }
 

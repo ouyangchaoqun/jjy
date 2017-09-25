@@ -31,9 +31,16 @@ let routers =
                 require('./routes/answer/list'),
                 require('./routes/answer/ask_list'),
                 require('./routes/answer/comment'),
+                require('./routes/answer/my/myCenter'),
                 require('./routes/answer/my/income'),
+                require('./routes/answer/my/level'),
+                require('./routes/answer/my/set_answer'),
+                require('./routes/answer/my/comment_list'),
+                require('./routes/answer/my/fans'),
+                require('./routes/answer/my/enter'),
+                require('./routes/answer/my/perfect'),
+                require('./routes/answer/my/message'),
                 require('./routes/answer/my/income_list'),
-                require('./routes/answer/my/asker_list'),
                 require('./routes/answer/join/mobile'),
                 require('./routes/answer/join/base_info'),
                 require('./routes/answer/join/field'),
@@ -45,7 +52,6 @@ let routers =
                 require('./routes/answer/join/voice'),
                 require('./routes/answer/join/price'),
                 require('./routes/answer/join/reviewing'),
-
 
 
             ]
