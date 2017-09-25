@@ -1,0 +1,9 @@
+/**
+ * Created by pc on 2017/6/5.
+ */
+const answerJoinPrice = resolve => require(['../../../component/answer/join/price.vue'], resolve);
+module.exports = {
+    path: '/answer/join/price',
+    component: answerJoinPrice,
+
+}

@@ -2,8 +2,8 @@
     <div style="height: 100%">
 
         <div v-title>入驻心理咨询师</div>
+        <v-answer-top-step step="8"  preUrl="./sign" nextUrl="./price"></v-answer-top-step>
 
-        <v-answer-top-step step="1"  preUrl="" nextUrl="../field"></v-answer-top-step>
     </div>
 </template>
 
@@ -20,11 +20,11 @@
         mounted: function () {
 
 
-        }
-        ,
+        },
         components: {
             "v-answer-top-step": answerTopStep
         }
+
 
     }
 </script>

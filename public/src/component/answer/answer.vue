@@ -181,6 +181,21 @@
 
     .answer_answer_box   .time_go{ position: relative;  height: 4.8rem; width: 4.8rem; margin: 0 auto; margin-top: 2rem;}
     .answer_answer_box  .time_go .playing { height: 4.8rem; width: 4.8rem; border-radius: 50%; background: #00b9e8; position: absolute; top:0;left:0; text-align: center; color:#fff; font-size: 1.764705882352941rem; line-height: 4.8rem;}
+
+
+    .answer_answer_box   .play{
+           opacity: 0.1;
+           transform:scale(1.6,1.6);
+       }
+    .answer_answer_box   .play2{
+        opacity: 0.3;
+        transform:scale(1.4,1.4);
+    }
+    .answer_answer_box   .play3{
+        opacity: 0.4;
+        transform:scale(1.2,1.2);
+    }
+
     .answer_answer_box  .play_go  .play{
         animation: playing 1s infinite;
         -webkit-animation: playing  1s infinite;

@@ -34,6 +34,19 @@ let routers =
                 require('./routes/answer/my/income'),
                 require('./routes/answer/my/income_list'),
                 require('./routes/answer/my/asker_list'),
+                require('./routes/answer/join/mobile'),
+                require('./routes/answer/join/base_info'),
+                require('./routes/answer/join/field'),
+                require('./routes/answer/join/qualification'),
+                require('./routes/answer/join/introduce'),
+                require('./routes/answer/join/training'),
+                require('./routes/answer/join/good_at'),
+                require('./routes/answer/join/sign'),
+                require('./routes/answer/join/voice'),
+                require('./routes/answer/join/price'),
+                require('./routes/answer/join/reviewing'),
+
+
 
             ]
         }

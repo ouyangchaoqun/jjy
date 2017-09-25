@@ -2,15 +2,15 @@
     <div style="height: 100%">
 
         <div v-title>入驻心理咨询师</div>
+        <v-answer-top-step step="3"  preUrl="./field" nextUrl="./introduce"></v-answer-top-step>
 
-        <v-answer-top-step step="1"  preUrl="" nextUrl="../field"></v-answer-top-step>
     </div>
 </template>
 
 <script type="es6">
 
-    import answerTopStep from "./include/top_step.vue";
 
+    import answerTopStep from "./include/top_step.vue";
     export default {
         data() {
             return {}
@@ -20,11 +20,11 @@
         mounted: function () {
 
 
-        }
-        ,
+        } ,
         components: {
             "v-answer-top-step": answerTopStep
         }
+
 
     }
 </script>

@@ -3,13 +3,13 @@
 
         <div v-title>入驻心理咨询师</div>
 
-        <v-answer-top-step step="1"  preUrl="" nextUrl="../field"></v-answer-top-step>
+
     </div>
 </template>
 
 <script type="es6">
 
-    import answerTopStep from "./include/top_step.vue";
+
 
     export default {
         data() {
@@ -21,10 +21,7 @@
 
 
         }
-        ,
-        components: {
-            "v-answer-top-step": answerTopStep
-        }
+
 
     }
 </script>
