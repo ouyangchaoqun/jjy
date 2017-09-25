@@ -1,14 +1,15 @@
 <template >
-    <div style="height: 100%" class="wbg">
+    <div style="height: 100%" class="wbg answer_join_price_box">
 
         <div v-title>入驻心理咨询师</div>
 
         <v-answer-top-step step="9"  preUrl="./voice" nextUrl="" title="设置咨询者向我提问需要支付的酬金"></v-answer-top-step>
 
-        <div class="set_price">
+        <div class="set_price" @click="select()">
             <div class="til">设置提问酬金</div>
-            <div class="select" @click="select()">￥1.00</div>
+            <div class="select" >￥{{price}}</div>
         </div>
+        <div class="submit">提交审核</div>
     </div>
 </template>
 
@@ -19,7 +20,8 @@
     export default {
         data() {
             return {
-                prices:["1.00","2.00","3.00","5.00","10.00","15.00","20.00","30.00","50.00"]
+                prices:["1.00","2.00","3.00","5.00","10.00","15.00","20.00","30.00","50.00"],
+                price:"1.00"
             }
         },
 
@@ -38,9 +40,8 @@
                         console.log(result);
                     },
                     onConfirm: function (result) {
-                        _this.yearN = result[0].label;
-                        _this.monthN = result[1].label;
-                        _this.dayN = result[2].label;
+                        _this.price = result[0].value;
+
 
                     },
                 });
@@ -54,5 +55,10 @@
     }
 </script>
 <style>
-
+    .set_price{ width: 60%; margin: 10rem auto; }
+    .set_price .til,  .set_price .select{ float:left; line-height: 2rem;}
+    .set_price .select{ margin-left: 0.6rem; width:50%;color: #ffaa00; font-size: 1.8rem; line-height: 2rem;;
+    }
+    .answer_join_price_box .submit{ position: absolute; top:0; right:0.88235rem;    line-height: 2.647058823529412rem;
+        font-size: 0.9rem;}
 </style>
