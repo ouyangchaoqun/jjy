@@ -7,10 +7,10 @@
         <router-link to='/answer/index'  >
             <span class="icon answer"></span>找专家
         </router-link>
-        <router-link to='/asker/race/list' class="middle" >
+        <router-link to='/asker/myask/myask' class="middle" >
             <div class="big_btn">问</div>
         </router-link>
-        <router-link to='/asker/myask/myask' class="" >
+        <router-link to='/asker/my_problem/my/problem/index' class="" >
             <span class="icon my_ask"></span>我问
         </router-link>
         <router-link to='/asker/my/index' class="" >

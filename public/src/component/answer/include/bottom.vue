@@ -2,7 +2,7 @@
     <div  class="answer_bottom_box">
         <router-link to='/answer/race/list' class="on" >抢答</router-link>
         <router-link to='/answer/ask/list' >待答</router-link>
-        <router-link to='/answer/my/index' >我的</router-link>
+        <router-link to='/answer/my/center' >我的</router-link>
     </div>
 </template>
 <style>

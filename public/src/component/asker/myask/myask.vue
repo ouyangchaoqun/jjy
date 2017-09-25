@@ -42,12 +42,12 @@
             <!--须知框-->
             <div class="myask_class myask_know_box" v-if="know_box_flag" @click.stop>
                 <h3>提问须知</h3>
-                <ul>
+                <ul style="overflow: auto;height: 12.35294rem;">
                     <li><b>1.</b>提交问题，设置赏金支付后，心情指数将为您匹配专业咨询师开始抢答。<br/>（1）设置的赏金越高，匹配的咨询师等级越高，抢答的咨询师越多。<br/>（2）问题描述越清楚，咨询师的回答将精准。</li>
                     <li><b>2.</b>你可以选择做佳答案：<br/>（1）该回答将产生偷偷听收入；<br/>（2）其咨询师将获得全部赏金；</li>
                     <li><b>3.</b>48小时内无人抢答，则全额退款。</li>
                 </ul>
-                <div class="myask_class_true" @click="hide_box()">知道了</div>
+                <div class="myask_class_true" @click="hide_box()" >知道了</div>
             </div>
         </div>
     </div>
@@ -106,6 +106,8 @@
             hide_myask_mask:function () {
                 let _this = this;
                 _this.myask_mask_flag = false;
+                _this.know_box_flag = false;
+                _this.class_box_flag = false;
             }
         }
     }
@@ -225,60 +227,6 @@
         font-size: 1.0588235rem;
     }
     .myask_set_money input::-webkit-input-placeholder{color:#FF9900;}
-    .myask_class{
-        width:16.470588rem;
-        text-align: center;
-        padding-top: 1.88235rem;
-        background: #fff;
-        color: #999;
-        font-size: 0.70588rem;
-        border-radius: 5px;
-        position: absolute;
-        top:30%;
-        left:50%;
-        margin-left: -8.235294rem;
-        overflow: hidden;
-    }
-    .myask_class h3{
-        font-size:1.0588235rem;
-        font-family:PingFangSC-Regular;
-        color:rgba(51,51,51,1);
-        line-height:1;
-        margin-bottom: 2rem;
-    }
-    .myask_class_true{
-        font-size: 1.0588235rem;
-        height:2.941176rem;
-        line-height: 2.941176rem;
-        color: #69BA2D;
-        text-align: center;
-        border-top: 1px solid #eee;
-    }
-    .myask_class_true:active{
-        background: #ccc;
-    }
-    .myask_class_box .myask_class_listactive{
-        border-color: #69BA2D;
-        color: #69BA2D;
-    }
-    .myask_know_box{
-        padding-top: 1.1176471rem;
-        text-align: left;
-        color: #666;
-        font-size:0.8235rem;
-        line-height: 1.176471rem;
-    }
-    .myask_know_box h3{
-        text-align: center;
-        margin-bottom: 0.88235rem;
-    }
-    .myask_know_box li{
-        padding: 0 0.88235rem;
-        margin-bottom: 0.588235rem;
-    }
-    .myask_know_box b{
-        color: #333;
-    }
     .myask_last_list{
         margin-bottom: 2.941176rem;
     }

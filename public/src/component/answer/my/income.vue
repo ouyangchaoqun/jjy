@@ -1,71 +1,55 @@
-<template id="myCenter">
-    <div style="height: 100%" class="asker_my_index_box">
-        <div v-title>我的</div>
-        <div class="weui-tab__panel main">
-            <div class="main">
-                <div class="top">
-                    <router-link to="">
-                        <img class="img" src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0">
-                        <div class="name">
-                            jacky小白
-                        </div>
-                        <div class="clear"></div>
-                    </router-link>
-                </div>
-                <router-link to = ""  class="income"  >我的收益
-                    <div class="price">￥7.5</div>
-                </router-link>
-                <router-link to = "" class="listen" >我的等级</router-link>
-                <router-link to = "" class="answer" >解答设置</router-link>
-                <router-link to = "" class="comment" >我的回答</router-link>
-                <router-link to = "" class="listen" >我的粉丝</router-link>
-                <router-link to = "" class="answer" >60”语音寄语</router-link>
-                <router-link to = "" class="comment" >入驻资质</router-link>
-            </div>
+<template >
+    <div style="height: 100%" class="asker_my_income_box wbg">
+
+        <div v-title>我的收益</div>
+        <div class="nothing income" v-if="false">
+            没有收益明细
         </div>
-        <v-asker-bottom ></v-asker-bottom>
+        <div class="my_income">
+            <div class="img"></div>
+            <div class="my_income_txt">我的收益</div>
+            <div class="money">￥50.00</div>
+            <div class="get_money">提现</div>
+            <div class="income_list" @click="incomeList()"><span>收益明细</span></div>
+        </div>
+
     </div>
 </template>
 
 <script type="es6">
 
-    import askerBottom from "../include/bottom.vue";
+
 
     export default {
         data() {
             return {}
         },
-        components: {
-            "v-asker-bottom": askerBottom
-        },
+
 
         mounted: function () {
-            $(".weui-tab__panel").height($(window).height()-100);
-            var obj =  $(".asker_my_index_box .main a")
-            xqzs.weui.active(obj);
 
+
+        },
+        methods:{
+            incomeList:function () {
+                this.$router.push("./income/list")
+            }
         }
 
 
     }
 </script>
 <style>
-    .asker_my_index_box{background: #fff}
-    .asker_my_index_box .top{ height:  3.529411764705882rem; line-height:  3.529411764705882rem; font-size: 1.058823529411765rem; background: #fff; padding:0.8823529411764706rem;border-bottom: 0.88235rem solid #f4f4f8}
-    .asker_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem; border-radius: 50%;  margin-right: 0.98rem;}
 
-    .asker_my_index_box .main a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem; background: #fff;
-        color:#333; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; }
-    .asker_my_index_box .main a:after{ background: url(../../../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
-        right:0.88235rem;top:1.25rem ; content: " "}
-    .asker_my_index_box .main a:before{ content: " "; height: 0.0588235294117647rem; background: #eee; display: block; position: absolute; bottom:0;left: 0.9411764705882353rem; width: 100%}
-    .asker_my_index_box .main a .price{position: absolute;
-        right:2.2rem;top:0rem ;}
+   .asker_my_income_box .nothing.income{ background: url(../../../images/asker/nothing_income.png) no-repeat center top; background-size: 5.205882352941176rem; }
 
-    .asker_my_index_box .main a.income{ background: url(../../../images/asker/my_index_income.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
-    .asker_my_index_box .main a.listen{ background: url(../../../images/asker/my_index_listen.png) no-repeat #fff; background-size:0.9411764705882353rem; background-position: 1rem  1.02rem; }
-    .asker_my_index_box .main a.answer{ background: url(../../../images/asker/my_index_answer.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
-    .asker_my_index_box .main a.comment{ background: url(../../../images/asker/my_index_star.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
+   .asker_my_income_box .my_income .img{ background: url(../../../images/asker/my_income_money.png) no-repeat; width: 5.382352941176471rem; height: 5.382352941176471rem; background-size: 5.382352941176471rem; margin: 0 auto ; margin-top:3.7rem; }
+   .asker_my_income_box .my_income{ line-height: 1}
+   .asker_my_income_box .my_income .my_income_txt{ width: 100%; text-align: center; margin-top: 1.470588235294118rem;font-size: 0.8823529411764706rem; }
+   .asker_my_income_box .my_income .money{ margin-top: 0.7058823529411765rem; text-align: center; width: 100%; font-size: 2.117647058823529rem; font-weight: bold; line-height: 1}
 
+   .asker_my_income_box  .my_income .get_money{ margin:1rem auto; width: 58.66666666666667%; line-height:2.588235294117647rem; border:1px solid #999;border-radius: 5px; text-align: center; font-size: 1.058823529411765rem; margin-top: 2.205882352941176rem;}
+   .asker_my_income_box .my_income .income_list{ margin-top: 6rem; text-align: center;  width: 100%}
+   .asker_my_income_box .my_income .income_list span{ padding: 0.5rem 0; border-bottom: 1px solid #999; font-size: 0.7647058823529412rem; color:#999; margin-bottom: 10px;}
 
 </style>
