@@ -800,3 +800,5 @@ a{
     float: left;
     margin-top:1px;
 }
+
+input ,textarea{    outline: 0;}

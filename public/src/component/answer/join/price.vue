@@ -5,11 +5,11 @@
 
         <v-answer-top-step step="9"  preUrl="./voice" nextUrl="" title="设置咨询者向我提问需要支付的酬金"></v-answer-top-step>
 
-        <div class="set_price" @click="select()">
-            <div class="til">设置提问酬金</div>
-            <div class="select" >￥{{price}}</div>
+        <div class="set_price">
+            <div class="til">设置提问酬金：</div>
+            <div class="select" ><input type="" onkeyup="this.value=this.value.replace(/[^\d\.￥]/g,'');  " value="￥1.00"></div>
         </div>
-        <div class="submit">提交审核</div>
+        <div class="submit" @click="submit()">提交审核</div>
     </div>
 </template>
 
@@ -45,6 +45,9 @@
 
                     },
                 });
+            },
+            submit:function () {
+                this.$router.push("./reviewing")
             }
         },
         components: {
@@ -55,9 +58,10 @@
     }
 </script>
 <style>
-    .set_price{ width: 60%; margin: 10rem auto; }
-    .set_price .til,  .set_price .select{ float:left; line-height: 2rem;}
-    .set_price .select{ margin-left: 0.6rem; width:50%;color: #ffaa00; font-size: 1.8rem; line-height: 2rem;;
+    .set_price{ width: 66%; margin: 0rem auto; margin-top: 48% }
+    .set_price .til,  .set_price .select{ float:left; line-height: 2rem; text-align: center; color:#333; font-size: 0.88235rem;}
+    .set_price .select input{ width: 6rem;font-size: 1.2rem; line-height: 2rem;;color: #ffaa00; text-align: center}
+    .set_price .select{ margin-left: 0.6rem; width:50%;color: #ffaa00; font-size: 1.2rem; line-height: 2rem;; border-radius: 0.3rem; border: 1px solid #B3B3B3
     }
     .answer_join_price_box .submit{ position: absolute; top:0; right:0.88235rem;    line-height: 2.647058823529412rem;
         font-size: 0.9rem;}

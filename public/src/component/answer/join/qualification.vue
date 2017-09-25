@@ -1,5 +1,5 @@
 <template >
-    <div style="height: 100%" class="wbg">
+    <div style="height: 100%" class="wbg answer_join_quali">
 
         <div v-title>入驻心理咨询师</div>
         <v-answer-top-step step="3"  preUrl="./field" nextUrl="./introduce" title="从业资质"></v-answer-top-step>
@@ -55,7 +55,7 @@
                     </div>
                 </label>
 
-
+                <div class="clear"></div>
             </div>
 
 
@@ -64,7 +64,7 @@
 
         <div class="number">
             <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">证书编号</label></div>
+                <div class="weui-cell__hd"><label class="weui-label">证书编号 <span>*</span></label></div>
                 <div class="weui-cell__bd">
                     <input class="weui-input" type="number" pattern="[0-9a-zA-Z]*" placeholder="证件号码"/>
                 </div>
@@ -73,9 +73,17 @@
 
         <div class="photo">
             <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">资质证书</label></div>
+                <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
                 <div class="weui-cell__bd">
-                    <div class="upload">上传证书</div>
+                    <div class="upload"><span>+</span><font>上传证书</font></div>
+                </div>
+            </div>
+        </div>
+        <div class="photo">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label class="weui-label"></label> </div>
+                <div class="weui-cell__bd">
+                    <div class="img"><img src="../../../images/answer/join_qu.png" > </div>
                 </div>
             </div>
         </div>
@@ -105,5 +113,17 @@
     }
 </script>
 <style>
-    .upload{ background: #0BB20C; border-radius: .3rem; text-align: center; padding: 0 0.7rem; color:#fff;  line-height: 2rem; width: 50%}
+    .answer_join_quali  .weui-cells:after, .weui-cells:before,.answer_join_quali  .weui-cell:before{ display: none}
+    .answer_join_quali  .weui-check__label{ width: 42%; float:left; font-size: 0.823rem !important}
+
+    .answer_join_quali  .weui-label span{ color:red;}
+    .answer_join_quali .number{ margin-top: 0.8rem;}
+    .answer_join_quali .number,.answer_join_quali .photo{ margin-left: 0.4rem;}
+    .answer_join_quali .number input[type='number'], .upload{ background: #F4F4F7;  height: 2.352941176470588rem;line-height: 2.352941176470588rem; padding:0 0.6rem;font-size: 0.88235rem; border-radius: 0.3rem; width: 80%}
+    .answer_join_quali  .upload { text-align: center; color:#A9A7A7}
+    .answer_join_quali .upload span{ color:#00BB05; font-size: 1.4rem;line-height: 2.352941176470588rem; vertical-align: bottom
+    }
+
+    .answer_join_quali .weui-cell__bd img{ width: 80%}
+
  </style>

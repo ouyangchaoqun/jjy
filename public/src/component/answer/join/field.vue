@@ -72,11 +72,11 @@
 </script>
 <style>
     .answer_join_field_box .sub_title{
-        font-size: 0.88235rem; color:#999; margin-top: 0.3rem; text-align: center;
+        font-size: 0.88235rem; color:#999;     line-height: 1; text-align: center;
     }
 
-    .answer_join_field_box .types{ margin: 0.88235rem;}
-    .answer_join_field_box .types .item{  width: 25%; margin: .8rem 4.166665% ; text-align: center ;    line-height:2.5rem; float:left;  }
-    .answer_join_field_box .types .item span{border: 1px solid #ccc; display: block;border-radius: 0.3rem; font-size: 0.88235rem; }
-    .answer_join_field_box .types .item.on span{ color:#0BB20C;border: 1px solid #0BB20C; }
+    .answer_join_field_box .types{ margin:5rem  0.88235rem;}
+    .answer_join_field_box .types .item{  width: 27%; margin: .8rem 3.166665% ; text-align: center ;    line-height:2.058823529411765rem; float:left;  }
+    .answer_join_field_box .types .item span{border: 0.0588235294117647rem solid #E5E5E5 ; display: block;border-radius:1.029411764705882rem; font-size:0.8235294117647059rem; }
+    .answer_join_field_box .types .item.on span{ color:#0BB20C;border: 0.0588235294117647rem solid #00BB05; }
 </style>

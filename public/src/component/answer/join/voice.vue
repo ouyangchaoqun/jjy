@@ -5,7 +5,7 @@
         <v-answer-top-step step="8"  preUrl="./sign" nextUrl="./price" title="60''语音寄语"></v-answer-top-step>
         <div class="tip">此60''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
 
-        <div class="audio" style="display: none">
+        <div class="audio" v-show="finish">
             <div class="audio_btn">
                 点击播放
             </div>
@@ -13,17 +13,17 @@
             <div class="clear"></div>
         </div>
 
-        <div class="action_btn" >
+        <div class="action_btn pt3" v-show="!finish" >
             <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
                 <div class="txt" style=" color:#666">开始</div>
             </div>
         </div>
 
-        <div class="voice_box" v-show="answering||preAnswer">
+        <div class="voice_box" v-show="(answering||preAnswer)&&!finish">
             <div class="bg"></div>
             <!--播放状态-->
-            <div class="time_go "  v-if="!isAnswered" :class="{play_go:answering||playing}">
+            <div class="time_go "  v-if="!finish" :class="{play_go:answering||playing}">
                 <template v-if="!outTime">
                     <div class="playing play"></div>
                     <div class="playing play2"></div>
@@ -54,10 +54,7 @@
                     <div class="audio_btn_in audio_end"></div>
                     <div class="txt">停止</div>
                 </div>
-                <div class="item" v-if="outTime">
-                    <div class="audio_btn_in audio_cant_begin"></div>
-                    <div class="txt">超时</div>
-                </div>
+
             </div>
 
 
@@ -81,7 +78,8 @@
                 preAnswer:false,
                 playing:false,
                 answerTime:"00",
-                timeOut:null
+                timeOut:null,
+                finish:false
             }
         },
 
@@ -127,7 +125,8 @@
             },
             send:function () {
                 this.clearTimeOut();
-                this.isAnswered=true;
+                this.answering=false;
+                this.finish=true;
             },
             start:function () {
                 this.clearTimeOut();
@@ -157,9 +156,9 @@
     }
 </script>
 <style>
-    .answer_join_voice .tip{  margin:2rem     1.352941176470588rem; font-size: 1.058823529411765rem; line-height: 1.5; color:#666}
-    .answer_join_voice .audio{ margin-left:  1.352941176470588rem !important;}
-
+    .answer_join_voice .tip{  margin:1rem    1.176470588235294rem; font-size: 0.7647058823529412rem; line-height: 1.5; color:#666}
+    .answer_join_voice .audio{ margin-left:  15%  !important ; margin-top: 8rem;}
+.pt3{ padding-top: 9rem !important}
 
 
 
