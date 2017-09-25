@@ -10,7 +10,7 @@
 </template>
 <style>
     .answer_join_top_box .title{
-        color: #333; font-size: 0.88235rem;  text-align: center; line-height: 1.5rem;}
+        color: #333; font-size: 1.117647058823529rem;  text-align: center; line-height: 3.5}
     .answer_join_top {
 
         line-height: 2.647058823529412rem;

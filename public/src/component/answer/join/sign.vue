@@ -1,8 +1,8 @@
 <template >
-    <div style="height: 100%">
+    <div style="height: 100%" class="wbg">
 
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="7"  preUrl="./training" nextUrl="./price" title="一句话签名"></v-answer-top-step>
+        <v-answer-top-step step="7"  preUrl="./training" nextUrl="./voice" title="一句话签名"></v-answer-top-step>
         <div class="text_area">
             <textarea name=""  placeholder="限25个字符。
 方向1：可以写您对咨询的理解（价值观）。示例：有阴影的地方就有阳光。

@@ -1,5 +1,5 @@
 <template >
-    <div style="height: 100%" class="answer_join_field_box">
+    <div style="height: 100%" class="answer_join_field_box wbg">
 
         <div v-title>入驻心理咨询师</div>
 

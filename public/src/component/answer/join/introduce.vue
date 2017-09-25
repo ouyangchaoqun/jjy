@@ -1,5 +1,5 @@
 <template >
-    <div style="height: 100%">
+    <div style="height: 100%" class="wbg">
 
         <div v-title>入驻心理咨询师</div>
         <v-answer-top-step step="4"  preUrl="./qualification" nextUrl="./training" title="自我介绍"></v-answer-top-step>
