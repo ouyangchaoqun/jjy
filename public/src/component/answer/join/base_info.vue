@@ -3,7 +3,7 @@
 
         <div v-title>入驻心理咨询师</div>
 
-        <v-answer-top-step step="1"  preUrl="" nextUrl="../field"></v-answer-top-step>
+        <v-answer-top-step step="1"  preUrl="" nextUrl="../field" title="填写基本信息"></v-answer-top-step>
     </div>
 </template>
 

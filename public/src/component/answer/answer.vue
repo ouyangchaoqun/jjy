@@ -34,6 +34,8 @@
         </div>
 
 
+
+
         <!--播放状态-->
         <div class="time_go "  v-if="!isAnswered" :class="{play_go:answering||playing}">
             <template v-if="!outTime">
@@ -144,6 +146,7 @@
                 this.timeout()
             },
             play:function () {
+                this.clearTimeOut();
                 this.playing=true;
                 this.timeout(true);
             },
@@ -175,14 +178,12 @@
     .answer_answer_box .answer .info .type span{ color:#666}
    .answer_answer_box .answer .price{ font-size: 0.8823529411764706rem;color:#535353; text-align: right; width: 7rem; position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
     .answer_answer_box .answer  .price span{ color:#FF9900; font-size: 1.058823529411765rem;}
-    .answer_answer_box  .btns { text-align: center; width: 90%; margin: 0 auto ;}
-    .answer_answer_box    .btns .btn{ border-radius: 1.2rem; height: 2.4rem;line-height: 2.4rem; text-align: center; background: #0BB20C;   color:#fff; font-size:0.8823529411764706rem; width: 23%; display: inline-block; }
     .answer_answer_box .answer .info  .audio{ margin-top: 0.6rem;}
 
+
+    /*播放*/
     .answer_answer_box   .time_go{ position: relative;  height: 4.8rem; width: 4.8rem; margin: 0 auto; margin-top: 2rem;}
     .answer_answer_box  .time_go .playing { height: 4.8rem; width: 4.8rem; border-radius: 50%; background: #00b9e8; position: absolute; top:0;left:0; text-align: center; color:#fff; font-size: 1.764705882352941rem; line-height: 4.8rem;}
-
-
     .answer_answer_box   .play{
            opacity: 0.1;
            transform:scale(1.6,1.6);

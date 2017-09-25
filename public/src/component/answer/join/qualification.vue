@@ -2,7 +2,7 @@
     <div style="height: 100%">
 
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="3"  preUrl="./field" nextUrl="./introduce"></v-answer-top-step>
+        <v-answer-top-step step="3"  preUrl="./field" nextUrl="./introduce" title="从业资质"></v-answer-top-step>
 
     </div>
 </template>
