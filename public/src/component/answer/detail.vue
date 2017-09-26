@@ -1,4 +1,4 @@
-<template id="myCenter">
+<template >
     <div style="height: 100%" class="answer_detail_box">
 
 
@@ -106,7 +106,7 @@
                     </div>
 
                 </div>
-                <div class="btn_sq">查看更多评价</div>
+                <div class="btn_sq" @click="moreComment()">查看更多评价</div>
             </div>
             <div class="ask_answer">
                 <div class="answer_title">问答(31) <div class="new">最新<span class="sj"></span></div></div>
@@ -153,7 +153,7 @@
                     <span>收听</span>
                     </div>
                 </div>
-                <div class="pay_ask">￥19.99提问</div>
+                <div class="pay_ask" @click="ask()">￥19.99提问</div>
             </div>
         </div>
     </div>
@@ -172,6 +172,14 @@
         mounted: function () {
 
 
+        },
+        methods:{
+            moreComment:function () {
+               this.$router.push("comment")
+            },
+            ask:function () {
+                this.$router.push("/asker/ask")
+            }
         }
 
 

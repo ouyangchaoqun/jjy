@@ -1,14 +1,14 @@
-<template id="myCenter">
+<template >
     <div style="height: 100%" class="asker_my_index_box">
         <div v-title>我的</div>
         <div class="weui-tab__panel main">
             <div class="main">
-                <div class="top">
+                <div class="top" @click="goPerfect()">
                         <img class="img" src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0">
                         <div class="name">
                             jacky小白
                         </div>
-                        <div class="perfect" @click="goPerfect()">完善资料</div>
+                        <div class="perfect" >完善资料</div>
                         <div class="clear"></div>
                 </div>
                 <div class="main_lists">
@@ -17,14 +17,15 @@
                     </router-link>
                     <router-link to = "/answer/my/level" class="listen" >我的等级</router-link>
                     <router-link to = "/answer/my/setanswer" class="answer" >解答设置</router-link>
-                    <router-link to = "/answer/my/comment/list" class="comment" >我的回答</router-link>
+                    <router-link to = "/answer/my/answer/list" class="comment" >我的回答</router-link>
                     <router-link to = "/answer/my/fans" class="listen" >我的粉丝</router-link>
+                    <router-link to = "/answer/my/comment/list" class="listen" >收到的评价</router-link>
                     <router-link to = "/answer/my/message" class="answer" >60”语音寄语</router-link>
                     <router-link to = "/answer/my/enter" class="comment" >入驻资质</router-link>
                 </div>
             </div>
         </div>
-        <v-asker-bottom ></v-asker-bottom>
+        <v-asker-bottom tabOnIndex="3" ></v-asker-bottom>
     </div>
 </template>
 

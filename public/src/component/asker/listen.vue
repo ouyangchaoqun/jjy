@@ -14,14 +14,14 @@
                     <div class="index_content_active">
                         <ul>
                             <li>
-                                <router-link to="/asker/stealListen/steal_detail">
+                                <router-link to="/asker/listen/detail">
                                     <div class="index_li_header">
-                                        <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
                                         <div class="index_li_voice" @click="play()">
-                                            <img src="../../../images/charge.png" alt="">
+                                            <img src="../../images/charge.png" alt="">
                                             <div class="position_change1">1元偷听</div>
                                         </div>
                                         <div class="index_li_count">听过122</div>
@@ -31,12 +31,12 @@
                             <li>
                                 <router-link to="/asker/stealListen/steal_detail">
                                     <div class="index_li_header">
-                                        <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
                                         <div class="index_li_voice">
-                                            <img src="../../../images/nocharge.png" alt="">
+                                            <img src="../../images/nocharge.png" alt="">
                                             <div class="position_change2">点击播放</div>
                                         </div>
                                         <div class="index_li_count">听过122</div>
@@ -46,12 +46,12 @@
                             <li>
                                 <router-link to="/asker/stealListen/steal_detail">
                                     <div class="index_li_header">
-                                        <img src="../../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
                                         <div class="index_li_voice">
-                                            <img src="../../../images/nocharge.png" alt="">
+                                            <img src="../../images/nocharge.png" alt="">
                                             <div class="position_change2">限时免费听</div>
                                         </div>
                                         <div class="index_li_count">听过122</div>
@@ -63,7 +63,7 @@
                     <div>
                         <div class="index_nocontent">
                             <div>
-                                <img src="../../../images/34.jpg" alt="">
+                                <img src="../../images/34.jpg" alt="">
                                 暂无该方面问题
                             </div>
 
@@ -82,7 +82,7 @@
 
         </div>
 
-        <v-asker-bottom ></v-asker-bottom>
+        <v-asker-bottom tabOnIndex="0"></v-asker-bottom>
 
 
 
@@ -90,7 +90,7 @@
 
 </template>
 <script>
-    import askerBottom from "../include/bottom.vue";
+    import askerBottom from "./include/bottom.vue";
     var stealListen_index = {
         template: '#stealListen_index'
     };

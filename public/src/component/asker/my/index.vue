@@ -18,9 +18,9 @@
             <router-link to = "../my/answer/list" class="answer" >我的收听</router-link>
             <router-link to = "../my/comment/list" class="comment" >我的评价</router-link>
             </div>
-            <div class="join">入驻咨询师</div>
+            <div class="join" @click="join()">入驻咨询师</div>
         </div>
-        <v-asker-bottom ></v-asker-bottom>
+        <v-asker-bottom tabOnIndex="4" ></v-asker-bottom>
     </div>
 </template>
 
@@ -35,7 +35,11 @@
         components: {
             "v-asker-bottom": askerBottom
         },
-
+        methods:{
+          join:function () {
+              this.$router.push("/answer/join/base/info");
+          }
+        },
         mounted: function () {
             $(".weui-tab__panel").height($(window).height()-100);
             var obj =  $(".asker_my_index_box .main a")

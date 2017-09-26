@@ -1,4 +1,4 @@
-<template id="my_problem_index">
+<template >
     <div>
         <div class="my_problem_tabs">
             <div class="my_problem_active">一对一咨询</div>
@@ -9,7 +9,7 @@
             <div class="problem_box_active">
                 <ul>
                     <li class="my_problem_list1">
-                        <router-link to="/asker/my_problem/my/problem/detail">
+                        <router-link to="/asker/my/ask/detail">
                             <div class="problem_header">
                                 <img src="../../../images/asker/34.jpg" alt="">
                                 <div>陈小刚</div>
@@ -25,7 +25,7 @@
                         </router-link>
                     </li>
                     <li class="my_problem_list1">
-                        <router-link to="/asker/my_problem/my/problem/detail">
+                        <router-link to="/asker/my/ask/detail">
                             <div class="problem_header">
                                 <img src="../../../images/asker/34.jpg" alt="">
                                 <div>陈小刚</div>
@@ -76,19 +76,21 @@
                 </ul>
             </div>
         </div>
+        <v-asker-bottom  tabOnIndex="3"></v-asker-bottom>
     </div>
 </template>
 
 <script type="es6">
-    var my_problem_index = {
-        template: '#my_problem_index'
-    };
 
+    import askerBottom from "../include/bottom.vue";
     export default {
         data() {
             return {
 
             }
+        },
+        components: {
+            "v-asker-bottom": askerBottom
         },
         mounted: function () {
             $('.my_problem_tabs>div').click(function () {

@@ -1,10 +1,10 @@
-<template id="myCenter">
+<template>
     <div style="height: 100%" class="asker_ask_box">
 
         <div v-title>提问</div>
         <div class="ask_type" v-if="!isSelectAnswer">
             <div class="tab">选择问题类型：</div>
-            <div class="select_box" @click="selectType()"></div>
+            <div class="select_box" @click="selectType()">{{type}}</div>
             <div class="clear"></div>
         </div>
         <div class="text_area">
@@ -21,19 +21,14 @@
         </div>
         <div class="submit">提交</div>
 
-        <div id="select_type" style="display: none;">
+
+        <v-asker-bottom ></v-asker-bottom>
+
+        <div id="select_type" style="display: none">
         <div class="dialog_select_type">
             <div class="title">选择问题类型</div>
             <div class="types">
-                <div class="item on">情感困惑</div>
-                <div class="item">人际关系</div>
-                <div class="item">性心理</div>
-                <div class="item">心理健康</div>
-                <div class="item">情感困惑</div>
-                <div class="item">人际关系</div>
-                <div class="item">性心理</div>
-                <div class="item">心理健康</div>
-                <div class="item">人际关系</div>
+                <div class="item"   v-for="(item,index) in types"   :index="index"><span>{{item.name}}</span></div>
                 <div class="clear"></div>
             </div>
             <div class="yes">确定</div>
@@ -41,7 +36,7 @@
 
         </div>
         </div>
-        <div id="tip" style="display: none;">
+        <div id="tip" style="display: none">
             <div class="dialog_select_type">
                 <div class="title">提问须知</div>
                 <div class="tip_content">
@@ -73,7 +68,7 @@
                         3、48小时内无人抢答，则全额退款。
                     </p>
                 </div>
-                <div class="yes">知道了</div>
+                <div class="yes know" >知道了</div>
 
 
             </div>
@@ -83,25 +78,82 @@
 
 <script type="es6">
 
-
+    import askerBottom from "./include/bottom.vue";
     export default {
         data() {
             return {
-                isSelectAnswer: false
+                types:[
+                    {name:"情感困惑",isSelect:false},
+                    {name:"性心理",isSelect:false},
+                    {name:"人际关系",isSelect:false},
+                    {name:"职场事业",isSelect:false},
+                    {name:"婚姻家庭",isSelect:false},
+                    {name:"个人成长",isSelect:false},
+                    {name:"心理健康",isSelect:false},
+                    {name:"亲子教育",isSelect:false},
+                    {name:"情感困惑",isSelect:false},
+                ],
+                showTypes:false,
+                showTip:false,
+                isSelectAnswer: false, //是否针对专家提问
+                type:'',
+                typeSelectIndex:null
             }
+        },
+        components: {
+            "v-asker-bottom": askerBottom
         },
         mounted: function () {
 
         },
         methods: {
+            select:function (index) {
+                console.log(index)
+                for(let i=0;i<this.types.length;i++){
+                    this.types[i].isSelect=false;
+                }
+                this.types[index].isSelect=true
 
+            },
             tip: function () {
-                let html = $("#tip").html()
-                xqzs.weui.dialogCustom(html)
+                this.showTip=true;
+                let _this= this;
+                xqzs.weui.dialogCustom($("#tip").html());
+                $(".know").click(function () {
+                    _this.closeDialog()
+                })
             },
             selectType: function () {
-                let html = $("#select_type").html()
-                xqzs.weui.dialogCustom(html)
+                let _this=this;
+                this.showTypes=true;
+                xqzs.weui.dialogCustom($("#select_type").html());
+                if(_this.typeSelectIndex!=null){
+                    $(".js_dialog .types .item").each(function (i) {
+
+                        console.log(i)
+                        console.log(_this.typeSelectIndex)
+                        if(i==_this.typeSelectIndex){
+                            $(this).addClass("on")
+                        }
+                    })
+                }
+                $(".types .item").click(function () {
+                    $(".types .item").removeClass("on");
+                    $(this).addClass("on");
+                    let index=  parseInt($(this).attr("index"));
+                    _this.typeSelectIndex=index;
+                });
+                $(".dialog_select_type .yes").click(function () {
+                    if(_this.typeSelectIndex==null){
+                        xqzs.weui.tip("请选择类型");
+                    }else{
+                        xqzs.weui.dialogClose();
+                        _this.type= _this.types[_this.typeSelectIndex].name;
+                    }
+                })
+            },
+            closeDialog:function () {
+                xqzs.weui.dialogClose()
             }
 
         }
@@ -129,6 +181,8 @@
         width: 7.529411764705882rem;
         float: left;
         border-radius: 6px;
+        text-align: center;
+        line-height: 1.647058823529412rem;
     }
     .asker_ask_box .text_area {
         position: relative;
@@ -150,7 +204,8 @@
         border: none;
         background: none;
         width: 100%;
-        height: 100%
+        height: 100%;
+        resize: none;
     }
     .asker_ask_box .text_area .last_word_count {
         color: #999;

@@ -9,6 +9,7 @@
         <div>
             <div class="list">
                 <div class="item" v-for="item in [1,23,4,5,6,12,23,1]">
+                    <router-link to="/asker/listen/detail">
                     <div class="question">
                         <div class="img"></div>
                         <div class="title">女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这是不是一种病？
@@ -29,6 +30,7 @@
                         <div class="listen_count">听过 48</div>
                         <div class="good">45</div>
                     </div>
+                    </router-link>
                 </div>
             </div>
 

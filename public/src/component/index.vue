@@ -1,11 +1,11 @@
-<template id="myCenter">
+<template >
     <div style="height: 100%">
 
         <div v-title>心情指数</div>
 
         <div style="height: 500px;">
 
-            dsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsf
+
 
         </div>
     </div>

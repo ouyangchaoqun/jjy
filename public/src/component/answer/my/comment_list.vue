@@ -1,278 +1,124 @@
-<template id="my_problem_index">
-    <div>
-        <div class="my_problem_tabs">
-            <div class="my_problem_active">抢答</div>
-            <div>一对一解答</div>
+<template >
+    <div style="height: 100%" class="answer_my_coment_list wbg">
+
+        <div v-title>我的评价</div>
+        <div class="nothing comment" v-if="false"  >
+            您还没有做任何评价
         </div>
-        <div class="my_problem_box">
-            <!--抢答-->
-            <div class="problem_box_active">
-                <ul class="problem_item">
-                    <li>
-                        <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">全部赏金<i>￥13.14 </i></div>
-                        </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
-                        <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <!--回答，专家语音-->
-                            <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
+        <div>
+            <div class="top_tip">收到的评价</div>
+            <div class="list">
+                <div class="item" v-for="item in [1,3,3,3,4,5,6]">
+                    <div class="comment">
+                        <div class="img"><img  src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0"></div>
+                        <div class="info">
+                            <div class="name"><span>程程晨</span>评价了我的回答</div>
+                            <div class="star"><span class="on"></span><span  class="on"></span><span></span><span></span><span></span></div>
+                            <div class="content">
+                                老师很负责，很用心，赞一个
+                                很专业，态度很好
+                            </div>
+                            <div class="tags">
+                                <span>很专业</span>
+                                <span>耐心</span>
+                                <span>和蔼可亲</span>
+                                <span>幽默风趣</span>
                             </div>
                         </div>
-                        <!--回答后底部显示详情-->
-                        <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
-                            <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="reply">
+                        <span>专家回复：</span>感谢信任，祝福你活出自己想要的经常～
+                    </div>
+                    <div class="question">
+                        <div class="content">女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这
+                            是不是一种病？</div>
+                        <div class="answer">
+                            <div class="img"><img  src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0"></div>
+                            <div class="audio">
+                                <div class="audio_btn">
+                                    点击播放
+                                </div>
+                                <div class="minute">60"</div>
+                                <div class="clear"></div>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">平分赏金<i>￥13.14 </i></div>
-                        </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
-                        <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <!--回答，专家语音-->
-                            <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
-                            </div>
-                        </div>
-                        <!--回答后底部显示详情-->
-                        <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
-                            <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!--一对一解答-->
-            <div>
-                <ul class="problem_item">
-                    <li>
-                        <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">问题酬金<i>￥13.14 </i></div>
-                        </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
-                        <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <!--回答，专家语音-->
-                            <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
-                            </div>
-                        </div>
-                        <!--回答后底部显示详情-->
-                        <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
-                            <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">问题酬金<i>￥13.14 </i></div>
-                        </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
-                        <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <!--回答，专家语音-->
-                            <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
-                            </div>
-                        </div>
-                        <!--回答后底部显示详情-->
-                        <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
-                            <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="time">2017-08-01 12:14:44</div>
+                    <div class="reply_btn" @click="reply(item)">回复</div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script type="es6">
+
+
+
     export default {
         data() {
-            return {
-
-            }
+            return {}
         },
+
+
         mounted: function () {
-            $('.my_problem_tabs>div').click(function () {
-                $('.my_problem_tabs>div').removeClass('my_problem_active')
-                $('.my_problem_box>div').removeClass('problem_box_active')
-                $(this).addClass('my_problem_active')
-                $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active')
-            })
-        },
-        methods: {
 
+
+        },
+        methods:{
+            reply:function (id) {
+                xqzs.weui.actionSheetEdit( "回复", function (value) {
+                    //回复操作
+                    console.log(value)
+
+                }, function () {
+                    
+                }, "回复 陈小刚",50)
+            }
         }
 
 
     }
 </script>
 <style>
-    .my_problem_tabs{
-        color: #333;
-        font-size: 0.88235rem;
-        text-align: center;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        background: #fff;
-        border-bottom: 1px solid #eee;
-        height:2.35294rem;
-        line-height: 2.35294rem;
+
+    .answer_my_coment_list .nothing.comment{ background: url(../../../images/asker/nothing_star.png) no-repeat center top; background-size: 5.852941176470588rem; }
+
+    .answer_my_coment_list .item{ padding: 0.88235rem; border-bottom: 0.7058823529411765rem solid #F4F4F7;}
+    .answer_my_coment_list .comment .img{ width: 2rem; height: 100%; float:left; margin-right: 0.5rem;}
+    .answer_my_coment_list .comment .img img{width: 2rem; height: 2rem; border-radius: 1rem;}
+    .answer_my_coment_list .comment .info{ width: 17rem; float:left;}
+    .answer_my_coment_list  .comment .info .name{ color:#666; font-size:0.7058823529411765rem; }
+    .answer_my_coment_list  .comment .info .name span{ color:#333; margin-right: 0.6rem;}
+    .answer_my_coment_list .comment .info .times span{ font-weight: bold; color:#444}
+    .answer_my_coment_list .comment .info .content{ color:#333; font-size: 0.8235294117647059rem; margin: 0.2rem  0}
+    .answer_my_coment_list .comment .info .tags{}
+    .answer_my_coment_list .comment .info .tags span{ display: inline-block;
+        border:1px solid #D1D1D1; color:#D1D1D1; text-align: center; line-height: 1.323529411764706rem; border-radius: 0.6617647058823529rem; padding: 0 0.5rem; font-size:0.7058823529411765rem;}
+    .answer_my_coment_list .comment .info .star span{ display: inline-block; background: url(../../../images/star_no.png) no-repeat; background-size: 0.7647058823529412rem;  height: 0.7647058823529412rem; width: 0.7647058823529412rem; margin-right: 0.4rem; }
+    .answer_my_coment_list .comment .info .star span.on{background: url(../../../images/star.png) no-repeat;background-size: 0.7647058823529412rem; }
+
+    .answer_my_coment_list .reply{ background: #F1F1F5;  font-size:0.7058823529411765rem; color:#999; padding:0.5rem ; border-radius: 0.3rem; position: relative; margin-top: 0.88rem }
+    .answer_my_coment_list .reply:before{ content:" " ; display: block; position: absolute; left:0.8rem; top:-0.6rem;  width: 0;
+        height: 0;
+        border-left: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+        border-bottom: 0.7rem solid #F1F1F5;}
+
+
+    .answer_my_coment_list .answer .img{ width: 2rem; height: 2rem; float:left; margin-top: 0.2rem;  margin-right: 0.5rem;}
+    .answer_my_coment_list .answer .img img{ width: 100%; height: 100%; border-radius: 50%;}
+    .answer_my_coment_list .answer .audio{ width: 100%; margin-top: 0}
+    .answer_my_coment_list .answer .audio .audio_btn{ width: 47%}
+    .answer_my_coment_list .question{ border: 0.1470588235294118rem solid #F1F1F5; border-radius: 0.4rem; padding: 0.6176470588235294rem; margin-top:0.5882352941176471rem; color:#666; font-size: 0.7058823529411765rem  }
+    .answer_my_coment_list .question .content{ margin-bottom: 0.88325rem}
+    .answer_my_coment_list .item .time{ color:#666; font-size: 0.78rem; margin-left: 0.01rem; margin-top: 0.3rem}
+    .answer_my_coment_list .item{ position: relative}
+    .answer_my_coment_list .item .reply_btn{ border-radius: 0.4rem; line-height: 1.8rem; text-align: center; font-size: 0.88235rem; color:#fff; position: absolute; background: #0BB20C; width: 3rem;
+        top:0.88235rem; right:0.88235rem;}
+    .answer_my_coment_list .item .reply_btn:active{ background: #0b930b;
     }
-    .my_problem_tabs>div{
-        flex: 1;
-        position: relative;
-    }
-    .my_problem_tabs>div:nth-of-type(1)::after{
-        content: '';
-        height:1.1176rem;
-        width:1px;
-        background: #E0E0E0;
-        position: absolute;
-        right:0;
-        top:50%;
-        margin-top:-0.5588rem;
-    }
-    .my_problem_active{
-        border-bottom: 2px solid #6DC12E;
-    }
-    .my_problem_box{
-        position: relative;
-        width: 100%;
-        height:auto;
-    }
-    .my_problem_box>div{
-        display: none;
-        width:100%;
-    }
-    .my_problem_box .problem_box_active{
-        display: block;
-    }
-    .problem_item li{
-        padding:0.88235rem 0.88235rem 0.588235rem 0.88235rem;
-        background: #fff;
-        margin-bottom: 0.588235rem;
-    }
-    .problem_item li:active{background: #eee}
-    .problem_item_top{display: -webkit-box;display: -webkit-flex;display: flex;font-size: 12px;line-height: 34px;color:#999;position: relative}
-    .problem_item_top span{color:#666;margin-right: 10px;}
-    .problem_item_top i{font-style: normal;color:#FF9900;margin-left: 5px}
-    .problem_item_top img{
-        width:34px;
-        height:34px;
-        display: block;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-    .problem_item_right{position: absolute;right:0}
-    .problem_item_del{color:#333;font-size: 15px;line-height: 20px;padding-left:44px;margin-bottom: 1.176471rem}
-    .problem_answer_info{
-        padding:0 0.88235rem;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        line-height: 2.8235rem;
-        height:2.8235rem;
-        font-size: 0.8235rem;
-        color: #999;
-        margin-bottom: 0.88235rem;
-    }
-    .problem_answer_info img{
-        height:44px;
-        display: block;
-        width:44px;
-        border-radius: 50%;
-        margin-right: 0.88235rem;
-    }
-    .problem_answer_yy{
-        position: relative;
-        margin-top: 3px;
-    }
-    .problem_answer_yy .problem_answer_ly{
-        display: block;
-        height: 2.6471rem;
-        width: auto;
-        border-radius: 0;
-    }
-    .problem_answer_play{
-        position: absolute;
-        color: #fff;
-        font-size: 0.88235rem;
-        width: 5.88235rem;
-        left: 50%;
-        margin-left: -2.941175rem;
-        text-align: center;
-        top:50%;
-        line-height: 1;
-        margin-top:-0.6471rem;
-    }
-    .answer_play_time{
-        position: absolute;
-        right:-1.76471rem;
-        line-height: 1;
-        height:1.176471rem;
-        top:50%;
-        margin-top:-10px;
-    }
-    .problem_answer_info .problem_answer_sond{
-        height:16px;
-        display: block;
-        position: absolute;
-        width:auto;
-        top:50%;
-        margin-top:-0.588235rem;
-        left:0.88235rem;
-    }
-    .problem_answer_bottom{
-        padding:0;
-        margin:0;
-    }
-    .problem_answer_time span:nth-of-type(1){margin-right:20px}
+
+
 </style>

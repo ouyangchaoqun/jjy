@@ -1,6 +1,6 @@
 <template id="fans">
     <div class="fansBox">
-        <div v-if="false">
+        <div>
             <header>共2位粉丝</header>
             <ul class="fansItem">
                 <li>
@@ -25,7 +25,7 @@
                 </li>
             </ul>
         </div>
-        <div class="noFansBox">
+        <div class="noFansBox"  v-if="false">
             <div>
                 还没有粉丝 
             </div>

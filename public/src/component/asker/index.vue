@@ -1,4 +1,4 @@
-<template id="myCenter">
+<template >
     <div style="height: 100%">
 
         <div v-title>心情指数</div>

@@ -1,19 +1,19 @@
 <template >
     <div class="asker_bottom_box">
 
-        <router-link to='/asker/stealListen/stealListen_index' class="on" >
+        <router-link to='/asker/listen' :class="{on:tabOnIndex==0}" >
             <span class="icon listen"></span>偷听
         </router-link>
-        <router-link to='/answer/index'  >
+        <router-link to='/answer/index' :class="{on:tabOnIndex==1}" >
             <span class="icon answer"></span>找专家
         </router-link>
-        <router-link to='/asker/myask/myask' class="middle" >
+        <router-link to='/asker/ask' class="middle"  >
             <div class="big_btn">问</div>
         </router-link>
-        <router-link to='/asker/my_problem/my/problem/index' class="" >
+        <router-link to='/asker/my/ask/list'   :class="{on:tabOnIndex==3}" >
             <span class="icon my_ask"></span>我问
         </router-link>
-        <router-link to='/asker/my/index' class="" >
+        <router-link to='/asker/my/index'   :class="{on:tabOnIndex==4}" >
             <span class="icon my"></span>我的
         </router-link>
 
@@ -67,3 +67,11 @@
 
 
 </style>
+<script>
+
+    export default {
+        props: {
+            tabOnIndex: 0
+        }
+    }
+</script>

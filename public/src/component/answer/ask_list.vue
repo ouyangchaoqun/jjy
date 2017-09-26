@@ -16,7 +16,7 @@
                 <div class="clear"></div>
             </div>
         </div>
-        <v-answer-bottom ></v-answer-bottom>
+        <v-answer-bottom tabOnIndex="1" ></v-answer-bottom>
 
     </div>
 </template>

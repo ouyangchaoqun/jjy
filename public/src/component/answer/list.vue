@@ -3,8 +3,9 @@
 
         <div v-title>抢答</div>
         <div class="main_title">情感困惑专家</div>
-        <div class="answer_list" style="display: none;">
+        <div class="answer_list" >
             <div class="item" v-for="item in [1,2,3,4,5]">
+                <router-link to='./detail'   >
                 <div class="img"><img
                         src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
                 </div>
@@ -28,10 +29,11 @@
                     </div>
                 </div>
                 <div class="clear"></div>
+                </router-link>
             </div>
 
         </div>
-        <div class="no_body">
+        <div class="no_body" v-if="false">
 
             <div class="img"></div>
             <div class="txt">暂无该方面专家</div>

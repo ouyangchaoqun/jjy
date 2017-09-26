@@ -107,7 +107,7 @@ var xqzs = {
                 }, 300);
             })
         },
-        dialogCustom: function (Html) {
+        dialogCustom: function (Html,fun) {
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask weui-animate-fade-in"></div>';
@@ -115,12 +115,16 @@ var xqzs = {
             html += '</div>';
             $("body").append(html);
             $(".js_dialog .weui-mask").click(function () {
-                xqzs.weui.weuiMaskClose();
-                setTimeout(function () {
-                    $(".js_dialog").remove();
-                }, 300);
-
+                xqzs.weui.dialogClose()
             });
+
+        },
+        dialogClose:function () {
+            xqzs.weui.weuiMaskClose();
+            $(".js_dialog").addClass("weui-animate-fade-out");
+            setTimeout(function () {
+                $(".js_dialog").remove()
+            }, 300);
         },
         _dialog: function (config) {
             var defaultsize = {
@@ -214,7 +218,82 @@ var xqzs = {
             })
 
 
-        }
+        },
+        actionSheetEdit: function ( sendText, doFun, cancelFun, placeholder,maxLength) {
+            if(!maxLength){
+                maxLength=1000;
+            }
+            //判断是否已经存在输入框
+            if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
+                return;
+            }
+            xqzs.mood.textareaAutoOldHeight = xqzs.mood.textareaAutoBaseH;
+            xqzs.mood.textareaHeight = [];
+
+            var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
+            html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
+            html += ' <div class="comment_box">';
+            html += '  <span class="release">' + sendText + '</span>';
+            html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
+            html += '  </div>';
+            html += '  </div>';
+
+            $("body").append(html);
+
+            var interval ;
+            //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            $(".comment_text").focus(function () {
+                interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                }, 180)
+            }).blur(function () {//设定输入框失去焦点时的事件
+                clearTimeout(interval);//清除计时器
+                document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+            });
+
+
+            $(".comment_text").focus().keyup(function () {
+                var val = $(this).val();
+                if (val.length > 0) {
+                    $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
+                    $(".comment_p").css('display', 'none')
+                } else {
+                    $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
+                    $(".comment_p").css('display', 'block');
+                }
+            });
+
+
+            setTimeout(function () {
+                $(".comment_box").removeClass('subactive').addClass("addactive");
+            }, 10);
+
+
+            $(".action-sheet-edit .cancel").click(function () {
+                xqzs.weui.weuiMaskClose();
+                $(".comment_box").removeClass('addactive').addClass("subactive");
+                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                    $(".action-sheet-edit").remove();
+                    cancelFun();
+                });
+            });
+            $(".comment_box .release").click(function () {
+                var v = $(".comment_text").val();
+                if (v !== "") {
+                    doFun(v);
+                }
+                xqzs.weui.weuiMaskClose();
+
+                $(".comment_box").removeClass('addactive').addClass("subactive");
+                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                    $(".action-sheet-edit").remove();
+                });
+
+            })
+
+
+        },
     },
 
     dateTime: {

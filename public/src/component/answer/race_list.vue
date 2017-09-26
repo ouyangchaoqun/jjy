@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <v-answer-bottom ></v-answer-bottom>
+        <v-answer-bottom  tabOnIndex="0"></v-answer-bottom>
     </div>
 </template>
 

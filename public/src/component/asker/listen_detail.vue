@@ -2,23 +2,23 @@
     <div>
         <!--详情头部-->
         <div class="steal_detail_header">
-            <div class="steal_detail_top"><img src="../../../images/34.jpg" alt=""><div>在<span>情感困惑</span>方面</div></div>
+            <div class="steal_detail_top"><img src="../../images/34.jpg" alt=""><div>在<span>情感困惑</span>方面</div></div>
             <div class="steal_detail_content">女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这是不是一种病？</div>
         </div>
         <!--专家回答列表-->
         <ul>
             <li class="steal_detail_answer">
                 <div class="steal_answer_top">
-                    <img class="steal_answer_topimg" src="../../../images/asker/34.jpg" alt="">
+                    <img class="steal_answer_topimg" src="../../images/asker/34.jpg" alt="">
                     <div class="steal_answer_yy">
-                        <img class="steal_answer_ly" src="../../../images/nocharge.png" alt="">
+                        <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
                         <div>点击播放</div>
-                        <img class="steal_answer_sond" src="../../../images/sond.png" alt="">
+                        <img class="steal_answer_sond" src="../../images/sond.png" alt="">
                     </div>
                     <div>58”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div><img src="../../../images/asker/zan_nor.png" alt="">  <span>48</span></div>
+                    <div><img src="../../images/asker/zan_nor.png" alt="">  <span>48</span></div>
                     <div>听过  <span>48</span></div>
                 </div>
                 <div class="steal_expert_info">
@@ -26,21 +26,21 @@
                         <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
                     </div>
                     <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                    <img src="../../../images/asker/listenin.png" alt="">
+                    <img src="../../images/asker/listenin.png" alt="">
                 </div>
             </li>
             <li class="steal_detail_answer">
                 <div class="steal_answer_top">
-                    <img class="steal_answer_topimg" src="../../../images/34.jpg" alt="">
+                    <img class="steal_answer_topimg" src="../../images/34.jpg" alt="">
                     <div class="steal_answer_yy">
-                        <img class="steal_answer_ly" src="../../../images/nocharge.png" alt="">
+                        <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
                         <div>点击播放</div>
-                        <img class="steal_answer_sond" src="../../../images/sond.png" alt="">
+                        <img class="steal_answer_sond" src="../../images/sond.png" alt="">
                     </div>
                     <div>58”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div><img src="../../../images/asker/zan_por.png" alt="">  <span>48</span></div>
+                    <div><img src="../../images/asker/zan_por.png" alt="">  <span>48</span></div>
                     <div>听过  <span>48</span></div>
                 </div>
                 <div class="steal_expert_info">
@@ -48,7 +48,7 @@
                         <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
                     </div>
                     <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                    <img src="../../../images/asker/listenin.png" alt="">
+                    <img src="../../images/asker/listenin.png" alt="">
                 </div>
             </li>
         </ul>

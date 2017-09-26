@@ -3,12 +3,13 @@
         <div v-title>加加油</div>
         <div class="weui-tab__panel main">
         <div class="class_list">
-            <div class="class_item" v-for="(item,index) in classList"><span>{{item.name}}</span></div>
+            <div class="class_item" v-for="(item,index) in classList" @click="goClass()"><span>{{item.name}}</span></div>
             <div class="clear"></div>
         </div>
 
         <div class="answer_list">
             <div class="item" v-for="item in [1,2,3,4,5]">
+                <router-link to='./detail'   >
                 <div class="img"><img src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg"> </div>
                 <div class="info">
                     <div class="title">帮你解决婚姻，情感中的困扰</div>
@@ -29,12 +30,13 @@
                     </div>
                 </div>
                 <div class="clear"></div>
+                </router-link>
             </div>
 
         </div>
         </div>
 
-        <v-asker-bottom ></v-asker-bottom>
+        <v-asker-bottom  tabOnIndex="1"></v-asker-bottom>
     </div>
 </template>
 
@@ -63,7 +65,11 @@
         components: {
             "v-asker-bottom": askerBottom
         },
-
+        methods: {
+            goClass:function () {
+                this.$router.push('./list')
+            }
+        },
         mounted: function () {
             $(".weui-tab__panel").height($(window).height()-100);
 

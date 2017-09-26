@@ -9,6 +9,7 @@
             <div class="top_tip">共2位咨询师</div>
             <div class="answer_list" >
                 <div class="item arrow" v-for="item in [1,2,3,4,5]">
+                    <router-link to="/answer/detail">
                     <div class="img"><img
                             src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
                     </div>
@@ -25,6 +26,7 @@
 
                     </div>
                     <div class="clear"></div>
+                    </router-link>
                 </div>
 
             </div>
