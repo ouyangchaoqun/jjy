@@ -85,7 +85,7 @@
    .answer_index  .class_list .class_item{
         float:left ; width: 33.333333%;
    }
-   .answer_index  .class_list .class_item span{ display: block; background: #EAE9E9; height:2.058823529411765rem;line-height:2.058823529411765rem; width: 88% ; margin: 0 auto; text-align: center; border-radius: 1.029411764705883rem; margin-bottom: 0.7058823529411765rem}
+   .answer_index  .class_list .class_item span{ display: block; background: #EAE9E9; height:2.058823529411765rem;line-height:2.058823529411765rem; width: 88% ; margin: 0 auto; text-align: center; border-radius: 1.029411764705883rem; margin-bottom: 0.7058823529411765rem; color:#666; font-size: 0.8235294117647059rem;}
 
 
 

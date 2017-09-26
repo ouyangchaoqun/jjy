@@ -53,16 +53,16 @@
         left:50%;
         margin-left:-1.294rem;
         top:-0.58235rem;}
-    .asker_bottom_box a .icon{ display: block;  height: 1.8rem; width: 1.4rem; margin: 0 auto; margin-top: 0.2rem; }
-    .asker_bottom_box a .icon.listen{ background: url(../../../images/asker/tab_listen.png) no-repeat; background-size: 1.4rem;}
-    .asker_bottom_box a .icon.answer{ background: url(../../../images/asker/tab_answer.png) no-repeat; background-size: 1.4rem;}
-    .asker_bottom_box a .icon.my_ask{ background: url(../../../images/asker/tab_ask.png) no-repeat; background-size: 1.4rem;}
-    .asker_bottom_box a .icon.my{ background: url(../../../images/asker/tab_my.png) no-repeat; background-size: 1.4rem;}
+    .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/tab_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
+    .asker_bottom_box a .icon.listen{ background-position: 0 0;}
+    .asker_bottom_box a .icon.answer{ background-position: -1.588235294117647rem 0;}
+    .asker_bottom_box a .icon.my_ask{ background-position: -3.176470588235294rem  0;}
+    .asker_bottom_box a .icon.my{ background-position: -4.764705882352941rem 0;}
 
-    .asker_bottom_box a:active .icon.listen,.asker_bottom_box a.on .icon.listen{ background: url(../../../images/asker/tab_listen_on.png) no-repeat; background-size: 1.4rem;}
-    .asker_bottom_box a:active .icon.answer,.asker_bottom_box a.on  .icon.answer{ background: url(../../../images/asker/tab_answer_on.png) no-repeat; background-size: 1.4rem;}
-    .asker_bottom_box a:active .icon.my_ask,.asker_bottom_box a.on  .icon.my_ask{ background: url(../../../images/asker/tab_ask_on.png) no-repeat; background-size: 1.4rem;}
-    .asker_bottom_box a:active .icon.my,.asker_bottom_box a.on  .icon.my{ background: url(../../../images/asker/tab_my_on.png) no-repeat; background-size: 1.4rem;}
+    .asker_bottom_box a:active .icon.listen,.asker_bottom_box a.on .icon.listen{  background-position: 0  -1.588235294117647rem;}
+    .asker_bottom_box a:active .icon.answer,.asker_bottom_box a.on  .icon.answer{ background-position: -1.588235294117647rem  -1.588235294117647rem;}
+    .asker_bottom_box a:active .icon.my_ask,.asker_bottom_box a.on  .icon.my_ask{ background-position: -3.176470588235294rem   -1.588235294117647rem;}
+    .asker_bottom_box a:active .icon.my,.asker_bottom_box a.on  .icon.my{ background-position: -4.764705882352941rem  -1.588235294117647rem;}
 
 
 

@@ -30,14 +30,14 @@
         font-size: 0.588235rem;
         vertical-align: text-bottom;
     }
-    .answer_bottom_box a .icon{ display: block;  height: 1.8rem; width: 1.4rem; margin: 0 auto; margin-top: 0.2rem; }
-    .answer_bottom_box a .icon.race{ background: url(../../../images/answer/tab_race.png) no-repeat; background-size: 1.35rem;}
-    .answer_bottom_box a .icon.ask{ background: url(../../../images/answer/tab_ask_list.png) no-repeat top center; background-size: 1.05rem;}
-    .answer_bottom_box a .icon.my{ background: url(../../../images/answer/tab_my_index.png) no-repeat; background-size: 1.4rem;}
+    .answer_bottom_box a .icon{ display: block;  width: 1.588235294117647rem; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/answer/tab_icon.png) no-repeat; background-size: 4.764705882352941rem; height: 1.588235294117647rem  }
+    .answer_bottom_box a .icon.race{  background-position: 0 0;}
+    .answer_bottom_box a .icon.ask{background-position: -1.588235294117647rem 0;}
+    .answer_bottom_box a .icon.my{  background-position: -3.176470588235294rem  0;}
 
-    .answer_bottom_box a:active .icon.race,.answer_bottom_box a.on .icon.race{ background: url(../../../images/answer/tab_race_on.png) no-repeat; background-size: 1.35rem;}
-    .answer_bottom_box a:active .icon.ask,.answer_bottom_box a.on  .icon.ask{ background: url(../../../images/answer/tab_ask_list_on.png) no-repeat top center; background-size: 1.05rem;}
-    .answer_bottom_box a:active .icon.my,.answer_bottom_box a.on  .icon.my{ background: url(../../../images/answer/tab_my_index_on.png) no-repeat; background-size: 1.4rem;}
+    .answer_bottom_box a:active .icon.race,.answer_bottom_box a.on .icon.race{ background-position: 0 -1.588235294117647rem ;}
+    .answer_bottom_box a:active .icon.ask,.answer_bottom_box a.on  .icon.ask{background-position: -1.588235294117647rem -1.588235294117647rem ;}
+    .answer_bottom_box a:active .icon.my,.answer_bottom_box a.on  .icon.my{   background-position: -3.176470588235294rem  -1.588235294117647rem ;}
 
 </style>
 <script>

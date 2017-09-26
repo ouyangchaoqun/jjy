@@ -2,8 +2,8 @@
     <div style="height: 100%" class="answer_detail_box">
 
 
-
-        <div style="height: 500px;">
+        <div v-title>专家详情</div>
+            <div class="weui-tab__panel">
             <div class="answer_info">
                 <div class="answer_banner">
                     <div class="answer_face"><img src="../../images/34.jpg"></div>
@@ -147,6 +147,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+
             <div class="ask_bottom">
                 <div class="listen">
                     <div class="icon1">
@@ -156,7 +158,7 @@
                 <div class="pay_ask" @click="ask()">￥19.99提问</div>
             </div>
         </div>
-    </div>
+
 </template>
 
 <script type="es6">
@@ -333,6 +335,7 @@
     .answer_detail_box .content{
         font-size: 13px;
         padding:0.88rem ;
+        color:#999
     }
     .answer_detail_box .btn_sq{
         width:5.235rem;
@@ -391,6 +394,11 @@
         margin-top: 2rem;
         height: 2.588rem;
         text-align: center;
+        position: absolute;
+        bottom:0;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
     .answer_detail_box .listen{
         float: left;
