@@ -25,16 +25,16 @@
         <v-asker-bottom ></v-asker-bottom>
 
         <div id="select_type" style="display: none">
-        <div class="dialog_select_type">
-            <div class="title">选择问题类型</div>
-            <div class="types">
-                <div class="item"   v-for="(item,index) in types"   :index="index"><span>{{item.name}}</span></div>
-                <div class="clear"></div>
+            <div class="dialog_select_type">
+                <div class="title">选择问题类型</div>
+                <div class="types">
+                    <div class="item"   v-for="(item,index) in types"   :index="index"><span>{{item.name}}</span></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="yes">确定</div>
+
+
             </div>
-            <div class="yes">确定</div>
-
-
-        </div>
         </div>
         <div id="tip" style="display: none">
             <div class="dialog_select_type">
