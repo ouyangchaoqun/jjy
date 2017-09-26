@@ -116,7 +116,6 @@
                     {name:"情感困惑",isSelect:false},
                 ],
                 typeSelectIndex:null,
-                type:[],
                 level:[
                     {name:'国家二级咨询师'},
                     {name:'国家三级咨询师'},
@@ -138,12 +137,10 @@
                 $(".types .item").click(function () {
                     let count=0;
                     let index= parseInt($(this).attr("index"));
-                    _this.type = [];
                     _this.typeSelectIndex=index;
                     if(_this.types[index].isSelect){
                         _this.types[index].isSelect=false;
                         $(this).removeClass('on')
-                        _this.type.push(_this.types[index].name)
 
                     }else{
                         for(let i=0;i<_this.types.length;i++){
@@ -158,7 +155,6 @@
                         }else{
                             $(this).addClass('on')
                             _this.types[index].isSelect=true
-                            _this.type.push(_this.types[index].name)
                         }
                    }
 
