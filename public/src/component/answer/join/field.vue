@@ -53,9 +53,6 @@
                         this.types[index].isSelect=true
                     }
                 }
-
-
-
             }
         },
 
