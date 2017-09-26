@@ -99,15 +99,6 @@ input,textarea{  -webkit-appearance:none;  outline: 0;    resize: none;}
     }
 }
 
-.happy_txt_color {
-    color: #ff6f02;
-}
-.unhappy_txt_color {
-    color: #1AAD19;
-}
-.modle_txt_color{
-    color: #747474;
-}
 
 
 
@@ -497,7 +488,7 @@ a{
     font-size: 1.0588235rem;
     height:2.941176rem;
     line-height: 2.941176rem;
-    color: #69BA2D;
+    color: #09bb07;
     text-align: center;
     border-top: 1px solid #eee;
 }
@@ -505,7 +496,7 @@ a{
     background: #ccc;
 }
 .myask_class_box .myask_class_listactive{
-    border-color: #69BA2D;
-    color: #69BA2D;
+    border-color: #09bb07;
+    color: #09bb07;
 }
 

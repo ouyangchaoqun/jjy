@@ -121,7 +121,7 @@
     .answer_join_quali .number,.answer_join_quali .photo{ margin-left: 0.4rem;}
     .answer_join_quali .number input[type='number'], .upload{ background: #F4F4F7;  height: 2.352941176470588rem;line-height: 2.352941176470588rem; padding:0 0.6rem;font-size: 0.88235rem; border-radius: 0.3rem; width: 80%}
     .answer_join_quali  .upload { text-align: center; color:#A9A7A7}
-    .answer_join_quali .upload span{ color:#00BB05; font-size: 1.4rem;line-height: 2.352941176470588rem; vertical-align: bottom
+    .answer_join_quali .upload span{ color:#09bb07; font-size: 1.4rem;line-height: 2.352941176470588rem; vertical-align: bottom
     }
 
     .answer_join_quali .weui-cell__bd img{ width: 80%}

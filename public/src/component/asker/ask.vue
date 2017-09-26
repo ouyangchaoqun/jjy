@@ -242,9 +242,9 @@
         padding: 0 0.5rem;
     }
     .asker_ask_box .submit {
-        background: #69BA2D;
+        background: #09bb07;
         border-radius: 6px;
-        border: 1px solid #539322;
+        border: 1px solid #09a907;
         color: #fff;
         text-align: center;
         line-height: 2.588235294117647rem;
@@ -252,7 +252,7 @@
     }
 
     .asker_ask_box .submit:active {
-        background: #4d9126
+        background: #09a907
     }
 
      .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:19rem; position: fixed;
@@ -260,8 +260,8 @@
      .dialog_select_type .title{ text-align: center; line-height: 3rem; font-size: 1.058823529411765rem;  font-weight: bold;}
       .dialog_select_type .types{ margin: 0.9rem;}
      .dialog_select_type .types .item{ width: 27%; float:left;text-align: center; border: 1px solid #9E9E9E ; line-height: 1.411764705882353rem; border-radius:0.7058823529411765rem; margin: 0 2%; margin-bottom: 1.8rem; font-size: 0.7058823529411765rem;color:#999; padding: 0 0.5%; }
-     .dialog_select_type .types .item.on{  border: 1px solid  #69BA2D; color:#69BA2D}
-    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#0BB20C; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
+     .dialog_select_type .types .item.on{  border: 1px solid  #09bb07; color:#09bb07}
+    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#09bb07; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
     .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 12rem; overflow: auto}
     .dialog_select_type .tip_content p{ margin-bottom: 0.6rem;}
 </style>

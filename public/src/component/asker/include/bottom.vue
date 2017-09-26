@@ -29,7 +29,7 @@
         position: absolute; bottom: 0; left:0; line-height: 1; font-size: 0.9rem ; background: #fff;   color:#333;
     width: 100%;
     }
-    .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#0BB20C}
+    .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#09bb07}
     .asker_bottom_box a{color:#333;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -44,7 +44,7 @@
     .asker_bottom_box .big_btn{width:2.617647058823529rem;
         height:2.617647058823529rem;
         border-radius: 50%;
-        background: #0DBC0B;
+        background: #09bb07;
         font-size: 20px;
         color: #fff;
         text-align: center;

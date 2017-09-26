@@ -21,7 +21,7 @@
         position: absolute; bottom: 0; left:0; line-height: 1; font-size: 0.9rem ; background: #fff;   color:#333;
         width: 100%;
     }
-    .answer_bottom_box a:active,.answer_bottom_box a.on{ color:#0BB20C}
+    .answer_bottom_box a:active,.answer_bottom_box a.on{ color:#09bb07}
     .answer_bottom_box a{color:#333;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -30,7 +30,7 @@
         font-size: 0.588235rem;
         vertical-align: text-bottom;
     }
-    .answer_bottom_box a .icon{ display: block;  width: 1.588235294117647rem; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/answer/tab_icon.png) no-repeat; background-size: 4.764705882352941rem; height: 1.588235294117647rem  }
+    .answer_bottom_box a .icon{ display: block;  width: 1.588235294117647rem;   margin: 0.1rem auto;background: url(../../../images/answer/tab_icon1.png) no-repeat; background-size: 4.764705882352941rem; height: 1.588235294117647rem  }
     .answer_bottom_box a .icon.race{  background-position: 0 0;}
     .answer_bottom_box a .icon.ask{background-position: -1.588235294117647rem 0;}
     .answer_bottom_box a .icon.my{  background-position: -3.176470588235294rem  0;}

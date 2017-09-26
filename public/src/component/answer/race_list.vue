@@ -57,7 +57,7 @@
     }
     .answer_race_list  .list .info .price{ float:left;font-size: 0.7647058823529412rem;color:#666;   width: 7rem;}
     .answer_race_list  .list .info .price span{ color:#FF9900; font-size: .8823529411764706rem;}
-    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 28%; margin: 0 auto; line-height: 2.4rem; border-radius: 1.2rem; background: #0BB20C; margin-top: 0.6rem;}
+    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 28%; margin: 0 auto; line-height: 2.4rem; border-radius: 1.2rem; background: #09bb07; margin-top: 0.6rem;}
 
 
 

@@ -115,9 +115,9 @@
     .answer_my_coment_list .question .content{ margin-bottom: 0.88325rem}
     .answer_my_coment_list .item .time{ color:#666; font-size: 0.78rem; margin-left: 0.01rem; margin-top: 0.3rem}
     .answer_my_coment_list .item{ position: relative}
-    .answer_my_coment_list .item .reply_btn{ border-radius: 0.4rem; line-height: 1.8rem; text-align: center; font-size: 0.88235rem; color:#fff; position: absolute; background: #0BB20C; width: 3rem;
+    .answer_my_coment_list .item .reply_btn{ border-radius: 0.4rem; line-height: 1.8rem; text-align: center; font-size: 0.88235rem; color:#fff; position: absolute; background: #09bb07; width: 3rem;
         top:0.88235rem; right:0.88235rem;}
-    .answer_my_coment_list .item .reply_btn:active{ background: #0b930b;
+    .answer_my_coment_list .item .reply_btn:active{ background: #09ab07;
     }
 
 

@@ -161,7 +161,7 @@
     }
     .nav_active{
         font-size: 0.8235rem;
-        color: #0DBC0B ;
+        color: #09bb07 ;
         position: relative;
         transition:all .1s linear;
     }
@@ -169,7 +169,7 @@
         content: '';
         width:0.8235rem;
         height:2px;
-        background: #0DBC0B;
+        background: #09bb07;
         position: absolute;
         bottom:0;
         left:50%;

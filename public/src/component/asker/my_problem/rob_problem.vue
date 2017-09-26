@@ -259,7 +259,7 @@
         right:0;
     }
     .problem_dialog_fd div:nth-of-type(2){
-        color: #09BB07;
+        color: #09bb07;
     }
     .best_dialog{
         width:14.470588rem;
@@ -294,7 +294,7 @@
         border-bottom: 1px solid #D1D1D3;
     }
     .best_dialog_fb{
-        color: #09BB07;
+        color: #09bb07;
         font-size: 1.0588235rem;
         text-align: center;
         height:2.941176rem;

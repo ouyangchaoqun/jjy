@@ -136,6 +136,6 @@
     .answer_join_base_info_box  .weui-cells_checkbox{ margin-top: 0}
 
     .answer_join_base_info_box   .click_btn{ border: 1px solid #D2D2D2; color:#D2D2D2; line-height: 1.4rem; border-radius: 0.7rem;  width:4.5rem; text-align: center; float:left; margin-right: 0.6rem  }
-    .answer_join_base_info_box   .click_btn.on{ background: #0BB20C; border: 1px solid  #0BB20C; color:#fff}
+    .answer_join_base_info_box   .click_btn.on{ background: #09bb07; border: 1px solid  #09bb07; color:#fff}
 
 </style>

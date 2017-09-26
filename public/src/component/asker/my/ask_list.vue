@@ -135,7 +135,7 @@
         margin-top:-0.5588rem;
     }
     .my_problem_active{
-        border-bottom: 2px solid #6DC12E;
+        border-bottom: 2px solid #09bb07;
     }
     .my_problem_box{
         position: relative;
@@ -168,7 +168,7 @@
         margin-bottom: 0.88235rem;
     }
     .wait_Answer{
-        color: #69BA2D;
+        color: #09bb07;
     }
     .problem_header>div:nth-of-type(2){
         position: absolute;

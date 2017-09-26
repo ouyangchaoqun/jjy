@@ -203,7 +203,7 @@
         padding: 0 0.88235rem;
     }
     .problem_wait_style>span:nth-of-type(1){
-        color: #69BA2D ;
+        color: #09bb07 ;
         font-size: 0.88235rem;
         margin-right: 1.235294rem;;
     }

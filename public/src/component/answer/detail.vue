@@ -341,10 +341,10 @@
         width:5.235rem;
         height:1.33rem;
         border-radius: 0.66rem ;
-        border: 1px solid #0BB20C;
+        border: 1px solid #09bb07;
         margin:0 auto;
         text-align: center;
-        color: #0BB20C;
+        color: #09bb07;
         line-height: 1.33rem;
         font-size: 0.64rem;
     }
@@ -422,5 +422,5 @@
         padding-left: 2rem;
         background-position: 0.9rem 0;
     }
-    .answer_detail_box .pay_ask{width: 75%;float: right; background: #0BB20C;color: white;line-height: 2.588rem;height: 2.588rem}
+    .answer_detail_box .pay_ask{width: 75%;float: right; background: #09bb07;color: white;line-height: 2.588rem;height: 2.588rem}
 </style>

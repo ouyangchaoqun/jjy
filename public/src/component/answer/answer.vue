@@ -236,7 +236,7 @@
     .answer_answer_box  .times{ padding: 0.2rem 2.5rem; background: #fff}
     .answer_answer_box   .times .bg{ background: #163201; height: 2.94117647058823rem;  border-radius: 1.470588235294118rem ; }
     .answer_answer_box    .times .bg .in{ padding:  0.1470588235294118rem; }
-    .answer_answer_box    .times .bg .go{ background: #69BA2D; height: 2.647058823529412rem; min-width:2.647058823529412rem;  width: 0; border-radius:1.323529411764706rem;      }
+    .answer_answer_box    .times .bg .go{ background: #09bb07; height: 2.647058823529412rem; min-width:2.647058823529412rem;  width: 0; border-radius:1.323529411764706rem;      }
     .answer_answer_box  .times .last_time{ text-align: center; color:#666; margin-top: 0.5rem; font-size: 1.529411764705882rem;}
     .answer_answer_box  .action_btn{ background: #fff; padding: 3.529411764705882rem 1rem;
         display: -webkit-box;
@@ -251,7 +251,7 @@
     }
     .answer_answer_box  .action_btn .item .txt{ margin-top: 0.6rem}
     .answer_answer_box  .audio_btn_in{ background: #fff; border-radius: 50%; height: 4.117647058823529rem; width: 4.117647058823529rem;
-        -webkit-box-shadow:0 0 8px #69BA2D;box-shadow:0 0 8px #69BA2D;  position: relative; margin: 0 auto}
+        -webkit-box-shadow:0 0 8px #09bb07;box-shadow:0 0 8px #09bb07;  position: relative; margin: 0 auto}
     .answer_answer_box .audio_btn_in:active{ background: rgba(105,186,45,0.1)
     }
     .answer_answer_box  .audio_btn_in:before{content: " " ; display: block ; position: absolute; top:50%; left:50% ;}
