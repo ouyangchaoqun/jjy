@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <v-asker-bottom tabOnIndex="3" ></v-asker-bottom>
+        <v-asker-bottom tabOnIndex="2" ></v-asker-bottom>
     </div>
 </template>
 

@@ -3,7 +3,10 @@
 
         <div v-title>心情指数</div>
 
-        <div style="height: 500px;">
+        <div style="height: 500px;" class="diididdid">
+            <router-link to="/asker/listen">用户</router-link>
+            <router-link to="/answer/race/list">咨询师</router-link>
+
 
 
 
@@ -30,5 +33,5 @@
     }
 </script>
 <style>
-
+.diididdid a{ width: 100%; display: block; color:#333; line-height: 44px; border-bottom: 1px  solid #eee; text-align: center; background: #fff}
 </style>
