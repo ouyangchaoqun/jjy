@@ -34,7 +34,7 @@
 </template>
 
 <script type="es6">
-    import Bus from './../bus.js';
+    import Bus from '../../js/bus.js';
 
     export default {
         props: {
@@ -62,7 +62,8 @@
             },
             isPageEnd: false,
             isShowMoreText: true,
-            isNotRefresh: true
+            isNotRefresh: true,
+            bottomHeight:0
         },
         data() {
             return {
@@ -76,7 +77,7 @@
         },
         mounted: function () {
             let _this=this;
-            this.height = "height:" + (document.body.clientHeight) + "px";
+            this.height = "height:" + (document.body.clientHeight - this.bottomHeight) + "px";
             this.loadMoreText();
             Bus.$on("scrollMoreTextInit", function (isShowMoreText) {
 //                console.log("scrollMoreTextInit")

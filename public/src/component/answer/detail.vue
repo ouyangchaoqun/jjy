@@ -6,26 +6,25 @@
             <div class="weui-tab__panel">
             <div class="answer_info">
                 <div class="answer_banner">
-                    <div class="answer_face"><img src="../../images/34.jpg"></div>
-                    <div class="answer_name">陈小刚</div>
+                    <div class="answer_face"><img :src="detail.faceUrl"></div>
+                    <div class="answer_name">{{detail.nickName}}</div>
                     <div class="answer_cs">
                         <div class="answer_ability">
-                            <span>情感困惑</span>
-                            <span>性心理</span>
-                            <span>亲子教育</span>
+                            <span v-for="good in detail.goodAt">{{good.title}}</span>
                         </div>
                     </div>
 
-                    <div class="answer_address">浙江-杭州</div>
+                    <div class="answer_address">{{detail.province}}-{{detail.city}}</div>
                 </div>
                 <div class="answer_count">
                     <div class="answer_countBox">
-                        <div class="counts">48</div>
+                        <div class="counts">{{detail.answerCount}}</div>
                         <div class="nr">个回答</div>
                         <div class="line_1"></div>
                     </div>
                     <div class="answer_countBox">
-                        <div class="counts">824</div>
+                        <div class="counts" v-if="detail.listenCount!=null">{{detail.listenCount}}</div>
+                        <div class="counts" v-if="detail.listenCount==null">0</div>
                         <div class="nr">次偷听</div>
                         <div class="line_1"></div>
                     </div>
@@ -35,14 +34,14 @@
                         <div class="line_1"></div>
                     </div>
                     <div class="answer_countBox">
-                        <div class="counts">135</div>
+                        <div class="counts">{{detail.followCount}}</div>
                         <div class="nr">人收听</div>
                     </div>
 
                 </div>
             </div>
             <div class="answer_voice">
-                <div class="ts">帮你解决婚姻，情感中的困扰</div>
+                <div class="ts">{{detail.sign}}</div>
                 <div class="voice">
                     <span class="hello">您好：</span>
                     <div class="audio_btn">
@@ -54,30 +53,7 @@
             <div class="answer_detail">
                 <div class="answer_title">详细介绍</div>
                 <div class="content">
-                    <br>
-                    <p>国家二级心理咨询师。专注于婚恋情感咨询，擅长解决恋
-                        爱抑郁、恐惧症状的来访者走出困境；帮助过众多婚姻庭
-                        和恋爱过程中出现沟通冲突、处于亲密关系瓦解边缘的家
-                        庭化解危机；指导过众多工作中出现困惑的人做好职业规
-                        划。本人曾在蓝心网、给力心理从事心理咨询。希望我能
-                        陪你一起探索你的心理困惑，助你过上成功快乐，幸福美
-                        满的生活。</p>
-                    <br>
-                    <br>
-                    <h4>专业培训经验</h4>
-                    <p>
-                        武汉大学心理咨询培训<br>
-                        丁健婚恋咨询升级路径<br>
-                        中级绘画治疗师
-                    </p>
-                    <br>
-                    <br>
-                    <h4>专业培训经验</h4>
-                    <p>家庭关系：婚姻挽救、情感修复、外遇分离、婆媳关系、
-                        离婚纠纷
-                        <br>
-                        恋爱关系：失恋帮助，性格不和、沟通障碍
-                        性心理：性取向问题</p>
+                    {{detail.introduction}}
                 </div>
                 <div class="btn_sq">收起</div>
             </div>
@@ -167,13 +143,16 @@
 
     export default {
         data() {
-            return {}
+            return {
+                detail:{},
+                id:0
+            }
         },
 
 
         mounted: function () {
-
-
+            this.id= this.$route.query.id;
+this.getDetail();
         },
         methods:{
             moreComment:function () {
@@ -181,6 +160,20 @@
             },
             ask:function () {
                 this.$router.push("/asker/ask")
+            },
+            getDetail:function () {
+                let _this= this;
+                let id=  this.id;
+                _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.detail= data.body.data
+                    }
+                }, function (error) {
+                });
+
+            },
+            follow:function () {
+
             }
         }
 
@@ -193,7 +186,7 @@
         height: 16.6rem;
     }
     .answer_detail_box .answer_banner{
-        background: url("../../images/answer/banner.jpg") 100% no-repeat;
+        background: url("../../images/answer/banner.jpg") top center  no-repeat;
         background-size: 100%;
         height: 12.91rem;
         padding-top: 0.88rem;

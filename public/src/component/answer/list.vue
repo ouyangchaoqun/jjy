@@ -2,42 +2,44 @@
     <div style="height: 100% " class="answer_list_box">
 
         <div v-title>抢答</div>
-        <div class="main_title">情感困惑专家</div>
-        <div class="answer_list" >
-            <div class="item" v-for="item in [1,2,3,4,5]">
-                <router-link to='./detail'   >
-                <div class="img"><img
-                        src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
-                </div>
-                <div class="info">
-                    <div class="title">帮你解决婚姻，情感中的困扰</div>
-                    <div class="address"><span>陈小刚</span> 浙江省-杭州</div>
-                    <div class="class_s">
-                        <span>情感困惑</span>
-                        <span>性心理</span>
-                        <span>情感困惑</span>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="other">问价 <span class="price">¥14.14</span> <span class="ml">48个回答</span><span
-                            class="ml">848次被偷听</span></div>
-                    <div class="audio">
-                        <div class="audio_btn">
-                            点击播放
+        <v-showLoad v-if="showLoad"></v-showLoad>
+
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="0"
+                  :isShowMoreText="isShowMoreText">
+            <div class="main_title">{{name}}</div>
+            <div class="answer_list">
+                <div class="item" v-for="item in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="img"><img :src="item.faceUrl"></div>
+                        <div class="info">
+                            <div class="title">{{item.sign}}</div>
+                            <div class="address"><span>{{item.nickName}}</span> {{item.province}}-{{item.city}}</div>
+                            <div class="class_s">
+                                <span v-for="good in item.goodAt">{{good.title}}</span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="other">问价 <span class="price">¥{{item.price}}</span> <span class="ml"
+                                                                                                   v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                    class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            <div class="audio">
+                                <div class="audio_btn">
+                                    点击播放
+                                </div>
+                                <div class="minute">60"</div>
+                                <div class="clear"></div>
+                            </div>
                         </div>
-                        <div class="minute">60"</div>
                         <div class="clear"></div>
                     </div>
                 </div>
-                <div class="clear"></div>
-                </router-link>
+
             </div>
 
-        </div>
+        </v-scroll>
         <div class="no_body" v-if="false">
 
             <div class="img"></div>
             <div class="txt">暂无该方面专家</div>
-
 
         </div>
 
@@ -46,19 +48,101 @@
 </template>
 
 <script type="es6">
-
+    import showLoad from '../include/showLoad.vue';
+    import scroll from '../include/scroll.vue';
+    import Bus from '../../js/bus.js';
 
     export default {
         data() {
-            return {}
+            return {
+                list:[],
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,name:''
+            }
+        },
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
         },
 
-
         mounted: function () {
+            this.name= this.$route.query.name;
+            this.getList();
+        },
+        methods:{
+            goDetail:function (extId) {
 
+                this.$router.push('./detail?id='+extId)
+            },
+            getList: function () {
+
+                let vm= this;
+                let classId= vm.$route.query.id;
+                vm.showLoad=true;
+                let url = web.API_PATH + "come/expert/get/by/class/"+classId+"/"+vm.page+"/"+vm.row+"";
+
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+
+
+
+                console.log(vm.isLoading);
+                console.log(vm.isPageEnd);
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status==9000003){
+                        vm.list = [];
+                        return;
+                    }
+
+
+                    let arr = response.data.data;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
 
         }
-
 
     }
 </script>

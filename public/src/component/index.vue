@@ -15,7 +15,7 @@
 </template>
 
 <script type="es6">
-    import Bus from './bus.js';
+    import Bus from '../js/bus.js';
 
 
     export default {

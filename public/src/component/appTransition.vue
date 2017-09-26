@@ -4,7 +4,7 @@
         <transition :name="transitionName">
 
 
-            <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood" :isGoIndex="isGoIndex"></router-view>
+            <router-view class="child-view"    :user=user  :isGoIndex="isGoIndex"></router-view>
 
 
         </transition>
@@ -14,7 +14,7 @@
 
 <script>
 
-    import Bus from '../component/bus.js';
+    import Bus from '../js/bus.js';
 
     export default {
 
@@ -40,7 +40,7 @@
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
-                    _this.initData();
+
                 }
             }, function (error) {
                 //error
@@ -58,60 +58,11 @@
 
             });
 
-            Bus.$on("initHomeData", function () {
-                _this.initData();
-            });
+
 
         },
         methods: {
-            initData:function () {
-                var _this = this;
-                if(_this.user&&_this.user.isLookFriend&&_this.user.isLookFriend!==0){
-                    //用户 朋友当天心情 特别关系
-                    _this.$http({
-                        method: 'GET',
-                        type: "json",
-                        url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/1/1',
-                    }).then(function (data) {//es5写法
-                        if (data.data.status === 1 && data.data.data !== null) {
-                            _this.friendMoodsSpe = eval(data.data.data);
-                            _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
-                        }
-                    }, function (error) {
-                        //error
-                    });
 
-                    //用户 朋友当天心情 普通
-                    _this.$http({
-                        method: 'GET',
-                        type: "json",
-                        url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/0/1',
-                    }).then(function (data) {//es5写法
-                        if (data.data.status === 1 && data.data.data !== null) {
-                            _this.friendMoods = eval(data.data.data);
-                            _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
-
-                        }
-                    }, function (error) {
-                        //error
-                    });
-                }
-                ///用户心情
-                _this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'mood/find/userlast/_userId_',
-                }).then(function (data) {//es5写法
-                    if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
-                        _this.myLastMood = eval(data.data.data);
-                        _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-                        _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
-                        _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
-                    }
-                }, function (error) {
-                    //error
-                });
-            }
         },
 
         beforeRouteUpdate (to, from, next) {
@@ -120,10 +71,6 @@
 
             console.log(from.path);
             console.log(to.path);
-
-
-
-
 
             if (_this.isFunny === true) {
                 _this.isFunny = false;

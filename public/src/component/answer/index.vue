@@ -1,39 +1,41 @@
 <template >
     <div style="height: 100%" class="answer_index">
         <div v-title>加加油</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="weui-tab__panel main">
-        <div class="class_list">
-            <div class="class_item" v-for="(item,index) in classList" @click="goClass()"><span>{{item.name}}</span></div>
-            <div class="clear"></div>
-        </div>
 
-        <div class="answer_list">
-            <div class="item" v-for="item in [1,2,3,4,5]">
-                <router-link to='./detail'   >
-                <div class="img"><img src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg"> </div>
-                <div class="info">
-                    <div class="title">帮你解决婚姻，情感中的困扰</div>
-                    <div class="address"><span>陈小刚</span> 浙江省-杭州</div>
-                    <div class="class_s">
-                        <span>情感困惑</span>
-                        <span>性心理</span>
-                        <span>情感困惑</span>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="other">问价 <span class="price">¥14.14</span> <span class="ml">48个回答</span><span class="ml">848次被偷听</span></div>
-                    <div class="audio">
-                        <div class="audio_btn">
-                            点击播放
-                        </div>
-                        <div class="minute">60"</div>
-                        <div class="clear"></div>
-                    </div>
+            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                      :isShowMoreText="isShowMoreText" :bottomHeight="50">
+                <div class="class_list">
+                    <div class="class_item" v-for="(item,index) in classList" @click="goClass(item)"><span>{{item.title}}</span></div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
-                </router-link>
-            </div>
+                <div class="answer_list">
+                    <div class="item" v-for="item in list">
+                        <div   @click="goDetail(item.expertId)"   >
+                        <div class="img"><img :src="item.faceUrl"> </div>
+                        <div class="info">
+                            <div class="title">{{item.sign}}</div>
+                            <div class="address"><span>{{item.nickName}}</span> {{item.province}}-{{item.city}}</div>
+                            <div class="class_s">
+                                <span v-for="good in item.goodAt">{{good.title}}</span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="other">问价 <span class="price">¥{{item.price}}</span> <span class="ml" v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            <div class="audio">
+                                <div class="audio_btn">
+                                    点击播放
+                                </div>
+                                <div class="minute">60"</div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        </div>
+                    </div>
 
-        </div>
+                </div>
+            </v-scroll>
         </div>
 
         <v-asker-bottom  tabOnIndex="1"></v-asker-bottom>
@@ -41,37 +43,117 @@
 </template>
 
 <script type="es6">
-
+    import showLoad from '../include/showLoad.vue';
+    import scroll from '../include/scroll.vue';
+    import Bus from '../../js/bus.js';
     import askerBottom from "../asker/include/bottom.vue";
 
     export default {
         data() {
             return {
-                classList:[{name:"情感困惑",id:1},
-                    {name:"婚姻家庭",id:1},
-                    {name:"个人成长",id:1},
-                    {name:"情感困惑",id:1},
-                    {name:"情绪管理",id:1},
-                    {name:"情感困惑",id:1},
-                    {name:"情感困惑",id:1},
-                    {name:"情感困惑",id:2},
-                    {name:"情感困惑",id:1},
+                classList:[],
+                list:[],
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false
 
-
-                ]
             }
         },
 
         components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll,
             "v-asker-bottom": askerBottom
         },
         methods: {
-            goClass:function () {
-                this.$router.push('./list')
-            }
+            goDetail:function (extId) {
+
+                this.$router.push('./detail?id='+extId)
+            },
+            goClass:function (item) {
+                this.$router.push('./list?id='+item.id+"&name="+item.title)
+            },
+            getClassList:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.classList= data.body.data
+                    }
+                }, function (error) {
+                });
+            },
+            getList: function () {
+
+                let vm= this;
+
+                vm.showLoad=true;
+                let url = web.API_PATH + "come/expert/get/by/class/0/"+vm.page+"/"+vm.row+"";
+
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+
+
+
+                console.log(vm.isLoading);
+                console.log(vm.isPageEnd);
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status==9000003){
+                        vm.list = [];
+                        return;
+                    }
+
+
+                    let arr = response.data.data;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
+
         },
         mounted: function () {
             $(".weui-tab__panel").height($(window).height()-100);
+            this.getClassList();
+            this.getList();
 
         }
 
@@ -79,12 +161,8 @@
     }
 </script>
 <style>
-   .answer_index  .class_list{
-        padding:0.7058823529411765rem; padding-top: 0.9rem; background: #fff; padding-bottom: 0.2rem;
-    }
-   .answer_index  .class_list .class_item{
-        float:left ; width: 33.333333%;
-   }
+   .answer_index  .class_list{  padding:0.7058823529411765rem; padding-top: 0.9rem; background: #fff; padding-bottom: 0.2rem;  }
+   .answer_index  .class_list .class_item{  float:left ; width: 33.333333%;  }
    .answer_index  .class_list .class_item span{ display: block; background: #EAE9E9; height:2.058823529411765rem;line-height:2.058823529411765rem; width: 88% ; margin: 0 auto; text-align: center; border-radius: 1.029411764705883rem; margin-bottom: 0.7058823529411765rem; color:#666; font-size: 0.8235294117647059rem;}
 
 
