@@ -131,11 +131,11 @@
 
     .answer_join_base_info_box .infos input{ background: #F4F4F7;  height: 2.352941176470588rem;line-height: 2.352941176470588rem; padding:0 0.6rem;font-size: 0.88235rem; border-radius: 0.3rem; width: 80%; color:#333}
     .answer_join_base_info_box  .weui-label span{ color:red;}
-
+    .weui-check__label:active{background: none}
     .answer_join_base_info_box .weui-check__label.sex{ padding: 0}
     .answer_join_base_info_box  .weui-cells_checkbox{ margin-top: 0}
 
-    .answer_join_base_info_box   .click_btn{ border: 1px solid #D2D2D2; color:#D2D2D2; line-height: 1.4rem; border-radius: 0.7rem;  width:4.5rem; text-align: center; float:left; margin-right: 0.6rem  }
+    .answer_join_base_info_box   .click_btn{font-size: 0.70588235rem; border: 1px solid #D2D2D2; color:#D2D2D2; line-height: 1.4rem; border-radius: 0.7rem;  width:4.5rem; text-align: center; float:left; margin-right: 0.6rem  }
     .answer_join_base_info_box   .click_btn.on{ background: #09bb07; border: 1px solid  #09bb07; color:#fff}
 
 </style>

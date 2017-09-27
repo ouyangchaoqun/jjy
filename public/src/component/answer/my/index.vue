@@ -21,7 +21,7 @@
                     <router-link to = "/answer/my/fans" class="listen" >我的粉丝</router-link>
                     <router-link to = "/answer/my/comment/list" class="listen" >收到的评价</router-link>
                     <router-link to = "/answer/my/message" class="answer" >60”语音寄语</router-link>
-                    <router-link to = "/answer/my/enter" class="comment" >入驻资质</router-link>
+                    <router-link to = "/answer/my/set/qualification" class="comment" >入驻资质</router-link>
                 </div>
             </div>
         </div>
