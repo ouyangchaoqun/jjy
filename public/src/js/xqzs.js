@@ -107,7 +107,7 @@ var xqzs = {
                 }, 300);
             })
         },
-        dialogCustom: function (Html,fun) {
+        dialogCustom: function (Html) {
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask weui-animate-fade-in"></div>';
@@ -342,54 +342,43 @@ var xqzs = {
             _timestamp = parseInt(_timestamp / 1000);
             return _timestamp;
         },
-        getSolarData:function (beginYear,endYear) {
-            var data=[];
-            for(var i=beginYear;i<=endYear;i++){
-                var months=[];
-                for(var mi=1;mi<=12;mi++){
-                    //正常月
-                    var days=[];
-                    var  daycount= calendar.solarDays(i,mi);
-                    for(var di=1;di<=daycount;di++){
-                        days.push({value:di,label:di+"日"})
-                    }
-                    months.push({value:mi,label:mi+"月",children:days});
-
-                }
-                data.push({value:i,label:i+"年",children:months})
+        getTimeFormatText:function( publishTime) {
+            var d_minutes,d_hours,d_days;
+            var timeNow = parseInt(new Date().getTime()/1000);
+            var d;
+            d = timeNow - publishTime;
+            d_days = parseInt(d/86400);
+            d_hours = parseInt(d/3600);
+            d_minutes = parseInt(d/60);
+            if(d_days>0 && d_days<4){
+                return d_days+"天前";
+            }else if(d_days<=0 && d_hours>0){
+                return d_hours+"小时前";
+            }else if(d_hours<=0 && d_minutes>0){
+                return d_minutes+"分钟前";
+            }else{
+                var s = new Date(publishTime*1000);
+                // s.getFullYear()+"年";
+                return (s.getMonth()+1)+"月"+s.getDate()+"日";
             }
-            return data;
         },
-        getLunarData:function (beginYear,endYear) {
-            var data=[];
-            for(var i=beginYear;i<=endYear;i++){
-                var leapMonth= calendar.leapMonth(i); //第几个月是闰月 没有返回0
-                var months=[];
-                var leapDays=0;
-                if(leapMonth!=0){
-                    leapDays=calendar.leapDays(i)  //闰月天数
-                }
-                for(var mi=1;mi<=12;mi++){
-                    //正常月
-                    var days=[];
-                    var    daycount= calendar.monthDays(i,mi);
-                    for(var di=1;di<=daycount;di++){
-                        days.push({value:di,label:calendar.toChinaDay(di)})
-                    }
-                    months.push({value:mi,label:calendar.toChinaMonth(mi),children:days});
-                    //增加一个闰月
-                    if(leapMonth==mi){
-                        days=[];
-                        for(var di=1;di<=leapDays;di++){
-                            days.push({value:di,label:calendar.toChinaDay(di)})
-                        }
-                        months.push({value:mi+"_1",label:"闰"+calendar.toChinaMonth(mi),children:days})
-                    }
-                }
-                data.push({value:i,label:i+"年",children:months})
+
+        getTimeFormatLastText:function( publishTime) {
+            var d_minutes,d_hours;
+            var timeNow = parseInt(new Date().getTime()/1000);
+            var d;
+            d =   publishTime - timeNow;
+            d_hours = parseInt(d/3600);
+            d_minutes = parseInt(d/60);
+           if(  d_hours>0){
+                return "剩"+d_hours+"小时";
+            }else if(d_hours<=0 && d_minutes>0){
+                return "剩"+d_minutes+"分钟";
+            }else{
+               return "剩"+d+"秒钟";
             }
-            return data;
         }
+
     },
 
 

@@ -1,107 +1,185 @@
 <template >
     <div>
-        <div class="my_problem_tabs">
-            <div class="my_problem_active">一对一咨询</div>
-            <div>抢答模式</div>
-        </div>
-        <div class="my_problem_box">
-            <!--一对一列表-->
-            <div class="problem_box_active">
-                <ul>
-                    <li class="my_problem_list1">
-                        <router-link to="/asker/my/ask/detail">
-                            <div class="problem_header">
-                                <img src="../../../images/asker/34.jpg" alt="">
-                                <div>陈小刚</div>
-                                <div class="wait_Answer">待回答</div>
-                            </div>
-                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="my_problem_bottom">
-                                <div>4分钟前</div>
-                                <div>听过0</div>
-                                <div>收入分成￥0.00</div>
-                                <div class="my_problem_money">￥19.99</div>
-                            </div>
-                        </router-link>
-                    </li>
-                    <li class="my_problem_list1">
-                        <router-link to="/asker/my/ask/detail">
-                            <div class="problem_header">
-                                <img src="../../../images/asker/34.jpg" alt="">
-                                <div>陈小刚</div>
-                                <div class="wait_Answer">待回答</div>
-                            </div>
-                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="my_problem_bottom">
-                                <div>4分钟前</div>
-                                <div>听过0</div>
-                                <div>收入分成￥0.00</div>
-                                <div class="my_problem_money">￥19.99</div>
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
+    <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
+
+            <div class="my_problem_tabs">
+                <div class="my_problem_active">一对一咨询</div>
+                <div>抢答模式</div>
             </div>
-            <!--抢答列表-->
-            <div>
-                <ul>
-                    <li class="my_problem_list1">
-                        <router-link to="/asker/my_problem/rob/problem">
-                            <div class="problem_header">
-                                问题类型：<div style="color: #333;margin-left: 10px">情感困惑</div>
-                                <div class="wait_Answer">正在进行</div>
-                            </div>
-                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="my_problem_bottom">
-                                <div>4分钟前</div>
-                                <div>回复2</div>
-                                <div class="my_problem_money">￥19.99</div>
-                            </div>
-                        </router-link>
-                    </li>
-                    <li class="my_problem_list1">
-                        <router-link to="/asker/my_problem/rob/problem">
-                            <div class="problem_header">
-                                问题类型：<div style="color: #333;margin-left: 10px">情感困惑</div>
-                                <div class="wait_Answer">正在进行</div>
-                            </div>
-                            <div class="my_problem_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                            <div class="my_problem_bottom">
-                                <div>4分钟前</div>
-                                <div>回复2</div>
-                                <div class="my_problem_money">￥19.99</div>
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
+            <div class="my_problem_box">
+                <!--一对一列表-->
+                <div class="problem_box_active">
+                    <ul>
+                        <li class="my_problem_list1" v-for="item in list" v-if="type==2">
+                            <a  @click="goDetail(item.questionId)">
+                                <div class="problem_header">
+                                    <img :src="item.faceUrl" alt="">
+                                    <div>{{item.nickName}}</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==0">待回答</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==1">完成</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==3">未支付</div>
+                                </div>
+                                <div class="my_problem_content">
+                                    {{item.question}}
+                                </div>
+                                <div class="my_problem_bottom">
+                                    <div>{{formatDateText(item.addTime)}}</div>
+                                    <div>听过 {{item.listenCount}}</div>
+                                    <div>收入分成￥{{item.inCome}}</div>
+                                    <div class="my_problem_money">￥{{item.price}}</div>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--抢答列表-->
+                <div>
+                    <ul>
+                        <li class="my_problem_list1"  v-if="type==1"  v-for="item in list" >
+                            <a  @click="goRaceDetail(item.questionId)">
+                                <div class="problem_header">
+                                    问题类型：
+                                    <div style="color: #333;margin-left: 10px">情感困惑</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==0">正在进行</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==1">完成</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
+                                    <div class="wait_Answer" v-if="item.questionStatus==3">未支付</div>
+                                </div>
+                                <div class="my_problem_content">
+                                    {{item.question}}
+                                </div>
+                                <div class="my_problem_bottom">
+                                    <div>{{formatDateText(item.addTime)}}</div>
+                                    <div>回复{{item.answerCount}}</div>
+                                    <div class="my_problem_money">￥{{item.price}}</div>
+                                </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
-        </div>
-        <v-asker-bottom  tabOnIndex="3"></v-asker-bottom>
+
+        </v-scroll>
+        <v-asker-bottom tabOnIndex="3"></v-asker-bottom>
     </div>
 </template>
 
 <script type="es6">
-
+    import showLoad from '../../include/showLoad.vue';
+    import scroll from '../../include/scroll.vue';
+    import Bus from '../../../js/bus.js';
     import askerBottom from "../include/bottom.vue";
     export default {
         data() {
             return {
-
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,
+                list:[],
+                type:2
             }
         },
+
+
         components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll,
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
+            let _this=this;
             $('.my_problem_tabs>div').click(function () {
                 $('.my_problem_tabs>div').removeClass('my_problem_active')
                 $('.my_problem_box>div').removeClass('problem_box_active')
                 $(this).addClass('my_problem_active')
-                $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active')
-            })
+                $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active');
+                if($(this).index()==0){
+                    _this.changeType(2);
+                }else{
+                    _this.changeType(1);
+                }
+
+            });
+            this.getList();
         },
         methods: {
+            formatDateText:function (time) {
+              return xqzs.dateTime.getTimeFormatText(time)
+            },
+            goRaceDetail: function (id) {
+                this.$router.push("/asker/my/ask/race/detail?id=" + id);
+            },
+            goDetail:function (id) {
+                this.$router.push("/asker/my/ask/detail?id="+id);
+            },
+            changeType:function (v) {
+                this.type=v;
+                this.page=1;
+                this.list=[];
+                this.isPageEnd = false;
+                this.isShowMoreText = true;
+                this.getList();
+            },
+            getList: function () {
 
+                let vm= this;
+                let url =web.API_PATH + 'come/user/query/question/'+this.type+'/page/_userId_/'+vm.page+'/'+vm.row;
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
 
 

@@ -2,16 +2,16 @@
     <div :class="{problem_box_background:problem_assess_flag}">
         <div class="my_problem_detail">
             <div class="problem_detail_header">
-                问题类型:  <div>情感困惑</div>
-                <div>￥13.14</div>
+                问题类型:  <div>{{detail.title}}</div>
+                <div>￥{{detail.price}}</div>
             </div>
             <div class="problem_detail_content">
-                女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这是不是一种病？女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这是不是一种病？
+                {{detail.question}}
             </div>
             <div class="problem_answer_info">
                 <img src="../../../images/asker/34.jpg" alt="">
                 <!--回答，专家语音-->
-                <div class="problem_answer_yy" v-if="true">
+                <div class="problem_answer_yy" v-if="detail.questionStatus==1">
                     <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                     <div class="problem_answer_play">点击播放</div>
                     <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
@@ -19,53 +19,52 @@
                 </div>
 
                 <!--待回答-->
-                <div class="problem_wait_style" v-if="false">
-                    <span>待回答</span><span>还剩45小时</span>
+                <div class="problem_wait_style" v-if="detail.questionStatus==0">
+                    <span>待回答</span><span>还{{formatTimeLastText(detail.endTime)}}</span>
                 </div>
                 <!--超时未回答-->
-                <div class="problem_wait_style" v-if="false">
+                <div class="problem_wait_style" v-if="detail.questionStatus==2">
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>
             <!--回答后底部显示详情-->
-            <div class="problem_answer_bottom">
-                <div class="problem_answer_time">1小时前</div>
+            <div class="problem_answer_bottom" v-if="detail.answerCount>0" v-for="item in detail.answers ">
+                <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                 <div class="problem_answer_zan">
-                    <div><span>听过</span><span>48</span></div>
+                    <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
                     <div><span>收入分成￥</span><span>1.00</span></div>
-                    <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
+                    <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                 </div>
             </div>
             <div class="steal_expert_info">
                 <div>
-                    <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
+                    <span class="steal_expert_name">{{detail.expert.nickName}}</span><span class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
                 </div>
-                <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                <img src="../../../images/asker/listenin.png" alt="">
+                <div class="steal_expert_des">{{detail.expert.sign}}</div>
+                <img src="../../../images/asker/listenin.png" alt="" @click="follow(detail.expertId)">
             </div>
         </div>
 
 
         <!--匿名评价-->
-        <div class="problem_assess" v-if="problem_assess_flag">
+        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null">
             <h4>匿名评价此回答</h4>
-            <div>
-                <img src="../../../images/answer/star_no.png" alt="">
-                <img src="../../../images/answer/star_no.png" alt="">
-                <img src="../../../images/answer/star_no.png" alt="">
-                <img src="../../../images/answer/star_no.png" alt="">
-                <img src="../../../images/answer/star_no.png" alt="">
+            <div class="star">
+
+                <span v-for="item in 5" :class="{on:item<=point}" @click="clickStar(item)" ></span>
+
             </div>
             <div class="problem_assess_item">
                 <div class="problem_assess_class">
-                    <span>和蔼可亲</span><span>态度好</span><span>和蔼可亲</span><span>态度好</span><span>声音好听</span><span>和蔼可亲</span><span>很专业</span><span>和蔼可亲</span>
+                    <span v-for="(item,index) in tags" @click="selectTag(index)" :class="{on:item.selected==true}">{{item.title}}</span>
+
                 </div>
                 <div class="problem_assess_input">
-                    <textarea placeholder="您的反馈将影响咨询师"></textarea>
+                    <textarea placeholder="您的反馈将影响咨询师" id="content"></textarea>
                 </div>
             </div>
             <div class="problem_assess_btn">
-                <div class="weui-btn weui-btn_disabled weui-btn_primary">提交</div>
+                <div class="weui-btn weui-btn_disabled weui-btn_primary" @click="comment()">提交</div>
             </div>
         </div>
     </div>
@@ -79,13 +78,142 @@
     export default {
         data() {
             return {
-                problem_assess_flag:true
+                problem_assess_flag:true,
+                detail:{},
+                point:0,
+                tags:[],
+                MAX_TAG_COUNT:5
             }
         },
         mounted: function () {
 
+            this.id= parseInt(this.$route.query.id);
+            this.getDetail();
+            this.getTags();
+
         },
         methods: {
+            selectTag:function (index) {
+
+                let count= 0;
+                let tags=this.tags;
+                if(tags[index].selected==true){
+                    tags[index].selected=false;
+                }else{
+                    for(let i=0;i<tags.length;i++){
+                        if(tags[i].selected==true){
+                            count++;
+                        }
+                    }
+                    if(count>=this.MAX_TAG_COUNT){
+
+                    }else{
+                        tags[index].selected=true;
+                    }
+                }
+
+                this.$set(this.tags,index,tags[index])
+
+            },
+            getTags:function () {
+
+                let _this= this;
+                _this.$http.get(web.API_PATH + 'come/expert/evaluate/tag').then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+
+                        _this.tags= data.body.data
+                    }
+                }, function (error) {
+                });
+
+            },
+            clickStar:function (v) {
+                console.log(v)
+                this.point=v;
+            },
+            formatDateText:function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
+            formatTimeLastText:function (time) {
+               return xqzs.dateTime.getTimeFormatLastText(time)
+            },
+            comment:function () {
+                let that=this;
+                let content = $("#content").val();
+                let tags=[];
+                if(this.point==0){
+                    xqzs.weui.toast('fail',"请选择分数",function () {
+
+                    })
+                    return;
+                }
+
+                for(let i=0;i<this.tags.length;i++){
+                    if(this.tags[i].selected==true){
+                        tags .push(this.tags[i].id);
+                    }
+                }
+                if(tags.length==0){
+                    xqzs.weui.toast('fail',"请至少选择一个标签",function () {
+
+                    })
+                    return;
+                }
+                if(content.length==0){
+                    xqzs.weui.toast('fail',"请输入评论内容",function () {
+
+                    })
+                    return;
+                }
+
+
+
+
+
+                that.$http.put(web.API_PATH + "come/user/evaluate/answer", {userId:"_userId_",answerId:this.detail.bestAnswerId, point:this.point,content:content,"tags":tags})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            xqzs.weui.toast("success","评论成功",function () {
+                                window.location.href=window.location.h
+                            })
+                        }
+                    });
+            },
+            follow:function (id) {
+                let that=this;
+                that.$http.put(web.API_PATH + "come/expert/follow/expert/"+id+"/_userId_", {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            xqzs.weui.toast("success","收听成功",function () {
+
+                            })
+                        }else if(bt.data.status ==900004){
+                            xqzs.weui.toast("success","已经收听",function () {
+
+                            })
+                        }else if(bt.data.status ==9000003){
+                            xqzs.weui.toast("fail","不能收听自己",function () {
+
+                            })
+                        }else {
+                            xqzs.weui.toast("fail","收听失败",function () {
+
+                            })
+                        }
+                    });
+            },
+            getDetail:function () {
+
+                let _this= this;
+                _this.$http.get(web.API_PATH + 'come/user/query/question/_userId_/'+this.id ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        console.log(data.body.data.data)
+                        _this.detail= data.body.data.data
+                    }
+                }, function (error) {
+                });
+
+            }
 
         }
 
@@ -94,6 +222,9 @@
 </script>
 <style>
 
+
+    .star span{ display: inline-block;  height:0.9411764705882353rem; width: 0.9411764705882353rem; background: url(../../../images/star_no.png) no-repeat; background-size: 0.9411764705882353rem; margin: 0.9rem  0.4rem;  }
+    .star span.on{ background: url(../../../images/star.png) no-repeat; background-size: 0.9411764705882353rem;}
     .problem_answer_info{
         padding:0 0.88235rem;
         display: -webkit-box;
@@ -132,7 +263,7 @@
         width: 0.941176rem;
     }
     .problem_assess_item span{
-        padding:0 0.70588rem;
+        padding:0 0.50588rem;
         height:1.35294rem;
         line-height: 1.35294rem;
         border:1px solid #999;
@@ -140,6 +271,10 @@
         display: inline-block;
         margin-bottom:0.70588rem;
         margin-right: 0.235294rem;
+    }
+    .problem_assess_item span.on{
+        border:1px solid #09bb07;
+        color:#09bb07;
     }
     .problem_assess_class{
         margin-bottom: 0.88235rem;
@@ -155,11 +290,11 @@
         resize: none;
         border:0;
         outline: none;
-        width:100%;
+        width:94%;
         font-size: 0.70588rem;
         color: #999;
         border-radius: 5px;
-        padding:10px;
+        padding:3%;
         line-height: 1.6;
         letter-spacing: 2px;
     }

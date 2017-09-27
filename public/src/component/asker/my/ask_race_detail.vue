@@ -2,75 +2,76 @@
     <div class="rob_problem">
         <div class="my_problem_detail">
             <div class="problem_detail_header">
-                问题类型:  <div>情感困惑</div>
-                <div>赏金￥13.14</div>
+                问题类型:  <div>{{detail.title}}</div>
+                <div>赏金￥{{detail.price}}</div>
             </div>
             <div class="problem_detail_content">
-                六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手选择分手？
+                {{detail.question}}
             </div>
             <!--超时未解答-->
-            <div class="rob_status_box" v-if="false">
+            <div class="rob_status_box" v-if="detail.questionStatus==2">
                 <div>未解答</div>
                 <div>48小时内无人抢答，赏金已全额退还</div>
             </div>
             <!--正在进行中-->
-            <div class="rob_status_box" v-if="true">
-                <div>还剩44小时</div>
-                <div>已有2人抢答，可以选择一个最佳答案，其答主将获得全部赏金，且该回答将产生偷偷听收入</div>
+            <div class="rob_status_box"  v-if="detail.questionStatus==0">
+                <div>还{{formatTimeLastText(detail.endTime)}}</div>
+                <div>已有{{detail.answerCount}}人抢答，可以选择一个最佳答案，其答主将获得全部赏金，且该回答将产生偷偷听收入</div>
             </div>
-            <div class="rob_status_box" v-if="false">
+            <div class="rob_status_box" v-if="detail.questionStatus==2">
                 <div>已解答</div>
-                <div>共有2人抢答，抢答者平分赏金。</div>
+                <div>共有{{detail.answerCount}}人抢答，抢答者平分赏金。</div>
+            </div>
+            <div class="rob_status_box" v-if="detail.questionStatus==1">
+                <div>已解答</div>
+                <div>共有{{detail.answerCount}}人抢答，{{bestAnswer.expertNickName}}的回答被选为最佳回答。。</div>
             </div>
             <ul class="rob_lists">
-                <li>
+                <li v-for="item in detail.answers">
                     <div class="rob_box_top">
-                        <img src="../../../images/34.jpg" alt="">
-                        <div>陈小刚</div>
+                        <img :src="item.expertFaceUrl" alt="">
+                        <div>{{item.expertNickName}}</div>
                     </div>
                     <div class="rob_answer">
                         <img class="answer_line" src="../../../images/nocharge.png" alt="">
                         <img class="answer_play" src="../../../images/sond.png" />
                         <div class="paly_html">点击播放</div>
-                        <span>60”</span>
+                        <span>{{item.voiceLength}}”</span>
                         <!--选择最佳答案选框-->
-                        <div v-if="false" :class='[{best_answer_true:isactive},{best_answer:true}]'></div>
+                        <div v-if="detail.bestAnswerId==0&&detail.questionStatus==0" @click="selectBestAnswerId(item)" class="best_answer" :class='[{best_answer_true:selBestAnswerId==item.answerId}]'></div>
                         <!--最佳确定-->
-                        <div class="best_getMoney">
-                            <div>￥13.14</div>
+                        <div class="best_getMoney" v-if="detail.bestAnswerId!=0&&detail.questionStatus!=0&&detail.bestAnswerId==item.answerId" >
+                            <div>￥{{detail.price}}</div>
                             <img src="../../../images/asker/getmoney.png" alt="">
                         </div>
                         <!--未选择最佳平分赏金-->
-                        <div class="deuce_money_box" v-if="false">
-                            ￥5.00
+                        <div class="deuce_money_box" v-if="detail.bestAnswerId==0&&detail.questionStatus==2">
+                            ￥{{detail.price/detail.answerCount}}
                         </div>
                     </div>
                     <div class="problem_answer_bottom rob_answer_bottom">
-                        <div class="problem_answer_time">1小时前</div>
+                        <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                         <div class="problem_answer_zan">
-                            <div><span>听过</span><span>48</span></div>
-                            <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
+                            <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
+                            <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
+        <div class="submit_best_answer" v-if="selBestAnswerId!=0">
+            已选择最佳答案，确定加入偷偷听分成
+            <div class="submit_btn" @click="setBestAnswerId()">完成快问</div>
+        </div>
         <!--弹出层-->
-        <div class="weui-mask" v-if="changeFlg">
-            <div class="problem_dialog" v-if="problem_dialogFlag">
-                <div class="problem_dialog_bd">确定不选择中<span>陈小刚</span>了？</div>
-                <div class="problem_dialog_fd">
-                    <div @click="best_qx()">取消</div>
-                    <div @click="best_confirm()">确定</div>
-                </div>
-            </div>
-            <div class="best_dialog" v-if="best_dialogFlag">
+        <div class="success_set_best_answer_dialog" style="display: none;" >
+            <div class="best_dialog">
                 <div class="best_dialog_header">
                     <img src="../../../images/asker/bestan.png" alt="">
-                    <div>陈小刚</div>
+                    <div v-if="selBestAnswer">{{selBestAnswer.expertNickName}}</div>
                 </div>
                 <div class="best_dialog_html">被选为最佳回答并获得奖金。并且与Ta一起参与偷听分成哦</div>
-                <div class="best_dialog_fb" @click="hide_dialog()">知道了</div>
+                <div class="best_dialog_fb" >知道了</div>
             </div>
         </div>
     </div>
@@ -84,29 +85,72 @@
     export default {
         data() {
             return {
-                problem_assess_flag:true,
-                isactive:false,
-                changeFlg:false,
-                problem_dialogFlag:false,
-                best_dialogFlag:false
+
+                detail:{},
+                selBestAnswerId:0,
+                selBestAnswer:null,
+                bestAnswer:{}
+
+
             }
         },
         mounted: function () {
-            let _this = this
-            $('.best_answer').click(function () {
-                _this.isactive = ! _this.isactive
-                _this.changeFlg = true;
-                if(_this.isactive==false){
-                   _this.problem_dialogFlag = true
-                    _this.best_dialogFlag = false
-                }
-                if(_this.isactive==true){
-                    _this.best_dialogFlag = true
-                    _this.problem_dialogFlag = false
-                }
-            })
+
+            this.id= parseInt(this.$route.query.id);
+            this.getDetail();
+
         },
         methods: {
+            setBestAnswerId:function () {
+                //post /api/v1/come/user/set/question/best/answer
+
+                this.$http.post(web.API_PATH + "come/user/set/question/best/answer", {userId:"_userId_",answerId:this.selBestAnswerId, questionId: this.id})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                             xqzs.weui.dialogCustom($(".success_set_best_answer_dialog").html());
+                             $(".best_dialog_fb").click(function () {
+                                 xqzs.weui.dialogClose();
+                                 window.location.href=window.location.href
+                             })
+                             
+                        }
+                    });
+            },
+            selectBestAnswerId:function (answer) {
+                let _this=this;
+                if( this.selBestAnswerId==answer.answerId){
+                    xqzs.weui.dialog("","确定不选择中" + answer.expertNickName+"了？",function () {
+                    },function () {
+                        _this.selBestAnswerId=0;
+                    })
+                }
+                this.selBestAnswer=answer;
+                this.selBestAnswerId=answer.answerId;
+            },
+            formatDateText:function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
+            formatTimeLastText:function (time) {
+                return xqzs.dateTime.getTimeFormatLastText(time)
+            },
+            getDetail:function () {
+                let _this= this;
+                _this.$http.get(web.API_PATH + 'come/user/query/question/_userId_/'+this.id ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        console.log(data.body.data.data)
+                        _this.detail= data.body.data.data;
+                        for(let i=0;i<_this.detail.answers.length;i++){
+                            if(_this.detail.answers[i].isBestAnswer){
+                                _this.bestAnswer=_this.detail.answers[i];
+                            }
+                        }
+                    }
+                }, function (error) {
+                });
+
+            },
+
+
             best_qx:function () {
                 this.changeFlg = false;
                 this.isactive=true;
@@ -124,6 +168,9 @@
     }
 </script>
 <style>
+    .submit_best_answer{ background: #666666; height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:#fff; padding: 0 0.5rem; font-size: 0.8235294117647059rem; position: fixed; bottom:0;left:0; width: 100%}
+    .submit_btn { position: fixed;right:0; bottom:0; height: 2.588235294117647rem;; background: #09bb07; text-align: center; width: 6rem;}
+    .submit_btn:active{ background: #089407;}
     .rob_problem{
         background: #fff;
     }
@@ -192,7 +239,7 @@
         color: #999;
         font-size: 0.8235rem;
     }
-    
+
     .rob_answer_bottom{
         padding: 0;
         padding-left: 2.588235rem;
@@ -273,6 +320,7 @@
         color: #666;
         font-size: 0.76471rem;
         border-radius: 5px;
+        z-index: 10001;
     }
     .best_dialog_header{
         position: relative;

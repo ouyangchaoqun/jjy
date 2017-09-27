@@ -21,7 +21,7 @@ let routers =
                 require('./routes/asker/listen_detail'),
                 require('./routes/asker/my/ask_list'),
                 require('./routes/asker/my/ask_detail'),
-                require('./routes/asker/my_problem/rob_problem'),
+                require('./routes/asker/my/ask_race_detail'),
                 require('./routes/answer/race_list'),
                 require('./routes/answer/answer'),
                 require('./routes/answer/detail'),
