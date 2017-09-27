@@ -111,8 +111,6 @@
                         vm.list = [];
                         return;
                     }
-
-
                     let arr = response.data.data;
 //
                     if (arr.length < vm.row) {

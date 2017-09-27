@@ -202,7 +202,6 @@
         left: 0;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        background: #f5f5f5;
 
     }
 

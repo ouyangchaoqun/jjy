@@ -2,21 +2,23 @@
     <div style="height: 100%" class="asker_my_coment_list wbg">
 
         <div v-title>我的评价</div>
-        <div class="nothing comment" v-if="false"  >
+        <div class="nothing comment" v-if="list.length==0">
             您还没有做任何评价
         </div>
-        <div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="0"
+                  :isShowMoreText="isShowMoreText"  v-if="list.length>0">
             <div class="top_tip">共2条评价</div>
             <div class="list">
-                <div class="item" v-for="item in [1,3,3,3,4,5,6]">
+                <div class="item" v-for="item in list">
                     <div class="comment">
                         <div class="img"><img  src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0"></div>
                         <div class="info">
-                            <div class="times">2017-09-11 14:20&nbsp; &nbsp;评价了<span>陈小刚</span>的回答</div>
-                            <div class="star"><span class="on"></span><span  class="on"></span><span></span><span></span><span></span></div>
+                            <div class="times">{{formatTime(item.addTime)}}&nbsp; &nbsp;评价了<span>陈小刚</span>的回答</div>
+                            <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span></div>
                             <div class="content">
-                                老师很负责，很用心，赞一个
-                                很专业，态度很好
+                              {{item.content}}
                             </div>
                             <div class="tags">
                                 <span>很专业</span>
@@ -27,8 +29,8 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="reply">
-                        <span>专家回复：</span>感谢信任，祝福你活出自己想要的经常～
+                    <div class="reply" v-if="item&&item.replyContent!=undefined&&item.replyContent!=''">
+                        <span>专家回复：</span>{{item.replyContent}}
                     </div>
                     <div class="question">
                         <div class="content">女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这
@@ -46,23 +48,96 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </v-scroll>
     </div>
 </template>
 
 <script type="es6">
 
 
-
+    import showLoad from '../../include/showLoad.vue';
+    import scroll from '../../include/scroll.vue';
+    import Bus from '../../../js/bus.js';
     export default {
         data() {
-            return {}
+            return {
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,
+                list:[]
+            }
+        },
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
         },
 
-
         mounted: function () {
+            this.getList();
+
+        },
+        methods:{
+            formatTime:function (time) {
+                return xqzs.dateTime.formatDateTime(time)
+            },
+
+            getList: function () {
+
+                let vm= this;
+                let url =web.API_PATH + 'come/user/query/comment/page/_userId_/'+vm.page+'/'+vm.row;
+
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
 
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
 
 

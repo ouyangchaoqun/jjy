@@ -300,6 +300,7 @@ var xqzs = {
         DATE_TIME: "date_time",
         TIME: "time",
         DATE_PATH: "date_path",
+        DATE:"date",
         _format: function (type, time) {
             time = time * 1000;
             var now = new Date(time);
@@ -320,10 +321,15 @@ var xqzs = {
                 return hour + ":" + minute;
             } else if (type === this.DATE_PATH) {
                 return year + "/" + month + "/" + date
+            } else if (type === this.DATE) {
+                return year + "-" + month + "-" + date
             }
         },
         formatTime: function (time) {
             return this._format(this.TIME, time);
+        },
+        formatDate: function (time) {
+            return this._format(this.DATE, time);
         },
         formatDateTime: function (time) {
             return this._format(this.DATE_TIME, time);
@@ -456,356 +462,7 @@ var xqzs = {
         img.css(imgcss);
     },
 
-    mood: {
-        canEditTime: 20 * 60,//可以编辑的时间限制
-        canRevokeTime: 3 * 60,//可以撤回时间
-        moodValueText: ["", "超级不开心",//1
-            "很不开心",//2
-            "不开心",//3
-            "心情郁闷",//4
-            "心情一般",//5
-            "小开心",//6
-            "心情开心",//7
-            "很开心",//8
-            "超级开心",//9
-            "超级开心"//10
-        ],
-        moodScenes: [
-            '', '学习教育', '工作事业', '生活娱乐', '健康运动', '小孩家庭', '感情感悟', '经济收支', '人际社交', '天气及其他', '', '', '综合'
-        ],
-        moodScenesList: [
-            /* {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
-             {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
-             {value: 3, src: 'economics.png', haspic: true, text: '经济'},
-             {value: 4, src: 'healthy.png', haspic: true, text: '健康'},
-             {value: 5, src: 'home.png', haspic: true, text: '家庭'},
-             {value: 6, src: 'love.png', haspic: true, text: '恋爱婚姻'},
-             {value: 7, src: 'arder.png', haspic: true, text: '娱乐休闲'},
-             {value: 8, src: 'interpersonal.png', haspic: true, text: '人际关系'},
-             {value: 9, src: 'weather.png', haspic: true, text: '天气'},
-             {value: 10, src: 'life.png', haspic: true, text: '生活'},
-             {value: 11, src: 'sport.png', haspic: true, text: '运动'},
-             {value: 12, src: 'other.png', haspic: true, text: '其他'}*/
-            {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
-            {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
-            {value: 3, src: 'arder.png', haspic: true, text: '生活娱乐'},
-            {value: 4, src: 'healthy.png', haspic: true, text: '健康运动'},
-            {value: 5, src: 'home.png', haspic: true, text: '小孩家庭'},
-            {value: 6, src: 'love.png', haspic: true, text: '感情感悟'},
-            {value: 7, src: 'economics.png', haspic: true, text: '收入消费'},
-            {value: 8, src: 'interpersonal.png', haspic: true, text: '人际社交'},
-            {value: 9, src: 'other.png', haspic: true, text: '天气及其他'},
-            {value: 12, src: 'mooddata10.png', haspic: true, text: '综合', hide: true}
-        ],
-        /**
-         * 是否可以编辑
-         * @param mood
-         * @returns {boolean}
-         */
-        canEdit: function (mood) {
-            var currTime = xqzs.dateTime.getTimeStamp();
-            return currTime - mood.addTime <= this.canEditTime && (mood.content == '' || mood.content == null) && mood.haspicture != 1;
-        },
-        canClear: function (mood) {
-            return (mood.content != '' && mood.content != null) || mood.haspicture == 1;
-        },
-        canRevoke: function (mood) {
-            var currTime = xqzs.dateTime.getTimeStamp();
-            return currTime - mood.addTime <= this.canRevokeTime && !this.canClear(mood);
-        },
-        getTopImg: function () {
-            return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
-        },
-        getCjImg: function (scenesid) {
-            for (var i = 0, l = this.moodScenesList.length; i < l; i++) {
-                if (this.moodScenesList[i].value == scenesid) {
-                    return {
-                        src: web.IMG_PATH + this.moodScenesList[i].src,
-                        text: this.moodScenesList[i].text
-                    };
-                }
-            }
-            return {
-                src: '',
-                text: ''
-            }
-        },
-        setMoodValueStyle: function (mood) {
-            mood.moodValueStyle = mood.moodValue < 5 ? 'unhappy_txt_color' : 'happy_txt_color';
-        },
-        formatContent: function (item) {
-            console.log(item.scense);
-            var before = "[ 在" + item.scense.text + "方面 ]";
-            var before2 = "在" + item.scense.text + "方面：";
-            if (item.content != '' && item.content != null && item.content != undefined) {
-                return before2 + xqzs.face.parse(item.content);
-            } else {
-                return before;
-            }
-        },
-        clickMoodAd: function (id) {
-            $.ajax({
-                url: web.API_PATH + 'mood/ad/click/add/' + id,
-                type: 'PUT',
-                success: function () {
-                }
-            });
-        },
-        initSleepText: function (item) {
-            if (item.type == 2) {
-                // item.typeFaceUrl=web.IMG_PATH+"face_day.png";
-                item.moodValueText = '早安打卡';
-                item.typeFaceColor = "color:#5e61a2";
-            } else if (item.type == 3) {
-                // item.typeFaceUrl=web.IMG_PATH+"face_night.png";
-                item.moodValueText = '晚安打卡';
-                item.typeFaceColor = "color:#5e61a2";
-            }
 
-        },
-        initMoodAdItemData: function (item) {
-            if (item.id > 0) {
-                return;
-            }
-            var moodadid = item.id;
-            if (moodadid < 0) {
-                moodadid = 0 - moodadid;
-            }
-            item.moodValueText = '微心情札记';
-            var gourl = item.adlink;
-            item.address = '<a class="showOthercom adlink" onclick="xqzs.mood.clickMoodAd(\'' + moodadid + '\')" href="' + gourl + '">阅读原文 <span class="link"></span> </a>';
-        },
-        initMoodsData: function (data, timeType, userId) {
-            for (var i = 0; i < data.length; i++) {
-                data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
-                if (!timeType)
-                    data[i].formatAddTime = xqzs.dateTime.formatTime(data[i].addTime);
-                data[i].link = "friendCenter/" + data[i].userId;
-                data[i].hide = false;
-                data[i].moodValueText = this.moodValueText[data[i].moodValue];
-                this.setMoodValueStyle(data[i]);
-                if (data[i].haspicture) {
-                    if (data[i].pics !== undefined) {
-                        for (var j = 0; j < data[i].pics.length; j++) {
-                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
-                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
-
-                        }
-                    }
-
-                }
-
-
-                data[i].showAll = false;
-                data[i].showordown = "查看更多";
-
-
-                data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
-
-
-                data[i].hide = false;
-
-                data[i].scense = xqzs.mood.getCjImg(data[i].scenesId);
-
-                //随机头像
-                if (data[i].faceIndex !== null)
-                    data[i].randomFaceUrl = web.IMG_PATH + "anonymous_face/" + data[i].faceIndex + ".jpg";
-
-                //心抱抱逻辑
-                if (data[i].caremy !== undefined) {
-                    data[i].isCare = null;
-                    if (data[i].caremy !== null && data[i].caremy !== undefined && data[i].caremy !== "") {
-                        data[i].isCare = true;
-                    }
-                }
-
-
-                if (data[i].isCare !== undefined && parseInt(userId) !== parseInt(data[i].userId)) {
-                    if ((data[i].moodValue >= 5 || data[i].moodValue == 0) && data[i].isCare === null) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
-                    } else if (data[i].moodValue < 5 && data[i].isCare === null) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if ((data[i].moodValue >= 5 || data[i].moodValue == 0 ) && data[i].isCare !== null) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
-                    } else if (data[i].moodValue < 5 && data[i].isCare !== null) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
-                    }
-                } else {
-
-                    if ((data[i].moodValue >= 5 || data[i].moodValue == 0 ) && data[i].careCount == 0) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
-                    } else if (data[i].moodValue < 5 && data[i].careCount == 0) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if ((data[i].moodValue >= 5 || data[i].moodValue == 0 ) && data[i].careCount != 0) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
-                    } else if (data[i].moodValue < 5 && data[i].careCount != 0) {
-                        data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
-                    }
-                }
-
-                //评论emoji
-                if (data[i].replies && data[i].replies.length > 0) {
-                    for (var ri = 0, rl = data[i].replies.length; ri < rl; ri++) {
-                        data[i].replies[ri].content = xqzs.face.parseEmoji(data[i].replies[ri].content);
-                    }
-                }
-                this.initMoodAdItemData(data[i]);
-                this.initSleepText(data[i]);
-
-            }
-            return data;
-        },
-        textareaAutoOldHeight: 20,
-        textareaAutoBaseH: 20,
-        textareaHeight: [],
-        textareaAutoHeight: function () {
-            var textareaScrollHeight = document.getElementById("textarea").scrollHeight;
-
-            if (xqzs.mood.textareaAutoOldHeight < textareaScrollHeight) {
-                xqzs.mood.textareaHeight.push({
-                    length: $("#textarea").val().length - 1,
-                    height: textareaScrollHeight - 28
-                });
-            }
-            console.log(xqzs.mood.textareaHeight)
-            var isset = false;
-            for (var i = 0; i < xqzs.mood.textareaHeight.length; i++) {
-                if ($("#textarea").val().length == xqzs.mood.textareaHeight[i].length) {
-
-                    //处理到达高度
-                    isset = true;
-                    $("#textarea").height(xqzs.mood.textareaHeight[i].height);
-                    console.log("set");
-                    //清除 数组
-                    xqzs.mood.textareaHeight.splice(i, 1)
-
-
-                }
-            }
-
-
-            if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
-            xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
-        },
-        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
-            if(!maxLength){
-                maxLength=1000;
-            }
-            //判断是否已经存在输入框
-            if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
-                return;
-            }
-            xqzs.mood.textareaAutoOldHeight = xqzs.mood.textareaAutoBaseH;
-            xqzs.mood.textareaHeight = [];
-
-            var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
-            html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
-            html += ' <div class="comment_box">';
-            html += '  <span class="release">' + sendText + '</span>';
-            html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
-            html += '  </div>';
-            html += '  </div>';
-
-            $("body").append(html);
-
-            var interval ;
-            //解决第三方软键盘唤起时底部input输入框被遮挡问题
-            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
-            $(".comment_text").focus(function () {
-                interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
-                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                }, 180)
-            }).blur(function () {//设定输入框失去焦点时的事件
-                clearTimeout(interval);//清除计时器
-                document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
-            });
-
-
-            $(".comment_text").focus().keyup(function () {
-                var val = $(this).val();
-                if (val.length > 0) {
-                    $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
-                    $(".comment_p").css('display', 'none')
-                } else {
-                    $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
-                    $(".comment_p").css('display', 'block');
-                }
-            });
-
-
-            setTimeout(function () {
-                $(".comment_box").removeClass('subactive').addClass("addactive");
-            }, 10);
-
-
-            $(".action-sheet-edit .cancel").click(function () {
-                xqzs.weui.weuiMaskClose();
-                $(".comment_box").removeClass('addactive').addClass("subactive");
-                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
-                    $(".action-sheet-edit").remove();
-                    cancelFun();
-                });
-            });
-            $(".comment_box .release").click(function () {
-                var v = $(".comment_text").val();
-                if (v !== "") {
-                    doFun(v);
-                }
-                xqzs.weui.weuiMaskClose();
-
-                $(".comment_box").removeClass('addactive').addClass("subactive");
-                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
-                    $(".action-sheet-edit").remove();
-                });
-
-            })
-
-
-        },
-        removeTempPicture: function (dom, $uploadpicinfo) {
-            if (dom.length == 0) {
-                return;
-            }
-            var id = dom.find('input[name=moodpicture]').val();
-            dom.remove();
-            if (id) {
-                $.ajax({
-                    url: $uploadpicinfo.removepicurl,
-                    type: 'POST',
-                    data: {token: $uploadpicinfo.token, id: id},
-                    dataType: 'JSON',
-                    success: function (json) {
-                    }
-                });
-            }
-        },
-        wxface: function (faceurl) {
-            if (faceurl && faceurl != null && faceurl != '') {
-                return faceurl.replace(/\/0$/i, '/132');
-            }
-            return faceurl;
-        }
-    },
-    friendmood: {
-        lastkey: 'friendlastmoodid',
-        getlast: function () {
-            return xqzs.localdb.get(this.lastkey) || '';
-        },
-        setlast: function (moodid) {
-            var last = this.getlast();
-            var tosave = true;
-            if (last != '' && /\d+/.test(last)) {
-                last = parseFloat(last);
-                if (last >= moodid) {
-                    tosave = false;
-                }
-            }
-            if (tosave) {
-                xqzs.localdb.set(this.lastkey, moodid);
-            }
-        }
-
-    },
     wx: {
         takePhotos: function (sourceType, maxCount, $uploadpicinfo, $alioss, beforeUploadFun, finishUploadFun, errorFun) { //拍照
 
@@ -991,7 +648,24 @@ var xqzs = {
         f = Math.round(x * 100) / 100;
         return f;
     },
-    string: {
+    toDecimal2: function (x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return false;
+        }
+        var f = Math.round(x * 100) / 100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        return s;
+    },
+string: {
         //封装验证手机号码
         checkUserPhoneReg: function () {
             var regExpP = /^1[34578]\d{9}$/; //手机号

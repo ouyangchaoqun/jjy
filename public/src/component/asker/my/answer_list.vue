@@ -2,51 +2,133 @@
     <div style="height: 100%" class="asker_my_answer_list_box wbg">
 
         <div v-title>我的收听</div>
-        <div class="nothing answer" v-if="false" >
+        <div class="nothing answer" v-if="list.length==0" >
             没有任何收听
         </div>
-        <div>
-            <div class="top_tip">共2位咨询师</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="0"
+                  :isShowMoreText="isShowMoreText"  v-if="list.length>0">
+
+
+            <div class="top_tip">共{{total}}位咨询师</div>
             <div class="answer_list" >
-                <div class="item arrow" v-for="item in [1,2,3,4,5]">
-                    <router-link to="/answer/detail">
+                <div class="item arrow" v-for="item in list">
+                    <a @click="goDetail(item.expertId)">
                     <div class="img"><img
-                            src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
+                            :src="item.faceUrl">
                     </div>
                     <div class="info">
-                        <div class="address"><span>陈小刚</span> 浙江省-杭州</div>
-                        <div class="title">帮你解决婚姻，情感中的困扰</div>
+                        <div class="address"><span>{{item.nickName}}</span> {{item.provinceName}}-{{item.cityName}}</div>
+                        <div class="title">{{item.sign}}</div>
                         <div class="class_s">
-                            <span>情感困惑</span>
-                            <span>性心理</span>
-                            <span>情感困惑</span>
+                            <span v-for="tag in item.domains">{{tag.title}}</span>
+
                             <div class="clear"></div>
                         </div>
-                            <div class="other">48个回答，135人收听</div>
+                            <div class="other">{{item.answerCount}}个回答，{{item.listenCount}}人收听</div>
 
                     </div>
                     <div class="clear"></div>
-                    </router-link>
+                    </a>
                 </div>
 
             </div>
-        </div>
+        </v-scroll>
     </div>
 </template>
 
 <script type="es6">
 
-
+    import showLoad from '../../include/showLoad.vue';
+    import scroll from '../../include/scroll.vue';
+    import Bus from '../../../js/bus.js';
 
     export default {
         data() {
-            return {}
+            return {
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,
+                list:[],
+                total:0
+            }
+        },
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
         },
 
 
         mounted: function () {
+            this.getList();
 
+        },
+        methods:{
+            formatTime:function (time) {
+                return xqzs.dateTime.formatDateTime(time)
+            },
+            goDetail:function (id) {
+                this.$router.push("/answer/detail?id="+id)
+            },
+            getList: function () {
 
+                let vm= this;
+                let url =web.API_PATH + 'come/user/query/follow/page/_userId_/'+vm.page+'/'+vm.row;
+
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        vm.total=0
+                        return;
+                    }
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+                    vm.total=response.data.data.total
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
 
 

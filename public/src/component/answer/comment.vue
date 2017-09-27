@@ -1,54 +1,155 @@
 <template >
     <div style="height: 100%" class="answer_comment_box">
         <div v-title>咨询师点评</div>
-        <div class="nums">
-            <div class="title">
-                <div class="txt">总体印象</div>
-                <div class="star"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
-            </div>
-            <div class="comment">4.5</div>
-        </div>
-        <div class="comment_selects">
-            <span class="first">全部 1205</span><span>和蔼可亲 124</span><span>和蔼可 225</span><span>和蔼可亲 23</span><span>和蔼可亲 321</span><span>和蔼可亲 33</span><span>和蔼可亲 212</span><span>和蔼可 23</span>
-            <div class="clear"></div>
-        </div>
-        <div class="list_top">
-            <span class="img"></span><span>只看评价内容</span>
-        </div>
-        <div class="list">
-            <div class="item" v-for="item in [1,2,3,4]">
-                <div class="img"><img
-                        src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
-                </div>
-                <div class="info">
-                    <div class="name">陈**</div>
-                    <div class="star"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
-                    <div class="word">帮你解决婚姻，情感中的困扰</div>
-                    <div class="class_s">
-                        <span>情感困惑</span>
-                        <span>性心理</span>
-                        <span>情感困惑</span>
-                        <div class="clear"></div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="0"
+                  :isShowMoreText="isShowMoreText">
+            <div class="nums">
+                <div class="title">
+                    <div class="txt">总体印象</div>
+                    <div class="star"><span class="on" v-for="i in point"></span><span v-for="i in 5-point"></span>
                     </div>
-                    <div class="time">2017-09-11</div>
-                    <div class="reply"><span>专家回复：</span>感谢信任，祝福你活出自要的经常～</div>
                 </div>
+                <div class="comment">{{point}}</div>
+            </div>
+            <div class="comment_selects">
+                <span class="first">全部 {{commentCount}}</span><span
+                    v-for="item in tags">{{item.title}} {{item.count}}</span>
                 <div class="clear"></div>
             </div>
+            <div class="list_top">
+                <span class="img"></span><span>只看评价内容</span>
+            </div>
+            <div class="list">
+                <div class="item" v-for="item in list">
+                    <div class="img"><img
+                            :src="item.faceUrl">
+                    </div>
+                    <div class="info">
+                        <div class="name">{{item.nickName}}</div> <!--该名字-->
+                        <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span>
+                        </div>
+                        <div class="word">{{item.content}}
+                        </div>
+                        <div class="class_s">
+                            <span v-for="tag in item.tag">{{tag.title}}</span>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="time">{{formatTime(item.addTime)}}</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
 
             </div>
-
-        </div>
+        </v-scroll>
     </div>
+
 </template>
 
 <script type="es6">
+    import showLoad from '../include/showLoad.vue';
+    import scroll from '../include/scroll.vue';
+    import Bus from '../../js/bus.js';
+
     export default {
         data() {
-            return {}
+            return {
+                expertId:0,
+                tags:[],
+                point:5,
+                commentCount:0,
+                viewType:0,
+                page: 1,
+                row: 3 ,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,
+                list:[]
+            }
+        }, components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
         },
         mounted: function () {
+            this.expertId = this.$route.query.expertId;
+            this.getTags();
+            this.getList();
+        },
+        methods: {
+            formatTime:function (time) {
+                return xqzs.dateTime.formatDate(time);
+            },
+            getTags:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH + 'come/expert/get/tag/'+this.expertId ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.tags= data.body.data.tag;
+                        _this.point=data.body.data.point;
+                        for(let i=0;i<_this.tags.length;i++){
+                            _this.commentCount += _this.tags[i].count;
+                        }
 
+                    }
+                }, function (error) {
+                });
+            },
+            getList: function () {
+
+                let vm= this;
+                let url =web.API_PATH + 'come/expert/get/evaluate/'+this.expertId+"/"+vm.viewType+'/'+vm.page+'/'+vm.row;
+
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
     }
 </script>

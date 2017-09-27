@@ -2,13 +2,13 @@
     <div style="height: 100%" class="asker_my_income_box wbg">
 
         <div v-title>我的收益</div>
-        <div class="nothing income" v-if="false">
+        <div class="nothing income" v-if="income==0">
             没有收益明细
         </div>
-        <div class="my_income">
+        <div class="my_income"  v-if="income>0">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
-            <div class="money">￥50.00</div>
+            <div class="money">￥{{income}}</div>
             <div class="get_money">提现</div>
             <div class="income_list" @click="incomeList()"><span>收益明细</span></div>
         </div>
@@ -22,15 +22,28 @@
 
     export default {
         data() {
-            return {}
+            return {
+                income:0
+            }
         },
 
 
         mounted: function () {
-
+            this.getIncome()
 
         },
         methods:{
+            getIncome:function () {
+
+                let _this= this;
+                _this.$http.get(web.API_PATH + 'come/user/query/income/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.income= data.body.data.inCome
+                    }
+                }, function (error) {
+                });
+
+            },
             incomeList:function () {
                 this.$router.push("./income/list")
             }

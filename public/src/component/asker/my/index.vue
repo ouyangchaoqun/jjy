@@ -12,7 +12,7 @@
 
             </div>
             <router-link to = "../my/income"  class="income"  >我的收益
-                <div class="price">￥7.5</div>
+                <div class="price">￥{{income}}</div>
             </router-link>
             <router-link to = "../my/listen/list" class="listen" >我的偷听</router-link>
             <router-link to = "../my/answer/list" class="answer" >我的收听</router-link>
@@ -30,20 +30,35 @@
 
     export default {
         data() {
-            return {}
+            return {
+                income:0
+            }
         },
         components: {
             "v-asker-bottom": askerBottom
         },
-        methods:{
-          join:function () {
-              this.$router.push("/answer/join/base/info");
-          }
+        methods: {
+            join: function () {
+                this.$router.push("/answer/join/base/info");
+            },
+            getIncome:function () {
+
+                let _this= this;
+                _this.$http.get(web.API_PATH + 'come/user/query/income/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.income= data.body.data.inCome
+                    }
+                }, function (error) {
+                });
+
+            }
+
         },
         mounted: function () {
-            $(".weui-tab__panel").height($(window).height()-100);
-            var obj =  $(".asker_my_index_box .main a")
+            $(".weui-tab__panel").height($(window).height() - 100);
+            var obj = $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);
+            this.getIncome();
 
         }
 

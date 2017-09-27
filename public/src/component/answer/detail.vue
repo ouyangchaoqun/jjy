@@ -3,7 +3,10 @@
 
 
         <div v-title>专家详情</div>
-            <div class="weui-tab__panel">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
             <div class="answer_info">
                 <div class="answer_banner">
                     <div class="answer_face"><img :src="detail.faceUrl"></div>
@@ -58,22 +61,20 @@
                 <div class="btn_sq">收起</div>
             </div>
             <div class="answer_comments">
-                <div class="answer_title">最新评价(311)</div>
+                <div class="answer_title">最新评价({{detail.evaluateCount}})</div>
                 <div class="list">
-                    <div class="item" >
+                    <div class="item" v-for="item in commentList">
                         <div class="img"><img
-                                src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
+                                :src="item.faceUrl">
                         </div>
                         <div class="info">
-                            <div class="name">陈**</div>
-                            <div class="star"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
-                            <div class="word">老师很负责，很用心，赞一个
-                                很专业，态度很好
+                            <div class="name">{{item.nickName}}</div> <!--该名字-->
+                            <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span>
+                            </div>
+                            <div class="word">{{item.content}}
                             </div>
                             <div class="class_s">
-                                <span>情感困惑</span>
-                                <span>性心理</span>
-                                <span>情感困惑</span>
+                                <span v-for="tag in item.tag">{{tag.title}}</span>
                                 <div class="clear"></div>
                             </div>
                             <div class="time">2017-09-11</div>
@@ -85,36 +86,38 @@
                 <div class="btn_sq" @click="moreComment()">查看更多评价</div>
             </div>
             <div class="ask_answer">
-                <div class="answer_title">问答(31) <div class="new">最新<span class="sj"></span></div></div>
+                <div class="answer_title">问答({{detail.answerCount}})
+                    <div class="new" @click="answerTypeChange()">{{answerTypeTxt}}<span class="sj"></span></div>
+                </div>
+
                 <div class="list">
-                    <div class="item" style="margin-bottom: 0.88rem;padding-bottom: 1.23rem" v-for="item in [1,2]" >
+                    <div class="item" style="margin-bottom: 0.88rem;padding-bottom: 1.23rem"
+                         v-for="item in answerList">
                         <div class="question">
-                            <div class="img"><img src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
+                            <div class="img"><img :src="item.faceUrl">
                             </div>
                             <div class="info">
                                 <div class="word">
-                                    陈老师，六年的感情真的败给时间，六年的感情
-                                    真的败给时间，六年的感情真的败给时间，六年
-                                    的感情真的败给时间，六年的感情给时间，六...
+                                    {{item.content}}
                                 </div>
-                                <div class="price">￥19.9</div>
+                                <div class="price">￥{{item.price}}</div>
                             </div>
                             <div class="clear"></div>
                         </div>
                         <div class="answer">
-                            <div class="img"><img src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg">
+                            <div class="img"><img :src="item.expertUrl">
                             </div>
                             <div class="info">
-                                    <div class="reply">
+                                <div class="reply" v-if="item.needPay">
                                     <div class="audio_btn">
                                         一元偷听
                                     </div>
                                     <span class="minute">58"</span>
-                                       </div>
+                                </div>
                                 <div class="status">
                                     <div class="ask_time">刚刚</div>
-                                    <div class="ask_status">听过 148
-                                       <div class="icon2"><span>48</span></div>
+                                    <div class="ask_status">听过 {{item.listenTimes}}
+                                        <div class="icon2"><span>{{item.likeTimes}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -122,44 +125,156 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
             </div>
 
-            <div class="ask_bottom">
-                <div class="listen">
-                    <div class="icon1">
+        </v-scroll>
+        <div class="ask_bottom">
+            <div class="listen"  @click="follow()">
+                <div class="icon1">
                     <span>收听</span>
-                    </div>
                 </div>
-                <div class="pay_ask" @click="ask()">￥19.99提问</div>
             </div>
+            <div class="pay_ask" @click="ask()">￥19.99提问</div>
+        </div>
         </div>
 
 </template>
 
 <script type="es6">
 
-
+    import showLoad from '../include/showLoad.vue';
+    import scroll from '../include/scroll.vue';
+    import Bus from '../../js/bus.js';
 
     export default {
         data() {
             return {
                 detail:{},
-                id:0
+                id:0,
+                viewType:0,
+                commentList:[],
+                answerList:[],
+                answerType:1,
+                answerTypeTxt:"最新",
+                page: 1,
+                row: 5  ,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false
             }
         },
-
-
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
+        },
         mounted: function () {
-            this.id= this.$route.query.id;
-this.getDetail();
+            this.id = this.$route.query.id;
+            this.getDetail();
+            this.getComment();
+            this.getAnswer();
         },
         methods:{
+            follow:function () {
+                let that=this;
+                that.$http.put(web.API_PATH + "come/expert/follow/expert/"+this.id+"/_userId_", {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            xqzs.weui.toast("success","收听成功",function () {
+
+                            })
+                        }else if(bt.data.status ==900004){
+                            xqzs.weui.toast("success","已经收听",function () {
+                                
+                            })
+                        }else if(bt.data.status ==9000003){
+                            xqzs.weui.toast("fail","不能收听自己",function () {
+
+                            })
+                        }else {
+                            xqzs.weui.toast("fail","收听失败",function () {
+
+                            })
+                        }
+                    });
+            },
+            answerTypeChange:function () {
+                let _this=this;
+                let　answerTypes=[{label:"最新",value:1},{label:"热门",value:2}]
+                weui.picker(answerTypes, {
+                    defaultValue: _this.answerType,
+                    onConfirm: function (result) {
+                        console.log(result);
+                        _this.answerTypeTxt = result[0].label;
+                        _this.answerType = result[0].value;
+                        _this.page=1;
+                        _this.getAnswer();
+
+                    }
+                });
+            },
             moreComment:function () {
-               this.$router.push("comment")
+               this.$router.push("comment?expertId="+this.id );
             },
             ask:function () {
                 this.$router.push("/asker/ask")
+            },
+            getComment:function () {
+                let _this= this;
+                let id=  this.id;
+                _this.$http.get(web.API_PATH + 'come/expert/get/evaluate/'+id+"/"+_this.viewType+'/1/1' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.commentList= data.body.data
+                        console.log(data.body.data)
+                    }
+                }, function (error) {
+                });
+            },
+            onInfinite(done) {
+                this.getAnswer();
+                done() // call done
+            },
+            getAnswer:function () {
+                let _this= this;
+                let id=  this.id;
+
+                if (_this.page == 1) {_this.showLoad=true;}
+                if(   _this.isLoading ){return ;}
+                _this.isLoading = true;
+                _this.$http.get(web.API_PATH + 'come/expert/get/answer/'+id+"/"+_this.answerType+'/'+_this.page+'/'+_this.row+'/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+//                        _this.answerList= data.body.data;
+
+                        _this.showLoad = false;
+                        _this.isLoading = false;
+//                    console.log(response)
+
+                        if( data.body.status!=1&&_this.page==1){
+                            _this.list = [];
+                            return;
+                        }
+                        let arr = data.body.data;
+//
+                        if (arr.length < _this.row) {
+                            _this.isPageEnd = true;
+                            _this.isShowMoreText = false
+                        }
+                        Bus.$emit("scrollMoreTextInit", _this.isShowMoreText);
+
+
+
+                        if (_this.page == 1) {
+                            _this.answerList = arr;
+                        } else {
+                            _this.answerList = _this.answerList.concat(arr);
+                        }
+                        if (arr.length == 0) return;
+                        _this.page = _this.page + 1;
+                    }
+                }, function (error) {
+                    _this.isLoading = false;
+                    _this.showLoad = false;
+                });
             },
             getDetail:function () {
                 let _this= this;
@@ -170,9 +285,6 @@ this.getDetail();
                     }
                 }, function (error) {
                 });
-
-            },
-            follow:function () {
 
             }
         }

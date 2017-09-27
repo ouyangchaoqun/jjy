@@ -2,56 +2,136 @@
     <div style="height: 100%" class="asker_my_listen_list_box wbg">
 
         <div v-title>我的偷听</div>
-        <div class="nothing listen" v-if="false" >
+        <div class="nothing listen" v-if="list.length==0">
             没有任何偷听
         </div>
 
-        <div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="0"
+                  :isShowMoreText="isShowMoreText"  v-if="list.length>0">
+
             <div class="list">
-                <div class="item" v-for="item in [1,23,4,5,6,12,23,1]">
-                    <router-link to="/asker/listen/detail">
-                    <div class="question">
-                        <div class="img"></div>
-                        <div class="title">女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这是不是一种病？
-                        </div>
-                    </div>
-                    <div class="answer">
-                        <div class="img"><img  src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0"></div>
-                        <div class="audio">
-                            <div class="audio_btn">
-                                点击播放
+                <div class="item" v-for="item in list">
+                    <a @click="goDetail(item.questionUserId)">
+                        <div class="question">
+                            <div class="img"></div>
+                            <div class="title">{{item.question}}
                             </div>
-                            <div class="minute">60"</div>
-                            <div class="clear"></div>
                         </div>
-                    </div>
-                    <div class="others">
-                        <div class="time">2017-09-21 10:20</div>
-                        <div class="listen_count">听过 48</div>
-                        <div class="good">45</div>
-                    </div>
-                    </router-link>
+                        <div class="answer">
+                            <div class="img"><img
+                                   :src="item.expertFaceUrl">
+                            </div>
+                            <div class="audio">
+                                <div class="audio_btn">
+                                    点击播放
+                                </div>
+                                <div class="minute">60"</div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="others">
+                            <div class="time">{{formatTime(item.answerTime)}}</div>
+                            <div class="listen_count">听过 {{item.listenTimes}}</div>
+                            <div class="good">{{item.likeTimes}}</div>
+                        </div>
+                    </a>
                 </div>
             </div>
-
-        </div>
-
+        </v-scroll>
     </div>
+
 </template>
 
 <script type="es6">
 
 
-
+    import showLoad from '../../include/showLoad.vue';
+    import scroll from '../../include/scroll.vue';
+    import Bus from '../../../js/bus.js';
     export default {
         data() {
-            return {}
+            return {
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,
+                list:[]
+            }
+        },
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
         },
 
-
         mounted: function () {
+            this.getList();
+
+        },
+        methods:{
+            formatTime:function (time) {
+              return xqzs.dateTime.formatDateTime(time)
+            },
+            goDetail:function (id) {
+              this.$router.push("/asker/listen/detail?id="+id)
+            },
+            getList: function () {
+
+                let vm= this;
+                let url =web.API_PATH + 'come/user/query/listen/page/_userId_/'+vm.page+'/'+vm.row;
+
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
 
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
 
 
