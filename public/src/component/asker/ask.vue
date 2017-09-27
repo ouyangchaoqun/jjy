@@ -8,8 +8,8 @@
             <div class="clear"></div>
         </div>
         <div class="text_area">
-            <textarea v-if="isSelectAnswer" placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
-            <textarea v-if="!isSelectAnswer" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
+            <textarea v-if="isSelectAnswer" class="content" placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
+            <textarea v-if="!isSelectAnswer" class="content" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
             <div class="last_word_count">0/140</div>
             <div class="price" v-if="isSelectAnswer">¥19.9</div>
         </div>
@@ -19,7 +19,7 @@
             <div class="txt">设置赏金：</div>
             <div class="price">10元起</div>
         </div>
-        <div class="submit">提交</div>
+        <div class="submit" @click="submit()">提交</div>
 
 
         <v-asker-bottom ></v-asker-bottom>
@@ -28,7 +28,7 @@
             <div class="dialog_select_type">
                 <div class="title">选择问题类型</div>
                 <div class="types">
-                    <div class="item"   v-for="(item,index) in types"   :index="index"><span>{{item.name}}</span></div>
+                    <div class="item"   v-for="(item,index) in types"   :index="index"><span>{{item.title}}</span></div>
                     <div class="clear"></div>
                 </div>
                 <div class="yes">确定</div>
@@ -82,33 +82,65 @@
     export default {
         data() {
             return {
-                types:[
-                    {name:"情感困惑",isSelect:false},
-                    {name:"性心理",isSelect:false},
-                    {name:"人际关系",isSelect:false},
-                    {name:"职场事业",isSelect:false},
-                    {name:"婚姻家庭",isSelect:false},
-                    {name:"个人成长",isSelect:false},
-                    {name:"心理健康",isSelect:false},
-                    {name:"亲子教育",isSelect:false},
-                    {name:"情感困惑",isSelect:false},
-                ],
+                types:[],
                 showTypes:false,
                 showTip:false,
                 isSelectAnswer: false, //是否针对专家提问
                 type:'',
-                typeSelectIndex:null
+                typeSelectIndex:null,
+                questionClass:0,
+                price:10
             }
         },
         components: {
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-
+            this.getClassList()
         },
         methods: {
+            getClassList:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        console.log(data.body.data)
+                        _this.types= data.body.data
+                    }
+                }, function (error) {
+                });
+            },
+            submit:function () {
+
+                if(this.questionClass==0){
+                    xqzs.weui.tip("请选择类型",function () {
+                        
+                    })
+                    return;
+                }
+                let content= $(".content").val();
+                if(content==''){
+                    xqzs.weui.tip("请选择填写问题内容",function () {
+
+                    });
+
+                    return;
+                }
+
+                this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+
+
+                        }
+                    });
+
+
+
+
+            },
+
             select:function (index) {
-                console.log(index)
+
                 for(let i=0;i<this.types.length;i++){
                     this.types[i].isSelect=false;
                 }
@@ -130,8 +162,6 @@
                 if(_this.typeSelectIndex!=null){
                     $(".js_dialog .types .item").each(function (i) {
 
-                        console.log(i)
-                        console.log(_this.typeSelectIndex)
                         if(i==_this.typeSelectIndex){
                             $(this).addClass("on")
                         }
@@ -147,8 +177,10 @@
                     if(_this.typeSelectIndex==null){
                         xqzs.weui.tip("请选择类型");
                     }else{
+                        _this.type= _this.types[_this.typeSelectIndex].title;
+                        _this.questionClass=_this.types[_this.typeSelectIndex].id;
                         xqzs.weui.dialogClose();
-                        _this.type= _this.types[_this.typeSelectIndex].name;
+
                     }
                 })
             },
