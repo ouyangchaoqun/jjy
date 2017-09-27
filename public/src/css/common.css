@@ -1,10 +1,10 @@
 
-html,body{height: 100%; width: 100%;}
-
+html,body{height: 100%; width: 100%;letter-spacing: 2px;}
 html { /*375*/
     font-family: -apple-system-font, Helvetica Neue, sans-serif;
     font-size: 17px!important;
 }
+
 @media only screen and ( min-width:300px ) and (max-width: 321px) {
     html {
         font-size:13.5px !important
@@ -56,12 +56,12 @@ img[src=""],img:not([src]){opacity:0;}
     user-select:none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-input,textarea{  -webkit-appearance:none;  outline: 0;    resize: none;}
 
 
-.active:active{ background: #ECECEC !important}
-
-
+.active:active{ background: #ccc !important}
+/*input textarea 提示颜色*/
+input,textarea::-webkit-input-placeholder{color:#999;}
+input,textarea{-webkit-appearance:none;outline: 0;resize: none;color:#666}
 .heartUp {
     -webkit-animation: heart 0.1s linear;
     -moz-animation: heart 0.1s linear;
@@ -304,16 +304,16 @@ a{
 
 
 /*专家列表*/
-.answer_list .item{ background: #fff; padding:0.8823529411764706rem; margin-top:0.5882352941176471rem; }
-.answer_list .item .img{ width: 3.764705882352941rem; height: 3.764705882352941rem; float:left; }
+.answer_list .item{ background: #fff; padding:0.8823529411764706rem; margin-top:0.41176471rem; }
+.answer_list .item .img{ width: 3.52941rem; height: 3.52941rem; float:left; }
 .answer_list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
 .answer_list .info{ float:left; margin-left:0.8823529411764706rem;line-height: 1; }
-.answer_list .info .title{ font-size: 0.8823529411764706rem; font-weight: bold; color:#333; margin-bottom: 0.7058823529411765rem;; width: 14.11764705882353rem; ;line-height: 1.5}
-.answer_list .info .address{ font-size: 0.7058823529411765rem; margin-bottom: 0.7058823529411765rem;color:#333; ; }
+.answer_list .info .title{ font-size: 0.8823529411764706rem;color:#333; margin-bottom: 0.7058823529411765rem;; width: 14.11764705882353rem; ;line-height: 1.5}
+.answer_list .info .address{ font-size: 0.76471rem; margin-bottom: 0.7058823529411765rem;color:#333; ; }
 .answer_list .info .address span { display: inline-block; margin-right: 10px; color:#333;    }
 .answer_list .info .class_s { clear: both; margin-top: 0.3rem;}
 .answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#999; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
-.answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#7F8288; margin-top: 0.7058823529411765rem; }
+.answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#999; margin-top: 0.7058823529411765rem; }
 .answer_list .info .other .price{ color:#FF6600}
 .answer_list .info .other .ml{ margin-left:0.8rem; }
  .audio{ margin-top: 0.8rem; margin-bottom: 0.3rem;}
@@ -394,10 +394,10 @@ a{
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-    color: #666;
+    color: #999;
     font-size: 0.7647rem;
     position: relative;
-    margin-bottom: 0.88235rem;
+    margin-bottom: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(1){
     color: #333;
@@ -413,7 +413,7 @@ a{
     color: #333;
     font-size: 0.88235rem;
     line-height: 1.235294rem;
-    margin-bottom: 0.88235rem;
+    margin-bottom: 0.70588rem;
 }
 /*底部 信息展示 听过 点赞*/
 .problem_answer_bottom{

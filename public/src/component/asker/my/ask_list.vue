@@ -150,10 +150,10 @@
         display: block;
     }
     .my_problem_list1{
-        padding:12px 0.88235rem 0.588235rem 0.88235rem;
+        padding:0.70588235rem 0.88235rem 0.7rem 0.88235rem;
         background: #fff;
-        line-height: 1.76471rem;
-        margin-bottom: 0.588235rem;
+        line-height: 2rem;
+        margin-bottom: 0.41176471rem;
     }
     .my_problem_list1:active{
         background: #eee;
@@ -163,9 +163,9 @@
         display: -webkit-flex;
         display: flex;
         position: relative;
-        color: #666;
+        color: #333;
         font-size: 0.70588rem;
-        margin-bottom: 0.88235rem;
+        margin-bottom: 0.588235rem;
     }
     .wait_Answer{
         color: #09bb07;
@@ -175,14 +175,14 @@
         right:0;
     }
     .problem_header img{
-        height:29px;
-        width:29px;
+        height:2rem;
+        width:2rem;
         display: block;
         border-radius: 50%;
         margin-right: 0.588235rem;
     }
     .my_problem_content{
-        color: #474747;
+        color: #333;
         font-size: 0.88235rem;
         line-height: 1.235rem;
         overflow: hidden;
@@ -190,7 +190,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        margin-bottom: 0.88235rem;
+        margin-bottom: 0.70588rem;
     }
     .my_problem_bottom{
         display: -webkit-box;
@@ -198,7 +198,7 @@
         display: flex;
         position: relative;
         color: #999;
-        font-size: 0.76471rem;
+        font-size: 0.701588235rem;
         line-height: 1;
     }
     .my_problem_bottom>div{

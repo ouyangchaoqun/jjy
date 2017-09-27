@@ -162,6 +162,7 @@
     }
 </script>
 <style>
+
     .asker_ask_box {
         background: #fff
     }
@@ -171,12 +172,12 @@
     .asker_ask_box .ask_type .tab {
         line-height: 1.705882352941176rem;
         font-size: 0.8823529411764706rem;
-        color: #666;
+        color: #333;
         margin-right: 0.3rem;
         float: left;
     }
     .asker_ask_box  .ask_type .select_box {
-        border: 0.0588235294117647rem solid #69BA2D;
+        border: 0.0588235294117647rem solid #09bb07;
         height: 1.647058823529412rem;
         width: 7.529411764705882rem;
         float: left;

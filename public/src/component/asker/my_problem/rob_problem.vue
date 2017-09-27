@@ -14,11 +14,11 @@
                 <div>48小时内无人抢答，赏金已全额退还</div>
             </div>
             <!--正在进行中-->
-            <div class="rob_status_box" v-if="false">
+            <div class="rob_status_box" v-if="true">
                 <div>还剩44小时</div>
                 <div>已有2人抢答，可以选择一个最佳答案，其答主将获得全部赏金，且该回答将产生偷偷听收入</div>
             </div>
-            <div class="rob_status_box">
+            <div class="rob_status_box" v-if="false">
                 <div>已解答</div>
                 <div>共有2人抢答，抢答者平分赏金。</div>
             </div>
@@ -129,18 +129,18 @@
     }
     .rob_status_box{
         padding:0 0.88235rem;
-        color: #666;
+        color: #999;
         font-size: 0.70588235rem;
-        border-bottom: 0.588235rem solid #f4f4f8;
+        border-bottom: 0.41176471rem solid #f4f4f8;
     }
     .rob_status_box>div{
-        margin-bottom: 0.588235rem;
+        margin-bottom: 0.2rem;
         line-height: 1.0588235rem;
     }
     .rob_lists li{
         background: #fff;
         padding:0.88235rem 0.88235rem 0px 0.88235rem;
-        border-bottom: 0.588235rem solid #f4f4f8;
+        border-bottom: 0.41176471rem solid #f4f4f8;
     }
     .rob_box_top{
         display: flex;
@@ -149,6 +149,7 @@
         font-size: 0.70588235rem;
         color: #333;
         line-height: 2rem;
+        margin-bottom: 0.4rem;
     }
     .rob_box_top img{
         width: 2rem;

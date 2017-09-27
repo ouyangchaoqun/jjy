@@ -11,7 +11,7 @@
             <div class="problem_answer_info">
                 <img src="../../../images/asker/34.jpg" alt="">
                 <!--回答，专家语音-->
-                <div class="problem_answer_yy" v-if="true">
+                <div class="problem_answer_yy" v-if="false">
                     <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                     <div class="problem_answer_play">点击播放</div>
                     <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
@@ -23,7 +23,7 @@
                     <span>待回答</span><span>还剩45小时</span>
                 </div>
                 <!--超时未回答-->
-                <div class="problem_wait_style" v-if="false">
+                <div class="problem_wait_style" v-if="true">
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>
@@ -157,7 +157,7 @@
         font-size: 0.70588rem;
         color: #999;
         text-align: center;
-        border-top: 0.588235rem solid #f4f4f8;
+        border-top: 0.41176rem solid #f4f4f8;
         padding-bottom: 2.35rem;
     }
     .problem_assess h4{
@@ -175,7 +175,7 @@
         height:1.35294rem;
         line-height: 1.35294rem;
         border:1px solid #999;
-        border-radius: 0.6470588rem;
+        border-radius: 1rem;
         display: inline-block;
         margin-bottom:0.70588rem;
         margin-right: 0.235294rem;
@@ -197,6 +197,10 @@
         width:100%;
         font-size: 0.70588rem;
         color: #999;
+        border-radius: 5px;
+        padding:10px;
+        line-height: 1.6;
+        letter-spacing: 2px;
     }
     .problem_assess_item textarea::-webkit-input-placeholder{color:#BCBBBB;}
     .problem_assess_btn{
@@ -208,7 +212,7 @@
         margin-right: 1.235294rem;;
     }
     .problem_wait_style>span:nth-of-type(2){
-        color: #666 ;
+        color: #999 ;
         font-size: 0.76471rem;
     }
     .problem_box_background{

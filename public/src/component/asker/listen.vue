@@ -16,7 +16,7 @@
                             <li>
                                 <router-link to="/asker/listen/detail">
                                     <div class="index_li_header">
-                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 <span>回答了</span></div>
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
@@ -31,7 +31,7 @@
                             <li>
                                 <router-link to="/asker/stealListen/steal_detail">
                                     <div class="index_li_header">
-                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 <span>回答了</span></div>
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
@@ -46,7 +46,7 @@
                             <li>
                                 <router-link to="/asker/stealListen/steal_detail">
                                     <div class="index_li_header">
-                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 回答了</div>
+                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 <span>回答了</span></div>
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
@@ -63,8 +63,8 @@
                     <div>
                         <div class="index_nocontent">
                             <div>
-                                <img src="../../images/34.jpg" alt="">
-                                暂无该方面问题
+                                <img src="../../images/asker/noContent.png" alt="">
+                                <div>暂无该方面问题</div>
                             </div>
 
                         </div>
@@ -150,8 +150,8 @@
     nav{
         width: 100%;
         background: #fff;
-        height:2.1176471rem;
-        line-height: 2.1176471rem;
+        height:2.353rem;
+        line-height: 2.353rem;
         font-size: 0.76471rem;
         color: #666;
         text-align: center;
@@ -160,7 +160,7 @@
         width:4.70588rem;
     }
     .nav_active{
-        font-size: 0.8235rem;
+        font-size: 0.88235rem;
         color: #09bb07 ;
         position: relative;
         transition:all .1s linear;
@@ -190,7 +190,10 @@
     .index_box li{
         background: #fff;
         padding:0.70588rem 0.88235rem 1.176471rem 0.88235rem;
-        margin-top: 0.588235rem;
+        margin-top: 0.41176471rem;
+    }
+    .index_box li:nth-of-type(1){
+        margin-top: 1px;
     }
     .index_box li:active{
         background: #eee;
@@ -200,23 +203,25 @@
     }
     .index_li_header{
         font-size: 0.70588rem;
-        color: #666;
+        color: #333;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
-        line-height: 29px;
+        line-height: 2rem;
         margin-bottom: 0.588235rem;
     }
+    .index_li_header span{
+        color: #999;}
     .index_li_header img{
-        height:29px;
-        width:29px;
+        height:2rem;
+        width:2rem;
         display:block;
         border-radius: 50%;
         margin-right: 0.470588rem;
     }
     .index_li_content{
         font-size:0.88235rem;
-        color: #474747;
+        color: #333;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -262,7 +267,7 @@
     }
     .index_nocontent{
         background: #fff;
-        margin-top: 0.588235rem;
+        margin-top: 1px;
         text-align: center;
         font-size: 0.76471rem;
         color: #B3B3B3;
@@ -275,9 +280,8 @@
         margin:0 auto;
         margin-bottom: 1.5294rem;
     }
-    .index_nocontent div{
+    .index_nocontent>div{
         position: absolute;
-        width:5.88235rem;
         top:5.588235rem;
         left: 50%;
         margin-left:-2.941175rem;
