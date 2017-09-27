@@ -11,7 +11,7 @@
             <div class="problem_answer_info">
                 <img src="../../../images/asker/34.jpg" alt="">
                 <!--回答，专家语音-->
-                <div class="problem_answer_yy" v-if="false">
+                <div class="problem_answer_yy" v-if="true">
                     <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                     <div class="problem_answer_play">点击播放</div>
                     <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
@@ -23,7 +23,7 @@
                     <span>待回答</span><span>还剩45小时</span>
                 </div>
                 <!--超时未回答-->
-                <div class="problem_wait_style" v-if="true">
+                <div class="problem_wait_style" v-if="false">
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>
@@ -112,45 +112,6 @@
         border-radius: 50%;
         margin-right: 0.88235rem;
     }
-    .problem_answer_yy{
-        position: relative;
-        margin-top: 3px;
-    }
-    .problem_answer_yy .problem_answer_ly{
-        display: block;
-        height: 2.6471rem;
-        width: auto;
-        border-radius: 0;
-    }
-    .problem_answer_play{
-        position: absolute;
-        color: #fff;
-        font-size: 0.88235rem;
-        width: 5.88235rem;
-        left: 50%;
-        margin-left: -2.941175rem;
-        text-align: center;
-        top:50%;
-        line-height: 1;
-        margin-top:-0.6471rem;
-    }
-    .answer_play_time{
-        position: absolute;
-        right:-1.76471rem;
-        line-height: 1;
-        height:1.176471rem;
-        top:50%;
-        margin-top:-10px;
-    }
-    .problem_answer_info .problem_answer_sond{
-        height:16px;
-        display: block;
-        position: absolute;
-        width:auto;
-        top:50%;
-        margin-top:-0.588235rem;
-        left:0.88235rem;
-    }
     .problem_assess{
         background: #fff;
         padding-top:1.176471rem;
@@ -218,4 +179,5 @@
     .problem_box_background{
         background: #fff;
     }
+    .problem_answer_info .problem_answer_yy{margin-top: 3px}
 </style>

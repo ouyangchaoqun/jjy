@@ -22,13 +22,12 @@
                                 <div class="clear"></div>
                             </div>
                             <div class="other">问价 <span class="price">¥{{item.price}}</span> <span class="ml" v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
-                            <div class="audio">
-                                <div class="audio_btn">
-                                    点击播放
-                                </div>
-                                <div class="minute">60"</div>
-                                <div class="clear"></div>
-                            </div>
+                            <span class="problem_answer_yy" v-if="true">
+                                <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
+                                <div class="problem_answer_play">点击播放</div>
+                                <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                                <div class="answer_play_time">60”</div>
+                            </span>
                         </div>
                         <div class="clear"></div>
                         </div>
@@ -164,7 +163,7 @@
    .answer_index  .class_list{  padding:0.7058823529411765rem; padding-top: 0.9rem; background: #fff; padding-bottom: 0.2rem;  }
    .answer_index  .class_list .class_item{  float:left ; width: 33.333333%;  }
    .answer_index  .class_list .class_item span{ display: block; background: #EAE9E9; height:2.058823529411765rem;line-height:2.058823529411765rem; width: 88% ; margin: 0 auto; text-align: center; border-radius: 1.029411764705883rem; margin-bottom: 0.7058823529411765rem; color:#666; font-size: 0.8235294117647059rem;}
-
+   .answer_list .info .other{margin-bottom: 0.88235rem}
 
 
 </style>

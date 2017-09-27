@@ -35,11 +35,12 @@
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
-                                        <div class="index_li_voice">
-                                            <img src="../../images/nocharge.png" alt="">
-                                            <div class="position_change2">点击播放</div>
-                                        </div>
-                                        <div class="index_li_count">听过122</div>
+                                         <span class="problem_answer_yy" v-if="true">
+                                            <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
+                                            <div class="problem_answer_play">点击播放</div>
+                                            <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                                             <div class="index_li_count">听过122</div>
+                                        </span>
                                     </div>
                                 </router-link>
                             </li>
@@ -50,11 +51,12 @@
                                     </div>
                                     <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
                                     <div class="index_li_bottom">
-                                        <div class="index_li_voice">
-                                            <img src="../../images/nocharge.png" alt="">
-                                            <div class="position_change2">限时免费听</div>
-                                        </div>
-                                        <div class="index_li_count">听过122</div>
+                                        <span class="problem_answer_yy" v-if="true">
+                                            <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
+                                            <div class="problem_answer_play">限时免费听</div>
+                                            <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                                            <div class="index_li_count">听过122</div>
+                                        </span>
                                     </div>
                                 </router-link>
                             </li>
@@ -147,6 +149,8 @@
 
 </script>
 <style>
+    .index_li_bottom .problem_answer_yy{width:100%}
+    .index_li_bottom .problem_answer_play{margin-left:0;left:12%;}
     nav{
         width: 100%;
         background: #fff;
@@ -227,7 +231,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        margin-bottom: 0.588235rem;
+        margin-bottom: 0.88235rem;
     }
     .index_li_bottom{
         position: relative;

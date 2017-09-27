@@ -71,7 +71,7 @@
 
     .asker_my_index_box .main a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem; background: #fff;
      color:#333; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; }
-    .asker_my_index_box .main a:nth-child(2){margin-top: 0.88235rem;}
+    .asker_my_index_box .main a:nth-child(2){margin-top: 0.41176471rem;}
     .asker_my_index_box .main a:after{ background: url(../../../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
         right:0.88235rem;top:1.25rem ; content: " "}
     .asker_my_index_box .main a:before{ content: " "; height: 0.0588235294117647rem; background: #eee; display: block; position: absolute; bottom:0;left: 0.9411764705882353rem; width: 100%}
@@ -85,6 +85,6 @@
     .asker_my_index_box .main a.answer{ background: url(../../../images/asker/my_index_answer.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
     .asker_my_index_box .main a.comment{ background: url(../../../images/asker/my_index_star.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
 
-    .join{ background: #fff; line-height:3.470588235294118rem; margin: 0.8823529411764706rem 0 ; text-align: center; font-size: 0.8823529411764706rem }
+    .join{ background: #fff; line-height:3.470588235294118rem; margin: 0.41176471rem 0 ; text-align: center; font-size: 0.8823529411764706rem }
 
 </style>

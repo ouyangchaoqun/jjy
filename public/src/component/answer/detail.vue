@@ -47,10 +47,12 @@
                 <div class="ts">{{detail.sign}}</div>
                 <div class="voice">
                     <span class="hello">您好：</span>
-                    <div class="audio_btn">
-                        点击播放
-                    </div>
-                    <span class="minute">58"</span>
+                    <span class="problem_answer_yy" v-if="true">
+                        <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
+                        <div class="problem_answer_play">点击播放</div>
+                        <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                        <div class="answer_play_time">60”</div>
+                    </span>
                 </div>
             </div>
             <div class="answer_detail">
@@ -91,8 +93,7 @@
                 </div>
 
                 <div class="list">
-                    <div class="item" style="margin-bottom: 0.88rem;padding-bottom: 1.23rem"
-                         v-for="item in answerList">
+                    <div class="item" v-for="item in answerList">
                         <div class="question">
                             <div class="img"><img :src="item.faceUrl">
                             </div>
@@ -295,12 +296,11 @@
 <style>
     .answer_detail_box .answer_info{
         width: 100%;
-        height: 16.6rem;
     }
     .answer_detail_box .answer_banner{
         background: url("../../images/answer/banner.jpg") top center  no-repeat;
         background-size: 100%;
-        height: 12.91rem;
+        height: 12.03rem;
         padding-top: 0.88rem;
     }
     .answer_detail_box .answer_face{
@@ -379,7 +379,7 @@
     }
     .answer_detail_box .answer_voice{
         height: 6.18rem;
-        margin-top: 0.88rem;
+        margin-top: 0.41176471rem;
         background: white;
         padding-bottom: 0.88rem;
     }
@@ -404,6 +404,7 @@
         color:#999; font-size: 1rem;
         float: left;
         margin-top: 0.88rem;
+        margin-right: 0.588235rem;
     }
     .answer_detail_box .minute{ color:#999; font-size: 1rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
     .answer_detail_box .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
@@ -426,7 +427,7 @@
     }
     .answer_detail_box .answer_detail{
         background: white;
-        margin-top: 0.88rem;
+        margin-top: 0.41176471rem;
         padding-bottom: 1.2rem;
     }
     .answer_detail_box .answer_title{
@@ -444,21 +445,21 @@
     }
     .answer_detail_box .btn_sq{
         width:5.235rem;
-        height:1.33rem;
+        height:1.352rem;
         border-radius: 0.66rem ;
         border: 1px solid #09bb07;
         margin:0 auto;
         text-align: center;
         color: #09bb07;
-        line-height: 1.33rem;
-        font-size: 0.64rem;
+        line-height: 1.352rem;
+        font-size: 0.70588235rem;
     }
     .answer_detail_box .answer_comments{
         background: white;
-        margin-top: 0.88rem;
+        margin-top: 0.41176471rem;
         padding-bottom: 0.88rem;
     }
-   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 0 0.8823529411764706rem;  }
+   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 1.23rem 0.8823529411764706rem;margin-bottom: 0.41176471rem  }
     .answer_detail_box .list .star span{ background: url(../../images/answer/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
     .answer_detail_box  .list .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
 
@@ -471,7 +472,7 @@
     .answer_detail_box  .list .info .class_s { clear: both; margin-top: 0.3rem;}
     .answer_detail_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #C1C1C1 ; color:#C1C1C1 ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
     .answer_detail_box .ask_answer{
-        margin-top: 0.88rem;
+        margin-top: 0.41176471rem;
     }
     .answer_detail_box .sj{
         width: 0;
