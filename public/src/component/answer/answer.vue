@@ -138,13 +138,6 @@
                 },1000)
 
             },
-            recordSuccess:function (obj) {
-                let _this = this;
-                _this.str = obj.id
-            },
-            getRecord:function () {
-                return str;
-            },
 
             clearTimeOut:function () {
                 let _this=this;
@@ -153,12 +146,20 @@
                 }
             },
             reStart:function () {
+                wx.startRecord();//重录
                 this.answerTime="00";
                 this.preAnswer=false;
                 this.clearTimeOut();
                 this.start()
             },
             send:function () {
+                wx.uploadVoice({
+                    localId: _this.str, // 需要上传的音频的本地ID，由stopRecord接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                    }
+                });
                 this.clearTimeOut();
                 this.isAnswered=true;
             },
@@ -168,12 +169,29 @@
                 this.answering=true;
                 this.timeout()
             },
-            play:function () {
+            play:function () {//试听
+                let _this = this;
+                wx.playVoice({
+                    localId: _this.str // 需要播放的音频的本地ID，由stopRecord接口获得
+                });
+
                 this.clearTimeOut();
                 this.playing=true;
                 this.timeout(true);
             },
-            stop:function () {
+            stop:function () { //停止
+                let _this = this
+                wx.onVoiceRecordEnd({
+                    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+                    complete: function (res) {
+                        _this.str = res.localId;
+                    }
+                });
+                wx.stopRecord({
+                    success: function (res) {
+                      _this.str   = res.localId;
+                    }
+                });
                 this.clearTimeOut();
                 this.answering=false;
                 this.preAnswer=true;
