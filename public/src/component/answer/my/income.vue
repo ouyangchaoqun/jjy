@@ -8,7 +8,7 @@
         <div class="my_income">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
-            <div class="money">￥50.00</div>
+            <div class="money">￥{{income}}</div>
             <div class="get_money">提现</div>
             <div class="income_list" @click="incomeList()"><span>收益明细</span></div>
         </div>
@@ -18,16 +18,23 @@
 
 <script type="es6">
 
-
-
     export default {
         data() {
-            return {}
+            return {
+                income:0
+            }
         },
 
 
         mounted: function () {
-
+            let expertId = cookie.get('expertId')
+            this.$http.get(web.API_PATH + 'come/expert/query/income/'+expertId+'/1289' ).then(function (data) {//es5写法
+                if (data.body.status == 1) {
+                    console.log(data)
+                    this.income = data.data.data.inCome
+                }
+            }, function (error) {
+            });
 
         },
         methods:{

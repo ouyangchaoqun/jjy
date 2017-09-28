@@ -1,21 +1,24 @@
 <template >
     <div style="height: 100%" class="answer_ask_list_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
+            <div v-title>待答</div>
+            <div class="list  weui-tab__panel">
+                <div class="item" v-for="item in list" @click="answer(item.id)">
+                    <div class="img"><img :src="item.faceUrl"></div>
+                    <div class="info">
+                        <div class="names"><span>{{item.nickName}}</span> 在哪方面：{{item.questionClassName}}</div>
+                        <div class="content">{{item.content}}</div>
+                        <div class="last_time">还{{formatDateText(item.endTime)}}</div>
+                        <div class="price">酬金 <span>￥{{item.price}}</span></div>
 
-        <div v-title>待答</div>
-        <div class="list  weui-tab__panel">
-            <div class="item" v-for="item in [2,1,3,4,1 ]" @click="answer(item)">
-                <div class="img"><img
-                        src="http://wx.qlogo.cn/mmopen/C2rEUskXQiblFYMUl9O0G05Q6pKibg7V1WpHX6CIQaic824apriabJw4r6EWxziaSt5BATrlbx1GVzwW2qjUCqtYpDvIJLjKgP1ug/0"></div>
-                <div class="info">
-                    <div class="names"><span>j**</span> 在哪方面：情感困惑</div>
-                    <div class="content">六年的感情真的败给时间了，男朋友还是选择分手，说他厌恶我了。分手后我特别害怕早上醒来和入睡前的胡思乱想，而且一到上午就会变得好无力，不知所措怎么办呢？</div>
-                    <div class="last_time">还剩42小时</div>
-                    <div class="price">酬金 <span>￥13.14</span></div>
-
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
             </div>
-        </div>
+        </v-scroll>
         <v-answer-bottom tabOnIndex="1" ></v-answer-bottom>
 
     </div>
@@ -24,24 +27,90 @@
 <script type="es6">
 
     import answerBottom from "./include/bottom.vue";
-
+    import showLoad from '../include/showLoad.vue';
+    import scroll from '../include/scroll.vue';
+    import Bus from '../../js/bus';
     export default {
         data() {
-            return {}
+            return {
+                showLoad:false,
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                list:[],
+            }
         },
 
 
         mounted: function () {
-            $(".weui-tab__panel").height($(window).height()-90);
+            this.getList()
         },
         methods: {
+            getList: function () {
+                let vm= this;
+                let expertId = cookie.get('expertId')
+                let url =web.API_PATH + 'come/expert/query/to/be/answered/page/'+expertId+'/1289/'+vm.page+'/'+vm.row;
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    console.log(response.data.data.rows)
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
             answer:function (askId) {
                 this.$router.push("../answer?askId="+askId)
-
+            },
+            formatDateText:function (time) {
+                return xqzs.dateTime.getTimeFormatLastText(time)
             }
         },
         components: {
-            "v-answer-bottom": answerBottom
+            "v-answer-bottom": answerBottom,
+            'v-showLoad': showLoad,
+            'v-scroll': scroll,
         }
 
 
@@ -49,6 +118,7 @@
 </script>
 <style>
     .answer_ask_list_box .list .item{ background: #fff; padding:0.8823529411764706rem; margin-bottom:0.5882352941176471rem; }
+    .answer_ask_list_box .list .item:active{background: #eee}
     .answer_ask_list_box  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
     .answer_ask_list_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
     .answer_ask_list_box  .list .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }

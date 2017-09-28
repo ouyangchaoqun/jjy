@@ -186,7 +186,6 @@
     }
 </script>
 <style>
-    input::-webkit-input-placeholder {color:red !important;}
     .setQualification_box{  background: #fff;  color: #666;  font-size: 0.8235rem;  padding-bottom: 1.76471rem;  }
     .setQualification_box header{  padding:1.176471rem 0.88235rem 0.88235rem 0.88235rem;  border-bottom: 0.588235rem solid #F4F4F7;  }
     .header_top{ position: relative;margin-bottom: 0.35294117rem;font-size: 0.88235rem;  color: #333;}

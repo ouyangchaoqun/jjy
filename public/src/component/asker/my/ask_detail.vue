@@ -298,7 +298,6 @@
         line-height: 1.6;
         letter-spacing: 2px;
     }
-    .problem_assess_item textarea::-webkit-input-placeholder{color:#BCBBBB;}
     .problem_assess_btn{
         padding: 0 0.88235rem;
     }
