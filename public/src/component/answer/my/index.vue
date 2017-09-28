@@ -42,7 +42,6 @@
         },
 
         mounted: function () {
-            $(".weui-tab__panel").height($(window).height()-100);
             var obj =  $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);
 
@@ -58,7 +57,7 @@
 </script>
 <style>
     .asker_my_index_box{background: #fff}
-    .asker_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: #fff; padding:0.8823529411764706rem;border-bottom: 0.88235rem solid #f4f4f8;}
+    .asker_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: #fff; padding:0.8823529411764706rem;border-bottom: 0.41176471rem solid #f4f4f8;}
     .asker_my_index_box .top:active{background:#eee}
     .asker_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem; border-radius: 50%;  margin-right: 0.98rem;}
     .asker_my_index_box .top .name{color:#333;padding-top: 0.8235rem;margin-bottom:0.52941rem}
