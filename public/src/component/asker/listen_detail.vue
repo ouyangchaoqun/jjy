@@ -2,55 +2,57 @@
     <div>
         <!--详情头部-->
         <div class="steal_detail_header">
-            <div class="steal_detail_top"><img src="../../images/34.jpg" alt=""><div>在<span>情感困惑</span>方面</div></div>
-            <div class="steal_detail_content">女，27岁，从没有谈过恋爱，也没有特别喜欢过一个人，这是不是一种病？</div>
+            <div class="steal_detail_top"><img :src="detail.faceUrl" alt=""><div>在<span>{{detail.title}}</span>方面</div></div>
+            <div class="steal_detail_content">{{detail.content}}</div>
         </div>
         <!--专家回答列表-->
         <ul>
-            <li class="steal_detail_answer">
+            <li class="steal_detail_answer" v-for="item in detail.answerList">
                 <div class="steal_answer_top">
-                    <img class="steal_answer_topimg" src="../../images/asker/34.jpg" alt="">
+                    <img class="steal_answer_topimg" :src="item.expertUrl" alt="">
                     <div class="steal_answer_yy">
-                        <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
-                        <div>点击播放</div>
-                        <img class="steal_answer_sond" src="../../images/sond.png" alt="">
+
+                        <!--* const GRAB_NOT_BEST    = 1;抢答一般的答案-->
+                        <!--* const GRAB_BEST_ANSWER = 2;抢答最好的答案-->
+                        <!--* const EXPERT_FREE_TIME = 3;专家免费偷听期内答案-->
+                        <!--* const EXPERT_NOT_FREE  = 4;专家收费期内的答案",-->
+                        <!--免费听-->
+                        <template v-if="item.answerType==1||item.needPay==0">
+                            <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
+                            <div>点击播放</div>
+                            <img class="steal_answer_sond" src="../../images/sond.png" alt="">
+                        </template>
+
+                        <!--付费听-->
+                        <template @click="play()" v-if="item.needPay==1">
+                            <img class="pay_listen" src="../../images/charge.png" alt="">
+                            <div class="position_change1">1元偷听</div>
+                        </template>
+                        <!--限时免费听-->
+                        <template v-if="item.answerType==3&&item.needPay==0">
+                            <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
+                            <div >限时免费听</div>
+                            <img class="steal_answer_sond" src="../../images/sond.png" alt="">
+                        </template>
+
+
+
                     </div>
-                    <div>58”</div>
+                    <div :class="{position_change1:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div><img src="../../images/asker/zan_nor.png" alt="">  <span>48</span></div>
-                    <div>听过  <span>48</span></div>
+                    <div><img src="../../images/asker/zan_nor.png" alt="">  <span>{{item.likeTimes}}</span></div>
+                    <div>听过  <span>{{item.listenTimes}}</span></div>
                 </div>
                 <div class="steal_expert_info">
                     <div>
-                        <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
+                        <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
-                    <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                    <img src="../../images/asker/listenin.png" alt="">
+                    <div class="steal_expert_des">{{item.sign}}</div>
+                    <img src="../../images/asker/listenin.png" alt="" @click="follow(item.expertId)">
                 </div>
             </li>
-            <li class="steal_detail_answer">
-                <div class="steal_answer_top">
-                    <img class="steal_answer_topimg" src="../../images/34.jpg" alt="">
-                    <div class="steal_answer_yy">
-                        <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
-                        <div>点击播放</div>
-                        <img class="steal_answer_sond" src="../../images/sond.png" alt="">
-                    </div>
-                    <div>58”</div>
-                </div>
-                <div class="steal_answer_zan">
-                    <div><img src="../../images/asker/zan_por.png" alt="">  <span>48</span></div>
-                    <div>听过  <span>48</span></div>
-                </div>
-                <div class="steal_expert_info">
-                    <div>
-                        <span class="steal_expert_name">陆军</span><span class="steal_expert_fans">20134人收听</span>
-                    </div>
-                    <div class="steal_expert_des">帮你解决婚姻，情感中的困扰，情感中的困扰...</div>
-                    <img src="../../images/asker/listenin.png" alt="">
-                </div>
-            </li>
+
         </ul>
 
     </div>
@@ -63,16 +65,61 @@
     export default {
         data() {
             return {
+                questionId:0,
+                detail:{}
             }
         },
         mounted: function () {
+            this.questionId=this.$route.query.questionId;
+            this.getDetail()
 
+        },
+        methods:{
+            getDetail:function () {
+                let _this= this;
+
+                _this.$http.get(web.API_PATH + 'come/listen/question/detail/'+_this.questionId +"/_userId_").then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.detail= data.body.data
+                    }
+                }, function (error) {
+                });
+
+            },
+            follow:function (id) {
+                let that=this;
+                that.$http.put(web.API_PATH + "come/expert/follow/expert/"+id+"/_userId_", {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            xqzs.weui.toast("success","收听成功",function () {
+
+                            })
+                        }else if(bt.data.status ==900004){
+                            xqzs.weui.toast("success","已经收听",function () {
+
+                            })
+                        }else if(bt.data.status ==9000003){
+                            xqzs.weui.toast("fail","不能收听自己",function () {
+
+                            })
+                        }else {
+                            xqzs.weui.toast("fail","收听失败",function () {
+
+                            })
+                        }
+                    });
+            },
         }
+
     }
 
 
 </script>
 <style>
+    .position_change1{
+        margin-top: 1.1rem;
+    }
+    .pay_listen{ width: 10.35294117647059rem; height: auto}
     .steal_detail_header{
         padding:0.70588rem 0.88235rem 0 0.88235rem;
         background: #fff;

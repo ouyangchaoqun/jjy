@@ -1,68 +1,57 @@
 <template id="stealListen_index">
-    <div>
+    <div :class="{wbg:list.length==0    }">
         <!--头部导航栏-->
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
         <div class="weui-tab__panel main">
             <nav>
                 <div class="swiper-container navSwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="navList in navLists">{{navList.item}}</div>
+                        <div class="swiper-slide" v-for="navList in navLists" :value="navList.id">{{navList.title}}</div>
                     </div>
                 </div>
             </nav>
             <div>
                 <div class="index_box">
-                    <div class="index_content_active">
+                    <div v-if="list.length>0" class="index_content_active">
                         <ul>
-                            <li>
-                                <router-link to="/asker/listen/detail">
+                            <li v-for="item in list">
+                                <a @click="goDetail(item.questionId)">
                                     <div class="index_li_header">
-                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 <span>回答了</span></div>
+                                        <img :src="item.expertFaceUrl" alt=""><div>{{item.expertName}} <span>回答了</span></div>
                                     </div>
-                                    <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
+                                    <div class="index_li_content">{{item.content}}</div>
                                     <div class="index_li_bottom">
-                                        <div class="index_li_voice" @click="play()">
-                                            <img src="../../images/charge.png" alt="">
-                                            <div class="position_change1">1元偷听</div>
-                                        </div>
-                                        <div class="index_li_count">听过122</div>
-                                    </div>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/asker/stealListen/steal_detail">
-                                    <div class="index_li_header">
-                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 <span>回答了</span></div>
-                                    </div>
-                                    <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                                    <div class="index_li_bottom">
-                                         <span class="problem_answer_yy" v-if="true">
+
+                                        <!--免费听-->
+                                        <span class="problem_answer_yy" v-if="item.answerType==1">
                                             <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
                                             <div class="problem_answer_play">点击播放</div>
                                             <img class="problem_answer_sond" src="../../images/sond.png" alt="">
-                                             <div class="index_li_count">听过122</div>
                                         </span>
-                                    </div>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link to="/asker/stealListen/steal_detail">
-                                    <div class="index_li_header">
-                                        <img src="../../images/34.jpg" alt=""><div>陈小刚 <span>回答了</span></div>
-                                    </div>
-                                    <div class="index_li_content">六年的感情败给时间了，男朋友还是选择分手男朋友是选选择分手，是选择分手是选择分手是选择分手是选择分手?选择分手是选择分手?选择分手...</div>
-                                    <div class="index_li_bottom">
-                                        <span class="problem_answer_yy" v-if="true">
+
+                                        <!--付费听-->
+                                        <div class="index_li_voice" @click="play()" v-if="item.answerType==2||item.answerType==4">
+                                            <img src="../../images/charge.png" alt="">
+                                            <div class="position_change1">1元偷听</div>
+                                        </div>
+                                        <!--限时免费听-->
+                                        <span class="problem_answer_yy" v-if="item.answerType==3">
                                             <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
                                             <div class="problem_answer_play">限时免费听</div>
                                             <img class="problem_answer_sond" src="../../images/sond.png" alt="">
-                                            <div class="index_li_count">听过122</div>
                                         </span>
+
+                                        <div class="index_li_count">听过{{item.listenTimes}}</div>
                                     </div>
-                                </router-link>
+                                </a>
                             </li>
+
                         </ul>
                     </div>
-                    <div>
+                    <div v-show="list.length==0">
                         <div class="index_nocontent">
                             <div>
                                 <img src="../../images/asker/noContent.png" alt="">
@@ -71,19 +60,12 @@
 
                         </div>
                     </div>
-                    <div>性心理</div>
-                    <div>人际关系</div>
-                    <div>职场事业</div>
-                    <div>婚姻家庭</div>
-                    <div>个人成长</div>
-                    <div>情绪管理</div>
-                    <div>心理健康</div>
-                    <div>亲子教育</div>
+
                 </div>
             </div>
 
         </div>
-
+        </v-scroll>
         <v-asker-bottom tabOnIndex="0"></v-asker-bottom>
 
 
@@ -92,6 +74,9 @@
 
 </template>
 <script>
+    import showLoad from '../include/showLoad.vue';
+    import scroll from '../include/scroll.vue';
+    import Bus from '../../js/bus.js';
     import askerBottom from "./include/bottom.vue";
     var stealListen_index = {
         template: '#stealListen_index'
@@ -99,17 +84,29 @@
     export default {
         data() {
             return {
-                navLists:[{item:'全部'},{item:'情感困惑'},{item:'性心理'},{item:'人际关系'},{item:'职场事业'},{item:'婚姻家庭'},{item:'个人成长'},{item:'情绪管理'},{item:'心理健康'},{item:'亲子教育'}]
+                navLists:[{title:'全部'},{title:'情感困惑'},{title:'性心理'},{title:'人际关系'},{title:'职场事业'},{title:'婚姻家庭'},{title:'个人成长'},{title:'情绪管理'},{title:'心理健康'},{title:'亲子教育'}],
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                showLoad:false,
+                list:[],
+                type:0
             }
         },
+
+
         components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll,
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-            var minHeight = $(window).height()-$('nav').height()-10
+            let _this=this;
+            this.getClassList()
+            var minHeight = $(window).height()-$('nav').height()-100
             //$('.index_box').css('minHeight',minHeight)
             $('.index_nocontent').css('minHeight',minHeight)
-            console.log(minHeight)
             var navSwiper = new Swiper('.navSwiper', {
                 freeMode: true,
                 freeModeMomentumRatio: 0.5,
@@ -120,10 +117,10 @@
             var maxTranslate = navSwiper.maxTranslate();//移动位置
             var maxWidth = -maxTranslate + swiperWidth / 2;
             navSwiper.on('tap', function(swiper) {
+
+                //效果
                 $('.navSwiper .swiper-slide').removeClass('nav_active')
                 $('.navSwiper .swiper-slide').eq(swiper.clickedIndex).addClass('nav_active')
-                $('.index_box>div').removeClass('index_content_active')
-                $('.index_box>div').eq(swiper.clickedIndex).addClass('index_content_active')
                 var slide = swiper.slides[swiper.clickedIndex]
                 var slideLeft = slide.offsetLeft
                 var slideWidth = slide.clientWidth
@@ -137,12 +134,87 @@
                     var nowTlanslate = slideCenter - swiperWidth / 2
                     swiper.setWrapperTranslate(-nowTlanslate)
                 }
-            })
+                _this.type = $('.navSwiper .swiper-slide').eq(swiper.clickedIndex).attr("value");
+                //数据
+                _this.page=1;
+                _this.isPageEnd = false;
+                _this.isShowMoreText = true;
+                _this.getList();
+            });
+
+            this.getList();
         },
         methods:{
             play:function () {
                 console.log(111)
-            }
+            },
+            goDetail:function (questionId) {
+              this.$router.push("/asker/listen/detail?questionId="+questionId)
+            },
+            getClassList:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        let arr =[{"title":"全部",id:0}]
+                        _this.navLists= data.body.data
+                        _this.navLists =arr.concat(_this.navLists);
+                    }
+                }, function (error) {
+                });
+            },
+            getList: function () {
+                let vm= this;
+                let url =web.API_PATH + 'come/listen/listen/list/_userId_/'+vm.type+'/'+vm.page+'/'+vm.row;
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    console.log(vm.list.length)
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
     }
 
@@ -184,10 +256,7 @@
         width:100%;
         height:auto;
     }
-    .index_box>div{
-        display: none;
 
-    }
     .index_box .index_content_active{
         display: block;
     }
@@ -196,9 +265,7 @@
         padding:0.70588rem 0.88235rem 1.176471rem 0.88235rem;
         margin-top: 0.41176471rem;
     }
-    .index_box li:nth-of-type(1){
-        margin-top: 1px;
-    }
+
     .index_box li:active{
         background: #eee;
     }

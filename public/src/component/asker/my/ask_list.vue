@@ -1,6 +1,6 @@
-<template >
+<template>
     <div>
-    <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">
@@ -40,8 +40,8 @@
                 <!--抢答列表-->
                 <div>
                     <ul>
-                        <li class="my_problem_list1"  v-if="type==1"  v-for="item in list" >
-                            <a  @click="goRaceDetail(item.questionId)">
+                        <li class="my_problem_list1" v-if="type==1" v-for="item in list">
+                            <a @click="goRaceDetail(item.questionId)">
                                 <div class="problem_header">
                                     问题类型：
                                     <div style="color: #333;margin-left: 10px">情感困惑</div>
@@ -75,16 +75,17 @@
     import scroll from '../../include/scroll.vue';
     import Bus from '../../../js/bus.js';
     import askerBottom from "../include/bottom.vue";
+
     export default {
         data() {
             return {
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:true,
-                showLoad:false,
-                list:[],
-                type:2
+                isShowMoreText: true,
+                showLoad: false,
+                list: [],
+                type: 2
             }
         },
 
@@ -95,15 +96,15 @@
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-            let _this=this;
+            let _this = this;
             $('.my_problem_tabs>div').click(function () {
                 $('.my_problem_tabs>div').removeClass('my_problem_active')
                 $('.my_problem_box>div').removeClass('problem_box_active')
                 $(this).addClass('my_problem_active')
                 $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active');
-                if($(this).index()==0){
+                if ($(this).index() == 0) {
                     _this.changeType(2);
-                }else{
+                } else {
                     _this.changeType(1);
                 }
 
@@ -111,27 +112,27 @@
             this.getList();
         },
         methods: {
-            formatDateText:function (time) {
-              return xqzs.dateTime.getTimeFormatText(time)
+            formatDateText: function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
             },
             goRaceDetail: function (id) {
                 this.$router.push("/asker/my/ask/race/detail?id=" + id);
             },
-            goDetail:function (id) {
-                this.$router.push("/asker/my/ask/detail?id="+id);
+            goDetail: function (id) {
+                this.$router.push("/asker/my/ask/detail?id=" + id);
             },
-            changeType:function (v) {
-                this.type=v;
-                this.page=1;
-                this.list=[];
+            changeType: function (v) {
+                this.type = v;
+                this.page = 1;
+                this.list = [];
                 this.isPageEnd = false;
                 this.isShowMoreText = true;
                 this.getList();
             },
             getList: function () {
 
-                let vm= this;
-                let url =web.API_PATH + 'come/user/query/question/'+this.type+'/page/_userId_/'+vm.page+'/'+vm.row;
+                let vm = this;
+                let url = web.API_PATH + 'come/user/query/question/' + this.type + '/page/_userId_/' + vm.page + '/' + vm.row;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
@@ -148,7 +149,7 @@
                     vm.isLoading = false;
 //                    console.log(response)
 
-                    if(response.data.status!=1&&vm.page==1){
+                    if (response.data.status != 1 && vm.page == 1) {
                         vm.list = [];
                         return;
                     }
@@ -159,7 +160,6 @@
                         vm.isShowMoreText = false
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
-
 
 
                     if (vm.page == 1) {
@@ -186,7 +186,7 @@
     }
 </script>
 <style>
-    .my_problem_tabs{
+    .my_problem_tabs {
         color: #333;
         font-size: 0.88235rem;
         text-align: center;
@@ -195,48 +195,57 @@
         display: flex;
         background: #fff;
         border-bottom: 1px solid #eee;
-        height:2.35294rem;
+        height: 2.35294rem;
         line-height: 2.35294rem;
     }
-    .my_problem_tabs>div{
+
+    .my_problem_tabs > div {
         flex: 1;
         position: relative;
     }
-    .my_problem_tabs>div:nth-of-type(1)::after{
+
+    .my_problem_tabs > div:nth-of-type(1)::after {
         content: '';
-        height:1.1176rem;
-        width:1px;
+        height: 1.1176rem;
+        width: 1px;
         background: #E0E0E0;
         position: absolute;
-        right:0;
-        top:50%;
-        margin-top:-0.5588rem;
+        right: 0;
+        top: 50%;
+        margin-top: -0.5588rem;
     }
-    .my_problem_active{
+
+    .my_problem_active {
         border-bottom: 2px solid #09bb07;
     }
-    .my_problem_box{
+
+    .my_problem_box {
         position: relative;
         width: 100%;
-        height:auto;
+        height: auto;
     }
-    .my_problem_box>div{
+
+    .my_problem_box > div {
         display: none;
-        width:100%;
+        width: 100%;
     }
-    .my_problem_box .problem_box_active{
+
+    .my_problem_box .problem_box_active {
         display: block;
     }
-    .my_problem_list1{
-        padding:0.70588235rem 0.88235rem 0.7rem 0.88235rem;
+
+    .my_problem_list1 {
+        padding: 0.70588235rem 0.88235rem 0.7rem 0.88235rem;
         background: #fff;
         line-height: 2rem;
         margin-bottom: 0.41176471rem;
     }
-    .my_problem_list1:active{
+
+    .my_problem_list1:active {
         background: #eee;
     }
-    .problem_header{
+
+    .problem_header {
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -245,21 +254,25 @@
         font-size: 0.70588rem;
         margin-bottom: 0.588235rem;
     }
-    .wait_Answer{
+
+    .wait_Answer {
         color: #09bb07;
     }
-    .problem_header>div:nth-of-type(2){
+
+    .problem_header > div:nth-of-type(2) {
         position: absolute;
-        right:0;
+        right: 0;
     }
-    .problem_header img{
-        height:2rem;
-        width:2rem;
+
+    .problem_header img {
+        height: 2rem;
+        width: 2rem;
         display: block;
         border-radius: 50%;
         margin-right: 0.588235rem;
     }
-    .my_problem_content{
+
+    .my_problem_content {
         color: #333;
         font-size: 0.88235rem;
         line-height: 1.235rem;
@@ -270,7 +283,8 @@
         -webkit-box-orient: vertical;
         margin-bottom: 0.70588rem;
     }
-    .my_problem_bottom{
+
+    .my_problem_bottom {
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -279,13 +293,15 @@
         font-size: 0.701588235rem;
         line-height: 1;
     }
-    .my_problem_bottom>div{
+
+    .my_problem_bottom > div {
         margin-right: 0.88235rem;
     }
-    .my_problem_bottom .my_problem_money{
+
+    .my_problem_bottom .my_problem_money {
         position: absolute;
-        right:0;
+        right: 0;
         color: #FF9900;
-        margin:0;
+        margin: 0;
     }
 </style>
