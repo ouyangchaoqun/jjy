@@ -39,7 +39,16 @@
         },
         methods: {
             join: function () {
-                this.$router.push("/answer/join/base/info");
+
+                let _this= this;
+
+                if( _this.user.mobile&& _this.user.mobile.length==11){
+                    this.$router.push("/answer/join/base/info");
+                }else{
+                    this.$router.push("/answer/join/mobile");
+                }
+
+
             },
             getIncome:function () {
 
@@ -55,6 +64,20 @@
 
         },
         mounted: function () {
+            let _this=this;
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user = eval(data.data.data);
+
+
+                }
+            }, function (error) {
+                //error
+            });
             $(".weui-tab__panel").height($(window).height() - 100);
             var obj = $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);

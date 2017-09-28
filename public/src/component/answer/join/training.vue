@@ -3,15 +3,15 @@
 
         <div v-title>入驻心理咨询师</div>
 
-        <v-answer-top-step step="5"  preUrl="./introduce" nextUrl="./good/at" title="专业培训经历"></v-answer-top-step>
+        <v-answer-top-step step="5"  preUrl="./introduce" nextUrl="./good/at" title="专业培训经历"   errorWord="请填写专业培训经历" :canGoNext="canGoNext"></v-answer-top-step>
 
         <div class="text_area">
-            <textarea name=""  placeholder="请填写您的专业培训经历
+            <textarea name=""  class="experience" @keyup="changeExperience()"  placeholder="请填写您的专业培训经历
 
 例如：
 # 武汉大学心理咨询师培训
 # 丁建略婚恋咨询师升级路径
-# 中级绘画治疗师" id="" cols="30" rows="10"></textarea>
+# 中级绘画治疗师" id="" cols="30" rows="10">{{experience}}</textarea>
             <div class="count">1/200</div>
         </div>
     </div>
@@ -23,12 +23,36 @@
 
     export default {
         data() {
-            return {}
+            return {
+                experience:'',
+                canGoNext:false
+            }
         },
 
 
         mounted: function () {
 
+            let experience= (cookie.get("experience"));
+            if(experience&&experience!=''){
+                this.experience=unescape(experience)
+            }
+            this.check();
+
+        },
+        methods: {
+            changeExperience: function (v) {
+                let experience = $(".experience").val();
+                cookie.set("experience",escape(experience));
+                this.check();
+            },
+            check:function () {
+                let experience= (cookie.get("experience"));
+                if(experience&&experience!=''){
+                    this.canGoNext=true;
+                }else{
+                    this.canGoNext=false;
+                }
+            }
 
         },
         components: {

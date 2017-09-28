@@ -1,9 +1,9 @@
 <template>
     <div class="answer_join_top_box">
         <div class="answer_join_top">
-            <router-link :to="preUrl" v-if="preUrl!=''">上一项</router-link>
+            <router-link replace :to="preUrl" v-if="preUrl!=''">上一项</router-link>
             <div class="step">{{step}}<span>/9</span></div>
-            <router-link :to="nextUrl" v-if="nextUrl!=''">下一项</router-link>
+            <a   class="nextBtn"   @click="goNext()" v-if="nextUrl!=''">下一项</a>
         </div>
         <div class="title">{{title}}</div>
     </div>
@@ -62,7 +62,20 @@
             step: 1,
             preUrl: '',
             nextUrl: '',
-            title:''
+            title:'',
+            canGoNext:false,
+            errorWord:''
         },
+        methods:{
+            goNext:function () {
+                if(this.canGoNext){
+                    this.$router.replace(this.nextUrl)
+                }else{
+                    xqzs.weui.tip(this.errorWord,function () {
+                        
+                    })
+                }
+            }
+        }
     }
 </script>

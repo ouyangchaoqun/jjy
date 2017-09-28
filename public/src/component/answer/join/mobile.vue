@@ -102,15 +102,15 @@
         methods: {
             submit:function () {
 
-                this.$router.push('./base/info');
-                return;
+
+
                 let _this = this;
 
                 if(_this.isAllInput==true){
                     _this.$http.post(web.API_PATH + 'user/update/mobile/by/code/mobile/_userId_', {mobile: _this.mobile,code:_this.code}).then(response => {
                         if (response.data.status === 1) {
                             xqzs.weui.toast("success","验证成功",function () {
-                                _this.$router.go(-1);
+                                _this.$router.push('./base/info');
                             })
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){

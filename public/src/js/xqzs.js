@@ -377,8 +377,55 @@ var xqzs = {
             }else{
                return "剩"+d+"秒钟";
             }
-        }
+        },
+        getSolarData:function (beginYear,endYear) {
+            var data=[];
+            for(var i=beginYear;i<=endYear;i++){
+                var months=[];
+                for(var mi=1;mi<=12;mi++){
+                    //正常月
+                    var days=[];
+                    var  daycount= calendar.solarDays(i,mi);
+                    for(var di=1;di<=daycount;di++){
+                        days.push({value:di,label:di+"日"})
+                    }
+                    months.push({value:mi,label:mi+"月",children:days});
 
+                }
+                data.push({value:i,label:i+"年",children:months})
+            }
+            return data;
+        },
+        getLunarData:function (beginYear,endYear) {
+            var data=[];
+            for(var i=beginYear;i<=endYear;i++){
+                var leapMonth= calendar.leapMonth(i); //第几个月是闰月 没有返回0
+                var months=[];
+                var leapDays=0;
+                if(leapMonth!=0){
+                    leapDays=calendar.leapDays(i)  //闰月天数
+                }
+                for(var mi=1;mi<=12;mi++){
+                    //正常月
+                    var days=[];
+                    var    daycount= calendar.monthDays(i,mi);
+                    for(var di=1;di<=daycount;di++){
+                        days.push({value:di,label:calendar.toChinaDay(di)})
+                    }
+                    months.push({value:mi,label:calendar.toChinaMonth(mi),children:days});
+                    //增加一个闰月
+                    if(leapMonth==mi){
+                        days=[];
+                        for(var di=1;di<=leapDays;di++){
+                            days.push({value:di,label:calendar.toChinaDay(di)})
+                        }
+                        months.push({value:mi+"_1",label:"闰"+calendar.toChinaMonth(mi),children:days})
+                    }
+                }
+                data.push({value:i,label:i+"年",children:months})
+            }
+            return data;
+        }
     },
 
 

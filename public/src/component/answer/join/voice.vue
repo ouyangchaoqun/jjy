@@ -2,7 +2,7 @@
     <div style="height: 100%" class="answer_join_voice wbg">
 
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="8"  preUrl="./sign" nextUrl="./price" title="60''语音寄语"></v-answer-top-step>
+        <v-answer-top-step step="8"  preUrl="./sign" nextUrl="./price" title="60''语音寄语" canGoNext="true"></v-answer-top-step>
         <div class="tip">此60''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
 
         <div class="audio" v-show="finish">

@@ -3,10 +3,10 @@
 
         <div v-title>入驻心理咨询师</div>
 
-        <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./qualification" title="擅长领域"></v-answer-top-step>
+        <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./qualification" title="擅长领域" errorWord="请选择擅长领域" :canGoNext="canGoNext"></v-answer-top-step>
         <div class="sub_title">（最多可选3个）</div>
         <div class="types">
-            <div class="item" :class="{on:item.isSelect}" v-for="(item,index) in types" @click="select(index)"><span>{{item.name}}</span></div>
+            <div class="item" :class="{on:item.isSelect}" v-for="(item,index) in types" @click="select(index)"><span>{{item.title}}</span></div>
 
         </div>
 
@@ -21,43 +21,78 @@
         data() {
             return {
                 types:[
-                    {name:"情感困惑",isSelect:false},
-                    {name:"性心理",isSelect:false},
-                    {name:"人际关系",isSelect:false},
-                    {name:"职场事业",isSelect:false},
-                    {name:"婚姻家庭",isSelect:false},
-                    {name:"个人成长",isSelect:false},
-                    {name:"心理健康",isSelect:false},
-                    {name:"亲子教育",isSelect:false},
-                    {name:"情感困惑",isSelect:false},
-                ]
+                ],
+                MAX_COUNT:3,
+                canGoNext:false
             }
         },
 
         methods: {
+            getClassList:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.types= data.body.data;
+                        let questionClassId = cookie.get("questionClassId")
+                        if(questionClassId&&questionClassId!=''){
+                            _this.canGoNext=true;
+                           let ids=  questionClassId.split(",")
+                            for(let i=0;i<_this.types.length;i++){
+                                for(let j =0;j<ids.length;j++){
+                                    if(_this.types[i].id==ids[j]){
+                                        _this.types[i].isSelect=true;
+                                    }
+                                }
+                            }
+                        }else{
+                            _this.canGoNext=false;
+                        }
+                    }
+                }, function (error) {
+                });
+            },
             select:function (index) {
                 let count=0;
-
-                if(this.types[index].isSelect){
-                    this.types[index].isSelect=false
+                let types=this.types;
+                console.log(index)
+                if(types[index].isSelect){
+                    types[index].isSelect=false
                 }else{
-                    for(let i=0;i<this.types.length;i++){
-                        if(this.types[i].isSelect){
+                    for(let i=0;i<types.length;i++){
+                        if(types[i].isSelect){
                             count++
                         }
                     }
 
-                    if( count>=3){
+                    if( count>=this.MAX_COUNT){
 
                     }else{
-                        this.types[index].isSelect=true
+                        types[index].isSelect=true
                     }
                 }
+               this.$set(this.types,index,types[index]);
+                //存入cookie
+                let ids= '';
+                for(let i=0;i<types.length;i++){
+                    if(types[i].isSelect){
+                        ids+=types[i].id+",";
+                    }
+                }
+
+                if(ids.length>0){
+                    ids=ids.substr(0,ids.length-1);
+                    this.canGoNext=true;
+                }else{
+                    this.canGoNext=false;
+                }
+                cookie.set("questionClassId",ids);
+
+
             }
         },
 
         mounted: function () {
-
+            this.getClassList();
 
         } ,
         components: {

@@ -7,9 +7,17 @@
 
         <div class="set_price">
             <div class="til">设置提问酬金：</div>
-            <div class="select" ><input type="" onkeyup="this.value=this.value.replace(/[^\d\.￥]/g,'');  " value="￥1.00"></div>
+            <div class="select" ><input type="" class="priceInput"   @keyup="changePrice()" :value="'￥'+price"></div>
+            <div class="clear"></div>
         </div>
-        <div class="submit" @click="submit()">提交审核</div>
+        <div class="set_price mt" @click="selectFreeTime()" >
+            <div class="til">设置限时免费：</div>
+            <div class="select" ><input type=""  :value="freeTimeText"></div>
+            <div class="clear"></div>
+        </div>
+
+
+         <div class="submit" @click="submit()">提交审核</div>
     </div>
 </template>
 
@@ -21,13 +29,67 @@
         data() {
             return {
                 prices:["1.00","2.00","3.00","5.00","10.00","15.00","20.00","30.00","50.00"],
-                price:"1.00"
+                price:"1.00",
+                freeTime:null,
+                freeTimeText:'',
+                times:[{
+                    label: '不免费',
+                    value: 0
+                }, {
+                    label: '30分钟',
+                    value: 1
+                }, {
+                    label: '1小时',
+                    value: 2
+                },{
+                    label: '2小时',
+                    disabled: true,
+                    value: 3
+                }, {
+                    label: '3小时',
+                    value: 4
+                },{
+                    label: '4小时',
+                    value: 4
+                }]
             }
         },
 
         mounted: function () {
+            let freeTime = cookie.get("freeTime");
+            if(freeTime&&freeTime!=''){
+                for(let i =0;i<this.times.length;i++){
+                    if(this.times[i].value== parseInt(freeTime)){
+                        this.freeTimeText= this.times[i].label;
+                    }
+                }
+            }
+            let price = cookie.get("price");
+            this.price= price;
         } ,
         methods:  {
+            changePrice:function () {
+                let price= $(".priceInput").val()
+                price=  price.replace(/[^\d\.￥]/g,'');
+                $(".priceInput").val(price)
+                cookie.set("price", price.replace('￥',''));
+
+            },
+            selectFreeTime:function () {
+                let  data= this.times;
+                let _this=this;
+                weui.picker(  data, {
+                    id:"id"+Math.random(),
+                    onChange: function (result) {
+                        console.log(result);
+                    },
+                    onConfirm: function (result) {
+                        _this.freeTime = result[0].value;
+                        cookie.set("freeTime", _this.freeTime );
+                        _this.freeTimeText= result[0].label;
+                    },
+                });
+            },
             select:function () {
                 let _this= this;
                 let data = [];
@@ -47,7 +109,47 @@
                 });
             },
             submit:function () {
-                this.$router.push("./reviewing")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                let that=this;
+                let data={
+                    userId:"_userId_",
+                    price:cookie.get("price"),
+                    freeTime:cookie.get("freeTime"),
+                    sign:unescape(cookie.get("sign")),
+                    mediaId:cookie.get("mediaId"),
+                    voiceLength:cookie.get("voiceLength"),
+                    questionClassId:cookie.get("questionClassId").split(','),
+                    jobTitle:unescape(cookie.get("jobTitle")),
+                    certificateNo:unescape(cookie.get("certificateNo")),
+                    certificateFile:cookie.get("certificateFile"),
+                    introduction:unescape(cookie.get("introduction")),
+                    experience:unescape(cookie.get("experience")),
+                    goodat:unescape(cookie.get("goodAt"))
+
+                };
+                that.$http.put(web.API_PATH + "come/expert/register", data)
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            this.$router.push("./reviewing")
+                        }
+                    });
+
+
             }
         },
         components: {
@@ -58,6 +160,7 @@
     }
 </script>
 <style>
+    .mt{ margin-top: 15px!important;}
     .set_price{ width: 66%; margin: 0rem auto; margin-top: 48% }
     .set_price .til,  .set_price .select{ float:left; line-height: 2rem; text-align: center; color:#333; font-size: 0.88235rem;}
     .set_price .select input{ width: 6rem;font-size: 1.2rem; line-height: 2rem;;color: #ffaa00; text-align: center}

@@ -2,14 +2,14 @@
     <div style="height: 100%" class="wbg answer_join_base_info_box">
 
         <div v-title>入驻心理咨询师</div>
-
-        <v-answer-top-step step="1"  preUrl="" nextUrl="../field" title="填写基本信息"></v-answer-top-step>
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-answer-top-step step="1"  preUrl="" nextUrl="" title="填写基本信息"></v-answer-top-step>
+        <div class="submit" @click="msgSubmit()">下一项</div>
 
         <div class="head">
         <div class="weui-cell ">
             <div class="weui-cell__hd"><label class="weui-label">设置头像<span>*</span></label> </div>
-            <div class="weui-cell__bd">
+            <div class="weui-cell__bd" @click="changeHeadpic()">
                 <div class="img">+</div>
             </div>
             <div class="clear"></div>
@@ -22,44 +22,69 @@
                 <ul>
                     <li>
                         <div class="info_left">昵称</div>
-                        <input type="text">
+                        <input type="text" class="nickName" :value="user.nickName" placeholder="填写昵称" maxlength="8">
                     </li>
                     <li>
                         <div class="info_left">真实姓名</div><span>*</span>
-                        <input type="text">
+                        <input type="text" class="realName" :value="user.realName " placeholder="还未填写（如张三）">
                     </li>
                     <li>
                         <div class="info_left">性别</div><span>*</span>
                         <div class="info_right">
-                            <div>
-                                <span class="level_item "></span>
+                            <div @click="changeSex(1)">
+                                <span class="level_item" :class="{checked_item:sex==1}" ></span>
                                 <span class="level_itemsex">男</span>
                             </div>
-                            <div>
-                                <span class="level_item "></span>
+                            <div  @click="changeSex(2)">
+                                <span class="level_item "  :class="{checked_item:sex==2}" ></span>
                                 <span class="level_itemsex">女</span>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="info_left">出生年月</div><span>*</span>
-                        <input type="text">
+                        <div class="list0 list02 list_bottom" @click="showDate()">
+
+                            <div class="lut" :class="{on:!isLunar}" @click.stop="lutSelect(0)">阳历</div>
+                            <div class="lut" :class="{on:isLunar}"  @click.stop="lutSelect(1)">阴历</div>
+                            <div class="showdL" v-if="birthday">
+                                <template v-if="!isLunar">
+                                    <span>{{year}}年 </span>
+                                    <span>{{month}}月 </span>
+                                    <span>{{day}}日 </span>
+                                </template>
+                                <template v-if="isLunar">
+                                    <span>{{yearN}} </span>
+                                    <span>{{monthN}} </span>
+                                    <span>{{dayN}} </span>
+                                </template>
+                            </div>
+                            <div class="showdL" v-else>
+                                请选择日期
+                            </div>
+
+                        </div>
+
                     </li>
-                    <li>
+                    <li  id="localCity" @click="areaPicker()">
                         <div class="info_left">所在城市</div><span>*</span>
-                        <input type="text">
+                        <input type="text" :value="provinceName +' '+cityName +' '+areaName">
                     </li>
+
+
+
+
                     <li>
                         <div class="info_left"></div>
                         <div class="info_right">
-                            <i class="right_active">身份证</i>
-                            <i>护照</i>
+                            <i @click="changeCardType(0)"  :class="{right_active:cardType==0}">身份证</i>
+                            <i @click="changeCardType(1)" :class="{right_active:cardType==1}">护照</i>
                         </div>
 
                     </li>
                     <li>
                         <div class="info_left">证件</div><span>*</span>
-                        <input type="text">
+                        <input type="text" class="idcard" :value="user.idcard ">
                     </li>
                 </ul>
         </div>
@@ -69,35 +94,335 @@
 
 <script type="es6">
 
+    import showLoad from '../../include/showLoad.vue';
     import answerTopStep from "./include/top_step.vue";
 
     export default {
         data() {
             return {
-                codeType:1
+                showLoad:false,
+                birthday: '',
+                user: '',
+                year: '',
+                month: '',
+                day: '',
+                defaultCity: '[330000, 330100, 330102]',
+                provinceName: '',
+                cityName: '',
+                areaName: '',
+                provinceId: '',
+                cityId: '',
+                areaId: '',
+                isLunar: 0,
+                lunarDateData:[],
+                solarDateDate:[],
+                isLeapMonth:false,
+                alioss:null,
+                uploadpicinfo:null,
+                sex:1,
+                cardType:0 //身份证
             }
         },
 
-
         mounted: function () {
-            $('.info_right>div').click(function () {
-               $('.info_right>div').find('.level_item').removeClass('checked_item')
-                $(this).find('.level_item').addClass('checked_item')
-            })
+
             $('.info_right i').click(function () {
                 $('.info_right i').removeClass('right_active')
                 $(this).addClass('right_active')
             })
+            let _this = this;
 
+
+            this.uploadpicinfo = {
+                token: xqzs.string.guid(),
+                smallpic: xqzs.constant.PIC_SMALL,
+                middlepic: xqzs.constant.PIC_MIDDLE,
+                removepicurl: web.BASE_PATH + 'api/removepicture',
+                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+            };
+            this.alioss = new aliyunoss({
+                url:this.uploadpicinfo.aliossgeturl,
+                token:this.uploadpicinfo.token
+            });
+            var infokey = 'perfectinfo';
+            xqzs.version.showed(infokey);
+            //用户信息
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+
+                    _this.user = eval(data.data.data);
+                    _this.sex=_this.user.sex;
+                    _this.cardType=_this.user.cardType;
+
+                    _this.birthday = _this.user.birthday;
+                    if (_this.birthday) {
+                        let date = _this.birthday.split(',');
+                        _this.year = date[0];
+                        _this.month = date[1];
+                        _this.day = date[2];
+                        if( _this.user.isLunar==1||_this.user.isLunar==2){
+                            _this.isLunar=true;
+                            _this.yearN = date[0]+'年';
+                            _this.monthN =  calendar.toChinaMonth(date[1]);
+                            if(_this.user.isLunar==2) {
+                                _this.isLeapMonth=true;
+                                _this.monthN= "闰"+ _this.monthN;
+                            }
+                            _this.dayN = calendar.toChinaDay(date[2]);
+                        }
+
+                    }
+                    _this.provinceName = _this.user.provinceName;
+                    _this.cityName = _this.user.cityName;
+                    _this.areaName = _this.user.areaName;
+                    _this.provinceId = _this.user.provinceId;
+                    _this.cityId = _this.user.cityId;
+                    _this.areaId = _this.user.areaId;
+                    _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                }
+            }, function (error) {
+                //error
+            });
+            xqzs.wx.setConfig(_this);
+
+            this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
+            this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
+        },
+        filters: {
+            shortName: function (value, len) {
+                return xqzs.shortname(value, len);
+            }
         },
         methods: {
+
+            changeSex:function (v) {
+                this.sex=v;
+            },
+
+            changeCardType:function (v) {
+                this.cardType=v;
+            },
+
+            lutSelect:function (v) {
+                let _this= this;
+                if(v==0){
+                    if( !this.isLunar) return ;
+
+                    if(this.birthday&&this.birthday!=''){
+                        let date = this.birthday.split(',');
+                        let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2]),_this.isLeapMonth); //阳历
+                        this.birthday= solar.cYear+","+solar.cMonth+"," +solar.cDay ; //阳历
+                        console.log(solar)
+                        _this.year = solar.cYear;
+                        _this.month = solar.cMonth;
+                        _this.day = solar.cDay;
+                    }
+                    this.isLunar=false;
+
+                }else if(v==1){
+                    if( this.isLunar) return ;
+                    this.isLunar=true;
+                    if(this.birthday&&this.birthday!=''){
+                        let date = this.birthday.split(',');
+                        let lunar=  calendar.solar2lunar(date[0],date[1],date[2]); //农历
+                        console.log(lunar)
+                        this.birthday= lunar.lYear+","+lunar.lMonth+"," +lunar.lDay  //农历
+                        _this.isLeapMonth=lunar.isLeap;
+                        _this.yearN =  lunar.lYear+"年";
+                        _this.monthN = lunar.IMonthCn;
+                        _this.dayN =lunar.IDayCn;
+                        _this.year = lunar.lYear;
+                        _this.month = lunar.lMonth;
+                        _this.day = lunar.lDay;
+                        if(lunar.isLeap){
+                            _this.month = lunar.lMonth+"_1";
+                        }
+                    }
+
+
+                }
+            },
+            showDate: function () {
+                let _this = this;
+                let defaultValue = [1988, 1, 1];
+                if (this.year != '' && this.month != '' && this.day != '') {
+                    defaultValue = [this.year, this.month, this.day]
+                }
+
+                console.log(defaultValue)
+
+                if (this.isLunar) {
+
+                    weui.picker(  this.lunarDateData, {
+                        depth: 3,
+                        defaultValue: defaultValue,
+                        id:"id"+Math.random(),
+                        onChange: function (result) {
+                            console.log(result);
+                        },
+                        onConfirm: function (result) {
+
+
+                            _this.yearN = result[0].label;
+                            _this.monthN = result[1].label;
+                            _this.dayN = result[2].label;
+
+                            console.log(  _this.monthN);
+
+                            //闰月
+                            let monthValue =  result[1].value;
+
+
+                            if(typeof(monthValue)=="string"&&monthValue.indexOf("_")){
+                                _this.isLeapMonth=true;
+                                monthValue=result[1].value.split("_")[0];
+                            }else{
+                                _this.isLeapMonth=false;
+                            }
+
+
+                            _this.year = result[0].value;
+                            _this.month = result[1].value;
+                            _this.day = result[2].value;
+
+
+                            _this.birthday = result[0].value + ',' +monthValue + ',' + result[2].value;
+                        },
+                    });
+
+                } else {
+
+                    weui.picker(  this.solarDateDate, {
+                        depth: 3,
+                        defaultValue: defaultValue,
+                        id:"id"+Math.random(),
+                        onChange: function (result) {
+                            console.log(result);
+                        },
+                        onConfirm: function (result) {
+
+                            _this.year = result[0].value;
+                            _this.month = result[1].value;
+                            _this.day = result[2].value;
+
+
+                            _this.birthday = result[0].value + ',' + result[1].value + ',' + result[2].value;
+
+                        },
+                    });
+
+
+                }
+            },
+            areaPicker: function () {
+                let _this = this;
+                $.get('/src/js/city.json', function (data) {
+                    weui.picker(data, {
+                        depth: 3,
+                        defaultValue: _this.defaultCity,
+                        onChange: function onChange(result) {
+
+                        },
+                        onConfirm: function onConfirm(result) {
+                            if (result[0]) {
+                                _this.provinceId = result[0].value;
+                                _this.provinceName = result[0].label;
+                            }
+                            if (result[1]) {
+                                _this.cityId = result[1].value;
+                                _this.cityName = result[1].label;
+                            }
+                            if (result[2]) {
+                                _this.areaId = result[2].value;
+                                _this.areaName = result[2].label;
+                            } else {
+                                _this.areaId = '';
+                                _this.areaName = '';
+                            }
+
+                        },
+                        id: 'cascadePicker'
+                    });
+                });
+
+            },
+
+            changeHeadpic:function () {
+                console.log("getphont")
+                let that=this;
+                xqzs.wx.takePhotos(['camera','album'],1,this.uploadpicinfo,that.alioss,function (filecount) {
+                    that.showLoad=true;
+
+                },function (json,ix) {
+                    that.showLoad=false;
+                   console.log(json.data)
+                },function (e) {
+                    console.info(e);
+                })
+
+            },
+            updateHeadpic: function () {
+                let _this = this;
+                _this.$http({
+                    method: 'POST',
+                    url: web.API_PATH + 'user/update/user/headpic/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data == 1) {
+                        xqzs.weui.toast("success", "更新成功", function () {
+
+                        });
+                    }
+                }, function (error) {
+                    //error
+                });
+
+            },
+            msgSubmit: function () {
+                let _this = this;
+                let nick = $('.nickName').val();
+                let realName = $('.realName').val();
+                let address = $('.address').val();
+                let idcard=  $('.idcard').val();
+                let msg = {
+                    "id": _this.user.id,
+                    "idcard":idcard,
+                    "cardType":_this.cardType,
+                    "realName": realName,
+                    "nickName": nick,
+                    "sex": _this.sex,
+                    "birthday": _this.birthday,
+                    "countryId": 0,
+                    "provinceId": _this.provinceId,
+                    "cityId": _this.cityId,
+                    "areaId": _this.areaId,
+                    "address": address,
+                    "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0
+                };
+                console.log(msg);
+                _this.$http.post(web.API_PATH + 'user/update', msg)
+                    .then(
+                        (response) => {
+                            xqzs.weui.toast("success", "修改成功", function () {
+                                _this.$router.replace("../field")
+                            })
+                        }
+                    );
+
+
+            },
             codeChange:function (v) {
                 this.codeType=v;
             }
 
-        }
-        ,
+        },
+
         components: {
+            'v-showLoad': showLoad,
             "v-answer-top-step": answerTopStep
         }
 
@@ -105,6 +430,8 @@
 </script>
 <style>
 
+    .answer_join_base_info_box .submit{ position: absolute; top:0; right:0.88235rem;    line-height: 2.647058823529412rem;
+        font-size: 0.9rem;}
     .answer_join_base_info_box .weui-cell__bd .img{
         width: 3.764705882352941rem; height: 3.764705882352941rem; background: #F4F4F7; color:#fff; font-size: 3.2rem; line-height: 3.2rem ; text-align: center; margin-left: 2rem
     }
@@ -126,4 +453,12 @@
     .info_right .level_itemsex{margin-left: 30px;color:#333;font-size: 0.88235rem}
     .info_right i{display: inline-block;color:#999;font-style: normal;width:60px;height:21px;font-size:0.70588235rem;line-height: 21px;border:1px solid #999;border-radius: 1rem;margin-right:25px;margin-top:10px;}
     .info_right .right_active{background: #09bb07;border-color: #09bb07;color:#fff}
+
+    .lut{ float:left; background: #ececec; color:#333; height: 30px; line-height: 30px;  padding: 0 10px; margin-top: 6px; font-size: 14px;  }
+    .lut:nth-child(3){ margin-left: 0}
+    .lut:nth-child(1){ margin-left:1.176470588235294rem;     }
+    .lut.on{ float:left; background: #0BB20C; color:#fff;}
+    .showdL{ float:left; margin-left: 1rem;}
+    .showdL span{ color:#333 !important}
+
 </style>
