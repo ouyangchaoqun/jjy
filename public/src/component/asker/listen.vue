@@ -225,9 +225,9 @@
     .index_li_bottom .problem_answer_play{margin-left:0;left:12%;}
     nav{
         width: 100%;
-        background: #fff;
-        height:2.353rem;
-        line-height: 2.353rem;
+        background: #fdfdfd;
+        height:2.471rem;
+        line-height: 2.471rem;
         font-size: 0.76471rem;
         color: #666;
         text-align: center;

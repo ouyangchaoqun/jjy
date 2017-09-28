@@ -19,71 +19,49 @@
         </div>
 
         <div class="infos">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">昵称</label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input"   placeholder=" 请输入昵称"/>
-                </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">真实姓名 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input"   placeholder="请输入姓名"/>
-                </div>
-            </div>
-
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">性别 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <div class="weui-cells weui-cells_checkbox">
-                    <label class="weui-cell weui-check__label sex" for="s13">
-                        <div class="weui-cell__hd">
-                            <input type="radio" name="checkbox1" class="weui-check"  checked id="s13"/>
-                            <i class="weui-icon-checked"></i>
-                        </div>
-                        <div class="weui-cell__bd">
-                            <p>男</p>
-                        </div>
-                    </label>
-                        <label class="weui-cell weui-check__label sex" for="s15">
-                            <div class="weui-cell__hd">
-                                <input type="radio" name="checkbox1" class="weui-check"    id="s15"/>
-                                <i class="weui-icon-checked"></i>
+                <ul>
+                    <li>
+                        <div class="info_left">昵称</div>
+                        <input type="text">
+                    </li>
+                    <li>
+                        <div class="info_left">真实姓名</div><span>*</span>
+                        <input type="text">
+                    </li>
+                    <li>
+                        <div class="info_left">性别</div><span>*</span>
+                        <div class="info_right">
+                            <div>
+                                <span class="level_item "></span>
+                                <span class="level_itemsex">男</span>
                             </div>
-                            <div class="weui-cell__bd">
-                                <p>女</p>
+                            <div>
+                                <span class="level_item "></span>
+                                <span class="level_itemsex">女</span>
                             </div>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">出生年月 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input"   placeholder="请选择出生年月"/>
-                </div>
-            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="info_left">出生年月</div><span>*</span>
+                        <input type="text">
+                    </li>
+                    <li>
+                        <div class="info_left">所在城市</div><span>*</span>
+                        <input type="text">
+                    </li>
+                    <li>
+                        <div class="info_left"></div>
+                        <div class="info_right">
+                            <i class="right_active">身份证</i>
+                            <i>护照</i>
+                        </div>
 
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">所在城市 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input"   placeholder="请选择所在城市"/>
-                </div>
-            </div>
-
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label"></label></div>
-                <div class="weui-cell__bd">
-                    <div class=" click_btn" :class="{on:codeType==1}" @click="codeChange(1)">身份证</div>
-                    <div class=" click_btn" :class="{on:codeType==2}"  @click="codeChange(2)">护照</div>
-                 </div>
-            </div>
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">证件 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input"   placeholder="请输入您的证件号码"/>
-                </div>
-            </div>
+                    </li>
+                    <li>
+                        <div class="info_left">证件</div><span>*</span>
+                        <input type="text">
+                    </li>
+                </ul>
         </div>
 
     </div>
@@ -102,14 +80,21 @@
 
 
         mounted: function () {
-
+            $('.info_right>div').click(function () {
+               $('.info_right>div').find('.level_item').removeClass('checked_item')
+                $(this).find('.level_item').addClass('checked_item')
+            })
+            $('.info_right i').click(function () {
+                $('.info_right i').removeClass('right_active')
+                $(this).addClass('right_active')
+            })
 
         },
         methods: {
             codeChange:function (v) {
                 this.codeType=v;
-
             }
+
         }
         ,
         components: {
@@ -124,18 +109,21 @@
         width: 3.764705882352941rem; height: 3.764705882352941rem; background: #F4F4F7; color:#fff; font-size: 3.2rem; line-height: 3.2rem ; text-align: center; margin-left: 2rem
     }
     .answer_join_base_info_box .head{ margin-top:0.3rem; border-bottom: solid 0.5882352941176471rem #F4F4F7}
-    .answer_join_base_info_box  .weui-cells:after, .weui-cells:before,.answer_join_base_info_box  .weui-cell:before{ display: none}
-    .answer_join_base_info_box  .weui-check__label{ width: 42%; float:left; font-size: 0.823rem !important}
-
     .answer_join_base_info_box .tip{ margin-top: 0.2rem; font-size: 0.7058823529411765rem; padding: 10px 15px; color:#999}
-
-    .answer_join_base_info_box .infos input{ background: #F4F4F7;  height: 2.352941176470588rem;line-height: 2.352941176470588rem; padding:0 0.6rem;font-size: 0.88235rem; border-radius: 0.3rem; width: 80%; color:#333}
     .answer_join_base_info_box  .weui-label span{ color:red;}
-    .weui-check__label:active{background: none}
-    .answer_join_base_info_box .weui-check__label.sex{ padding: 0}
-    .answer_join_base_info_box  .weui-cells_checkbox{ margin-top: 0}
 
-    .answer_join_base_info_box   .click_btn{font-size: 0.70588235rem; border: 1px solid #D2D2D2; color:#D2D2D2; line-height: 1.4rem; border-radius: 0.7rem;  width:4.5rem; text-align: center; float:left; margin-right: 0.6rem  }
-    .answer_join_base_info_box   .click_btn.on{ background: #09bb07; border: 1px solid  #09bb07; color:#fff}
-
+    .level_item{height:14px;width:14px;border-radius: 50%;border:1px solid #D2D2D2;display: inline-block;margin-right:0.8235rem;position: absolute;top:50%;margin-top:-8px;}
+    .checked_item{border-color: #09bb07}
+    .checked_item::after{  content: '';  width:12px;  height: 12px;  background: #09bb07;  border-radius: 50%;  position: absolute;top:50%;margin-top:-6px;left:50%;margin-left:-6px;}
+    .infos li{height:40px;line-height: 40px;color:#666;font-size: 0.8235rem;display: flex;margin-bottom: 0.88235rem;position: relative}
+    .infos li input{height:100%;width:70%;background: #F4F4F7;border-radius: 5px;position: absolute;right:0;padding-left: 0.588235rem;color:#333;}
+    .info_right{height:100%;text-align: center;padding-left: 4rem;display: flex}
+    .info_left{width:20%;text-align: right;}
+    .infos ul{padding:0.88235rem}
+    .infos li span{color:red}
+    .info_right>div{position: relative}
+    .info_right>div:nth-of-type(1){margin-right: 1.76471rem}
+    .info_right .level_itemsex{margin-left: 30px;color:#333;font-size: 0.88235rem}
+    .info_right i{display: inline-block;color:#999;font-style: normal;width:60px;height:21px;font-size:0.70588235rem;line-height: 21px;border:1px solid #999;border-radius: 1rem;margin-right:25px;margin-top:10px;}
+    .info_right .right_active{background: #09bb07;border-color: #09bb07;color:#fff}
 </style>
