@@ -1,20 +1,24 @@
 <template >
     <div style="height: 100%" class="answer_ask_list_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
+            <div v-title>待答</div>
+            <div class="list  weui-tab__panel">
+                <div class="item" v-for="item in list" @click="answer(item.id)">
+                    <div class="img"><img :src="item.faceUrl"></div>
+                    <div class="info">
+                        <div class="names"><span>{{item.nickName}}</span> 在哪方面：{{item.questionClassName}}</div>
+                        <div class="content">{{item.content}}</div>
+                        <div class="last_time">还{{formatDateText(item.endTime)}}</div>
+                        <div class="price">酬金 <span>￥{{item.price}}</span></div>
 
-        <div v-title>待答</div>
-        <div class="list  weui-tab__panel">
-            <div class="item" v-for="item in list" @click="answer(item.id)">
-                <div class="img"><img :src="item.faceUrl"></div>
-                <div class="info">
-                    <div class="names"><span>{{item.nickName}}</span> 在哪方面：{{item.questionClassName}}</div>
-                    <div class="content">{{item.content}}</div>
-                    <div class="last_time">还{{formatDateText(item.endTime)}}</div>
-                    <div class="price">酬金 <span>￥{{item.price}}</span></div>
-
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
             </div>
-        </div>
+        </v-scroll>
         <v-answer-bottom tabOnIndex="1" ></v-answer-bottom>
 
     </div>

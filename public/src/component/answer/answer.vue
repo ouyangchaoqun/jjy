@@ -93,7 +93,8 @@
                 answerTime:"00",
                 timeOut:null,
                 questionId:null,
-                detail:{}
+                detail:{},
+                str:null
             }
         },
         mounted: function () {
@@ -137,6 +138,14 @@
                 },1000)
 
             },
+            recordSuccess:function (obj) {
+                let _this = this;
+                _this.str = obj.id
+            },
+            getRecord:function () {
+                return str;
+            },
+
             clearTimeOut:function () {
                 let _this=this;
                 if(_this.timeOut!==null){
@@ -154,6 +163,7 @@
                 this.isAnswered=true;
             },
             start:function () {
+                wx.startRecord();//开始录音
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
