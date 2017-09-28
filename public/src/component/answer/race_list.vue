@@ -11,7 +11,7 @@
                     <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">
                         <div class="price">赏金 <span>￥{{item.price}}</span></div>
-                        <div class="type">在哪方面：情感困惑</div>
+                        <div class="type">在哪方面：{{item.questionClassName}}</div>
                         <div class="clear"></div>
                         <div class="content">{{item.content}}</div>
                         <div class="last_time">还{{formatDateText(item.endTime)}}</div>

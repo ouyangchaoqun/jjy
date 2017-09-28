@@ -96,6 +96,10 @@
                 this.getList();
                 done() // call done
             },
+        },
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
         }
 
 
