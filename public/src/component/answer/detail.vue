@@ -218,7 +218,8 @@
                this.$router.push("comment?expertId="+this.id );
             },
             ask:function () {
-                this.$router.push("/asker/ask")
+
+                this.$router.push("/asker/ask?expertId="+this.id )
             },
             getComment:function () {
                 let _this= this;

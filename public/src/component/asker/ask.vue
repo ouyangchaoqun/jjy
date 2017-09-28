@@ -2,7 +2,7 @@
     <div style="height: 100%" class="asker_ask_box">
 
         <div v-title>提问</div>
-        <div class="ask_type" v-if="!isSelectAnswer">
+        <div class="ask_type" >
             <div class="tab">选择问题类型：</div>
             <div class="select_box" @click="selectType()">{{type}}</div>
             <div class="clear"></div>
@@ -10,14 +10,14 @@
         <div class="text_area">
             <textarea v-if="isSelectAnswer" class="content" placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
             <textarea v-if="!isSelectAnswer" class="content" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
-            <div class="last_word_count">0/140</div>
-            <div class="price" v-if="isSelectAnswer">¥19.9</div>
+            <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
+            <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
         </div>
         <div class="tip" @click="tip()">提问须知</div>
         <div class="clear"></div>
         <div class="set_price" v-if="!isSelectAnswer">
             <div class="txt">设置赏金：</div>
-            <div class="price">10元起</div>
+            <input type="text" class="price" placeholder="10元起">
         </div>
         <div class="submit" @click="submit()">提交</div>
 
@@ -89,22 +89,63 @@
                 type:'',
                 typeSelectIndex:null,
                 questionClass:0,
-                price:10
+                expertId:0,
+                expertDetail:{},
+                contentLength:0,
+                MAX_LENGTH:140
+
             }
         },
         components: {
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-            this.getClassList()
+            this.expertId=this.$route.query.expertId;
+            if( this.expertId&& this.expertId!=''){
+                this.isSelectAnswer=true;
+                this.getExpert();
+            }else{
+                this.getClassList()
+            }
+
+            //数字变化
+            let _this=this;
+
+            _this.$nextTick(function () {
+                $(".content").keyup(function () {
+
+                    let content  =  $(this).val();
+                    console.log(content)
+                    if(content.length>_this.MAX_LENGTH){
+                        $(this).val(content.substr(0,_this.MAX_LENGTH));
+                        _this.contentLength=_this.MAX_LENGTH;
+                    }else{
+                        _this.contentLength= content.length;
+                    }
+
+
+                })
+            })
+
+
         },
         methods: {
+            getExpert:function () {
+                let _this= this;
+                let id=  this.expertId;
+                _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.expertDetail=data.body.data;
+                        _this.types= data.body.data.domain
+                    }
+                }, function (error) {
+                });
+            },
             getClassList:function () {
                 let _this=this;
                 _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
-                        console.log(data.body.data)
-                        _this.types= data.body.data
+                            _this.types= data.body.data
                     }
                 }, function (error) {
                 });
@@ -122,17 +163,43 @@
                     xqzs.weui.tip("请选择填写问题内容",function () {
 
                     });
-
                     return;
                 }
 
-                this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass})
-                    .then(function (bt) {
-                        if (bt.data && bt.data.status == 1) {
+
+                if( this.expertId&& this.expertId!=''){
+                    this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: this.questionClass,expertId:this.expertId})
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+                                //Todo 提示支付
+                            }
+                        });
+                }else{
+                    let price= $(".price").val();
+                    if(price==''){
+                        xqzs.weui.tip("请输入金额",function () {
+
+                        });
+                        return;
+                    }
+                    if(!xqzs.string.checkPrice(price)){
+                        xqzs.weui.tip("请输入正确的金额",function () {
+
+                        });
+                        return;
+                    }
 
 
-                        }
-                    });
+
+                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass})
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+                                //Todo 提示支付
+                            }
+                        });
+
+                }
+
 
 
 
@@ -273,7 +340,10 @@
         border-bottom: 1px solid #ccc;
         color: #FF9900;
         padding: 0 0.5rem;
+        width: 4rem;
     }
+    ::-webkit-input-placeholder {
+        color: #ff9900;}
     .asker_ask_box .submit {
         background: #09bb07;
         border-radius: 6px;

@@ -654,7 +654,11 @@ var xqzs = {
         }
         return s;
     },
-string: {
+    string: {
+        checkPrice: function (val) {
+            var re = /^[0-9.]+$/;
+            return re.test(val);
+        },
         //封装验证手机号码
         checkUserPhoneReg: function () {
             var regExpP = /^1[34578]\d{9}$/; //手机号
