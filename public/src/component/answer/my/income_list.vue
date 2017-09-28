@@ -1,39 +1,101 @@
 <template >
     <div style="height: 100%" class="ask_my_income_list wbg">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
+            <div v-title>心情指数</div>
 
-        <div v-title>心情指数</div>
-
-        <div>
-            <div class="top_tip">每份收入的90%为收益哦</div>
-            <div class="list">
-                <div class="item" v-for="item in [1,3,4,5,6,4,5,1]">
-                    <div class="time">2017-09-12 12:00</div>
-                    <div class="type_txt">偷听分成</div>
-                    <div class="price">¥0.45</div>
+            <div>
+                <div class="top_tip">每份收入的90%为收益哦</div>
+                <div class="list">
+                    <div class="item" v-for="item in list">
+                        <div class="time">2017-09-12 12:00</div>
+                        <div class="type_txt">偷听分成</div>
+                        <div class="price">¥0.45</div>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </v-scroll>
 
     </div>
 </template>
 
 <script type="es6">
-
+    import showLoad from '../../include/showLoad.vue';
+    import scroll from '../../include/scroll.vue';
+    import Bus from '../../../js/bus';
 
 
     export default {
         data() {
-            return {}
+            return {
+                showLoad:false,
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:true,
+                list:[],
+            }
         },
 
 
         mounted: function () {
-
-
+            this.getList()
         },
         methods:{
+            getList: function () {
+                let expertId = cookie.get('expertId')
+                let vm= this;
+                let url =web.API_PATH + 'come/expert/query/income/page/'+expertId+'/1289/'+vm.page+'/'+vm.row;
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
 
+                    if(response.data.status!=1&&vm.page==1){
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
         }
 
 

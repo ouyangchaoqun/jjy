@@ -4,13 +4,12 @@
         <div v-title>回答</div>
         <!--问题详情-->
         <div class="answer" >
-            <div class="img"><img
-                    src="http://g.hiphotos.baidu.com/exp/w=480/sign=0b2f2cb8972397ddd679990c6982b216/f2deb48f8c5494ee9e081a462bf5e0fe99257e42.jpg"></div>
+            <div class="img"><img :src="detail.faceUrl"></div>
             <div class="info">
-                <div class="names"><span>j**</span> </div>
-                <div class="type"><span>在哪方面：</span>情感困惑</div>
-                <div class="content">六年的感情真的败给时间了，男朋友还是选择分手，说他厌恶我了。分手后我特别害怕早上醒来和入睡前的胡思乱想，而且一到上午就会变得好无力，不知所措怎么办呢？</div>
-                <div class="last_time">5分钟前</div>
+                <div class="names"><span>{{detail.nickname}}</span> </div>
+                <div class="type"><span>在哪方面：</span>{{detail.title}}</div>
+                <div class="content">{{detail.content}}</div>
+                <div class="last_time">{{getTime(detail.addTime)}}</div>
                 <div class="clear"></div>
                 <div class="audio" v-if="isAnswered">
                     <div class="audio_btn">
@@ -20,7 +19,7 @@
                     <div class="clear"></div>
                 </div>
             </div>
-            <div class="price">酬金 <span>￥13.14</span></div>
+            <div class="price">酬金 <span>￥{{detail.price}}</span></div>
 
             <div class="clear"></div>
         </div>
@@ -92,9 +91,23 @@
                 preAnswer:false,
                 playing:false,
                 answerTime:"00",
-                timeOut:null
-
+                timeOut:null,
+                questionId:null,
+                detail:{}
             }
+        },
+        mounted: function () {
+
+            this.questionId = this.$route.query.askId
+            this.$http.get(web.API_PATH + 'come/expert/question/detail/'+this.questionId).then(function (data) {//es5写法
+                if (data.body.status == 1) {
+                    console.log(data)
+                    this.detail = data.data.data;
+                }
+            }, function (error) {
+
+            });
+
         },
         methods: {
             timeout:function (play) {
@@ -154,13 +167,11 @@
                 this.clearTimeOut();
                 this.answering=false;
                 this.preAnswer=true;
-            }
+            },
+            getTime:function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
         },
-
-        mounted: function () {
-
-
-        }
 
 
     }
@@ -176,7 +187,7 @@
     }
    .answer_answer_box .answer .info .type{ font-size: 0.7058823529411765rem; color:#333;margin-bottom: 0.4rem}
     .answer_answer_box .answer .info .type span{ color:#666}
-   .answer_answer_box .answer .price{ font-size: 0.8823529411764706rem;color:#535353; text-align: right; width: 7rem; position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
+   .answer_answer_box .answer .price{ font-size: 0.8823529411764706rem;color:#535353; text-align: right;position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
     .answer_answer_box .answer  .price span{ color:#FF9900; font-size: 1.058823529411765rem;}
     .answer_answer_box .answer .info  .audio{ margin-top: 0.6rem;}
 
