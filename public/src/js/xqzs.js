@@ -538,18 +538,24 @@ var xqzs = {
     voice:{
         audio:null,
         play:function (url) {
-            if( xqzs.voice.audio!=null){
-                xqzs.voice.audio.pause()
+
+            if(url&&url!=''){
+                if( xqzs.voice.audio!=null){
+                    xqzs.voice.audio.pause()
+                }
+                xqzs.voice.audio=document.createElement("audio");
+                xqzs.voice.audio.loop="loop";
+                xqzs.voice.audio.src=url;//路径
+                xqzs.voice.audio.autobuffer=true;
+                xqzs.voice.audio.play()
+            }else{
+                if(xqzs.voice.audio&& xqzs.voice.audio.paused)
+                xqzs.voice.audio.play()
             }
-            xqzs.voice.audio=document.createElement("audio");
-            xqzs.voice.audio.loop="loop";
-            xqzs.voice.audio.src=this.url;//路径
-            xqzs.voice.isPlay=false;
-            xqzs.voice.audio.autobuffer=true;
-            xqzs.voice.audio.play()
+
         },
         pause:function () {
-            if( xqzs.voice.audio!=null){
+            if(xqzs.voice.audio&& xqzs.voice.audio!=null){
                 xqzs.voice.audio.pause()
             }
         }
@@ -1122,3 +1128,12 @@ var _timer = setInterval(function () {
 setTimeout(function () {
     clearInterval(_timer);
 }, 5000);
+
+
+document.addEventListener("visibilitychange", function() {
+   if( document.visibilityState=='hidden'){
+       xqzs.voice.pause()
+   }else{
+       xqzs.voice.play()
+   }
+});

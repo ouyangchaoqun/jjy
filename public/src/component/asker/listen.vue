@@ -1,5 +1,5 @@
 <template id="stealListen_index">
-    <div :class="{wbg:list.length==0    }">
+    <div class="asker_listen_box" :class="{wbg:list.length==0    }">
         <!--头部导航栏-->
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
@@ -17,7 +17,7 @@
                 <div class="index_box">
                     <div v-if="list.length>0" class="index_content_active">
                         <ul>
-                            <li v-for="item in list">
+                            <li v-for="(item,index) in list">
                                 <a @click="goDetail(item.questionId)">
                                     <div class="index_li_header">
                                         <img :src="item.expertFaceUrl" alt=""><div>{{item.expertName}} <span>回答了</span></div>
@@ -26,22 +26,29 @@
                                     <div class="index_li_bottom">
 
                                         <!--免费听-->
-                                        <span class="problem_answer_yy" v-if="item.answerType==1">
-                                            <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
-                                            <div class="problem_answer_play">点击播放</div>
-                                            <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                                        <span class="problem_answer_yy" @click.stop="play(index)" v-if="item.answerType==1">
+                                            <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                                <div class="audio_btn">
+                                                    <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                                    <template v-if="item.playing">正在播放..</template>
+                                                    <template v-if="item.paused">播放暂停</template>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
                                         </span>
 
                                         <!--付费听-->
-                                        <div class="index_li_voice" @click="play()" v-if="item.answerType==2||item.answerType==4">
+                                        <div class="index_li_voice" @click.stop="pay(item)" v-if="item.answerType==2||item.answerType==4">
                                             <img src="../../images/charge.png" alt="">
                                             <div class="position_change1">1元偷听</div>
                                         </div>
                                         <!--限时免费听-->
-                                        <span class="problem_answer_yy" v-if="item.answerType==3">
-                                            <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
-                                            <div class="problem_answer_play">限时免费听</div>
-                                            <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                                        <span class="problem_answer_yy" @click.stop="play(index)"  v-if="item.answerType==3">
+                                            <div class="audio" :class="{playing:item.playing,paused:item.paused}"><div class="audio_btn"  >
+                                            <template v-if="!item.playing&&!item.paused">限时免费听</template>
+                                                    <template v-if="item.playing">正在播放..</template>
+                                                    <template v-if="item.paused">播放暂停</template>
+                                            </div><div class="clear"></div></div>
                                         </span>
 
                                         <div class="index_li_count">听过{{item.listenTimes}}</div>
@@ -145,8 +152,59 @@
             this.getList();
         },
         methods:{
-            play:function () {
-                console.log(111)
+            play:function (index) {
+                let _this=this;
+
+                //重置其他列表内容
+                for(let i = 0;i<_this.list.length;i++){
+                    if(index!=i&&(_this.list[i].playing||_this.list[i].paused)){
+                        _this.list[i].paused=false;
+                        _this.list[i].playing=false;
+                        _this.$set(_this.list,i,_this.list[i]);
+                    }
+                }
+
+
+                let item= this.list[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    _this.list[index].paused=false;
+                    _this.list[index].playing=true;
+                    _this.$set(_this.list,index,_this.list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        _this.list[index].paused=true;
+                        _this.list[index].playing=false;
+                        _this.$set(_this.list,index,_this.list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.answerId;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                            _this.list[index].playing=true;
+                            _this.list[index].paused=false;
+                            _this.$set(_this.list,index,_this.list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
             },
             goDetail:function (questionId) {
               this.$router.push("/asker/listen/detail?questionId="+questionId)
@@ -224,6 +282,7 @@
 
 </script>
 <style>
+   .asker_listen_box .audio .audio_btn{ width: 52%}
     .index_li_bottom .problem_answer_yy{width:100%}
     .index_li_bottom .problem_answer_play{margin-left:0;left:12%;}
     nav{

@@ -324,7 +324,38 @@ a{
  .audio .audio_btn:active{ background: rgb(0, 138, 182);
 }
 .audio .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
-    content:" "; display: block; height: 0.97rem; background: url(/dist/sond.png); background-size: 0.6764705882352941rem;  top:0.6rem; left:0.8rem;}
+    content:" "; display: block; height: 0.97rem; background: url(/dist/sond.png) no-repeat; background-size: 0.6764705882352941rem;  top:0.6rem; left:0.8rem;}
+.audio.playing .audio_btn:before{
+    animation: sond_playing 1.5s infinite;
+    -webkit-animation: sond_playing 1.5s infinite;
+}
+
+@keyframes  sond_playing {
+    0%{
+       width:0.2254901960784314rem;
+    }
+    25%{
+        width:0.2254901960784314rem;
+    }
+    49%{
+        width:0.2254901960784314rem;
+    }
+    50%{
+        width:0.4509803921568627rem;
+    }
+    74%{
+        width:0.4509803921568627rem;
+    }
+    75%{
+        width:0.68rem;
+    }
+    100%{
+        width:0.68rem;
+    }
+}
+
+
+
 .audio .minute{ color:#999; font-size: 1rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
 .audio .audio_btn:after{
     content:" "; display: block;position: absolute; bottom:-0.6rem;left:0.9rem;
