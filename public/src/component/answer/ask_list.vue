@@ -50,7 +50,7 @@
             getList: function () {
                 let vm= this;
                 let expertId = cookie.get('expertId')
-                let url =web.API_PATH + 'come/expert/query/to/be/answered/page/'+expertId+'/1289/'+vm.page+'/'+vm.row;
+                let url =web.API_PATH + 'come/expert/query/to/be/answered/page/'+expertId+'/_userId_/'+vm.page+'/'+vm.row;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
@@ -69,6 +69,9 @@
 
                     if(response.data.status!=1&&vm.page==1){
                         vm.list = [];
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false;
+                        Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
                     console.log(response.data.data.rows)
