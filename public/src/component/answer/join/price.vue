@@ -109,22 +109,6 @@
                 });
             },
             submit:function () {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 let that=this;
                 let data={
                     userId:"_userId_",

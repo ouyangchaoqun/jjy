@@ -45,7 +45,7 @@
         mounted: function () {
             let expertId;
             if(cookie.get('expertId')==null){
-                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/1289' ).then(function (data) {//es5写法
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         console.log(data)
                         expertId = data.data.data.id;
