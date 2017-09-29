@@ -183,6 +183,9 @@
 
                     if(response.data.status!=1&&vm.page==1){
                         vm.list = [];
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false;
+                        Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
                     let arr = response.data.data;

@@ -136,6 +136,9 @@
 //                    console.log(response)
 
                     if (response.data.status != 1 && vm.page == 1) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false;
+                        Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         vm.list = [];
                         return;
                     }
