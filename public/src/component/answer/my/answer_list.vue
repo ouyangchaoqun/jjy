@@ -93,6 +93,10 @@
                 type: 1
             }
         },
+        components: {
+            'v-showLoad': showLoad,
+            'v-scroll': scroll
+        },
         mounted: function () {
             let _this = this;
             $('.my_problem_tabs>div').click(function () {
@@ -113,7 +117,7 @@
             getList: function () {
                 let expertId = cookie.get('expertId');
                 let vm = this;
-                let url = web.API_PATH + 'come/expert/query/my/answer/page/' + this.type + '/'+expertId+'/1289/' + vm.page + '/' + vm.row;
+                let url = web.API_PATH + 'come/expert/query/my/answer/page/' + this.type + '/'+expertId+'/_userId_/' + vm.page + '/' + vm.row;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
