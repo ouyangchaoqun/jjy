@@ -71,7 +71,7 @@
         right:2.2rem;top:0rem ;}
 
 
-    .main_lists a i{ display: block;background: url(../../../images/answer/answer_my_left_icon.png) no-repeat #fff; background-size: 1.705882352941176rem; width:1.705882352941176rem; height:1.705882352941176rem;  position: absolute; left: 0.75rem; top:50% ; margin-top: -0.852941176470588rem;}
+    .main_lists a i{ display: block;background: url(../../../images/answer/answer_my_left_icon.png) no-repeat ; background-size: 1.705882352941176rem; width:1.705882352941176rem; height:1.705882352941176rem;  position: absolute; left: 0.75rem; top:50% ; margin-top: -0.852941176470588rem;}
     .main_lists a.income i{ background-position: 0 0 }
     .main_lists a.level i{ background-position: 0 -1.705882352941176rem; }
     .main_lists a.setanswer i{ background-position: 0 -3.411764705882352rem}
