@@ -4,16 +4,16 @@
         <div class="weui-tab__panel main">
             <div class="main">
                 <div class="top" @click="goPerfect()">
-                        <img class="img" src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0">
+                        <img class="img" :src="user.faceUrl">
                         <div class="name">
-                            jacky小白
+                            {{user.nickName}}
                         </div>
                         <div class="perfect" >完善资料</div>
                         <div class="clear"></div>
                 </div>
                 <div class="main_lists">
                     <router-link to = "/answer/my/income"  class="income"  ><i></i>我的收益
-                        <div class="price">￥7.5</div>
+                        <div class="price">￥{{formatPrice(income)}}</div>
                     </router-link>
                     <router-link to = "/answer/my/level" class="level" ><i></i>我的等级</router-link>
                     <router-link to = "/answer/my/setanswer" class="setanswer" ><i></i>解答设置</router-link>
@@ -35,7 +35,11 @@
 
     export default {
         data() {
-            return {}
+            return {
+                user:{
+                    income:null
+                }
+            }
         },
         components: {
             "v-asker-bottom": askerBottom
@@ -45,10 +49,45 @@
             var obj =  $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);
 
+
+            this.getUser();
+            this.getIncome();
+
         },
         methods:{
+            formatPrice:function(price){
+                return  xqzs.string.formatPrice(price)
+            },
             goPerfect:function () {
                 this.$router.push("./perfect")
+            },
+            getIncome:function () {
+
+                let _this= this;
+                let expertId= cookie.get("expertId")
+                _this.$http.get(web.API_PATH + 'come/expert/query/income/'+expertId+'/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        _this.income= data.body.data.inCome
+                    }
+                }, function (error) {
+                });
+
+            },
+            getUser:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+
+
+                    }
+                }, function (error) {
+                    //error
+                });
             }
         }
 

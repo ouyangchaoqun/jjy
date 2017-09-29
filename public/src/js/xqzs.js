@@ -780,6 +780,9 @@ var xqzs = {
                 }
             }
             return out;
+        },
+        formatPrice:function (v) {
+            return xqzs.toDecimal2(v)
         }
     },
 
