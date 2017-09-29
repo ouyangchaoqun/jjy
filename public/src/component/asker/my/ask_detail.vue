@@ -9,15 +9,6 @@
                 {{detail.question}}
             </div>
             <div class="problem_answer_info">
-                <img src="../../../images/asker/34.jpg" alt="">
-                <!--回答，专家语音-->
-                <div class="problem_answer_yy" v-if="detail.questionStatus==1">
-                    <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                    <div class="problem_answer_play">点击播放</div>
-                    <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                    <div class="answer_play_time">60”</div>
-                </div>
-
                 <!--待回答-->
                 <div class="problem_wait_style" v-if="detail.questionStatus==0">
                     <span>待回答</span><span>还{{formatTimeLastText(detail.endTime)}}</span>
@@ -27,22 +18,37 @@
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
                 </div>
             </div>
-            <!--回答后底部显示详情-->
-            <div class="problem_answer_bottom" v-if="detail.answerCount>0" v-for="item in detail.answers ">
-                <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
-                <div class="problem_answer_zan">
-                    <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
-                    <div><span>收入分成￥</span><span>1.00</span></div>
-                    <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
+
+            <template v-for="item in detail.answers">
+                <div class="problem_answer_info">
+                    <img src="../../../images/asker/34.jpg" alt="">
+                    <!--回答，专家语音-->
+                    <div class="problem_answer_yy" v-if="detail.questionStatus==1">
+                        <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
+                        <div class="problem_answer_play">点击播放</div>
+                        <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
+                        <div class="answer_play_time">{{item.voiceLength}}”</div>
+                    </div>
                 </div>
-            </div>
-            <div class="steal_expert_info">
-                <div>
-                    <span class="steal_expert_name">{{detail.expert.nickName}}</span><span class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
+
+                <!--回答后底部显示详情-->
+                <div class="problem_answer_bottom" v-if="detail.answerCount>0">
+                    <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
+                    <div class="problem_answer_zan">
+                        <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
+                        <div><span>收入分成￥</span><span>1.00</span></div>
+                        <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
+                    </div>
                 </div>
-                <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                <img src="../../../images/asker/listenin.png" alt="" @click="follow(detail.expertId)">
-            </div>
+                <div class="steal_expert_info">
+                    <div>
+                        <span class="steal_expert_name">{{detail.expert.nickName}}</span><span
+                            class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
+                    </div>
+                    <div class="steal_expert_des">{{detail.expert.sign}}</div>
+                    <img src="../../../images/asker/listenin.png" alt="" @click="follow(detail.expertId)">
+                </div>
+            </template>
         </div>
 
 
@@ -231,7 +237,6 @@
         display: -webkit-flex;
         display: flex;
         line-height: 2.8235rem;
-        height:2.8235rem;
         font-size: 0.8235rem;
         color: #999;
         margin-bottom: 0.88235rem;

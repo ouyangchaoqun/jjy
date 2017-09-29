@@ -105,7 +105,11 @@
 
 
         mounted: function () {
-            this.certificateNo=unescape(cookie.get("certificateNo"));
+            let certificateNo= cookie.get("certificateNo")
+            console.log(certificateNo)
+            if(certificateNo&&certificateNo!=''){
+                this.certificateNo= unescape(certificateNo);
+            }
             let jobTitle= cookie.get("jobTitle");
 
             if(jobTitle&&jobTitle!=''){
@@ -125,9 +129,14 @@
         },
         methods:{
             changeCertificateNo:function (v) {
-
                 let certificateNo = $(".certificateNo").val();
-                cookie.set("certificateNo",escape(certificateNo))
+
+                if(certificateNo!=''){
+                    cookie.set("certificateNo",escape(certificateNo))
+                }else{
+                    cookie.set("certificateNo",'')
+                }
+
                 this.check()
             },
             jobTitleChange:function (v) {

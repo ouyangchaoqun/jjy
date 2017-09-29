@@ -11,12 +11,12 @@
                 <div class="clear"></div>
 
             </div>
-            <router-link to = "../my/income"  class="income"  >我的收益
+            <router-link to = "../my/income"  class="income"  ><i></i>我的收益
                 <div class="price">￥{{income}}</div>
             </router-link>
-            <router-link to = "../my/listen/list" class="listen" >我的偷听</router-link>
-            <router-link to = "../my/answer/list" class="answer" >我的收听</router-link>
-            <router-link to = "../my/comment/list" class="comment" >我的评价</router-link>
+            <router-link to = "../my/listen/list" class="listen" ><i></i>我的偷听</router-link>
+            <router-link to = "../my/answer/list" class="answer" ><i></i>我的收听</router-link>
+            <router-link to = "../my/comment/list" class="comment" ><i></i>我的评价</router-link>
             </div>
             <div class="join" @click="join()">入驻咨询师</div>
         </div>
@@ -79,7 +79,7 @@
                 //error
             });
             $(".weui-tab__panel").height($(window).height() - 100);
-            var obj = $(".asker_my_index_box .main a")
+            var obj = $(".asker_my_index_box .main a ,.join")
             xqzs.weui.active(obj);
             this.getIncome();
 
@@ -103,11 +103,16 @@
     .asker_my_index_box .main a:last-child:before{
         display: none;}
 
-    .asker_my_index_box .main a.income{ background: url(../../../images/asker/my_index_income.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
-    .asker_my_index_box .main a.listen{ background: url(../../../images/asker/my_index_listen.png) no-repeat #fff; background-size:0.9411764705882353rem; background-position: 1rem  1.02rem; }
-    .asker_my_index_box .main a.answer{ background: url(../../../images/asker/my_index_answer.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
-    .asker_my_index_box .main a.comment{ background: url(../../../images/asker/my_index_star.png) no-repeat #fff; background-size:1.117647058823529rem; background-position: 1rem  1.02rem; }
 
-    .join{ background: #fff; line-height:3.470588235294118rem; margin: 0.41176471rem 0 ; text-align: center; font-size: 0.8823529411764706rem }
+
+    .asker_my_index_box .main  a i{ display: block;background: url(../../../images/asker/asker_my_left_icon.png) no-repeat ; background-size: 1.705882352941176rem; width:1.705882352941176rem; height:1.705882352941176rem;  position: absolute; left: 0.75rem; top:50% ; margin-top: -0.852941176470588rem;}
+    .asker_my_index_box .main  a.income i{ background-position: 0 0 }
+    .asker_my_index_box .main  a.listen i{ background-position: 0 -1.705882352941176rem; }
+    .asker_my_index_box .main  a.answer i{ background-position: 0 -3.411764705882352rem}
+    .asker_my_index_box .main  a.comment i{ background-position: 0 -5.117647058823528rem; }
+
+
+
+   .asker_my_index_box .join{ background: #fff; line-height:3.470588235294118rem; margin: 0.41176471rem 0 ; text-align: center; font-size: 0.8823529411764706rem }
 
 </style>

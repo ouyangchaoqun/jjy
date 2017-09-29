@@ -1,11 +1,11 @@
 <template  >
-    <div style="height: 100% " class="answer_list_box">
+    <div style="height: 100% " class="answer_list_box" :class="{wbg:list.length==0}">
 
         <div v-title>抢答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-
+        <div class="main_title" v-if="list.length==0">{{name}}</div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="0"
-                  :isShowMoreText="isShowMoreText">
+                  :isShowMoreText="isShowMoreText" v-if="list.length>0">
             <div class="main_title">{{name}}</div>
             <div class="answer_list">
                 <div class="item" v-for="item in list">
@@ -36,7 +36,7 @@
             </div>
 
         </v-scroll>
-        <div class="no_body" v-if="false">
+        <div class="no_body" v-show="list.length==0">
 
             <div class="img"></div>
             <div class="txt">暂无该方面专家</div>
@@ -91,8 +91,6 @@
 
 
 
-                console.log(vm.isLoading);
-                console.log(vm.isPageEnd);
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -153,7 +151,7 @@
          margin-bottom: -0.5882352941176471rem;
     }
 
-    .answer_list_box .no_body{ background: #fff; height:95%; position: absolute; top:2.588235294117647rem; left:0; width: 100%}
+    .answer_list_box .no_body{ background: #fff;  position: absolute; top:2.588235294117647rem; left:0; width: 100%}
     .answer_list_box .no_body .img { background: url(../../images/answer/no_body.png); width: 4.852941176470588rem; ;height: 5.823529411764706rem; background-size:4.852941176470588rem; margin: 0 auto; margin-top: 5rem; }
     .answer_list_box .no_body .txt{ color:#B3B3B3;font-size: 0.7647058823529412rem; text-align: center; width: 100%; margin-top: 0.8rem;}
 </style>

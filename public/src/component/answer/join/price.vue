@@ -65,7 +65,8 @@
                 }
             }
             let price = cookie.get("price");
-            this.price= price;
+            if(price)this.price= price;
+
         } ,
         methods:  {
             changePrice:function () {
