@@ -533,8 +533,95 @@ var xqzs = {
         img.css(imgcss);
     },
 
+    voice:{
+        audio:null,
+        play:function (url) {
+            if( xqzs.voice.audio!=null){
+                xqzs.voice.audio.pause()
+            }
+            xqzs.voice.audio=document.createElement("audio");
+            xqzs.voice.audio.loop="loop";
+            xqzs.voice.audio.src=this.url;//路径
+            xqzs.voice.isPlay=false;
+            xqzs.voice.audio.autobuffer=true;
+            xqzs.voice.audio.play()
+        },
+        pause:function () {
+            if( xqzs.voice.audio!=null){
+                xqzs.voice.audio.pause()
+            }
+        }
 
+    },
     wx: {
+        voice:{
+            //开始录音
+            startRecord: function () {
+                wx.startRecord();
+            },
+            // 停止录音
+            stopRecord: function (fun) {
+                wx.stopRecord({
+                    success: function (res) {
+                        var localId = res.localId;
+                        if(typeof fun == 'function')
+                        fun(localId)
+                    }
+                });
+            },
+            // 监听自动停止录音
+            onRecordEnd:function (fun) {
+                wx.onVoiceRecordEnd({
+                    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+                    complete: function (res) {
+                        var localId = res.localId;
+                        if(typeof fun == 'function')
+                        fun(localId)
+                    }
+                });
+            },
+            // 开始播放
+            start:function (localId) {
+                wx.playVoice({
+                    localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
+                });
+            },
+            // 暂停播放
+            pause:function (localId) {
+                wx.playVoice({
+                    localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
+                });
+            },
+            // 停止播放
+            stop:function (localId) {
+                wx.stopVoice({
+                    localId:localId // 需要停止的音频的本地ID，由stopRecord接口获得
+                });
+            },
+            // 监听自动停止播放
+            onPlayEnd:function (fun) {
+                wx.onVoicePlayEnd({
+                    success: function (res) {
+                        var localId = res.localId; // 返回音频的本地ID
+                        if(typeof fun == 'function')
+                        fun(localId)
+                    }
+                });
+            },
+            // 上传录音
+            upload:function (localId,fun) {
+                wx.uploadVoice({
+                    localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                        if(typeof fun == 'function')
+                            fun(serverId)
+                    }
+                });
+            }
+
+        },
         takePhotos: function (sourceType, maxCount, $uploadpicinfo, $alioss, beforeUploadFun, finishUploadFun, errorFun) { //拍照
 
             if (typeof(sourceType) === "string") {
@@ -588,6 +675,8 @@ var xqzs = {
             }
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url,guest:guest}}).then(function (response) {
+                response.body.debug=true;
+                console.log(response.body)
                 wx.config(response.body);
                 wx.ready(function () {
                     wx.hideAllNonBaseMenuItem();

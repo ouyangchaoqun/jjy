@@ -112,6 +112,10 @@
             }
         },
         mounted: function () {
+
+            document.addEventListener("visibilitychange", function() {
+                console.log( document.visibilityState );
+            });
             let _this = this;
             var infokey = 'perfectinfo';
             xqzs.version.showed(infokey);
