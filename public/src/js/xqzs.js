@@ -64,6 +64,8 @@ var xqzs = {
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
                     $("#toast").remove();
+
+                    if(typeof(fun)=="function")
                     fun();
                 });
             }, 800);

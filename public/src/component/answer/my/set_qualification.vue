@@ -25,8 +25,8 @@
         <div class="goodat">
             <div class="header_top">
                 从业资质
-                <div class="header-right" @click="levle_type()">审核中</div>
-                <div class="header-right addStyle" v-if="false">保存</div>
+                <div class="header-right" @click="levle_type()" v-if="!levleFlag">修改</div>
+                <div class="header-right addStyle" v-if="levleFlag">保存</div>
             </div>
             <div class="level_box">
                 <div class="level">{{jobTitle}}</div>
@@ -123,7 +123,9 @@
                 titles:[],
                 change:false,
                 questionId:{},
-                selectFlag:false
+                selectFlag:false,
+                levleFlag:false,
+                jobTitle:''
             }
         },
         methods:{
@@ -177,6 +179,7 @@
             },
             levle_type:function () {
                 let _this=this;
+                _this.levleFlag = true
                 xqzs.weui.dialogCustom($("#levle_type").html());
                 $('.level_types .item').click(function () {
                     $('.level_types .item').find('.level_item').removeClass('checked_item')
@@ -185,12 +188,12 @@
                     console.log(_this.jobTitle)
                 })
             },
-            revise_val:function (key) {
+            revise_val:function (key) {//修改
                 let _this = this;
                 _this.isChangeValue(key);
                 console.log(_this[key]);
             },
-            sub_val:function (key) {
+            sub_val:function (key) {//提交
                 let _this = this;
                 let expertId = cookie.get('expertId');
                 let msg = {
@@ -214,7 +217,7 @@
                 this.tempData[key+'change']=isChange;
                 return isChange;
             },
-            sub_selectType:function () {
+            sub_selectType:function () { //擅长领域修改提交
                 let _this = this;
                 let expertId = cookie.get('expertId');
                 let msg = {
