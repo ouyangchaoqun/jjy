@@ -4,10 +4,9 @@
             <div class="header_top">
                 一句话签名
                 <div class="header-right" v-if="false">审核中</div>
-                <div class="header-right addStyle">修改</div>
+                <div class="header-right addStyle" @click="">修改</div>
             </div>
             <div class="textarea_box">
-                <textarea disabled placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" maxlength="25"></textarea>
                 <textarea v-if="false" placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" maxlength="25"></textarea>
             </div>
         </header>

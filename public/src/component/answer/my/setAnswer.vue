@@ -2,7 +2,7 @@
     <div class="setAnswer_box">
         <div class="setItem">
             <div>
-                <div>设置向我提问的价格：<input type="text" placeholder="￥1.00"></div>
+                <div>设置向我提问的价格：<input type="text" placeholder="￥1.00" v-model="price" @input="getPrice()"/></div>
                 <div @click="showTimePicker()">设置限时免费听：<input id="timePic" type="text" v-model="label"></div>
             </div>
 
@@ -32,19 +32,18 @@
 </template>
 
 <script type="es6">
-
-
-
     export default {
         data() {
             return {
                 label:'',
-                myask_mask_flag:false
+                myask_mask_flag:false,
+                price:10
             }
         },
 
 
         mounted: function () {
+
             $("#timePic").focus(function(){
                 document.activeElement.blur();
             });
@@ -76,7 +75,24 @@
                         console.log(result);
                     },
                     onConfirm: function (result) {
-                        _this.label = result[0].label
+                        _this.label = result[0].label;
+                        let expertId = cookie.get('expertId');
+                        let pri  = _this.price;
+                        let time = result[0].value;
+                        let msg = {
+                            expertId:expertId,
+                            userId:'',
+                            price:pri,
+                            freeTime:time
+                        };
+                        _this.$http.post(web.API_PATH + 'come/expert/answerset', msg,{emulateJSON: true})
+                            .then(
+                                (response) => {
+                                    console.log('success')
+                                    xqzs.weui.toast("success", "修改成功", function () {
+                                        _this.$router.go(-1)
+                                    })
+                                });
                     }
                 });
             },
@@ -85,6 +101,9 @@
             },
             hide_myask_mask:function () {
                 this.myask_mask_flag = false
+            },
+            getPrice:function () {
+                console.log(this.price)
             }
         }
 

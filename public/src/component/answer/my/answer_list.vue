@@ -1,65 +1,40 @@
 <template id="my_problem_index">
     <div>
-        <div class="my_problem_tabs">
-            <div class="my_problem_active">抢答</div>
-            <div>一对一解答</div>
-        </div>
-        <div class="my_problem_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :bottomHeight="50"
+                  :isShowMoreText="isShowMoreText">
+            <div class="my_problem_tabs">
+                <div class="my_problem_active">抢答</div>
+                <div>一对一解答</div>
+            </div>
+            <div class="my_problem_box">
             <!--抢答-->
             <div class="problem_box_active">
                 <ul class="problem_item">
-                    <li>
+                    <li v-for="item in list" v-if="type==1">
                         <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">全部赏金<i>￥13.14 </i></div>
+                            <img :src="item.askUserFaceUrl" alt="">
+                            <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
+                            <div class="problem_item_right">全部赏金<i>￥{{item.wage}}</i></div>
                         </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
+                        <div class="problem_item_del">{{item.questionContent}}</div>
                         <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
+                            <img :src="item.expertUserFaceUrl" alt="">
                             <!--回答，专家语音-->
                             <div class="problem_answer_yy" v-if="true">
                                 <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                                 <div class="problem_answer_play">点击播放</div>
                                 <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
+                                <div class="answer_play_time">{{item.voiceLength}}"</div>
+                                <span class="problem_bestAns" v-if="item.isBestAnswer==1">最佳答案</span>
                             </div>
                         </div>
                         <!--回答后底部显示详情-->
                         <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
+                            <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过{{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">平分赏金<i>￥13.14 </i></div>
-                        </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
-                        <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <!--回答，专家语音-->
-                            <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
-                            </div>
-                        </div>
-                        <!--回答后底部显示详情-->
-                        <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
-                            <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
+                                <div><span>偷听分成 </span><span style="color:#FF9900">￥{{item.inCome}}</span></div>
                                 <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
                             </div>
                         </div>
@@ -69,58 +44,28 @@
             <!--一对一解答-->
             <div>
                 <ul class="problem_item">
-                    <li>
+                    <li v-if="type==2" v-for="item in list">
                         <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">问题酬金<i>￥13.14 </i></div>
+                            <img :src="item.askUserFaceUrl" alt="">
+                            <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
+                            <div class="problem_item_right">问题酬金<i>￥{{item.wage}} </i></div>
                         </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
+                        <div class="problem_item_del">{{item.questionContent}}</div>
                         <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
+                            <img :src="item.expertUserFaceUrl" alt="">
                             <!--回答，专家语音-->
                             <div class="problem_answer_yy" v-if="true">
                                 <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
                                 <div class="problem_answer_play">点击播放</div>
                                 <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
+                                <div class="answer_play_time">{{item.voiceLength}}”</div>
                             </div>
                         </div>
                         <!--回答后底部显示详情-->
                         <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
+                            <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过 {{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="problem_item_top">
-                            <img src="../../../images/34.jpg" alt="">
-                            <span>陈小刚</span>在哪方面：<div>情感困惑</div>
-                            <div class="problem_item_right">问题酬金<i>￥13.14 </i></div>
-                        </div>
-                        <div class="problem_item_del">
-                            陈老师，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间，六年的感情真的败给时间。
-                        </div>
-                        <div class="problem_answer_info">
-                            <img src="../../../images/asker/34.jpg" alt="">
-                            <!--回答，专家语音-->
-                            <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
-                            </div>
-                        </div>
-                        <!--回答后底部显示详情-->
-                        <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>1小时前</span><span>听过 148</span></div>
-                            <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥1.00</span></div>
+                                <div><span>偷听分成 </span><span style="color:#FF9900">￥{{item.inCome}}</span></div>
                                 <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
                             </div>
                         </div>
@@ -128,25 +73,105 @@
                 </ul>
             </div>
         </div>
+        </v-scroll>
     </div>
 </template>
 
 <script type="es6">
+    import showLoad from '../../include/showLoad.vue';
+    import scroll from '../../include/scroll.vue';
+    import Bus from '../../../js/bus';
     export default {
         data() {
             return {
-
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText: true,
+                showLoad: false,
+                list: [],
+                type: 1
             }
         },
         mounted: function () {
+            let _this = this;
             $('.my_problem_tabs>div').click(function () {
                 $('.my_problem_tabs>div').removeClass('my_problem_active')
                 $('.my_problem_box>div').removeClass('problem_box_active')
                 $(this).addClass('my_problem_active')
                 $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active')
+
+                if ($(this).index() == 0) {
+                    _this.changeType(1);
+                } else {
+                    _this.changeType(2);
+                }
             })
+            this.getList();
         },
         methods: {
+            getList: function () {
+                let expertId = cookie.get('expertId');
+                let vm = this;
+                let url = web.API_PATH + 'come/expert/query/my/answer/page/' + this.type + '/'+expertId+'/1289/' + vm.page + '/' + vm.row;
+                this.rankUrl = url + "?";
+                if (web.guest) {
+                    this.rankUrl = this.rankUrl + "guest=true"
+                }
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(vm.rankUrl).then((response) => {
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+//                    console.log(response)
+
+                    if (response.data.status != 1 && vm.page == 1) {
+                        vm.list = [];
+                        return;
+                    }
+                    let arr = response.data.data.rows;
+//
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList();
+                done() // call done
+            },
+            changeType: function (v) {
+                this.type = v;
+                this.page = 1;
+                this.list = [];
+                this.isPageEnd = false;
+                this.isShowMoreText = true;
+                this.getList();
+            },
+            formatDateText: function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
 
         }
 
@@ -214,7 +239,6 @@
     .problem_item_right{position: absolute;right:0}
     .problem_item_del{color:#333;font-size: 15px;line-height: 20px;padding-left:44px;margin-bottom: 1.176471rem}
     .problem_answer_info{
-        padding:0 0.88235rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -229,7 +253,7 @@
         display: block;
         width:44px;
         border-radius: 50%;
-        margin-right: 0.88235rem;
+        margin-right: 0.6rem;
     }
     .problem_answer_yy{
         position: relative;
@@ -237,8 +261,7 @@
     }
     .problem_answer_yy .problem_answer_ly{
         display: block;
-        height: 2.6471rem;
-        width: auto;
+        width:10.235rem;
         border-radius: 0;
     }
     .problem_answer_play{
@@ -255,9 +278,19 @@
     }
     .answer_play_time{
         position: absolute;
-        right:-1.76471rem;
         line-height: 1;
         height:1.176471rem;
+        top:50%;
+        right:-2rem;
+        margin-top:-10px;
+    }
+    .problem_bestAns{
+        color: #666;
+        font-size: 0.70588235rem;
+        position: absolute;
+        right:-6.6rem;
+        top:0;
+        line-height: 1;
         top:50%;
         margin-top:-10px;
     }
