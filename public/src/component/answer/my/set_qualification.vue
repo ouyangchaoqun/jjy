@@ -3,67 +3,67 @@
         <header>
             <div class="header_top">
                 一句话签名
-                <div class="header-right" v-if="false">审核中</div>
-                <div class="header-right addStyle" @click="">修改</div>
+                <div class="header-right" v-if="!tempData['signchange']">修改</div>
+                <div class="header-right addStyle" @click="sub_val('sign')" v-if="tempData['signchange']">保存</div>
             </div>
             <div class="textarea_box">
-                <textarea v-if="false" placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" maxlength="25"></textarea>
+                <textarea placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" maxlength="25" v-model="sign" @input="revise_val('sign')"></textarea>
             </div>
         </header>
         <div class="goodat">
             <div class="header_top">
                 擅长领域
                 <div class="header-right" v-if="false">审核中</div>
-                <div class="header-right addStyle" @click="selectType()">修改</div>
+                <div class="header-right" v-if="!selectFlag" @click="selectType()">修改</div>
+                <div class="header-right addStyle" v-if="selectFlag" @click="sub_selectType()">保存</div>
             </div>
             <div class="goodat_class">
-                <div v-for="item in types" v-if="item.isSelect">{{item.name}}</div>
+                <div v-for="i in titles" v-if="titles.length>0">{{i.title}}</div>
+                <div v-for="item in types" v-if="item.isSelect">{{item.title}}</div>
             </div>
         </div>
         <div class="goodat">
             <div class="header_top">
                 从业资质
-                <div class="header-right" v-if="false">审核中</div>
-                <div class="header-right addStyle" @click="levle_type()">修改</div>
+                <div class="header-right" @click="levle_type()">审核中</div>
+                <div class="header-right addStyle" v-if="false">保存</div>
             </div>
             <div class="level_box">
-                <div class="level">国家三级咨询师</div>
-                <div class="cerpic"></div>
+                <div class="level">{{jobTitle}}</div>
+                <img class="cerpic" :src="certificateFile" />
             </div>
         </div>
         <div class="goodat">
             <div class="header_top">
                 自我介绍
-                <div class="header-right">审核中</div>
-                <div class="header-right addStyle" v-if="false">修改</div>
+                <div class="header-right" v-if="!tempData['introductionchange']">修改</div>
+                <div class="header-right addStyle" v-if="tempData['introductionchange']" @click="sub_val('introduction')">保存</div>
             </div>
             <div class="textarea_box">
-                <textarea disabled placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" ></textarea>
-                <textarea v-if="false" placeholder="星洲易渡，心河难逾，与你共觅心河之舟。"></textarea>
+                <textarea placeholder="自我介绍" v-model="introduction" @input="revise_val('introduction')"></textarea>
             </div>
         </div>
         <div class="goodat">
             <div class="header_top">
                 专业培训经历
-                <div class="header-right">审核中</div>
-                <div class="header-right addStyle" v-if="false">修改</div>
+                <div class="header-right" v-if="!tempData['experiencechange']">修改</div>
+                <div class="header-right addStyle" @click="sub_val('experience')" v-if="tempData['experiencechange']">保存</div>
             </div>
             <div class="textarea_box">
-                <textarea v-if="false" disabled placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" >
-                </textarea>
-                <textarea  placeholder="1.武汉大学心理咨询培训师 2.丁健略婚恋咨询设计路径 3.中级绘画治疗师"></textarea>
+                <textarea  placeholder="1.武汉大学心理咨询培训师
+2.丁健略婚恋咨询设计路径
+3.中级绘画治疗师" v-model="experience" @input="revise_val('experience')"></textarea>
             </div>
         </div>
         <div class="goodat">
             <div class="header_top">
                 擅长领域问题
-                <div class="header-right">审核中</div>
-                <div class="header-right addStyle" v-if="false">修改</div>
+                <div class="header-right" v-if="!tempData['goodatchange']">修改</div>
+                <div class="header-right addStyle" @click="sub_val('goodat')" v-if="tempData['goodatchange']">保存</div>
             </div>
             <div class="textarea_box">
-                <textarea v-if="false" disabled placeholder="星洲易渡，心河难逾，与你共觅心河之舟。" >
-                </textarea>
-                <textarea  placeholder="1.家庭关系：婚姻挽救、情感修复、外遇分离、 家暴危机、婆媳关系、复婚帮助、离婚纠纷 2.恋爱关系：失恋帮助、性格不和、沟通障"></textarea>
+                <textarea  placeholder="1.家庭关系：婚姻挽救、情感修复、外遇分离、 家暴危机、婆媳关系、复婚帮助、离婚纠纷
+2.恋爱关系：失恋帮助、性格不和、沟通障" v-model="goodat" @input="revise_val('goodat')"></textarea>
             </div>
         </div>
         <div id="select_type" style="display: none">
@@ -71,7 +71,7 @@
                 <div class="title" style="padding-top: 1.176471rem;padding-bottom: 0.88235rem">选择问题类型</div>
                 <div class="title_bottom">（最多选择三个）</div>
                 <div class="types">
-                    <div class="item" v-for="(item,index) in types" :index="index"><span>{{item.name}}</span></div>
+                    <div class="item" v-for="(item,index) in types" :index="index"><span>{{item.title}}</span></div>
                     <div class="clear"></div>
                 </div>
                 <div class="yes">
@@ -88,7 +88,7 @@
                     <div class="clear"></div>
                 </div>
                 <div class="levle_type_bottom">
-                    <div>证书编号<span style="color: #FF0000">*</span><div class="input_box"><input type="text" /></div></div>
+                    <div>证书编号<span style="color: #FF0000">*</span><div class="input_box"><input class="certificateNo" type="text" /></div></div>
                     <div>资质证书<span style="color: #FF0000">*</span><div class="input_box">上传证书</div></div>
                 </div>
                 <div class="yes">
@@ -104,17 +104,7 @@
     export default {
         data() {
             return {
-                types:[
-                    {name:"情感困惑",isSelect:false},
-                    {name:"性心理",isSelect:false},
-                    {name:"人际关系",isSelect:false},
-                    {name:"职场事业",isSelect:false},
-                    {name:"婚姻家庭",isSelect:false},
-                    {name:"个人成长",isSelect:false},
-                    {name:"心理健康",isSelect:false},
-                    {name:"亲子教育",isSelect:false},
-                    {name:"情感困惑",isSelect:false},
-                ],
+                types:[],
                 typeSelectIndex:null,
                 level:[
                     {name:'国家二级咨询师'},
@@ -122,12 +112,24 @@
                     {name:'注册系统咨询师'},
                     {name:'注册系统督导师'},
                     {name:'其他'}
-                    ]
+                    ],
+                sign:'',
+                tempData:{},
+                experience:'',
+                introduction:'',
+                goodat:'',
+                certificateNo:'',
+                certificateFile:'',
+                titles:[],
+                change:false,
+                questionId:{},
+                selectFlag:false
             }
         },
         methods:{
             selectType: function () {
                 let _this=this;
+                _this.selectFlag = true
                 xqzs.weui.dialogCustom($("#select_type").html());
                 $('.js_dialog').find(".types .item").each(function (ix) {
                     if(_this.types[ix].isSelect){
@@ -143,8 +145,10 @@
                         $(this).removeClass('on')
 
                     }else{
+                        let questionClassId = []
                         for(let i=0;i<_this.types.length;i++){
                             if(_this.types[i].isSelect){
+                                questionClassId.push(_this.types[i].id)
                                 count++
                             }
                         }
@@ -155,6 +159,10 @@
                         }else{
                             $(this).addClass('on')
                             _this.types[index].isSelect=true
+                            _this.titles = []
+
+                            questionClassId.push(_this.types[index].id)
+                            _this.questionId = questionClassId;
                         }
                    }
 
@@ -164,7 +172,6 @@
                         xqzs.weui.tip("请选择类型");
                     }else{
                         xqzs.weui.dialogClose();
-                        console.log(_this.type)
                     }
                 })
             },
@@ -174,12 +181,83 @@
                 $('.level_types .item').click(function () {
                     $('.level_types .item').find('.level_item').removeClass('checked_item')
                     $(this).find('.level_item').addClass('checked_item')
+                    _this.jobTitle = $(this).find('span').html()
+                    console.log(_this.jobTitle)
                 })
             },
+            revise_val:function (key) {
+                let _this = this;
+                _this.isChangeValue(key);
+                console.log(_this[key]);
+            },
+            sub_val:function (key) {
+                let _this = this;
+                let expertId = cookie.get('expertId');
+                let msg = {
+                    expertId:expertId,
+                    userId:1289,
+                }
+                msg[key] = _this[key];
+                _this.$http.post(web.API_PATH + 'come/expert/modify', msg)
+                    .then(
+                        (response) => {
+                        });
+            },
+            initTempData:function (keyArray,res) {
+                for (var i =0,l=keyArray.length;i<l;i++) {
+                    this.tempData[keyArray[i]] = res[keyArray[i]];
+                    this.tempData[keyArray[i]+'change'] = false;
+                }
+            },
+            isChangeValue:function(key){
+                var isChange = this.tempData[key]!=this[key];
+                this.tempData[key+'change']=isChange;
+                return isChange;
+            },
+            sub_selectType:function () {
+                let _this = this;
+                let expertId = cookie.get('expertId');
+                let msg = {
+                    expertId:expertId,
+                    userId:1289,
+                    questionClassId:_this.questionId
+                }
+                _this.$http.post(web.API_PATH + 'come/expert/modify/domain', msg)
+                    .then(
+                        (response) => {
+                        });
+            }
         },
 
 
         mounted: function () {
+            let expertId = cookie.get('expertId');
+            this.$http.get(web.API_PATH+'come/expert/query/detail/'+expertId).then(response => {
+                var res  = response.data.data
+                console.log(res)
+                this.sign = res.sign;
+                this.titles = res.domains
+                this.experience = res.experience;
+                this.introduction = res.introduction;
+                this.goodat = res.goodat;
+                this.certificateFile =res.certificateFile;
+                this.jobTitle = res.jobTitle;
+
+                this.initTempData(['sign','experience','introduction','goodat'],res);
+
+                $('.certificateNo').val(res.certificateNo)
+            }, response => {
+                // error
+
+            });
+            this.$http.get(web.API_PATH+'come/listen/question/class/list').then(response => {
+                console.log(response)
+                this.types = response.data.data
+            },response =>{
+                // error
+            })
+        },
+        updated:function () {
 
         }
     }
@@ -199,7 +277,7 @@
     .goodat_class div:nth-of-type(3){margin:0;}
     .goodat .level{height:1.5294rem;line-height:1.5294rem;font-size:0.70588235rem;border:1px solid #999;border-radius: 1rem;text-align: center;padding:0 0.294rem;display: inline-block}
     .level_box{padding-top:0.35294rem;position: relative;padding-bottom:1.29411rem;}
-    .cerpic{width:5.88235rem;height:4.1176471rem;background: pink;position: absolute;left:45%;top:-1.176471rem;}
+    .cerpic{width:5.88235rem;height:4.1176471rem;position: absolute;left:45%;top:-1.176471rem;}
     .goodat .textarea_box{min-height:5.88235rem;}
     .dialog_select_type{ background: #fff; border-radius: 0.588235rem; width: 80%; height:19rem; position: fixed; top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;}
     .dialog_select_type .title{line-height: 1; text-align: center;font-size: 1.058823529411765rem;  font-weight: bold;}
