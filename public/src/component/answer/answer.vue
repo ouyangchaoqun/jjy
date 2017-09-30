@@ -180,11 +180,13 @@
 
             },
             start:function () {
+                console.log("startRecord")
 //                开始录制
                 let _this=this;
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
+                console.log("startRecordtimeout")
                 xqzs.wx.voice.startRecord();
                 xqzs.wx.voice.onRecordEnd(function (localId) {
                     _this.localId=localId;
