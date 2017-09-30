@@ -157,11 +157,13 @@
             },
             reStart:function () {
                 //重新开始录制
-                xqzs.wx.voice.startRecord();
                 this.answerTime="00";
+                this.voiceLength=0;
                 this.preAnswer=false;
+                this.playing=false;
+                this.localId=null;
                 this.clearTimeOut();
-                this.start()
+                this.start();
             },
             send:function () {
                 let _this=this;
