@@ -112,13 +112,8 @@
             });
             xqzs.wx.setConfig(_this);
 
-            xqzs.wx.voice.onRecordEnd(function (localId) {
-                _this.localId=localId;
-                _this._recordStop();
-            });
-            xqzs.wx.voice.onPlayEnd(function () {
-                _this.play();
-            })
+
+
 
         },
         methods: {
@@ -178,7 +173,12 @@
             },
             start:function () {
 //                开始录制
+                let _this=this;
                 xqzs.wx.voice.startRecord();
+                xqzs.wx.voice.onRecordEnd(function (localId) {
+                    _this.localId=localId;
+                    _this._recordStop();
+                });
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
@@ -187,7 +187,7 @@
                 let _this = this;
                 if(this.playing){  //在播放中则暂停
                     if(_this.localId!=null) {
-                        xqzs.wx.voice.pause()
+                        xqzs.wx.voice.pause(_this.localId)
                         this.playing = false;
                     }
                 }else{
@@ -196,6 +196,9 @@
                         this.clearTimeOut();
                         this.playing=true;
                         this.timeout(true);
+                        xqzs.wx.voice.onPlayEnd(function () {
+                            _this.play();
+                        })
                     }
                 }
             },
