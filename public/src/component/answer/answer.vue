@@ -110,6 +110,8 @@
             }, function (error) {
 
             });
+            xqzs.wx.setConfig(_this);
+
             xqzs.wx.voice.onRecordEnd(function (localId) {
                 _this.localId=localId;
                 _this._recordStop();
