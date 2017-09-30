@@ -157,12 +157,12 @@
             },
             reStart:function () {
                 //重新开始录制
+                this.clearTimeOut();
                 this.answerTime="00";
                 this.voiceLength=0;
                 this.preAnswer=false;
                 this.playing=false;
                 this.localId=null;
-                this.clearTimeOut();
                 this.start();
             },
             send:function () {
