@@ -316,8 +316,8 @@ a{
 .answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#999; margin-top: 0.7058823529411765rem; }
 .answer_list .info .other .price{ color:#FF6600}
 .answer_list .info .other .ml{ margin-left:0.8rem; }
- .audio{ margin-top: 0.8rem; margin-bottom: 0.3rem;}
- .audio .audio_btn{   width:70%; float:left; position: relative;
+ .audio{ margin-bottom: 0.3rem;}
+ .audio .audio_btn{   width:10.58823529411765rem; float:left; position: relative;
     height:2.4rem; line-height: 2.4rem;
     background:rgba(0,184,230,1);
     border-radius: 1.2rem ; text-align: center; color:#fff;  }

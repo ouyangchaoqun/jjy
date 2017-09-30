@@ -26,9 +26,9 @@
                                     <div class="index_li_bottom">
 
                                         <!--免费听-->
-                                        <span class="problem_answer_yy" @click.stop="play(index)" v-if="item.answerType==1">
+                                        <span class="problem_answer_yy"  v-if="item.answerType==1">
                                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
-                                                <div class="audio_btn">
+                                                <div class="audio_btn" @click.stop="play(index)">
                                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
@@ -43,8 +43,8 @@
                                             <div class="position_change1">1元偷听</div>
                                         </div>
                                         <!--限时免费听-->
-                                        <span class="problem_answer_yy" @click.stop="play(index)"  v-if="item.answerType==3">
-                                            <div class="audio" :class="{playing:item.playing,paused:item.paused}"><div class="audio_btn"  >
+                                        <span class="problem_answer_yy"   v-if="item.answerType==3">
+                                            <div class="audio" :class="{playing:item.playing,paused:item.paused}"><div class="audio_btn"  @click.stop="play(index)" >
                                             <template v-if="!item.playing&&!item.paused">限时免费听</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
@@ -154,36 +154,34 @@
         methods:{
             play:function (index) {
                 let _this=this;
-
+                let list = _this.list;
                 //重置其他列表内容
-                for(let i = 0;i<_this.list.length;i++){
-                    if(index!=i&&(_this.list[i].playing||_this.list[i].paused)){
-                        _this.list[i].paused=false;
-                        _this.list[i].playing=false;
-                        _this.$set(_this.list,i,_this.list[i]);
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.list,i,list[i]);
                     }
                 }
-
-
                 let item= this.list[index];
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
-                    _this.list[index].paused=false;
-                    _this.list[index].playing=true;
-                    _this.$set(_this.list,index,_this.list[index])
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.list,index,list[index])
                     xqzs.voice.play();
                 }else{
                     if(item.playing){    //播放中去做暂停操作
-                        _this.list[index].paused=true;
-                        _this.list[index].playing=false;
-                        _this.$set(_this.list,index,_this.list[index])
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.list,index,list[index])
                         xqzs.voice.pause();
                     }else{     //重新打开播放
                         let answerId= item.answerId;
                         this.getVoiceUrl(answerId,function (url) {
                             xqzs.voice.play(url);
-                            _this.list[index].playing=true;
-                            _this.list[index].paused=false;
-                            _this.$set(_this.list,index,_this.list[index])
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.list,index,list[index])
                         })
                     }
 
@@ -195,10 +193,11 @@
              * callFun(url) 回调 用户播放
              */
             getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
                 this.showLoad=true;
                 this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
                     .then(function (bt) {
-                        this.showLoad=false;
+                        _this.showLoad=false;
                         if (bt.data && bt.data.status == 1) {
                             if(typeof (callFun) =="function"){
                                 callFun(bt.data.data.path)
@@ -276,7 +275,10 @@
                 this.getList();
                 done() // call done
             },
-        }
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
+        },
     }
 
 

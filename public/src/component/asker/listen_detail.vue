@@ -1,13 +1,14 @@
-<template id="steal_detail">
+<template >
     <div>
         <!--详情头部-->
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="steal_detail_header">
             <div class="steal_detail_top"><img :src="detail.faceUrl" alt=""><div>在<span>{{detail.title}}</span>方面</div></div>
             <div class="steal_detail_content">{{detail.content}}</div>
         </div>
         <!--专家回答列表-->
         <ul>
-            <li class="steal_detail_answer" v-for="item in detail.answerList">
+            <li class="steal_detail_answer" v-for="(item,index) in detail.answerList">
                 <div class="steal_answer_top">
                     <img class="steal_answer_topimg" :src="item.expertUrl" alt="">
                     <div class="steal_answer_yy">
@@ -17,22 +18,29 @@
                         <!--* const EXPERT_FREE_TIME = 3;专家免费偷听期内答案-->
                         <!--* const EXPERT_NOT_FREE  = 4;专家收费期内的答案",-->
                         <!--免费听-->
-                        <template v-if="item.answerType==1||item.needPay==0">
-                            <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
-                            <div>点击播放</div>
-                            <img class="steal_answer_sond" src="../../images/sond.png" alt="">
+                        <template v-if="item.answerType==1||item.needPay==0&&item.answerType!=3">
+                            <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                <div class="audio_btn" @click.stop="play(index)" >
+                                    <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                    <template v-if="item.playing">正在播放..</template>
+                                    <template v-if="item.paused">播放暂停</template>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                         </template>
 
                         <!--付费听-->
-                        <template @click="play()" v-if="item.needPay==1">
+                        <template @click="pay()" v-if="item.needPay==1">
                             <img class="pay_listen" src="../../images/charge.png" alt="">
                             <div class="position_change1">1元偷听</div>
                         </template>
                         <!--限时免费听-->
                         <template v-if="item.answerType==3&&item.needPay==0">
-                            <img class="steal_answer_ly" src="../../images/nocharge.png" alt="">
-                            <div >限时免费听</div>
-                            <img class="steal_answer_sond" src="../../images/sond.png" alt="">
+                            <div class="audio"  :class="{playing:item.playing,paused:item.paused}"><div class="audio_btn" @click.stop="play(index)" >
+                                <template v-if="!item.playing&&!item.paused">限时免费听</template>
+                                <template v-if="item.playing">正在播放..</template>
+                                <template v-if="item.paused">播放暂停</template>
+                            </div><div class="clear"></div></div>
                         </template>
 
 
@@ -59,14 +67,15 @@
 
 </template>
 <script>
-    var steal_detail = {
-        template: '#steal_detail'
-    };
+
+    import showLoad from '../include/showLoad.vue';
+
     export default {
         data() {
             return {
                 questionId:0,
-                detail:{}
+                detail:{},
+                showLoad:false,
             }
         },
         mounted: function () {
@@ -74,7 +83,65 @@
             this.getDetail()
 
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         methods:{
+
+            play:function (index) {
+                let _this=this;
+                let list = _this.detail.answerList;
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                       list[i].paused=false;
+                       list[i].playing=false;
+                        _this.$set(_this.detail.answerList,i,list[i]);
+                    }
+                }
+                let item= list[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                   list[index].paused=false;
+                   list[index].playing=true;
+                    _this.$set(_this.detail.answerList,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                       list[index].paused=true;
+                       list[index].playing=false;
+                        _this.$set(_this.detail.answerList,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.answerId;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                           list[index].playing=true;
+                           list[index].paused=false;
+                            _this.$set(_this.detail.answerList,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
+
             getDetail:function () {
                 let _this= this;
 
@@ -109,7 +176,10 @@
                         }
                     });
             },
-        }
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
+        },
 
     }
 
@@ -176,16 +246,7 @@
         margin-top:0.176471rem;
         margin-right:0.41176471rem;
     }
-    .steal_answer_yy div{
-        position: absolute;
-        color: #fff;
-        font-size: 0.88235rem;
-        width: 5.882352rem;
-        top:-0.29411764471rem;
-        left:50%;
-        margin-left: -2.941176rem;
-        text-align: center;
-    }
+
      .steal_answer_ly{
         display: block;
         height:2.6471rem;

@@ -32,7 +32,7 @@
                         <div class="line_1"></div>
                     </div>
                     <div class="answer_countBox">
-                        <div class="counts">99%</div>
+                        <div class="counts">{{detail.evaluate}}</div>
                         <div class="nr">好评率</div>
                         <div class="line_1"></div>
                     </div>
@@ -47,18 +47,33 @@
                 <div class="ts">{{detail.sign}}</div>
                 <div class="voice">
                     <span class="hello">您好：</span>
-                    <span class="problem_answer_yy" v-if="true">
-                        <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
-                        <div class="problem_answer_play">点击播放</div>
-                        <img class="problem_answer_sond" src="../../images/sond.png" alt="">
+                    <div class="problem_answer_yy">
+                        <div class="audio" :class="{playing:detail.playing,paused:detail.paused}">
+                            <div class="audio_btn" @click.stop="play()">
+                                <span v-if="!detail.playing&&!detail.paused">点击播放</span>
+                                <span v-if="detail.playing">正在播放..</span>
+                                <span v-if="detail.paused">播放暂停</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <div class="answer_play_time">60”</div>
-                    </span>
+                    </div>
                 </div>
             </div>
             <div class="answer_detail">
                 <div class="answer_title">详细介绍</div>
                 <div class="content">
-                    {{detail.introduction}}
+                    <p>{{detail.introduction}}</p>
+                    <br>
+                    <b>专业培训经历：</b>
+                    <p>{{detail.experience}}</p>
+                    <br>
+                    <b>擅长领域：</b>
+                    <p>{{detail.goodat}}</p>
+                    <br>
+
+
+
                 </div>
                 <div class="btn_sq">收起</div>
             </div>
@@ -136,7 +151,7 @@
                     <span>收听</span>
                 </div>
             </div>
-            <div class="pay_ask" @click="ask()">￥19.99提问</div>
+            <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>
         </div>
         </div>
 
@@ -151,7 +166,11 @@
     export default {
         data() {
             return {
-                detail:{},
+                detail:{
+                    playing:false,
+                    paused:false
+
+                },
                 id:0,
                 viewType:0,
                 commentList:[],
@@ -176,6 +195,50 @@
             this.getAnswer();
         },
         methods:{
+            play:function () {
+                let _this=this;
+                if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
+                    _this.detail.paused=false;
+                    _this.detail.playing=true;
+                    xqzs.voice.play();
+                    console.log("1")
+                }else{
+                    if(_this.detail.playing){    //播放中去做暂停操作
+                        _this.detail.paused=true;
+                        _this.detail.playing=false;
+                        xqzs.voice.pause();
+                        console.log( _this.detail.playing)
+                        console.log("2")
+                    }else{     //重新打开播放
+                        this.getVoiceUrl(_this.detail.expertId,function (url) {
+                            xqzs.voice.play(url);
+                            _this.detail.playing=true;
+                            _this.detail.paused=false;
+                            console.log("3")
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (expertId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.get(web.API_PATH + "come/expert/voice/message/"+expertId)
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data)
+                            }
+                        }
+                    });
+            },
+
             follow:function () {
                 let that=this;
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+this.id+"/_userId_", {})
@@ -240,7 +303,7 @@
                 let _this= this;
                 let id=  this.id;
 
-                if (_this.page == 1) {_this.showLoad=true;}
+//                if (_this.page == 1) {_this.showLoad=true;}
                 if(   _this.isLoading ){return ;}
                 _this.isLoading = true;
                 _this.$http.get(web.API_PATH + 'come/expert/get/answer/'+id+"/"+_this.answerType+'/'+_this.page+'/'+_this.row+'/_userId_' ).then(function (data) {//es5写法
@@ -288,7 +351,10 @@
                 }, function (error) {
                 });
 
-            }
+            },
+            beforeDestroy:function () {
+                xqzs.voice.pause();
+            },
         }
 
 
@@ -394,12 +460,7 @@
     .answer_detail_box .voice{
         margin-top: 0.88rem;
     }
-    .answer_detail_box .audio_btn{   width:50%; float:left; position: relative;
-        height:2.4rem; line-height: 2.4rem;
-        background:rgba(0,184,230,1);
-        border-radius: 1.2rem ; text-align: center; color:#fff;  }
-    .answer_detail_box  .audio_btn:active{ background: rgb(0, 138, 182);
-    }
+
     .answer_detail_box .hello{
         padding-left: 0.88rem;
         color:#999; font-size: 1rem;
@@ -408,19 +469,7 @@
         margin-right: 0.588235rem;
     }
     .answer_detail_box .minute{ color:#999; font-size: 1rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
-    .answer_detail_box .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
-        content:" "; display: block; height: 0.97rem; background: url(../../images/sond.png); background-size: 0.6764705882352941rem;  top:0.6rem; left:0.8rem;}
-    .answer_detail_box  .audio_btn:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        bottom: -0.6rem;
-        left: 0.9rem;
-        width: 0;
-        height: 0;
-        border-top: 0.6764705882352941rem solid #00B8E6;
-        border-right: 0.6764705882352941rem solid transparent;
-    }
+
 
 
     .answer_detail_box  .audio_btn:active:after{

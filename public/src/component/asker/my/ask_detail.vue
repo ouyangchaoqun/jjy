@@ -19,14 +19,19 @@
                 </div>
             </div>
 
-            <template v-for="item in detail.answers">
+            <template v-for="(item,index) in detail.answers">
                 <div class="problem_answer_info">
-                    <img src="../../../images/asker/34.jpg" alt="">
+                    <img :src="item.expertFaceUrl" alt="">
                     <!--回答，专家语音-->
                     <div class="problem_answer_yy" v-if="detail.questionStatus==1">
-                        <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                        <div class="problem_answer_play">点击播放</div>
-                        <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
+                        <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                            <div class="audio_btn" @click.stop="play(index)">
+                                <span v-if="!item.playing&&!item.paused">点击播放</span>
+                                <span v-if="item.playing">正在播放..</span>
+                                <span v-if="item.paused">播放暂停</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <div class="answer_play_time">{{item.voiceLength}}”</div>
                     </div>
                 </div>
@@ -36,7 +41,7 @@
                     <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                     <div class="problem_answer_zan">
                         <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
-                        <div><span>收入分成￥</span><span>1.00</span></div>
+                        <div><span>收入分成￥</span><span>{{item.inCome}}</span></div>
                         <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                     </div>
                 </div>
@@ -99,6 +104,61 @@
 
         },
         methods: {
+
+            play:function (index) {
+                let _this=this;
+                let list = _this.detail.answers;
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.detail.answers,i,list[i]);
+                    }
+                }
+                let item= list[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.detail.answers,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.detail.answers,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.id;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.detail.answers,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
+
             selectTag:function (index) {
 
                 let count= 0;
@@ -221,6 +281,9 @@
 
             }
 
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
         }
 
 

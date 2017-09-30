@@ -11,25 +11,33 @@
                     <div class="clear"></div>
                 </div>
                 <div class="answer_list">
-                    <div class="item" v-for="item in list">
-                        <div   @click="goDetail(item.expertId)"   >
-                        <div class="img"><img :src="item.faceUrl"> </div>
-                        <div class="info">
-                            <div class="title">{{item.sign}}</div>
-                            <div class="address"><span>{{item.nickName}}</span> {{item.province}}-{{item.city}}</div>
-                            <div class="class_s">
-                                <span v-for="good in item.goodAt">{{good.title}}</span>
-                                <div class="clear"></div>
+                    <div class="item" v-for="(item,index) in list">
+                        <div @click="goDetail(item.expertId)">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="info">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="address"><span>{{item.nickName}}</span> {{item.province}}-{{item.city}}
+                                </div>
+                                <div class="class_s">
+                                    <span v-for="good in item.goodAt">{{good.title}}</span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="other">问价 <span class="price">¥{{item.price}}</span> <span class="ml"
+                                                                                                       v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                                <div class="problem_answer_yy">
+                                    <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                        <div class="audio_btn" @click.stop="play(index)">
+                                            <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                            <template v-if="item.playing">正在播放..</template>
+                                            <template v-if="item.paused">播放暂停</template>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="answer_play_time">{{item.length}}”</div>
+                                </div>
                             </div>
-                            <div class="other">问价 <span class="price">¥{{item.price}}</span> <span class="ml" v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
-                            <span class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../images/sond.png" alt="">
-                                <div class="answer_play_time">60”</div>
-                            </span>
-                        </div>
-                        <div class="clear"></div>
+                            <div class="clear"></div>
                         </div>
                     </div>
 
@@ -67,6 +75,62 @@
             "v-asker-bottom": askerBottom
         },
         methods: {
+
+
+            play:function (index) {
+                let _this=this;
+                let list = _this.list;
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.list,i,list[i]);
+                    }
+                }
+                let item= list[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.list,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.list,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        this.getVoiceUrl(item.expertId,function (url) {
+                            xqzs.voice.play(url);
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.list,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (expertId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.get(web.API_PATH + "come/expert/voice/message/"+expertId)
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data)
+                            }
+                        }
+                    });
+            },
+
+
             goDetail:function (extId) {
 
                 this.$router.push('./detail?id='+extId)

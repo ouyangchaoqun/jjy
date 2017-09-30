@@ -12,8 +12,8 @@
                   :isShowMoreText="isShowMoreText"  v-if="list.length>0">
 
             <div class="list">
-                <div class="item" v-for="item in list">
-                    <a @click="goDetail(item.questionUserId)">
+                <div class="item" v-for="(item,index) in list">
+                    <a @click="goDetail(item.questionId)">
                         <div class="question">
                             <div class="img"></div>
                             <div class="title">{{item.question}}
@@ -71,11 +71,67 @@
 
         },
         methods:{
+
+            play:function (index) {
+                let _this=this;
+                let list = _this.list;
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.list,i,list[i]);
+                    }
+                }
+                let item= this.list[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.list,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.list,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.answerId;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.list,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
+
+
             formatTime:function (time) {
               return xqzs.dateTime.formatDateTime(time)
             },
-            goDetail:function (id) {
-              this.$router.push("/asker/listen/detail?id="+id)
+            goDetail:function (questionId) {
+              this.$router.push("/asker/listen/detail?questionId="+questionId)
             },
             getList: function () {
 
