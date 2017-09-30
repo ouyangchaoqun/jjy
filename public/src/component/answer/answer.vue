@@ -191,17 +191,20 @@
                 let _this = this;
                 if(this.playing){  //在播放中则暂停
                     if(_this.localId!=null) {
-                        xqzs.wx.voice.pausePlay(_this.localId)
+                        _this.clearTimeOut();
+                        xqzs.wx.voice.pausePlay(_this.localId);
+
                         this.playing = false;
                     }
                 }else{
                     if(_this.localId!=null){
-                        xqzs.wx.voice.startPlay(_this.localId)
                         this.clearTimeOut();
+                        xqzs.wx.voice.startPlay(_this.localId);
                         this.playing=true;
                         this.timeout(true);
                         xqzs.wx.voice.onPlayEnd(function () {
                             _this.playing = false;
+                            _this.clearTimeOut();
                             if(_this.voiceLength<10){
                                 _this.answerTime = "0"+_this.voiceLength
                             }else{
