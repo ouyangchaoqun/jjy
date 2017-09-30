@@ -94,11 +94,13 @@
                 timeOut:null,
                 questionId:null,
                 detail:{},
-                str:null
+                str:null,
+                localId:null,
+                serviceId:null
             }
         },
         mounted: function () {
-
+            let _this=this;
             this.questionId = this.$route.query.askId
             this.$http.get(web.API_PATH + 'come/expert/question/detail/'+this.questionId).then(function (data) {//es5写法
                 if (data.body.status == 1) {
@@ -108,6 +110,13 @@
             }, function (error) {
 
             });
+            xqzs.wx.voice.onRecordEnd(function (localId) {
+                _this.localId=localId;
+                _this._recordStop();
+            });
+            xqzs.wx.voice.onPlayEnd(function () {
+                _this.play();
+            })
 
         },
         methods: {
@@ -146,55 +155,62 @@
                 }
             },
             reStart:function () {
-                wx.startRecord();//重录
+                //重新开始录制
+                xqzs.wx.voice.startRecord();
                 this.answerTime="00";
                 this.preAnswer=false;
                 this.clearTimeOut();
                 this.start()
             },
             send:function () {
-                wx.uploadVoice({
-                    localId: _this.str, // 需要上传的音频的本地ID，由stopRecord接口获得
-                    isShowProgressTips: 1, // 默认为1，显示进度提示
-                    success: function (res) {
-                        var serverId = res.serverId; // 返回音频的服务器端ID
-                    }
+                let _this=this;
+
+                //发送到微信服务器并获取serverId
+                xqzs.wx.voice.upload(this.localId,function (serverId) {
+                    _this.serverId=serverId;
+                    this.isAnswered=true;
                 });
+
                 this.clearTimeOut();
-                this.isAnswered=true;
+
             },
             start:function () {
-                wx.startRecord();//开始录音
+//                开始录制
+                xqzs.wx.voice.startRecord();
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
             },
             play:function () {//试听
                 let _this = this;
-                wx.playVoice({
-                    localId: _this.str // 需要播放的音频的本地ID，由stopRecord接口获得
+                if(this.playing){  //在播放中则暂停
+                    if(_this.localId!=null) {
+                        xqzs.wx.voice.pause()
+                        this.playing = false;
+                    }
+                }else{
+                    if(_this.localId!=null){
+                        xqzs.wx.voice.start(_this.localId)
+                        this.clearTimeOut();
+                        this.playing=true;
+                        this.timeout(true);
+                    }
+                }
+            },
+            stop:function () { //停止录制
+                let _this = this;
+                xqzs.wx.voice.stopRecord(function (localId) {
+                    _this.localId=localId;
+                    _this._recordStop();
                 });
 
-                this.clearTimeOut();
-                this.playing=true;
-                this.timeout(true);
+
             },
-            stop:function () { //停止
-                let _this = this
-                wx.onVoiceRecordEnd({
-                    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
-                    complete: function (res) {
-                        _this.str = res.localId;
-                    }
-                });
-                wx.stopRecord({
-                    success: function (res) {
-                      _this.str   = res.localId;
-                    }
-                });
-                this.clearTimeOut();
-                this.answering=false;
-                this.preAnswer=true;
+            _recordStop:function () {
+                let _this = this;
+                _this.clearTimeOut();
+                _this.answering=false;
+                _this.preAnswer=true;
             },
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)

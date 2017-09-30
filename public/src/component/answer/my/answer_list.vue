@@ -12,7 +12,7 @@
             <!--抢答-->
             <div class="problem_box_active">
                 <ul class="problem_item">
-                    <li v-for="item in list" v-if="type==1">
+                    <li v-for="(item,index) in list" v-if="type==1">
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
                             <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
@@ -23,9 +23,14 @@
                             <img :src="item.expertUserFaceUrl" alt="">
                             <!--回答，专家语音-->
                             <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
+                                <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                    <div class="audio_btn" @click.stop="play(index)">
+                                        <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                        <template v-if="item.playing">正在播放..</template>
+                                        <template v-if="item.paused">播放暂停</template>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
                                 <div class="answer_play_time">{{item.voiceLength}}"</div>
                                 <span class="problem_bestAns" v-if="item.isBestAnswer==1">最佳答案</span>
                             </div>
@@ -35,7 +40,7 @@
                             <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过{{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
                                 <div><span>偷听分成 </span><span style="color:#FF9900">￥{{item.inCome}}</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
+                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
                     </li>
@@ -44,7 +49,7 @@
             <!--一对一解答-->
             <div>
                 <ul class="problem_item">
-                    <li v-if="type==2" v-for="item in list">
+                    <li v-if="type==2" v-for="(item,index) in list">
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
                             <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
@@ -55,9 +60,14 @@
                             <img :src="item.expertUserFaceUrl" alt="">
                             <!--回答，专家语音-->
                             <div class="problem_answer_yy" v-if="true">
-                                <img class="problem_answer_ly" src="../../../images/nocharge.png" alt="">
-                                <div class="problem_answer_play">点击播放</div>
-                                <img class="problem_answer_sond" src="../../../images/sond.png" alt="">
+                                <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                    <div class="audio_btn" @click.stop="play(index)">
+                                        <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                        <template v-if="item.playing">正在播放..</template>
+                                        <template v-if="item.paused">播放暂停</template>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
                                 <div class="answer_play_time">{{item.voiceLength}}”</div>
                             </div>
                         </div>
@@ -66,7 +76,7 @@
                             <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过 {{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
                                 <div><span>偷听分成 </span><span style="color:#FF9900">￥{{item.inCome}}</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>48</span></div>
+                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
                     </li>
@@ -114,6 +124,59 @@
             this.getList();
         },
         methods: {
+            play:function (index) {
+                let _this=this;
+                let list = _this.list;
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.list,i,list[i]);
+                    }
+                }
+                let item= this.list[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.list,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.list,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.answerId;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.list,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
             getList: function () {
                 let expertId = cookie.get('expertId');
                 let vm = this;
@@ -171,12 +234,16 @@
                 this.list = [];
                 this.isPageEnd = false;
                 this.isShowMoreText = true;
+                xqzs.voice.pause();
                 this.getList();
             },
             formatDateText: function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             },
 
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
         }
 
 

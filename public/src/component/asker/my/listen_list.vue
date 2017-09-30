@@ -23,13 +23,17 @@
                             <div class="img"><img
                                    :src="item.expertFaceUrl">
                             </div>
-                            <div class="audio">
-                                <div class="audio_btn">
-                                    点击播放
+                            <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                <div class="audio_btn" @click.stop="play(index)">
+                                    <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                    <template v-if="item.playing">正在播放..</template>
+                                    <template v-if="item.paused">播放暂停</template>
                                 </div>
-                                <div class="minute">60"</div>
+                                <div class="minute">{{item.answerVoiceLength}}"</div>
                                 <div class="clear"></div>
                             </div>
+
+
                         </div>
                         <div class="others">
                             <div class="time">{{formatTime(item.answerTime)}}</div>
@@ -191,7 +195,10 @@
                 this.getList();
                 done() // call done
             },
-        }
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
+        },
 
 
     }
