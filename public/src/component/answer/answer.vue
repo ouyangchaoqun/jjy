@@ -96,7 +96,8 @@
                 detail:{},
                 str:null,
                 localId:null,
-                serviceId:null
+                serviceId:null,
+                voiceLength:0
             }
         },
         mounted: function () {
@@ -133,12 +134,15 @@
                     }else{
                         if(time<60){
                             time = time +1 ;
+                            _this.voiceLength=time;
                             if(time<10)time="0"+time
                             _this.answerTime = time ;
                             _this.timeout();
                         }else{
+                            _this.voiceLength=time;
                             _this.stop();
                         }
+
                     }
 
                 },1000)
@@ -187,17 +191,22 @@
                 let _this = this;
                 if(this.playing){  //在播放中则暂停
                     if(_this.localId!=null) {
-                        xqzs.wx.voice.pause(_this.localId)
+                        xqzs.wx.voice.pausePlay(_this.localId)
                         this.playing = false;
                     }
                 }else{
                     if(_this.localId!=null){
-                        xqzs.wx.voice.start(_this.localId)
+                        xqzs.wx.voice.startPlay(_this.localId)
                         this.clearTimeOut();
                         this.playing=true;
                         this.timeout(true);
                         xqzs.wx.voice.onPlayEnd(function () {
                             _this.play();
+                            if(voiceLength<10){
+                                _this.answerTime = "0"+voiceLength
+                            }else{
+                                _this.answerTime = ""+voiceLength
+                            }
                         })
                     }
                 }

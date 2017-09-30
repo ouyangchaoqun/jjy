@@ -589,19 +589,19 @@ var xqzs = {
                 });
             },
             // 开始播放
-            start:function (localId) {
+            startPlay:function (localId) {
                 wx.playVoice({
                     localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
                 });
             },
             // 暂停播放
-            pause:function (localId) {
-                wx.playVoice({
-                    localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
+            pausePlay:function (localId) {
+                wx.pauseVoice({
+                    localId: localId // 需要暂停的音频的本地ID，由stopRecord接口获得
                 });
             },
             // 停止播放
-            stop:function (localId) {
+            stopPlay:function (localId) {
                 wx.stopVoice({
                     localId:localId // 需要停止的音频的本地ID，由stopRecord接口获得
                 });
