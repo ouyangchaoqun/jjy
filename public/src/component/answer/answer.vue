@@ -11,26 +11,24 @@
                 <div class="content">{{detail.content}}</div>
                 <div class="last_time">{{getTime(detail.addTime)}}</div>
                 <div class="clear"></div>
-                <div class="audio" v-if="isAnswered">
-                    <div class="audio_btn">
-                        点击播放
+
+                <div class="audio" :class="{playing:detail.playing,paused:detail.paused}" v-if="isAnswered&&answerId">
+                    <div class="audio_btn" @click.stop="play()" >
+                        <template v-if="!detail.playing&&!detail.paused">点击播放</template>
+                        <template v-if="detail.playing">正在播放..</template>
+                        <template v-if="detail.paused">播放暂停</template>
                     </div>
-                    <div class="minute">60"</div>
+                    <div class="minute">{{voiceLength}}"</div>
                     <div class="clear"></div>
                 </div>
+
+
             </div>
             <div class="price">酬金 <span>￥{{detail.price}}</span></div>
 
             <div class="clear"></div>
         </div>
 
-        <!--播放状态不用-->
-        <div class="times" style="display: none">
-            <div class="bg">
-                <div class="in"><div class="go"></div></div>
-            </div>
-            <div class="last_time">00"</div>
-        </div>
 
 
 
@@ -173,7 +171,28 @@
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(this.localId,function (serverId) {
                     _this.serverId=serverId;
-                    this.isAnswered=true;
+
+                    let data ={
+                        mediaId:serverId,
+                        voiceLength:_this.voiceLength,
+                        expertId:cookie.get("expertId"),
+                        userId:"_userId_"
+                    }
+                    _this.$http.put(web.API_PATH + "come/expert/answer/"+_this.questionId, data)
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+                                this.isAnswered=true;
+                                this.answerId= bt.data.data.answerId;
+                            }else if(bt.data.status==910003){
+                                window.history.go(-1);
+
+                            }
+                        });
+
+
+
+
+
                 });
 
                 this.clearTimeOut();
@@ -241,6 +260,52 @@
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             },
+            playV:function () {
+                let _this=this;
+                if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
+                    _this.detail.paused=false;
+                    _this.detail.playing=true;
+                    xqzs.voice.play();
+                    console.log("1")
+                }else{
+                    if(_this.detail.playing){    //播放中去做暂停操作
+                        _this.detail.paused=true;
+                        _this.detail.playing=false;
+                        xqzs.voice.pause();
+                        console.log( _this.detail.playing)
+                        console.log("2")
+                    }else{     //重新打开播放
+                        this.getVoiceUrl(_this.answerId,function (url) {
+                            xqzs.voice.play(url);
+                            _this.detail.playing=true;
+                            _this.detail.paused=false;
+                            console.log("3")
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
         },
 
 
