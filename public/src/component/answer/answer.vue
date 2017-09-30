@@ -161,6 +161,7 @@
                 this.voiceLength=0;
                 this.preAnswer=false;
                 this.playing=false;
+                xqzs.wx.voice.stopPlay( this.localId);
                 this.localId=null;
                 this.start();
             },
@@ -180,13 +181,14 @@
 //                开始录制
                 let _this=this;
                 this.clearTimeOut();
+                this.answering=true;
+                this.timeout()
                 xqzs.wx.voice.startRecord();
                 xqzs.wx.voice.onRecordEnd(function (localId) {
                     _this.localId=localId;
                     _this._recordStop();
                 });
-                this.answering=true;
-                this.timeout()
+
             },
             play:function () {//试听
                 let _this = this;
