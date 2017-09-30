@@ -684,6 +684,10 @@ var xqzs = {
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url,guest:guest}}).then(function (response) {
                 response.body.debug=true;
+                response.body.jsApiList.push('startRecord');
+                response.body.jsApiList.push('stopRecord');
+                response.body.jsApiList.push('translateVoice');
+
                 console.log(response.body)
                 wx.config(response.body);
                 wx.ready(function () {
