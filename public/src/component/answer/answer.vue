@@ -157,7 +157,6 @@
             },
             reStart:function () {
                 //重新开始录制
-                this.clearTimeOut();
                 this.answerTime="00";
                 this.voiceLength=0;
                 this.preAnswer=false;
@@ -180,12 +179,12 @@
             start:function () {
 //                开始录制
                 let _this=this;
+                this.clearTimeOut();
                 xqzs.wx.voice.startRecord();
                 xqzs.wx.voice.onRecordEnd(function (localId) {
                     _this.localId=localId;
                     _this._recordStop();
                 });
-                this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
             },
