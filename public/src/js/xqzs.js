@@ -688,6 +688,7 @@ var xqzs = {
                 response.body.jsApiList.push('stopRecord');
                 response.body.jsApiList.push('translateVoice');
                 response.body.jsApiList.push('playVoice');
+                response.body.jsApiList.push('pauseVoice');
 
                 console.log(response.body)
                 wx.config(response.body);

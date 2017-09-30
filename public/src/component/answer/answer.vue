@@ -201,11 +201,11 @@
                         this.playing=true;
                         this.timeout(true);
                         xqzs.wx.voice.onPlayEnd(function () {
-                            _this.play();
-                            if(voiceLength<10){
-                                _this.answerTime = "0"+voiceLength
+                            _this.playing = false;
+                            if(_this.voiceLength<10){
+                                _this.answerTime = "0"+_this.voiceLength
                             }else{
-                                _this.answerTime = ""+voiceLength
+                                _this.answerTime = ""+_this.voiceLength
                             }
                         })
                     }
