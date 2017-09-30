@@ -145,7 +145,8 @@
 
                     }
 
-                },1000)
+                },1000);
+                console.log( _this.answerTime);
 
             },
 
@@ -160,8 +161,9 @@
                 this.answerTime="00";
                 this.voiceLength=0;
                 this.preAnswer=false;
+                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
                 this.playing=false;
-                xqzs.wx.voice.stopPlay( this.localId);
+
                 this.localId=null;
                 this.start();
             },
@@ -196,7 +198,7 @@
                     if(_this.localId!=null) {
                         _this.clearTimeOut();
                         xqzs.wx.voice.pausePlay(_this.localId);
-
+                        console.log("pausePlay")
                         this.playing = false;
                     }
                 }else{
@@ -207,6 +209,7 @@
                         this.timeout(true);
                         xqzs.wx.voice.onPlayEnd(function () {
                             _this.playing = false;
+                            console.log("onPlayEnd")
                             _this.clearTimeOut();
                             if(_this.voiceLength<10){
                                 _this.answerTime = "0"+_this.voiceLength
