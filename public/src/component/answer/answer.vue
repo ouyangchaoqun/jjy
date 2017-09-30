@@ -210,9 +210,10 @@
                         this.playing=true;
                         this.timeout(true);
                         xqzs.wx.voice.onPlayEnd(function () {
-                            _this.playing = false;
                             console.log("onPlayEnd")
-                            _this.clearTimeOut();
+                            if(_this.playing)_this.clearTimeOut();
+                            _this.playing = false;
+
                             if(_this.voiceLength<10){
                                 _this.answerTime = "0"+_this.voiceLength
                             }else{
