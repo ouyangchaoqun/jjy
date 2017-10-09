@@ -144,7 +144,8 @@
 
                 },function (json,ix) {
                     _this.showLoad=false;
-                    _this.certificateFileTemp = json.data.path
+                    _this.certificateFile = json.data.path;
+                    cookie.set("certificateFile",escape(_this.certificateFile))
                     console.log(json.data)
                 },function (e) {
                     console.info(e);
