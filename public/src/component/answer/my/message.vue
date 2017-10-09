@@ -17,11 +17,15 @@
         </div>
 
 
-        <div class="action_btn"  >
+        <div class="action_btn" v-if="detail.voiceMessageIdStatus!=0" >
             <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
                 <div class="txt" style=" color:#666">重录</div>
             </div>
+        </div>
+
+        <div class="applying" v-if="detail.voiceMessageIdStatus==0" >
+             审核中..
         </div>
 
         <div class="voice_box" v-show="(answering||preAnswer)&&!finish">
@@ -350,11 +354,13 @@
         mounted: function () {
             let _this=this ;
             let expertId= cookie.get("expertId")
-            this.$http.get(web.API_PATH + 'come/expert/query/detail/'+expertId ).then(function (data) {//es5写法
+            this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+expertId + "/_userId_" ).then(function (data) {//es5写法
                 if (data.body.status == 1) {
                   _this.detail=data.body.data;
-                    _this.detail.playing=false;
-                    _this.detail.paused=false;
+                  if( _this.detail.voiceMessageIdStatus==0){
+                      //0 审核中  1 通过  2 未通过审核
+                  }
+
                 }
             }, function (error) {
 
@@ -466,4 +472,5 @@
     .answer_join_voice   .audio_play:before{ background:url(../../../images/audio_btn_play.png)  no-repeat; background-size: 1.323529411764706rem; width:1.323529411764706rem;; height: 1.529411764705882rem;  margin-left: -0.517647058823529rem; margin-top: -0.7647058823529412rem;  }
     .answer_join_voice   .audio_send:before{ background:url(../../../images/audio_btn_send.png)  no-repeat; background-size:  1.352941176470588rem; width:1.470588235294118rem;; height:1.411764705882353rem;  margin-left: -0.7352941176470588rem; margin-top: -0.7058823529411765rem;   }
     .answer_join_voice   .audio_cant_begin:before{ background:url(../../../images/audio_btn_cant_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
+    .applying{ text-align: center; color:#09bb07; margin-top: 50px}
 </style>

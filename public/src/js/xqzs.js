@@ -70,6 +70,9 @@ var xqzs = {
                 });
             }, 800);
         },
+        tipClose:function () {
+            $("#toast").remove();
+        },
         loading: function () {
             var id = '_weui_loading_' + new Date().getTime();
             var html = '<div id="' + id + '"><div class="weui-mask"><div style="text-align: center;padding-top:100px;"><div class="weui-loading"></div></div></div></div>';
