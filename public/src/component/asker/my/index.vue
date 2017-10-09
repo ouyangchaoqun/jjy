@@ -39,14 +39,35 @@
         },
         methods: {
             join: function () {
-
                 let _this= this;
 
-                if( _this.user.mobile&& _this.user.mobile.length==11){
-                    this.$router.push("/answer/join/base/info");
-                }else{
-                    this.$router.push("/answer/join/mobile");
-                }
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        console.log(data)
+                        if(data.data.data!=null){
+                            let status = data.data.data.status;
+                            if(status==0){
+                                this.$router.push("/answer/join/reviewing");
+                            }else{
+                                if( _this.user.mobile&& _this.user.mobile.length==11){
+                                    this.$router.push("/answer/join/base/info");
+                                }else{
+                                    this.$router.push("/answer/join/mobile");
+                                }
+                            }
+                        }else{
+                            if( _this.user.mobile&& _this.user.mobile.length==11){
+                                this.$router.push("/answer/join/base/info");
+                            }else{
+                                this.$router.push("/answer/join/mobile");
+                            }
+                        }
+
+
+                    }
+                }, function (error) {
+
+                });
 
 
             },
