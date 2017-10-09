@@ -102,13 +102,28 @@
                 certificateNo:'',
                 showLoad:false,
                 canGoNext:false,
-                certificateFile:''
+                certificateFile:'',
+                alioss:null,
+                uploadpicinfo:null,
             }
         },
 
 
         mounted: function () {
             xqzs.wx.setConfig(this);
+            this.uploadpicinfo = {
+                token: xqzs.string.guid(),
+                smallpic: xqzs.constant.PIC_SMALL,
+                middlepic: xqzs.constant.PIC_MIDDLE,
+                removepicurl: web.BASE_PATH + 'api/removepicture',
+                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+            };
+            this.alioss = new aliyunoss({
+                url:this.uploadpicinfo.aliossgeturl,
+                token:this.uploadpicinfo.token
+            });
+
             let certificateNo= cookie.get("certificateNo")
             console.log(certificateNo)
             if(certificateNo&&certificateNo!=''){
