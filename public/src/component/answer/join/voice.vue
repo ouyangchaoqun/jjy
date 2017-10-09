@@ -5,14 +5,17 @@
         <v-answer-top-step step="8"  preUrl="./sign" nextUrl="./price" title="60''语音寄语" canGoNext="true"></v-answer-top-step>
         <div class="tip">此60''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
 
-        <div class="audio" v-show="finish">
-            <div class="audio_btn">
-                点击播放
+
+
+        <div class="audio" :class="{playing:vPlaying,paused:vPaused}" >
+            <div class="audio_btn" @click.stop="playV()" >
+                <template v-if="!vPlaying&&!vPaused">点击播放</template>
+                <template v-if="vPlaying">正在播放..</template>
+                <template v-if="vPaused">播放暂停</template>
             </div>
-            <div class="minute">60"</div>
+            <div class="minute">{{detail.voiceLength}}"</div>
             <div class="clear"></div>
         </div>
-
 
 
         <div class="action_btn pt3" v-show="!finish" >
@@ -82,6 +85,9 @@
                 answerTime:"00",
                 timeOut:null,
                 finish:false,
+
+                vPlaying:false,
+                vPaused:false,
                 localId:null,
                 serviceId:null,
                 voiceLength:0
@@ -105,17 +111,22 @@
                     }else{
                         if(time<60){
                             time = time +1 ;
+                            _this.voiceLength=time;
                             if(time<10)time="0"+time
                             _this.answerTime = time ;
                             _this.timeout();
                         }else{
+                            _this.voiceLength=time;
                             _this.stop();
                         }
+
                     }
 
-                },1000)
+                },1000);
+                console.log( _this.answerTime);
 
             },
+
             clearTimeOut:function () {
                 let _this=this;
                 if(_this.timeOut!==null){
@@ -123,38 +134,127 @@
                 }
             },
             reStart:function () {
+                //重新开始录制
                 this.answerTime="00";
+                this.voiceLength=0;
                 this.preAnswer=false;
-                this.clearTimeOut();
-                this.start()
+                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
+                this.playing=false;
+
+                this.localId=null;
+                this.start();
             },
             send:function () {
+                let _this=this;
+
+                //发送到微信服务器并获取serverId
+                xqzs.wx.voice.upload(_this.localId,function (serverId) {
+                    cookie.set("mediaId",serverId)
+                });
+
                 this.clearTimeOut();
-                this.answering=false;
-                this.finish=true;
+
             },
             start:function () {
+                console.log("startRecord")
+//                开始录制
+                let _this=this;
+                _this.vPaused=true;
+                _this.vPlaying=false;
+                xqzs.voice.pause();
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
+                console.log("startRecordtimeout")
+                xqzs.wx.voice.startRecord();
+                xqzs.wx.voice.onRecordEnd(function (localId) {
+                    _this.localId=localId;
+                    _this._recordStop();
+                });
+
             },
-            play:function () {
-                this.clearTimeOut();
-                this.playing=true;
-                this.timeout(true);
+            play:function () {//试听
+                let _this = this;
+                if(this.playing){  //在播放中则暂停
+                    if(_this.localId!=null) {
+                        _this.clearTimeOut();
+                        xqzs.wx.voice.pausePlay(_this.localId);
+                        console.log("pausePlay")
+                        this.playing = false;
+                    }
+                }else{
+                    if(_this.localId!=null){
+                        this.clearTimeOut();
+                        xqzs.wx.voice.startPlay(_this.localId);
+                        this.playing=true;
+                        this.timeout(true);
+                        xqzs.wx.voice.onPlayEnd(function () {
+                            console.log("onPlayEnd")
+                            if(_this.playing)_this.clearTimeOut();
+                            _this.playing = false;
+
+                            if(_this.voiceLength<10){
+                                _this.answerTime = "0"+_this.voiceLength
+                            }else{
+                                _this.answerTime = ""+_this.voiceLength
+                            }
+                        })
+                    }
+                }
             },
-            stop:function () {
-                this.clearTimeOut();
-                this.answering=false;
-                this.preAnswer=true;
+            stop:function () { //停止录制
+                let _this = this;
+                xqzs.wx.voice.stopRecord(function (localId) {
+                    _this.localId=localId;
+                    _this._recordStop();
+                });
+
+
+            },
+            _recordStop:function () {
+                let _this = this;
+                _this.clearTimeOut();
+                _this.answering=false;
+                _this.preAnswer=true;
+            },
+            getTime:function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
+            playV:function () {
+                let _this=this;
+                if(_this.vPaused){  //暂停中也就是已经获取到且为当前音频
+                    _this.vPaused=false;
+                    _this.vPlaying=true;
+                    xqzs.wx.voice.startPlay(_this.localId)
+                    console.log("1")
+                }else{
+                    if(_this.vPlaying){    //播放中去做暂停操作
+                        _this.vPaused=true;
+                        _this.vPlaying=false;
+                        xqzs.wx.voice.pausePlay(_this.localId)
+                        console.log("2")
+                    }else{     //重新打开播放
+                        _this.vPaused=false;
+                        _this.vPlaying=true;
+                        xqzs.wx.voice.startPlay(_this.localId)
+                        console.log("3")
+                    }
+
+                }
+
             }
+
+
         },
         mounted: function () {
 
-
+            xqzs.wx.setConfig(this);
         },
         components: {
             "v-answer-top-step": answerTopStep
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
         }
 
 
