@@ -53,7 +53,7 @@
         left:50%;
         margin-left:-1.294rem;
         top:-0.58235rem;}
-    .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/tab_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
+    .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/bottom_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
     .asker_bottom_box a .icon.listen{ background-position: 0 0;}
     .asker_bottom_box a .icon.answer{ background-position: -1.588235294117647rem 0;}
     .asker_bottom_box a .icon.my_ask{ background-position: -3.176470588235294rem  0;}

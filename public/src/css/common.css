@@ -309,7 +309,7 @@ a{
 .answer_list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
 .answer_list .info{ float:left; margin-left:0.8823529411764706rem;line-height: 1; }
 .answer_list .info .title{ font-size: 0.8823529411764706rem;color:#333; margin-bottom: 0.7058823529411765rem;; width: 14.11764705882353rem; ;line-height: 1.5}
-.answer_list .info .address{ font-size: 0.76471rem; margin-bottom: 0.7058823529411765rem;color:#333; ; }
+.answer_list .info .address{ font-size: 0.76471rem; margin-bottom: 0.7058823529411765rem;color:#666;}
 .answer_list .info .address span { display: inline-block; margin-right: 10px; color:#333;    }
 .answer_list .info .class_s { clear: both; margin-top: 0.3rem;}
 .answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#999; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
@@ -319,12 +319,12 @@ a{
  .audio{ margin-bottom: 0.3rem;}
  .audio .audio_btn{   width:10.58823529411765rem; float:left; position: relative;
     height:2.4rem; line-height: 2.4rem;
-    background:rgba(0,184,230,1);
+    background:rgba(0,184,230,1);font-size: 0.88235rem;
     border-radius: 1.2rem ; text-align: center; color:#fff;  }
  .audio .audio_btn:active{ background: rgb(0, 138, 182);
 }
 .audio .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
-    content:" "; display: block; height: 0.97rem; background: url(/dist/sond.png) no-repeat; background-size: 0.6764705882352941rem;  top:0.6rem; left:0.8rem;}
+    content:" "; display: block; height: 0.97rem; background: url(/dist/sond.png) no-repeat; background-size: 0.6764705882352941rem;  top:30%; left:0.8rem;}
 .audio.playing .audio_btn:before{
     animation: sond_playing 1.5s infinite;
     -webkit-animation: sond_playing 1.5s infinite;
@@ -356,7 +356,7 @@ a{
 
 
 
-.audio .minute{ color:#999; font-size: 1rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
+.audio .minute{ color:#999; font-size: 0.76rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
 .audio .audio_btn:after{
     content:" "; display: block;position: absolute; bottom:-0.6rem;left:0.9rem;
     width: 0;
@@ -425,7 +425,7 @@ a{
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-    color: #999;
+    color: #666;
     font-size: 0.7647rem;
     position: relative;
     margin-bottom: 0.588235rem;
@@ -559,9 +559,9 @@ a{
     position: absolute;
     right:-3rem;
     line-height: 1;
-    top:30%;
+    top:34%;
     color: #999;
-    font-size: 0.8235rem;
+    font-size: 0.75rem;
 }
 .problem_answer_yy .problem_answer_sond{
     height:16px;
