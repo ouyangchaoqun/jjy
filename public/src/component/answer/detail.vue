@@ -120,7 +120,7 @@
                         <div class="answer">
                             <div class="img"><img :src="item.expertUrl">
                             </div>
-                            <div class="info">
+                            <div class="info audio">
                                 <div class="reply" v-if="item.needPay">
                                     <div class="audio_btn">
                                         一元偷听
@@ -466,7 +466,7 @@
         margin-top: 0.88rem;
         margin-right: 0.588235rem;
     }
-    .answer_detail_box .minute{ color:#999; font-size: 1rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
+    .answer_detail_box .minute{ color:#999; font-size: 0.76rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
 
 
 
@@ -537,10 +537,7 @@
         margin-left: 0.294rem;
     }
     .answer_detail_box .new{float: right;margin-right: 0.58rem; position: relative; padding-right: 1.17rem; color: #999999 ;}
-    .answer_detail_box .price{
-        font-size: 0.74rem;
-        color: #666;
-    }
+    .answer_detail_box .price{font-size: 0.74rem;color:#ff6600}
     .answer_detail_box .reply{height: 50px;}
     .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.58rem }
     .answer_detail_box .ask_time{float: left;}
