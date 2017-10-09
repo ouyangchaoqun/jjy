@@ -160,7 +160,7 @@
                         expertId:cookie.get("expertId"),
                         userId:"_userId_"
                     }
-                    _this.$http.put(web.API_PATH + "come/expert/modify/voice", data)
+                    _this.$http.post(web.API_PATH + "come/expert/modify/voice", data)
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 this.finish=true;
