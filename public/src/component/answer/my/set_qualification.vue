@@ -158,9 +158,12 @@
 </template>
 
 <script type="es6">
+
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
+                showLoad:false,
                 types:[],
                 typeSelectIndex:null,
                 level:[
@@ -372,7 +375,9 @@
             }
         },
 
-
+        components: {
+            'v-showLoad': showLoad,
+         },
         mounted: function () {
 
             this.uploadpicinfo = {

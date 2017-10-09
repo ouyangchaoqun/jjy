@@ -1,6 +1,6 @@
 <template >
     <div style="height: 100%" class="wbg answer_join_quali">
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>入驻心理咨询师</div>
         <v-answer-top-step step="3"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
 
@@ -75,7 +75,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
                 <div class="weui-cell__bd">
-                    <div class="upload"><span>+</span><font>上传证书</font></div>
+                    <div class="upload" @click="upload()"><span>+</span><font>上传证书</font></div>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label"></label> </div>
                 <div class="weui-cell__bd">
-                    <div class="img"><img src="../../../images/answer/join_qu.png" > </div>
+                    <div class="img"><img :src="certificateFile" > </div>
                 </div>
             </div>
         </div>
@@ -94,12 +94,15 @@
 <script type="es6">
 
 
+    import showLoad from '../../include/showLoad.vue';
     import answerTopStep from "./include/top_step.vue";
     export default {
         data() {
             return {
                 certificateNo:'',
-                canGoNext:false
+                showLoad:false,
+                canGoNext:false,
+                certificateFile:''
             }
         },
 
@@ -120,14 +123,33 @@
                     }
                 })
             }
+
+            let certificateFile= cookie.get("certificateFile")
+            if(certificateFile&&certificateFile!=''){
+                this.certificateFile= unescape(certificateFile);
+            }
             this.check()
 
 
         } ,
         components: {
+            'v-showLoad': showLoad,
             "v-answer-top-step": answerTopStep
         },
         methods:{
+            upload:function () {
+                let _this=this;
+                xqzs.wx.takePhotos(['camera','album'],1,_this.uploadpicinfo,_this.alioss,function (filecount) {
+                    _this.showLoad=true;
+
+                },function (json,ix) {
+                    _this.showLoad=false;
+                    _this.certificateFileTemp = json.data.path
+                    console.log(json.data)
+                },function (e) {
+                    console.info(e);
+                })
+            },
             changeCertificateNo:function (v) {
                 let certificateNo = $(".certificateNo").val();
 
@@ -147,8 +169,9 @@
             check:function () {
                 let jobTitle= cookie.get("jobTitle");
                 let certificateNo =(cookie.get("certificateNo"));
+                let certificateFile =(cookie.get("certificateFile"));
 
-                if(jobTitle&&jobTitle!=''&&certificateNo&&certificateNo!=''){
+                if(jobTitle&&jobTitle!=''&&certificateNo&&certificateNo!=''&&certificateFile&&certificateFile!=''){
                     this.canGoNext=true;
                 }else{
                     this.canGoNext=false;
