@@ -149,6 +149,7 @@
 
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(_this.localId,function (serverId) {
+                    _this.finish=true;
                     cookie.set("mediaId",serverId)
                 });
 
