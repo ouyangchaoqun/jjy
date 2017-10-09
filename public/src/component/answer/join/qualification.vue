@@ -108,6 +108,7 @@
 
 
         mounted: function () {
+            xqzs.wx.setConfig(this);
             let certificateNo= cookie.get("certificateNo")
             console.log(certificateNo)
             if(certificateNo&&certificateNo!=''){
