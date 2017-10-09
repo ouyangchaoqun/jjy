@@ -914,6 +914,47 @@ var xqzs = {
             image.src = canvas.toDataURL("image/png");
             return image;
         },
+        showClip:function ($uploadpicinfo,$alioss,beforeUploadFun,callFunction) {
+            var html = '<article class="htmleaf-container">\n' +
+                '    <div id="clipArea"></div>\n' +
+                '    <div class="foot-use">\n' +
+                '        <div class="clipUpload blue">\n' +
+                '            <label  class="clipbuttonopen" for="clipFile" >打开</label>' +
+                '            <input id="clipFile" name="clipFile" type="file"   accept="image/*" multiple  />\n' +
+                '        </div>\n' +
+                '        <button id="clipBtn">完成</button>\n' +
+                '    </div>\n' +
+                '    <div id="clip_view"></div>\n' +
+                '</article>';
+
+            $("body").append(html);
+
+
+            $("#clipArea").photoClip({
+                width: 200,
+                height: 200,
+                file: "#clipFile",
+                view: "#clip_view",
+                ok: "#clipBtn",
+                loadStart: function() {
+                    console.log("照片读取中");
+                },
+                loadComplete: function() {
+                    console.log("照片读取完成");
+                },
+                clipFinish: function(dataURL) {
+                    console.log(dataURL);
+                    if(typeof (callFunction)==='function'){
+                        beforeUploadFun();
+                        xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: dataURL}, callFunction,function () {
+
+                        },0);
+
+                    }
+                }
+            });
+
+        }
 
     }
 };

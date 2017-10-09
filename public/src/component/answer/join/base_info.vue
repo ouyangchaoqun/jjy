@@ -353,17 +353,23 @@
             },
 
             changeHeadpic:function () {
-                console.log("getphont")
-                let that=this;
-                xqzs.wx.takePhotos(['camera','album'],1,this.uploadpicinfo,that.alioss,function (filecount) {
-                    that.showLoad=true;
-
+                let _this=this;
+                xqzs.image.showClip(this.uploadpicinfo,this.alioss,function(){
+                    _this.showLoad=true;
                 },function (json,ix) {
-                    that.showLoad=false;
+                    _this.showLoad=false;
                    console.log(json.data)
-                },function (e) {
-                    console.info(e);
-                })
+                });
+//                let that=this;
+//                xqzs.wx.takePhotos(['camera','album'],1,this.uploadpicinfo,that.alioss,function (filecount) {
+//                    that.showLoad=true;
+//
+//                },function (json,ix) {
+//                    that.showLoad=false;
+//                   console.log(json.data)
+//                },function (e) {
+//                    console.info(e);
+//                })
 
             },
             updateHeadpic: function () {

@@ -573,3 +573,59 @@ a{
     left:0.88235rem;
 }
 
+
+/*clip*/
+.htmleaf-container{
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: #000;
+    z-index: 9999999;
+}
+#clipArea {
+    height: 100%;
+}
+/*上传图标*/
+#file{
+    float: left;
+    height: 100%;
+}
+#clipBtn,.clipbuttonopen{
+    float: right;
+    height: 2rem;
+    line-height: 2rem;
+    width: 4rem;
+    background: #2ca02c;
+    border-radius: 0.5rem;
+    outline: none;
+    color: #fff;
+    font-size: 0.88235rem;
+    z-index: 999;
+    top:0.88235rem;
+    right:0.88235rem;
+    position: absolute;
+    border:0;
+}
+.clipbuttonopen{ left:0.88235rem;}
+#clipFile{ display: none}
+
+
+.foot-use{
+     height: 10%;
+    width: 100%;
+    position: absolute;top:0;
+}
+.clipUpload {
+    position: absolute;
+    width: 50%;
+    cursor: default;
+    height: 100%;
+    float: left;}
+
+
+
+
