@@ -13,6 +13,8 @@
             <div class="clear"></div>
         </div>
 
+
+
         <div class="action_btn pt3" v-show="!finish" >
             <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
@@ -79,7 +81,10 @@
                 playing:false,
                 answerTime:"00",
                 timeOut:null,
-                finish:false
+                finish:false,
+                localId:null,
+                serviceId:null,
+                voiceLength:0
             }
         },
 

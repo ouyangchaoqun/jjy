@@ -4,18 +4,23 @@
         <div v-title>入驻心理咨询师</div>
         <div class="tip">此60''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
 
-        <div class="audio" v-show="finish">
-            <div class="audio_btn">
-                点击播放
+
+
+        <div class="audio" :class="{playing:vPlaying,paused:vPaused}" >
+            <div class="audio_btn" @click.stop="playV()" >
+                <template v-if="!vPlaying&&!vPaused">点击播放</template>
+                <template v-if="vPlaying">正在播放..</template>
+                <template v-if="vPaused">播放暂停</template>
             </div>
-            <div class="minute">60"</div>
+            <div class="minute">{{detail.voiceLength}}"</div>
             <div class="clear"></div>
         </div>
 
-        <div class="action_btn" v-show="!finish" >
+
+        <div class="action_btn"  >
             <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
-                <div class="txt" style=" color:#666">开始</div>
+                <div class="txt" style=" color:#666">重录</div>
             </div>
         </div>
 
@@ -80,11 +85,19 @@
                 playing:false,
                 answerTime:"00",
                 timeOut:null,
-                finish:false
+                finish:false,
+                detail:{},
+                vPlaying:false,
+                vPaused:false,
+                localId:null,
+                serviceId:null,
+                voiceLength:0
+
             }
         },
 
         methods: {
+
             timeout:function (play) {
                 let _this=this;
                 _this.timeOut =    setTimeout(function () {
@@ -101,17 +114,22 @@
                     }else{
                         if(time<60){
                             time = time +1 ;
+                            _this.voiceLength=time;
                             if(time<10)time="0"+time
                             _this.answerTime = time ;
                             _this.timeout();
                         }else{
+                            _this.voiceLength=time;
                             _this.stop();
                         }
+
                     }
 
-                },1000)
+                },1000);
+                console.log( _this.answerTime);
 
             },
+
             clearTimeOut:function () {
                 let _this=this;
                 if(_this.timeOut!==null){
@@ -119,37 +137,235 @@
                 }
             },
             reStart:function () {
+                //重新开始录制
                 this.answerTime="00";
+                this.voiceLength=0;
                 this.preAnswer=false;
-                this.clearTimeOut();
-                this.start()
+                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
+                this.playing=false;
+
+                this.localId=null;
+                this.start();
             },
             send:function () {
+                let _this=this;
+
+                //发送到微信服务器并获取serverId
+                xqzs.wx.voice.upload(this.localId,function (serverId) {
+                    _this.serverId=serverId;
+
+                    let data ={
+                        mediaId:serverId,
+                        voiceLength:_this.voiceLength,
+                        expertId:cookie.get("expertId"),
+                        userId:"_userId_"
+                    }
+                    _this.$http.put(web.API_PATH + "come/expert/modify/voice", data)
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+                                this.finish=true;
+                            }
+                        });
+
+
+
+
+
+                });
+
                 this.clearTimeOut();
-                this.answering=false;
-                this.finish=true;
+
             },
             start:function () {
+                console.log("startRecord")
+//                开始录制
+                let _this=this;
+                _this.vPaused=true;
+                _this.vPlaying=false;
+                xqzs.voice.pause();
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
+                console.log("startRecordtimeout")
+                xqzs.wx.voice.startRecord();
+                xqzs.wx.voice.onRecordEnd(function (localId) {
+                    _this.localId=localId;
+                    _this._recordStop();
+                });
+
             },
-            play:function () {
-                this.clearTimeOut();
-                this.playing=true;
-                this.timeout(true);
+            play:function () {//试听
+                let _this = this;
+                if(this.playing){  //在播放中则暂停
+                    if(_this.localId!=null) {
+                        _this.clearTimeOut();
+                        xqzs.wx.voice.pausePlay(_this.localId);
+                        console.log("pausePlay")
+                        this.playing = false;
+                    }
+                }else{
+                    if(_this.localId!=null){
+                        this.clearTimeOut();
+                        xqzs.wx.voice.startPlay(_this.localId);
+                        this.playing=true;
+                        this.timeout(true);
+                        xqzs.wx.voice.onPlayEnd(function () {
+                            console.log("onPlayEnd")
+                            if(_this.playing)_this.clearTimeOut();
+                            _this.playing = false;
+
+                            if(_this.voiceLength<10){
+                                _this.answerTime = "0"+_this.voiceLength
+                            }else{
+                                _this.answerTime = ""+_this.voiceLength
+                            }
+                        })
+                    }
+                }
             },
-            stop:function () {
-                this.clearTimeOut();
-                this.answering=false;
-                this.preAnswer=true;
-            }
+            stop:function () { //停止录制
+                let _this = this;
+                xqzs.wx.voice.stopRecord(function (localId) {
+                    _this.localId=localId;
+                    _this._recordStop();
+                });
+
+
+            },
+            _recordStop:function () {
+                let _this = this;
+                _this.clearTimeOut();
+                _this.answering=false;
+                _this.preAnswer=true;
+            },
+            getTime:function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
+            playV:function () {
+                let _this=this;
+                if(_this.vPaused){  //暂停中也就是已经获取到且为当前音频
+                    _this.vPaused=false;
+                    _this.vPlaying=true;
+                    xqzs.voice.play();
+                    console.log("1")
+                }else{
+                    if(_this.vPlaying){    //播放中去做暂停操作
+                        _this.vPaused=true;
+                        _this.vPlaying=false;
+                        xqzs.voice.pause();
+                        console.log("2")
+                    }else{     //重新打开播放
+                        let expertId=  cookie.get("expertId");
+                        this.getVoiceUrl(expertId,function (url) {
+                            _this.vPaused=false;
+                            _this.vPlaying=true;
+                            xqzs.voice.play(url);
+                            console.log("3")
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (expertId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.get(web.API_PATH + "come/expert/voice/message/"+expertId)
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data)
+                            }
+                        }
+                    });
+            },
+
+
+
+//            timeout:function (play) {
+//                let _this=this;
+//                _this.timeOut =    setTimeout(function () {
+//                    let time = parseInt(_this.answerTime);
+//                    if(play==true){  //试听
+//                        if(time>0){
+//                            time = time -1 ;
+//                            if(time<10)time="0"+time
+//                            _this.answerTime = time ;
+//                            _this.timeout(play);
+//                        }else{
+//                            _this.playing=false;
+//                        }
+//                    }else{
+//                        if(time<60){
+//                            time = time +1 ;
+//                            if(time<10)time="0"+time
+//                            _this.answerTime = time ;
+//                            _this.timeout();
+//                        }else{
+//                            _this.stop();
+//                        }
+//                    }
+//
+//                },1000)
+//
+//            },
+//            clearTimeOut:function () {
+//                let _this=this;
+//                if(_this.timeOut!==null){
+//                    clearTimeout(_this.timeOut);
+//                }
+//            },
+//            reStart:function () {
+//                this.answerTime="00";
+//                this.preAnswer=false;
+//                this.clearTimeOut();
+//                this.start()
+//            },
+//            send:function () {
+//                this.clearTimeOut();
+//                this.answering=false;
+//                this.finish=true;
+//            },
+//            start:function () {
+//                this.clearTimeOut();
+//                this.answering=true;
+//                this.timeout()
+//            },
+//            play:function () {
+//                this.clearTimeOut();
+//                this.playing=true;
+//                this.timeout(true);
+//            },
+//            stop:function () {
+//                this.clearTimeOut();
+//                this.answering=false;
+//                this.preAnswer=true;
+//            }
         },
         mounted: function () {
+            let _this=this ;
+            let expertId= cookie.get("expertId")
+            this.$http.get(web.API_PATH + 'come/expert/query/detail/'+expertId ).then(function (data) {//es5写法
+                if (data.body.status == 1) {
+                  _this.detail=data.body.data;
+                    _this.detail.playing=false;
+                    _this.detail.paused=false;
+                }
+            }, function (error) {
+
+            });
+//            xqzs.wx.setConfig(_this);
 
 
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
         }
-
     }
 </script>
 <style>
