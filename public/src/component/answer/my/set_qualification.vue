@@ -276,12 +276,12 @@
                 });
 
                 $(".uploadFile").click(function () {
-                    let that=this;
-                    xqzs.wx.takePhotos(['camera','album'],1,this.uploadpicinfo,that.alioss,function (filecount) {
-                        that.showLoad=true;
+
+                    xqzs.wx.takePhotos(['camera','album'],1,_this.uploadpicinfo,_this.alioss,function (filecount) {
+                        _this.showLoad=true;
 
                     },function (json,ix) {
-                        that.showLoad=false;
+                        _this.showLoad=false;
                         _this.certificateFileTemp = json.data.path
                         console.log(json.data)
                     },function (e) {
