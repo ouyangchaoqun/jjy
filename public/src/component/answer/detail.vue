@@ -13,7 +13,7 @@
                     <div class="answer_name">{{detail.nickName}}</div>
                     <div class="answer_cs">
                         <div class="answer_ability">
-                            <span v-for="good in detail.goodAt">{{good.title}}</span>
+                            <span v-for="good in detail.domain">{{good.title}}</span>
                         </div>
                     </div>
 
@@ -63,19 +63,16 @@
             <div class="answer_detail">
                 <div class="answer_title">详细介绍</div>
                 <div class="content">
-                    <p>{{detail.introduction}}</p>
-                    <br>
-                    <b>专业培训经历：</b>
-                    <p>{{detail.experience}}</p>
-                    <br>
-                    <b>擅长领域：</b>
-                    <p>{{detail.goodat}}</p>
-                    <br>
+                    <p :class={friestP:Hflag}>{{detail.introduction}}</p>
+                    <div :class={addopen:!Hflag,addstop:Hflag}>
+                        <b>专业培训经历：</b>
+                        <p style="margin-bottom: 1.76rem">{{detail.experience}}</p>
 
-
-
+                        <b>擅长领域：</b>
+                        <p>{{detail.goodat}}</p>
+                    </div>
                 </div>
-                <div class="btn_sq">收起</div>
+                <div class="btn_sq" @click="btn_sq()"><span v-if="!Hflag">收起</span><span v-if="Hflag">展开全部</span></div>
             </div>
             <div class="answer_comments">
                 <div class="answer_title">最新评价({{detail.evaluateCount}})</div>
@@ -181,7 +178,8 @@
                 row: 5  ,
                 isPageEnd: false,
                 isShowMoreText:true,
-                showLoad:false
+                showLoad:false,
+                Hflag:true
             }
         },
         components: {
@@ -195,6 +193,10 @@
             this.getAnswer();
         },
         methods:{
+            btn_sq:function () {
+                let _this=this;
+                _this.Hflag = !this.Hflag
+            },
             play:function () {
                 let _this=this;
                 if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
@@ -347,6 +349,7 @@
                 _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
+                        console.log( _this.detail)
                     }
                 }, function (error) {
                 });
@@ -375,14 +378,15 @@
         height: 5.29rem;
         border-radius: 50%;
         margin: 0 auto;
+        margin-bottom: 16px;
     }
     .answer_detail_box  .answer_face img{
         width: 100%;
         border-radius: 50%;
+        display: block;
     }
     .answer_detail_box .answer_name{
-        margin-top: 16px;
-        font-size: 18px;
+        font-size: 1.0588235rem;
         line-height: 1;
         color: white;
         text-align: center;
@@ -412,6 +416,7 @@
         text-align: center;
         color: rgba(211,213,215,1);
         line-height: 1;
+        font-size: 0.76471rem;
     }
     .answer_detail_box .answer_count{
         display: flex;
@@ -445,25 +450,18 @@
         margin-top: -0.5rem;
     }
     .answer_detail_box .answer_voice{
-        height: 6.18rem;
         margin-top: 0.41176471rem;
         background: white;
         padding-bottom: 0.88rem;
     }
     .answer_detail_box .ts{
-        padding-top: 0.88rem;
-        padding-left: 0.88rem;
+        padding:0.88rem;
         font-size:0.88rem;
-
         color:rgba(51,51,51,1);
     }
-    .answer_detail_box .voice{
-        margin-top: 0.88rem;
-    }
-
     .answer_detail_box .hello{
         padding-left: 0.88rem;
-        color:#999; font-size: 1rem;
+        color:#999; font-size: 0.88235rem;
         float: left;
         margin-top: 0.88rem;
         margin-right: 0.588235rem;
@@ -492,6 +490,10 @@
         font-size: 13px;
         padding:0.88rem ;
         color:#999
+    }
+    .answer_detail_box .content b{
+        color:#333;
+        font-weight: normal;
     }
     .answer_detail_box .btn_sq{
         width:5.235rem;
@@ -579,4 +581,7 @@
         background-position: 0.9rem 0;
     }
     .answer_detail_box .pay_ask{width: 75%;float: right; background: #09bb07;color: white;line-height: 2.588rem;height: 2.588rem}
+    .friestP{overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;line-height:1.176rem;-webkit-box-orient: vertical;}
+    .addopen{margin-top:1.76rem;height:auto;}
+    .addstop{margin-top:0;height:0;overflow: hidden;}
 </style>

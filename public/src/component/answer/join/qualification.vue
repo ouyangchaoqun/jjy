@@ -66,7 +66,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">证书编号 <span>*</span></label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input certificateNo" name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()" pattern="[0-9a-zA-Z]*" placeholder="证件号码"/>
+                    <input style="color:#666" class="weui-input certificateNo" name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()" pattern="[0-9a-zA-Z]*" placeholder="证件号码"/>
                 </div>
             </div>
         </div>

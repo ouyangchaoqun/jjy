@@ -10,12 +10,12 @@
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText"  v-if="list.length>0">
-
+            <header class="questCount">共{{count}}个问题</header>
             <div class="list">
                 <div class="item" v-for="(item,index) in list">
                     <a @click="goDetail(item.questionId)">
                         <div class="question">
-                            <div class="img"></div>
+                            <img class="img" :src="item.questionUserFaceUrl" alt="">
                             <div class="title">{{item.question}}
                             </div>
                         </div>
@@ -62,7 +62,8 @@
                 isPageEnd: false,
                 isShowMoreText:true,
                 showLoad:false,
-                list:[]
+                list:[],
+                count:null
             }
         },
         components: {
@@ -169,6 +170,7 @@
                     }
                     let arr = response.data.data.rows;
 //
+                    vm.count =response.data.data.total
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
@@ -204,11 +206,11 @@
     }
 </script>
 <style>
+    .asker_my_listen_list_box .questCount{height:2.588235rem;text-align: center;background: #F4F4F7;font-size: 0.88235rem;line-height: 2.588235rem;color:#999;}
     .asker_my_listen_list_box .item{ border-bottom: 1px solid #eee; padding-bottom: 0.85rem;}
     .asker_my_listen_list_box .nothing.listen{ background: url(../../../images/asker/nothing_listen.png) no-repeat center top; background-size: 4.5rem; }
-    .asker_my_listen_list_box .question{ padding: 0.8rem; }
-    .asker_my_listen_list_box .question .img{ height: 100%; float:left; }
-    .asker_my_listen_list_box .question .img:before{background: #09bb07; border-radius: 50%; width:2rem; height: 2rem; content: " "; display: block; margin-right:0.8235294117647059rem;  }
+    .asker_my_listen_list_box .question{ padding: 0.88235rem;display: flex;display: -webkit-box;display: -webkit-flex;}
+    .asker_my_listen_list_box .question .img{border-radius: 50%; width:2rem; height: 2rem;display: block; margin-right:0.8235294117647059rem;}
     .asker_my_listen_list_box .question .title{ font-size: 0.88235rem; color:#333 }
 
     .asker_my_listen_list_box .answer .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; margin-left: 0.88235rem; margin-right: 0.5rem;}
