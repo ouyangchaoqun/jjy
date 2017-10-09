@@ -374,6 +374,7 @@
 
 
         mounted: function () {
+
             this.uploadpicinfo = {
                 token: xqzs.string.guid(),
                 smallpic: xqzs.constant.PIC_SMALL,
@@ -389,6 +390,7 @@
 
             let expertId = cookie.get('expertId');
             let _this =this;
+            xqzs.wx.setConfig(_this);
             this.$http.get(web.API_PATH+'come/expert/query/detail/for/edit/'+expertId+"/_userId_").then(response => {
                 var res  = response.data.data
                 console.log(res);
