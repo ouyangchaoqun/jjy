@@ -359,7 +359,7 @@
             }, function (error) {
 
             });
-//            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this);
 
 
         },
