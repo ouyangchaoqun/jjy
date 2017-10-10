@@ -401,7 +401,7 @@
 
     .lut{ float:left; background: #ececec; color:#333; height: 30px; line-height: 30px;  padding: 0 10px; margin-top: 6px; font-size: 14px; margin-left: 10px;}
     .lut:nth-child(3){ margin-left: 0}
-    .lut.on{ float:left; background: #0BB20C; color:#fff;}
+    .lut.on{ float:left; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); color:#fff;}
 
 
     .active_tab:active {

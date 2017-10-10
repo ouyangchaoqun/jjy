@@ -133,6 +133,7 @@
         border-radius: 5px;
         text-align: center;
         margin-left:0.88235rem;
+        color:rgba(253,114,6,1);
     }
 
     .setItem>div:nth-of-type(1){

@@ -338,7 +338,7 @@
     .asker_ask_box .set_price .price {
         font-size: 1.058823529411765rem;
         border-bottom: 1px solid #ccc;
-        color: #FF9900;
+        color: rgba(253,114,6,1);
         padding: 0 0.5rem;
         width: 4rem;
     }

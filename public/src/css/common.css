@@ -519,7 +519,7 @@ a{
     font-size: 1.0588235rem;
     height:2.941176rem;
     line-height: 2.941176rem;
-    color: #09bb07;
+    color: rgba(253,114,6,1);
     text-align: center;
     border-top: 1px solid #eee;
 }
@@ -527,8 +527,8 @@ a{
     background: #ccc;
 }
 .myask_class_box .myask_class_listactive{
-    border-color: #09bb07;
-    color: #09bb07;
+    border-color: rgba(253,114,6,1);
+    color: rgba(253,114,6,1);
 }
 
 /*语音样式*/
@@ -624,7 +624,17 @@ a{
     width: 50%;
     cursor: default;
     height: 100%;
-    float: left;}
+    float: left;
+    }
+.weui-picker__action{
+    color: rgba(254,115,1,1) !important;
+}
+.weui-picker__action:first-child{
+    color:#888 !important;
+}
+.weui-btn_primary{
+    background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)) !important;
+}
 
 
 
