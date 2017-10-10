@@ -31,7 +31,7 @@ var xqzs = {
             $(".actionSheet_wrap").remove();
             $("#action_sheet_edit").remove();
 
-        //
+            //
         },
         toast: function (type, msg, fun) {
             var html = "";
@@ -58,19 +58,19 @@ var xqzs = {
         tip: function (msg, fun) {
             var html = "";
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
-            var len= msg.length;
-            html += '<p class="weui-toast__content weui_tip" style="margin-left:-'+((msg.length*13+20)/2)+'px">' + msg + '</p></div>';
+            var len = msg.length;
+            html += '<p class="weui-toast__content weui_tip" style="margin-left:-' + ((msg.length * 13 + 20) / 2) + 'px">' + msg + '</p></div>';
             $("body").append(html);
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
                     $("#toast").remove();
 
-                    if(typeof(fun)=="function")
-                    fun();
+                    if (typeof(fun) == "function")
+                        fun();
                 });
             }, 800);
         },
-        tipClose:function () {
+        tipClose: function () {
             $("#toast").remove();
         },
         loading: function () {
@@ -124,7 +124,7 @@ var xqzs = {
             });
 
         },
-        dialogClose:function () {
+        dialogClose: function () {
             xqzs.weui.weuiMaskClose();
             $(".js_dialog").addClass("weui-animate-fade-out");
             setTimeout(function () {
@@ -256,12 +256,12 @@ var xqzs = {
             if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
             xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
-        actionSheetEdit: function ( sendText, doFun, cancelFun, placeholder,maxLength,defaultValue) {
-            if(!maxLength){
-                maxLength=1000;
+        actionSheetEdit: function (sendText, doFun, cancelFun, placeholder, maxLength, defaultValue) {
+            if (!maxLength) {
+                maxLength = 1000;
             }
-            if(!defaultValue){
-                defaultValue='';
+            if (!defaultValue) {
+                defaultValue = '';
             }
             //判断是否已经存在输入框
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
@@ -274,13 +274,13 @@ var xqzs = {
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.weui.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" >'+defaultValue+'</textarea></div>';
+            html += '<div class="box"><textarea contenteditable="true" maxlength="' + maxLength + '"  oninput="xqzs.weui.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" >' + defaultValue + '</textarea></div>';
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
 
-            var interval ;
+            var interval;
             //解决第三方软键盘唤起时底部input输入框被遮挡问题
             var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
             $(".comment_text").focus(function () {
@@ -340,7 +340,7 @@ var xqzs = {
         DATE_TIME: "date_time",
         TIME: "time",
         DATE_PATH: "date_path",
-        DATE:"date",
+        DATE: "date",
         _format: function (type, time) {
             time = time * 1000;
             var now = new Date(time);
@@ -382,87 +382,87 @@ var xqzs = {
             _timestamp = parseInt(_timestamp / 1000);
             return _timestamp;
         },
-        getTimeFormatText:function( publishTime) {
-            var d_minutes,d_hours,d_days;
-            var timeNow = parseInt(new Date().getTime()/1000);
+        getTimeFormatText: function (publishTime) {
+            var d_minutes, d_hours, d_days;
+            var timeNow = parseInt(new Date().getTime() / 1000);
             var d;
             d = timeNow - publishTime;
-            d_days = parseInt(d/86400);
-            d_hours = parseInt(d/3600);
-            d_minutes = parseInt(d/60);
-            if(d_days>0 && d_days<4){
-                return d_days+"天前";
-            }else if(d_days<=0 && d_hours>0){
-                return d_hours+"小时前";
-            }else if(d_hours<=0 && d_minutes>0){
-                return d_minutes+"分钟前";
-            }else{
-                var s = new Date(publishTime*1000);
+            d_days = parseInt(d / 86400);
+            d_hours = parseInt(d / 3600);
+            d_minutes = parseInt(d / 60);
+            if (d_days > 0 && d_days < 4) {
+                return d_days + "天前";
+            } else if (d_days <= 0 && d_hours > 0) {
+                return d_hours + "小时前";
+            } else if (d_hours <= 0 && d_minutes > 0) {
+                return d_minutes + "分钟前";
+            } else {
+                var s = new Date(publishTime * 1000);
                 // s.getFullYear()+"年";
-                return (s.getMonth()+1)+"月"+s.getDate()+"日";
+                return (s.getMonth() + 1) + "月" + s.getDate() + "日";
             }
         },
 
-        getTimeFormatLastText:function( publishTime) {
-            var d_minutes,d_hours;
-            var timeNow = parseInt(new Date().getTime()/1000);
+        getTimeFormatLastText: function (publishTime) {
+            var d_minutes, d_hours;
+            var timeNow = parseInt(new Date().getTime() / 1000);
             var d;
-            d =   publishTime - timeNow;
-            d_hours = parseInt(d/3600);
-            d_minutes = parseInt(d/60);
-           if(  d_hours>0){
-                return "剩"+d_hours+"小时";
-            }else if(d_hours<=0 && d_minutes>0){
-                return "剩"+d_minutes+"分钟";
-            }else{
-               return "剩"+d+"秒钟";
+            d = publishTime - timeNow;
+            d_hours = parseInt(d / 3600);
+            d_minutes = parseInt(d / 60);
+            if (d_hours > 0) {
+                return "剩" + d_hours + "小时";
+            } else if (d_hours <= 0 && d_minutes > 0) {
+                return "剩" + d_minutes + "分钟";
+            } else {
+                return "剩" + d + "秒钟";
             }
         },
-        getSolarData:function (beginYear,endYear) {
-            var data=[];
-            for(var i=beginYear;i<=endYear;i++){
-                var months=[];
-                for(var mi=1;mi<=12;mi++){
+        getSolarData: function (beginYear, endYear) {
+            var data = [];
+            for (var i = beginYear; i <= endYear; i++) {
+                var months = [];
+                for (var mi = 1; mi <= 12; mi++) {
                     //正常月
-                    var days=[];
-                    var  daycount= calendar.solarDays(i,mi);
-                    for(var di=1;di<=daycount;di++){
-                        days.push({value:di,label:di+"日"})
+                    var days = [];
+                    var daycount = calendar.solarDays(i, mi);
+                    for (var di = 1; di <= daycount; di++) {
+                        days.push({value: di, label: di + "日"})
                     }
-                    months.push({value:mi,label:mi+"月",children:days});
+                    months.push({value: mi, label: mi + "月", children: days});
 
                 }
-                data.push({value:i,label:i+"年",children:months})
+                data.push({value: i, label: i + "年", children: months})
             }
             return data;
         },
-        getLunarData:function (beginYear,endYear) {
-            var data=[];
-            for(var i=beginYear;i<=endYear;i++){
-                var leapMonth= calendar.leapMonth(i); //第几个月是闰月 没有返回0
-                var months=[];
-                var leapDays=0;
-                if(leapMonth!=0){
-                    leapDays=calendar.leapDays(i)  //闰月天数
+        getLunarData: function (beginYear, endYear) {
+            var data = [];
+            for (var i = beginYear; i <= endYear; i++) {
+                var leapMonth = calendar.leapMonth(i); //第几个月是闰月 没有返回0
+                var months = [];
+                var leapDays = 0;
+                if (leapMonth != 0) {
+                    leapDays = calendar.leapDays(i)  //闰月天数
                 }
-                for(var mi=1;mi<=12;mi++){
+                for (var mi = 1; mi <= 12; mi++) {
                     //正常月
-                    var days=[];
-                    var    daycount= calendar.monthDays(i,mi);
-                    for(var di=1;di<=daycount;di++){
-                        days.push({value:di,label:calendar.toChinaDay(di)})
+                    var days = [];
+                    var daycount = calendar.monthDays(i, mi);
+                    for (var di = 1; di <= daycount; di++) {
+                        days.push({value: di, label: calendar.toChinaDay(di)})
                     }
-                    months.push({value:mi,label:calendar.toChinaMonth(mi),children:days});
+                    months.push({value: mi, label: calendar.toChinaMonth(mi), children: days});
                     //增加一个闰月
-                    if(leapMonth==mi){
-                        days=[];
-                        for(var di=1;di<=leapDays;di++){
-                            days.push({value:di,label:calendar.toChinaDay(di)})
+                    if (leapMonth == mi) {
+                        days = [];
+                        for (var di = 1; di <= leapDays; di++) {
+                            days.push({value: di, label: calendar.toChinaDay(di)})
                         }
-                        months.push({value:mi+"_1",label:"闰"+calendar.toChinaMonth(mi),children:days})
+                        months.push({value: mi + "_1", label: "闰" + calendar.toChinaMonth(mi), children: days})
                     }
                 }
-                data.push({value:i,label:i+"年",children:months})
+                data.push({value: i, label: i + "年", children: months})
             }
             return data;
         }
@@ -538,34 +538,34 @@ var xqzs = {
         img.css(imgcss);
     },
 
-    voice:{
-        audio:null,
-        play:function (url) {
+    voice: {
+        audio: null,
+        play: function (url) {
 
-            if(url&&url!=''){
-                if( xqzs.voice.audio!=null){
+            if (url && url != '') {
+                if (xqzs.voice.audio != null) {
                     xqzs.voice.audio.pause()
                 }
-                xqzs.voice.audio=document.createElement("audio");
-                xqzs.voice.audio.loop="loop";
-                xqzs.voice.audio.src=url;//路径
-                xqzs.voice.audio.autobuffer=true;
+                xqzs.voice.audio = document.createElement("audio");
+                xqzs.voice.audio.loop = "loop";
+                xqzs.voice.audio.src = url;//路径
+                xqzs.voice.audio.autobuffer = true;
                 xqzs.voice.audio.play()
-            }else{
-                if(xqzs.voice.audio&& xqzs.voice.audio.paused)
-                xqzs.voice.audio.play()
+            } else {
+                if (xqzs.voice.audio && xqzs.voice.audio.paused)
+                    xqzs.voice.audio.play()
             }
 
         },
-        pause:function () {
-            if(xqzs.voice.audio&& xqzs.voice.audio!=null){
+        pause: function () {
+            if (xqzs.voice.audio && xqzs.voice.audio != null) {
                 xqzs.voice.audio.pause()
             }
         }
 
     },
     wx: {
-        voice:{
+        voice: {
             //开始录音
             startRecord: function () {
                 wx.startRecord();
@@ -575,58 +575,58 @@ var xqzs = {
                 wx.stopRecord({
                     success: function (res) {
                         var localId = res.localId;
-                        if(typeof fun == 'function')
-                        fun(localId)
+                        if (typeof fun == 'function')
+                            fun(localId)
                     }
                 });
             },
             // 监听自动停止录音
-            onRecordEnd:function (fun) {
+            onRecordEnd: function (fun) {
                 wx.onVoiceRecordEnd({
                     // 录音时间超过一分钟没有停止的时候会执行 complete 回调
                     complete: function (res) {
                         var localId = res.localId;
-                        if(typeof fun == 'function')
-                        fun(localId)
+                        if (typeof fun == 'function')
+                            fun(localId)
                     }
                 });
             },
             // 开始播放
-            startPlay:function (localId) {
+            startPlay: function (localId) {
                 wx.playVoice({
                     localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
                 });
             },
             // 暂停播放
-            pausePlay:function (localId) {
+            pausePlay: function (localId) {
                 wx.pauseVoice({
                     localId: localId // 需要暂停的音频的本地ID，由stopRecord接口获得
                 });
             },
             // 停止播放
-            stopPlay:function (localId) {
+            stopPlay: function (localId) {
                 wx.stopVoice({
-                    localId:localId // 需要停止的音频的本地ID，由stopRecord接口获得
+                    localId: localId // 需要停止的音频的本地ID，由stopRecord接口获得
                 });
             },
             // 监听自动停止播放
-            onPlayEnd:function (fun) {
+            onPlayEnd: function (fun) {
                 wx.onVoicePlayEnd({
                     success: function (res) {
                         var localId = res.localId; // 返回音频的本地ID
-                        if(typeof fun == 'function')
-                        fun(localId)
+                        if (typeof fun == 'function')
+                            fun(localId)
                     }
                 });
             },
             // 上传录音
-            upload:function (localId,fun) {
+            upload: function (localId, fun) {
                 wx.uploadVoice({
                     localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
                     isShowProgressTips: 1, // 默认为1，显示进度提示
                     success: function (res) {
                         var serverId = res.serverId; // 返回音频的服务器端ID
-                        if(typeof fun == 'function')
+                        if (typeof fun == 'function')
                             fun(serverId)
                     }
                 });
@@ -680,13 +680,13 @@ var xqzs = {
         setConfig: function (vm, callback) {
 
             var url = window.location.href;
-            var guest="";
-            if(web.guest){
-                guest="true"
+            var guest = "";
+            if (web.guest) {
+                guest = "true"
             }
             url = encodeURIComponent(url)
-            vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url,guest:guest}}).then(function (response) {
-                response.body.debug=true;
+            vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url, guest: guest}}).then(function (response) {
+                response.body.debug = true;
 
 
                 console.log(response.body)
@@ -883,7 +883,7 @@ var xqzs = {
             }
             return out;
         },
-        formatPrice:function (v) {
+        formatPrice: function (v) {
             return xqzs.toDecimal2(v)
         }
     },
@@ -905,7 +905,7 @@ var xqzs = {
             return (month - (day < "102123444543".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
         }
     },
-    image:{
+    image: {
         convertCanvasToImage: function (canvas) {
             //新Image对象，可以理解为DOM
             var image = new Image();
@@ -914,10 +914,117 @@ var xqzs = {
             image.src = canvas.toDataURL("image/png");
             return image;
         },
-        hideClip:function () {
-             $(".clip_box").remove();
+
+
+        rotateImg: function (img, direction, canvas) {
+            //alert(img);
+            //最小与最大旋转方向，图片旋转4次后回到原方向
+            var min_step = 0;
+            var max_step = 3;
+            //var img = document.getElementById(pid);
+            if (img == null) return;
+            //img的高度和宽度不能在img元素隐藏后获取，否则会出错
+            var height = img.height;
+            var width = img.width;
+            //var step = img.getAttribute('step');
+            var step = 2;
+            if (step == null) {
+                step = min_step;
+            }
+            if (direction == 'right') {
+                step++;
+                //旋转到原位置，即超过最大值
+                step > max_step && (step = min_step);
+            } else {
+                step--;
+                step < min_step && (step = max_step);
+            }
+            //img.setAttribute('step', step);
+            /*var canvas = document.getElementById('pic_' + pid);
+            if (canvas == null) {
+                img.style.display = 'none';
+                canvas = document.createElement('canvas');
+                canvas.setAttribute('id', 'pic_' + pid);
+                img.parentNode.appendChild(canvas);
+            }  */
+            //旋转角度以弧度值为参数
+            var degree = step * 90 * Math.PI / 180;
+            var ctx = canvas.getContext('2d');
+            switch (step) {
+                case 0:
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0);
+                    break;
+                case 1:
+                    canvas.width = height;
+                    canvas.height = width;
+                    ctx.rotate(degree);
+                    ctx.drawImage(img, 0, -height);
+                    break;
+                case 2:
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.rotate(degree);
+                    ctx.drawImage(img, -width, -height);
+                    break;
+                case 3:
+                    canvas.width = height;
+                    canvas.height = width;
+                    ctx.rotate(degree);
+                    ctx.drawImage(img, -width, 0);
+                    break;
+            }
         },
-        showClip:function ($uploadpicinfo,$alioss,beforeUploadFun,callFunction) {
+
+        rotateBase64Image: function (base64data, callback, orientation) {
+
+            console.log("brrbbbbbbb");
+            console.log(orientation);
+            if (orientation != null && orientation != undefined) {
+
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+
+                var image = new Image();
+                image.src = base64data;
+                image.onload = function () {
+
+                    switch(orientation){
+                        case 6://需要顺时针（向左）90度旋转
+                            xqzs.image.rotateImg(this,'left',canvas);
+                            break;
+                        case 8://需要逆时针（向右）90度旋转
+                            xqzs.image.rotateImg(this,'right',canvas);
+                            break;
+                        case 3://需要180度旋转
+                            xqzs.image.rotateImg(this,'right',canvas);//转两次
+                            xqzs.image.rotateImg(this,'right',canvas);
+                            break;
+                    }
+
+
+                    if(typeof (callback)==='function'){
+                        callback(canvas.toDataURL() )
+                    }
+
+                };
+            } else {
+                if (typeof (callback) === 'function') {
+                    callback(base64data)
+                }
+
+
+            }
+
+
+        },
+        hideClip: function () {
+            $(".clip_box").remove();
+        },
+        showClip: function ($uploadpicinfo, $alioss, beforeUploadFun, callFunction) {
+
+            var orientation = null;
             var html = '<article class="htmleaf-container clip_box">\n' +
                 '    <div id="clipArea"></div>\n' +
                 '    <div class="foot-use">\n' +
@@ -939,25 +1046,30 @@ var xqzs = {
                 file: "#clipFile",
                 view: "#clip_view",
                 ok: "#clipBtn",
-                loadStart: function() {
+                loadStart: function () {
                     console.log("照片读取中");
                 },
-                loadComplete: function() {
+                loadComplete: function () {
+
+                    EXIF.getData(this, function () {
+                        orientation = EXIF.getTag(this, 'Orientation');
+                    });
                     console.log("照片读取完成");
                 },
-                clipFinish: function(dataURL) {
-                    console.log(dataURL);
-                    if(typeof (callFunction)==='function'){
-                        beforeUploadFun();
-                        $("body").append('<img id="clip_img_tmp" src="'+dataURL+'" style="width: 200px; height: 200px; position: absolute; top:100px; right:80px;z-index: 100000000">');
-                        EXIF.getData(document.getElementById('clip_img_tmp'), function(){
-                            EXIF.getAllTags(this);
-                           alert( EXIF.getTag(this, 'Orientation'));
-                        });
+                clipFinish: function (dataURL) {
 
-                        // xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: dataURL}, callFunction,function () {
-                        //
-                        // },0);
+                    if (typeof (callFunction) === 'function') {
+                        beforeUploadFun();
+                        xqzs.image.hideClip()
+                        xqzs.image.rotateBase64Image(dataURL, function (url) {
+
+                            xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: url}, callFunction,function () {
+
+                            },0);
+
+                        }, orientation)
+
+
 
                     }
                 }
@@ -1185,10 +1297,10 @@ setTimeout(function () {
 }, 5000);
 
 
-document.addEventListener("visibilitychange", function() {
-   if( document.visibilityState=='hidden'){
-       xqzs.voice.pause()
-   }else{
-       xqzs.voice.play()
-   }
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState == 'hidden') {
+        xqzs.voice.pause()
+    } else {
+        xqzs.voice.play()
+    }
 });
