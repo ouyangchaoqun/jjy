@@ -93,22 +93,30 @@
                 }
                 let item= list[index];
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    console.log(1)
                     list[index].paused=false;
                     list[index].playing=true;
                     _this.$set(_this.list,index,list[index])
                     xqzs.voice.play();
                 }else{
+
                     if(item.playing){    //播放中去做暂停操作
+                        console.log(2)
                         list[index].paused=true;
                         list[index].playing=false;
                         _this.$set(_this.list,index,list[index])
                         xqzs.voice.pause();
                     }else{     //重新打开播放
                         this.getVoiceUrl(item.expertId,function (url) {
-                            xqzs.voice.play(url);
-                            list[index].playing=true;
-                            list[index].paused=false;
-                            _this.$set(_this.list,index,list[index])
+                            console.log(3)
+                            xqzs.voice.pause();
+                            if(url!=null&&url!=undefined&&url!=''){
+                                xqzs.voice.play(url);
+                                list[index].playing=true;
+                                list[index].paused=false;
+                                _this.$set(_this.list,index,list[index])
+                            }
+
                         })
                     }
 
