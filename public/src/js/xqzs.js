@@ -949,9 +949,15 @@ var xqzs = {
                     console.log(dataURL);
                     if(typeof (callFunction)==='function'){
                         beforeUploadFun();
-                        xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: dataURL}, callFunction,function () {
+                        $("body").append('<img id="clip_img_tmp" src="'+dataURL+'" style="width: 200px; height: 200px; position: absolute; top:100px; right:80px;z-index: 100000000">');
+                        EXIF.getData(document.getElementById('clip_img_tmp'), function(){
+                            EXIF.getAllTags(this);
+                           alert( EXIF.getTag(this, 'Orientation'));
+                        });
 
-                        },0);
+                        // xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: dataURL}, callFunction,function () {
+                        //
+                        // },0);
 
                     }
                 }

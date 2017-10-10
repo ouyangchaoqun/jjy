@@ -46,6 +46,7 @@
 <script src="/src/js/clip/iscroll-zoom.js"></script>
 <script src="/src/js/clip/hammer.js"></script>
 <script src="/src/js/clip/jquery.photoClip.js"></script>
+<script src="/src/js/clip/exif.js"></script>
 <script src="https://cdn.staticfile.org/highcharts/5.0.9/highcharts.js"></script>
 <script src="https://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 </body>
