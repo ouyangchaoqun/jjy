@@ -29,8 +29,8 @@
         position: absolute; bottom: 0; left:0; line-height: 1; font-size: 0.9rem ; background: #fff;   color:#333;
     width: 100%;
     }
-    .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#09bb07}
-    .asker_bottom_box a{color:#333;
+    .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#FE7301;}
+    .asker_bottom_box a{color:#ccc;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
@@ -44,7 +44,7 @@
     .asker_bottom_box .big_btn{width:2.617647058823529rem;
         height:2.617647058823529rem;
         border-radius: 50%;
-        background: #09bb07;
+        background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
         font-size: 20px;
         color: #fff;
         text-align: center;
@@ -53,7 +53,7 @@
         left:50%;
         margin-left:-1.294rem;
         top:-0.58235rem;}
-    .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/bottom_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
+    .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/newBottom_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
     .asker_bottom_box a .icon.listen{ background-position: 0 0;}
     .asker_bottom_box a .icon.answer{ background-position: -1.588235294117647rem 0;}
     .asker_bottom_box a .icon.my_ask{ background-position: -3.176470588235294rem  0;}

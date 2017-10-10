@@ -312,14 +312,14 @@ a{
 .answer_list .info .address{ font-size: 0.76471rem; margin-bottom: 0.7058823529411765rem;color:#666;}
 .answer_list .info .address span { display: inline-block; margin-right: 10px; color:#333;    }
 .answer_list .info .class_s { clear: both; margin-top: 0.3rem;}
-.answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#999; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
+.answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#ccc; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
 .answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#999; margin-top: 0.7058823529411765rem; }
 .answer_list .info .other .price{ color:#FF6600}
 .answer_list .info .other .ml{ margin-left:0.8rem; }
  .audio{ margin-bottom: 0.3rem;}
  .audio .audio_btn{   width:10.58823529411765rem; float:left; position: relative;
     height:2.4rem; line-height: 2.4rem;
-    background:rgba(0,184,230,1);font-size: 0.88235rem;
+    background:linear-gradient(to right, rgba(90,188,251,1), rgba(68,163,255,1));font-size: 0.88235rem;
     border-radius: 1.2rem ; text-align: center; color:#fff;  }
  .audio .audio_btn:active{ background: rgb(0, 138, 182);
 }
@@ -361,7 +361,7 @@ a{
     content:" "; display: block;position: absolute; bottom:-0.6rem;left:0.9rem;
     width: 0;
     height: 0;
-    border-top: 0.6764705882352941rem solid #00B8E6;
+    border-top: 0.6764705882352941rem solid rgba(90,188,251,1);
     border-right: 0.6764705882352941rem solid transparent;
 }
 .audio .audio_btn:active:after{

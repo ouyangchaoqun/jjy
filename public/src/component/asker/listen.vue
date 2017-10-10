@@ -61,8 +61,8 @@
                     <div v-show="list.length==0">
                         <div class="index_nocontent">
                             <div>
-                                <img src="../../images/asker/noContent.png" alt="">
-                                <div>暂无该方面问题</div>
+                                <img src="../../images/asker/newNoContent.png" alt="">
+                                <div class="nocontent_html">暂无该方面问题</div>
                             </div>
 
                         </div>
@@ -91,7 +91,7 @@
     export default {
         data() {
             return {
-                navLists:[{title:'全部'},{title:'情感困惑'},{title:'性心理'},{title:'人际关系'},{title:'职场事业'},{title:'婚姻家庭'},{title:'个人成长'},{title:'情绪管理'},{title:'心理健康'},{title:'亲子教育'}],
+                navLists:[{title:'推荐'},{title:'情感困惑'},{title:'性心理'},{title:'人际关系'},{title:'职场事业'},{title:'婚姻家庭'},{title:'个人成长'},{title:'情绪管理'},{title:'心理健康'},{title:'亲子教育'}],
                 page: 1,
                 row: 10,
                 isPageEnd: false,
@@ -289,29 +289,29 @@
     .index_li_bottom .problem_answer_play{margin-left:0;left:12%;}
     nav{
         width: 100%;
-        background: #fdfdfd;
+        background: #FDFDFD;
         height:2.471rem;
         line-height: 2.471rem;
-        font-size: 0.76471rem;
-        color: #666;
+        font-size: 0.8235rem;
+        color: #3E4042;
         text-align: center;
+        border-bottom: 1px solid #eee;
     }
     .navSwiper .swiper-slide{
         width:4.70588rem;
     }
     .nav_active{
-        font-size: 0.88235rem;
-        color: #09bb07 ;
+        color:#FE7301;
         position: relative;
         transition:all .1s linear;
     }
     .nav_active:after{
         content: '';
-        width:0.8235rem;
+        width:0.88235rem;
         height:2px;
-        background: #09bb07;
+        background: #FE7301;
         position: absolute;
-        bottom:0;
+        bottom:0.29rem;
         left:50%;
         margin-left: -0.41176rem;
     }
@@ -338,7 +338,7 @@
     }
     .index_li_header{
         font-size: 0.70588rem;
-        color: #333;
+        color: #474747;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -356,7 +356,7 @@
     }
     .index_li_content{
         font-size:0.88235rem;
-        color: #333;
+        color: #474747;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -410,15 +410,13 @@
     }
     .index_nocontent img{
         display: block;
-        width:90px;
-        height:90px;
         margin:0 auto;
-        margin-bottom: 1.5294rem;
+        width: 100%;
     }
     .index_nocontent>div{
         position: absolute;
-        top:5.588235rem;
-        left: 50%;
-        margin-left:-2.941175rem;
+        top:2rem;
+        width:100%;
     }
+    .nocontent_html{margin-top:-3.8rem}
 </style>

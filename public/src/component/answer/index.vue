@@ -7,7 +7,10 @@
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :isShowMoreText="isShowMoreText" :bottomHeight="50">
                 <div class="class_list">
-                    <div class="class_item" v-for="(item,index) in classList" @click="goClass(item)"><span>{{item.title}}</span></div>
+                    <div class="class_item" v-for="(item,index) in classList" @click="goClass(item)">
+                        <div class="addClassImg"></div>
+                        <span>{{item.title}}</span>
+                    </div>
                     <div class="clear"></div>
                 </div>
                 <div class="answer_list">
@@ -227,10 +230,17 @@
     }
 </script>
 <style>
-   .answer_index  .class_list{  padding:0.7058823529411765rem; padding-top: 0.9rem; background: #fff; padding-bottom: 0.2rem;  }
-   .answer_index  .class_list .class_item{  float:left ; width: 33.333333%;  }
-   .answer_index  .class_list .class_item span{ display: block; background: #EAE9E9; height:2.058823529411765rem;line-height:2.058823529411765rem; width: 88% ; margin: 0 auto; text-align: center; border-radius: 1.029411764705883rem; margin-bottom: 0.7058823529411765rem; color:#666; font-size: 0.8235294117647059rem;}
+   .answer_index  .class_list{  padding:1.176rem 0.88235rem;background: #fff;padding-bottom: 0.47rem}
+   .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;margin-bottom: 12px }
+   .answer_index  .class_list .class_item span{}
    .answer_list .info .other{margin-bottom: 0.88235rem}
-
-
+    .addClassImg{height:2.4941176471rem; width:2.4941176471rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/asker/newClass_icon.png") no-repeat;background-size: 19.6471rem;}
+   .class_list>div:nth-of-type(2) div{background-position:-4.2941176471rem 0 }
+   .class_list>div:nth-of-type(3) div{background-position:-8.588235rem 0 }
+   .class_list>div:nth-of-type(4) div{background-position:-12.88235rem 0 }
+   .class_list>div:nth-of-type(5) div{background-position:-17.176471rem 0 }
+   .class_list>div:nth-of-type(6) div{background-position:0 -4.2941176471rem }
+   .class_list>div:nth-of-type(7) div{background-position:-8.588235rem -4.2941176471rem }
+   .class_list>div:nth-of-type(8) div{background-position:-4.2941176471rem -4.2941176471rem }
+   .class_list>div:nth-of-type(9) div{background-position:-12.88235rem -4.2941176471rem }
 </style>

@@ -144,9 +144,8 @@
         </v-scroll>
         <div class="ask_bottom">
             <div class="listen"  @click="follow()">
-                <div class="icon1">
-                    <span>收听</span>
-                </div>
+                <img src="../../images/asker/listenin1.png" alt="">
+                <span>收听</span>
             </div>
             <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>
         </div>
@@ -499,10 +498,10 @@
         width:5.235rem;
         height:1.352rem;
         border-radius: 0.66rem ;
-        border: 1px solid #09bb07;
+        border: 1px solid rgba(254,115,1,1);
         margin:0 auto;
         text-align: center;
-        color: #09bb07;
+        color: rgba(254,115,1,1);
         line-height: 1.352rem;
         font-size: 0.70588235rem;
     }
@@ -561,23 +560,25 @@
         background: white;
         box-shadow: #eee 0 -5px 5px -5px;
         height: 2.588rem;
+        position: relative;
     }
-    .answer_detail_box .listen span{color: #999;}
+    .listen img{display: block;position: absolute;left:0.88235rem;width:1.70588rem;height:1.70588rem;top:50%;margin-top: -0.85294rem;}
+    .answer_detail_box .listen span{color: #999;position: absolute;left:3rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
-       background: url("../../images/answer/listen.png") no-repeat;
+       background: url("../../images/asker/listenin1.png") no-repeat;
        background-size: 1.05rem;
        padding-left: 0.8rem;
        background-position: 0.9rem 0.294rem;
    }
     .answer_detail_box .icon2{
         float: right;
-        background: url("../../images/answer/good.png") no-repeat;
+        background: url("../../images/asker/zan_por1.png") no-repeat;
         background-size: 1.05rem;
         padding-left: 2rem;
         background-position: 0.9rem 0;
     }
-    .answer_detail_box .pay_ask{width: 75%;float: right; background: #09bb07;color: white;line-height: 2.588rem;height: 2.588rem}
+    .answer_detail_box .pay_ask{width: 75%;float: right; background: linear-gradient(to right, rgba(255,158,25,1), rgba(254,115,1,1));color: white;line-height: 2.588rem;height: 2.588rem}
     .friestP{overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;line-height:1.176rem;-webkit-box-orient: vertical;}
     .addopen{margin-top:1.76rem;height:auto;}
     .addstop{margin-top:0;height:0;overflow: hidden;}
