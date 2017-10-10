@@ -914,12 +914,15 @@ var xqzs = {
             image.src = canvas.toDataURL("image/png");
             return image;
         },
+        hideClip:function () {
+             $(".clip_box").remove();
+        },
         showClip:function ($uploadpicinfo,$alioss,beforeUploadFun,callFunction) {
-            var html = '<article class="htmleaf-container">\n' +
+            var html = '<article class="htmleaf-container clip_box">\n' +
                 '    <div id="clipArea"></div>\n' +
                 '    <div class="foot-use">\n' +
                 '        <div class="clipUpload blue">\n' +
-                '            <label  class="clipbuttonopen" for="clipFile" >打开</label>' +
+                '            <label  class="clipbuttonopen" for="clipFile" >选择</label>' +
                 '            <input id="clipFile" name="clipFile" type="file"   accept="image/*" multiple  />\n' +
                 '        </div>\n' +
                 '        <button id="clipBtn">完成</button>\n' +

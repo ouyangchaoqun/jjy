@@ -10,7 +10,8 @@
         <div class="weui-cell ">
             <div class="weui-cell__hd"><label class="weui-label">设置头像<span>*</span></label> </div>
             <div class="weui-cell__bd" @click="changeHeadpic()">
-                <div class="img">+</div>
+                <div class="img" v-if="faceUrl==''">+</div>
+                <div class="img" v-if="faceUrl!=''"><img :src="faceUrl" style="height: 100%; width: 100%"></div>
             </div>
             <div class="clear"></div>
 
@@ -120,7 +121,8 @@
                 alioss:null,
                 uploadpicinfo:null,
                 sex:1,
-                cardType:0 //身份证
+                cardType:0, //身份证,
+                faceUrl:''
             }
         },
 
@@ -358,8 +360,11 @@
                     _this.showLoad=true;
                 },function (json,ix) {
                     _this.showLoad=false;
-                   console.log(json.data)
+                    _this.faceUrl=json.data.path;
+                   console.log(json.data);
+                    xqzs.image.hideClip()
                 });
+
 //                let that=this;
 //                xqzs.wx.takePhotos(['camera','album'],1,this.uploadpicinfo,that.alioss,function (filecount) {
 //                    that.showLoad=true;
