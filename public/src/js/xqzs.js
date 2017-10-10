@@ -991,8 +991,8 @@ var xqzs = {
                     var canvas = document.createElement("canvas");
                     var image = new Image();
                     // console.log(json.data.path)
-                    image.src = json.data.path;
-                    image.crossOrigin = '*';
+
+                    image.crossOrigin  = 'Anonymous';
                     image.onload = function () {
                         switch (orientation) {
                             case 6://需要顺时针（向左）90度旋转
@@ -1012,6 +1012,7 @@ var xqzs = {
                         }
 
                     };
+                    image.src = json.data.path;
                 },function () {
 
                 },0);
@@ -1067,14 +1068,14 @@ var xqzs = {
                             orientation = EXIF.getTag(this, 'Orientation');
                             var _img=this;
 
-                            if(orientation==6){
-                                _img.style.transform="rotate(90deg)";
-                            }
+                            // if(orientation==6){
+                            //     _img.style.transform="rotate(90deg)";
+                            // }
 
-                            // xqzs.image.rotateBase64Image($uploadpicinfo, $alioss,_img.src, function (url) {
-                            //
-                            //     _img.src=url
-                            // }, orientation)
+                            xqzs.image.rotateBase64Image($uploadpicinfo, $alioss,_img.src, function (url) {
+
+                                _img.src=url
+                            }, orientation)
 
                         });
                     }

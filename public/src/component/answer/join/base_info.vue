@@ -360,8 +360,22 @@
                     _this.showLoad=true;
                 },function (json,ix) {
                     _this.showLoad=false;
-                    _this.faceUrl=json.data.path+"?x-oss-process=image/resize,w_100/auto-orient,0";
-                   console.log(json.data);
+                    _this.faceUrl=json.data.path;
+
+                    let data ={
+
+                        faceUrl: _this.faceUrl,
+                        expertId:cookie.get("expertId"),
+                        userId:"_userId_"
+                    }
+                    _this.$http.put(web.API_PATH + "come/expert/modify/", data)
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+
+                            }
+                        });
+
+
                     xqzs.image.hideClip()
                 });
 
