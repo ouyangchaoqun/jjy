@@ -13,7 +13,7 @@
                 </div>
                 <div class="main_lists">
                     <router-link to = "/answer/my/income"  class="income"  ><i></i>我的收益
-                        <div class="price">￥{{formatPrice(income)}}</div>
+                        <div class="price" v-if="income!=0">￥{{formatPrice(income)}}</div>
                     </router-link>
                     <router-link to = "/answer/my/level" class="level" ><i></i>我的等级</router-link>
                     <router-link to = "/answer/my/setanswer" class="setanswer" ><i></i>解答设置</router-link>
@@ -37,8 +37,9 @@
         data() {
             return {
                 user:{
-                    income:null
+                    income:0
                 },
+                income:0,
                 expert:{}
             }
         },
