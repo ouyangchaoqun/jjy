@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
   <link rel="stylesheet" type="text/css" href="src/css/common.css?v=<?=STATIC_XQZS_VERSION?>"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/Swiper/3.4.2/css/swiper.min.css">
-  <script  src="https://cdn.staticfile.org/jquery/3.0.0/jquery.min.js"></script>
+  <script  src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
   <script src="https://cdn.staticfile.org/vue-resource/1.3.1/vue-resource.min.js"></script>
   <script src="https://cdn.staticfile.org/vue-router/2.4.0/vue-router.min.js"></script>
