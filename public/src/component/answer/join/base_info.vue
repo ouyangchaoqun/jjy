@@ -360,7 +360,7 @@
                     _this.showLoad=true;
                 },function (json,ix) {
                     _this.showLoad=false;
-                    _this.faceUrl=json.data.path;
+                    _this.faceUrl=json.data.path+"?x-oss-process=image/resize,w_100/auto-orient,0";
                    console.log(json.data);
                     xqzs.image.hideClip()
                 });

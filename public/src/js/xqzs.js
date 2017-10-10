@@ -924,8 +924,10 @@ var xqzs = {
             //var img = document.getElementById(pid);
             if (img == null) return;
             //img的高度和宽度不能在img元素隐藏后获取，否则会出错
+
             var height = img.height;
             var width = img.width;
+
             //var step = img.getAttribute('step');
             var step = 2;
             if (step == null) {
@@ -950,6 +952,7 @@ var xqzs = {
             //旋转角度以弧度值为参数
             var degree = step * 90 * Math.PI / 180;
             var ctx = canvas.getContext('2d');
+            console.log("step:"+step );
             switch (step) {
                 case 0:
                     canvas.width = width;
@@ -960,7 +963,7 @@ var xqzs = {
                     canvas.width = height;
                     canvas.height = width;
                     ctx.rotate(degree);
-                    ctx.drawImage(img, 0, -height);
+                    ctx.drawImage(img, 0,-height);
                     break;
                 case 2:
                     canvas.width = width;
@@ -977,38 +980,44 @@ var xqzs = {
             }
         },
 
-        rotateBase64Image: function (base64data, callback, orientation) {
+        rotateBase64Image: function ($uploadpicinfo, $alioss,base64data, callback, orientation) {
 
-            console.log("brrbbbbbbb");
+            console.log("brrbbb2222bbbb");
             console.log(orientation);
             if (orientation != null && orientation != undefined) {
 
-                var canvas = document.createElement("canvas");
-                var ctx = canvas.getContext("2d");
+                //先上传到服务器获取到url 后再旋转
+                xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: base64data}, function (json,ix) {
+                    var canvas = document.createElement("canvas");
+                    var image = new Image();
+                    // console.log(json.data.path)
+                    image.src = json.data.path;
+                    image.crossOrigin = '*';
+                    image.onload = function () {
+                        switch (orientation) {
+                            case 6://需要顺时针（向左）90度旋转
+                                xqzs.image.rotateImg(this,'left',canvas);
+                                break;
+                            case 8://需要逆时针（向右）90度旋转
+                                xqzs.image.rotateImg(this,'right',canvas);
+                                break;
+                            case 3://需要180度旋转
+                                xqzs.image.rotateImg(this,'right',canvas);//转两次
+                                xqzs.image.rotateImg(this,'right',canvas);
+                                break;
+                        }
+                        if(typeof (callback)==='function'){
+                            console.log(canvas);
+                            callback(canvas.toDataURL() )
+                        }
 
-                var image = new Image();
-                image.src = base64data;
-                image.onload = function () {
+                    };
+                },function () {
 
-                    switch(orientation){
-                        case 6://需要顺时针（向左）90度旋转
-                            xqzs.image.rotateImg(this,'left',canvas);
-                            break;
-                        case 8://需要逆时针（向右）90度旋转
-                            xqzs.image.rotateImg(this,'right',canvas);
-                            break;
-                        case 3://需要180度旋转
-                            xqzs.image.rotateImg(this,'right',canvas);//转两次
-                            xqzs.image.rotateImg(this,'right',canvas);
-                            break;
-                    }
+                },0);
 
 
-                    if(typeof (callback)==='function'){
-                        callback(canvas.toDataURL() )
-                    }
 
-                };
             } else {
                 if (typeof (callback) === 'function') {
                     callback(base64data)
@@ -1039,7 +1048,7 @@ var xqzs = {
 
             $("body").append(html);
 
-
+            var isLoad=false;
             $("#clipArea").photoClip({
                 width: 200,
                 height: 200,
@@ -1047,13 +1056,28 @@ var xqzs = {
                 view: "#clip_view",
                 ok: "#clipBtn",
                 loadStart: function () {
+                    isLoad=false;
                     console.log("照片读取中");
                 },
                 loadComplete: function () {
+                    if(!isLoad){
+                        isLoad=true;
+                        EXIF.getData(this, function () {
 
-                    EXIF.getData(this, function () {
-                        orientation = EXIF.getTag(this, 'Orientation');
-                    });
+                            orientation = EXIF.getTag(this, 'Orientation');
+                            var _img=this;
+
+                            if(orientation==6){
+                                _img.style.transform="rotate(90deg)";
+                            }
+
+                            // xqzs.image.rotateBase64Image($uploadpicinfo, $alioss,_img.src, function (url) {
+                            //
+                            //     _img.src=url
+                            // }, orientation)
+
+                        });
+                    }
                     console.log("照片读取完成");
                 },
                 clipFinish: function (dataURL) {
@@ -1061,13 +1085,12 @@ var xqzs = {
                     if (typeof (callFunction) === 'function') {
                         beforeUploadFun();
                         xqzs.image.hideClip()
-                        xqzs.image.rotateBase64Image(dataURL, function (url) {
+                        // $("body").append('<img id="clip_img_tmp" src="'+dataURL+'" style="width: 200px; height: 200px; position: absolute; top:100px; right:80px;z-index: 100000000">');
+                        xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: dataURL}, callFunction, function () {
 
-                            xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: url}, callFunction,function () {
+                        }, 0);
 
-                            },0);
 
-                        }, orientation)
 
 
 
