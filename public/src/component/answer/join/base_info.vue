@@ -465,8 +465,8 @@
     .answer_join_base_info_box  .weui-label span{ color:red;}
 
     .level_item{height:14px;width:14px;border-radius: 50%;border:1px solid #D2D2D2;display: inline-block;margin-right:0.8235rem;position: absolute;top:50%;margin-top:-8px;}
-    .checked_item{border-color: #09bb07}
-    .checked_item::after{  content: '';  width:12px;  height: 12px;  background: #09bb07;  border-radius: 50%;  position: absolute;top:50%;margin-top:-6px;left:50%;margin-left:-6px;}
+    .checked_item{border-color: rgba(254,115,1,1)}
+    .checked_item::after{  content: '';  width:12px;  height: 12px;  background: rgba(254,115,1,1);  border-radius: 50%;  position: absolute;top:50%;margin-top:-6px;left:50%;margin-left:-6px;}
     .infos li{height:40px;line-height: 40px;color:#666;font-size: 0.8235rem;display: flex;margin-bottom: 0.88235rem;position: relative}
     .infos li input{height:100%;width:70%;background: #F4F4F7;border-radius: 5px;position: absolute;right:0;padding-left: 0.588235rem;color:#333;}
     .info_right{height:100%;text-align: center;padding-left: 4rem;display: flex}
@@ -477,12 +477,12 @@
     .info_right>div:nth-of-type(1){margin-right: 1.76471rem}
     .info_right .level_itemsex{margin-left: 30px;color:#333;font-size: 0.88235rem}
     .info_right i{display: inline-block;color:#999;font-style: normal;width:60px;height:21px;font-size:0.70588235rem;line-height: 21px;border:1px solid #999;border-radius: 1rem;margin-right:25px;margin-top:10px;}
-    .info_right .right_active{background: #09bb07;border-color: #09bb07;color:#fff}
+    .info_right .right_active{background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));border-color:rgba(254,115,1,1);color:#fff}
 
     .lut{ float:left; background: #ececec; color:#333; height: 30px; line-height: 30px;  padding: 0 10px; margin-top: 6px; font-size: 14px;  }
     .lut:nth-child(3){ margin-left: 0}
     .lut:nth-child(1){ margin-left:1.176470588235294rem;     }
-    .lut.on{ float:left; background: #0BB20C; color:#fff;}
+    .lut.on{ float:left; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); color:#fff;}
     .showdL{ float:left; margin-left: 1rem;}
     .showdL span{ color:#333 !important}
 

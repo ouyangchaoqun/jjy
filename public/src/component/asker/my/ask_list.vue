@@ -18,10 +18,10 @@
                                 <div class="problem_header">
                                     <img :src="item.faceUrl" alt="">
                                     <div>{{item.nickName}}</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==0">待回答</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==1">完成</div>
+                                    <div class="wait_Answer wait_style" v-if="item.questionStatus==0">待回答</div>
+                                    <div class="wait_Answer over_style" v-if="item.questionStatus==1">完成</div>
                                     <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==3">未支付</div>
+                                    <div class="wait_Answer nop_style" v-if="item.questionStatus==3">未支付</div>
                                 </div>
                                 <div class="my_problem_content">
                                     {{item.question}}
@@ -45,10 +45,10 @@
                                 <div class="problem_header">
                                     问题类型：
                                     <div style="color: #333;margin-left: 10px">情感困惑</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==0">正在进行</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==1">完成</div>
+                                    <div class="wait_Answer wait_style" v-if="item.questionStatus==0">正在进行</div>
+                                    <div class="wait_Answer over_style" v-if="item.questionStatus==1">完成</div>
                                     <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==3">未支付</div>
+                                    <div class="wait_Answer nop_style" v-if="item.questionStatus==3">未支付</div>
                                 </div>
                                 <div class="my_problem_content">
                                     {{item.question}}
@@ -219,7 +219,7 @@
     }
 
     .my_problem_active {
-        border-bottom: 2px solid #09bb07;
+        border-bottom: 2px solid rgba(253,114,6,1);
     }
 
     .my_problem_box {
@@ -257,11 +257,6 @@
         font-size: 0.70588rem;
         margin-bottom: 0.588235rem;
     }
-
-    .wait_Answer {
-        color: #09bb07;
-    }
-
     .problem_header > div:nth-of-type(2) {
         position: absolute;
         right: 0;
@@ -304,7 +299,10 @@
     .my_problem_bottom .my_problem_money {
         position: absolute;
         right: 0;
-        color: #FF9900;
+        color: rgba(253,114,6,1);
         margin: 0;
     }
+    .wait_style{color:rgba(51,141,255,1)}
+    .nop_style{color:rgba(51,51,51,1)}
+    .over_style{color:rgba(153,153,153,1)}
 </style>

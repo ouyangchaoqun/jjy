@@ -110,5 +110,5 @@
     .answer_join_field_box .types{ margin:5rem  0.88235rem;}
     .answer_join_field_box .types .item{  width: 27%; margin: .8rem 3.166665% ; text-align: center ;    line-height:2.058823529411765rem; float:left;  }
     .answer_join_field_box .types .item span{border: 0.0588235294117647rem solid #E5E5E5 ; display: block;border-radius:1.029411764705882rem; font-size:0.8235294117647059rem; }
-    .answer_join_field_box .types .item.on span{ color:#09bb07;border: 0.0588235294117647rem solid #09bb07; }
+    .answer_join_field_box .types .item.on span{ color:rgba(254,115,1,1);border: 0.0588235294117647rem solid rgba(254,115,1,1); }
 </style>

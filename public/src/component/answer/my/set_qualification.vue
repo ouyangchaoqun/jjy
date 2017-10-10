@@ -448,8 +448,8 @@
     .setQualification_box{  background: #fff;  color: #666;  font-size: 0.8235rem;  padding-bottom: 1.76471rem;  }
     .setQualification_box header{  padding:1.176471rem 0.88235rem 0.88235rem 0.88235rem;  border-bottom: 0.588235rem solid #F4F4F7;  }
     .header_top{ position: relative;margin-bottom: 0.35294117rem;font-size: 0.88235rem;  color: #333;}
-    .setQualification_box .header-right{  position: absolute;  top:0px;  right:0;  padding:0.2941176471rem 0.588235rem;  border-radius: 0.6176471rem;  line-height: 1;  color: #fff;  font-size: 0.70588235rem;  background: #09bb07;  border:1px solid #09bb07;  }
-    .setQualification_box .header_top .addStyle{  background: none;  color: #09bb07;  }
+    .setQualification_box .header-right{  position: absolute;  top:0px;  right:0;  padding:0.2941176471rem 0.588235rem;  border-radius: 0.6176471rem;  line-height: 1;  color: #fff;  font-size: 0.70588235rem;  background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));}
+    .setQualification_box .header_top .addStyle{  background: none;  color: rgba(253,114,6,1);  }
     .setQualification_box .textarea_box{  height:2.0588235rem;  border:1.5px solid #EAE7E7; line-height: 1.176471rem;  color: #666;  font-size: 0.8235rem;  padding:0.588235rem;  border-radius: 0.29411rem;  }
     .textarea_box textarea{  width:100%;  height:100%;  border:0;  outline: none;  resize: none;  background: none;  color: #666;  }
     .setQualification_box .goodat{  padding:0.88235rem;  border-bottom: 0.588235rem solid #F4F4F7; }
@@ -465,8 +465,8 @@
     .dialog_select_type .title{line-height: 1; text-align: center;font-size: 1.058823529411765rem;  font-weight: bold;}
     .dialog_select_type .types{ margin: 0.9rem;}
     .dialog_select_type .types .item{ width: 27%; float:left;text-align: center; border: 1px solid #9E9E9E ; line-height: 1.411764705882353rem; border-radius:0.7058823529411765rem; margin: 0 2%; margin-bottom: 1.8rem; font-size: 0.7058823529411765rem;color:#999; padding: 0 0.5%; }
-    .dialog_select_type .types .item.on{  border: 1px solid  #69BA2D; color:#69BA2D}
-    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#0BB20C; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% ;font-size: 1.0588235rem;display: flex}
+    .dialog_select_type .types .item.on{  border: 1px solid rgba(253,114,6,1); color:rgba(253,114,6,1)}
+    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:rgba(253,114,6,1); text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% ;font-size: 1.0588235rem;display: flex}
     .dialog_select_type  .yes div{flex:1;text-align: center;position: relative}
     .dialog_select_type  .yes div:nth-of-type(1)::after{content: '';height:100%;width:1px;background:#eee;position: absolute;right:0;top:0}
     .dialog_select_type .level_types .item{width:46%;float: left;margin:0 2%;margin-bottom: 0.88235rem;position: relative;font-size:0.70588235rem;color:#666}
