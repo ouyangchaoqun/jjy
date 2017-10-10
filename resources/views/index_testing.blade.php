@@ -44,9 +44,11 @@
 <script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/calendar.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="https://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
 <script src="/src/js/clip/iscroll-zoom.js"></script>
-<script src="/src/js/clip/hammer.js"></script>
+<script src="https://cdn.staticfile.org/hammer.js/2.0.8/hammer.min.js"></script>
 <script src="/src/js/clip/jquery.photoClip.js"></script>
 <script src="/src/js/clip/exif.js"></script>
+
 </body>
 </html>
