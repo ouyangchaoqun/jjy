@@ -31,7 +31,8 @@
     export default {
         data() {
             return {
-                income:0
+                income:0,
+                user:{}
             }
         },
         components: {
