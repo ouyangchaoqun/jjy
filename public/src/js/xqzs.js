@@ -836,6 +836,7 @@ var xqzs = {
         while (s.length <= rs + 2) {
             s += '0';
         }
+        if(!s)return '0.00';
         return s;
     },
     string: {

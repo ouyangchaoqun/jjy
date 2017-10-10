@@ -57,6 +57,7 @@
         },
         methods:{
             formatPrice:function(price){
+                console.log(price)
                 return  xqzs.string.formatPrice(price)
             },
             goPerfect:function () {
