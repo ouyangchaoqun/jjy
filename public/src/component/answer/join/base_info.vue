@@ -190,6 +190,8 @@
             }, function (error) {
                 //error
             });
+
+            this.getExpertByUserId();
             xqzs.wx.setConfig(_this);
 
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
@@ -201,7 +203,16 @@
             }
         },
         methods: {
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
 
+                        _this.faceUrl = data.data.data.faceUrl;
+                    }
+                }, function (error) {
+                });
+            },
             changeSex:function (v) {
                 this.sex=v;
             },
@@ -444,6 +455,9 @@
                 this.codeType=v;
             }
 
+        },
+        beforeDestroy:function () {
+            xqzs.image.hideClip()
         },
 
         components: {

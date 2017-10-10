@@ -4,7 +4,7 @@
         <div class="weui-tab__panel main">
             <div class="main">
                 <div class="top" @click="goPerfect()">
-                        <img class="img" :src="user.faceUrl">
+                        <img class="img" :src="expert.faceUrl">
                         <div class="name">
                             {{user.nickName}}
                         </div>
@@ -38,7 +38,8 @@
             return {
                 user:{
                     income:null
-                }
+                },
+                expert:{}
             }
         },
         components: {
@@ -49,8 +50,8 @@
             var obj =  $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);
 
-
             this.getUser();
+            this.getExpertByUserId();
             this.getIncome();
 
         },
@@ -72,6 +73,16 @@
                 }, function (error) {
                 });
 
+            },
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+
+                        _this.expert = data.data.data;
+                    }
+                }, function (error) {
+                });
             },
             getUser:function () {
                 let _this=this;

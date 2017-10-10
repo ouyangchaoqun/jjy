@@ -4,9 +4,9 @@
     <div class="personal_box">
         <div v-title>完善资料</div>
 
-        <div class="list0 perfect_header active_tab" @click="updateHeadpic()">
+        <div class="list0 perfect_header active_tab" @click="changeHeadpic()">
             头像
-            <img class="headerImg" :src="user.faceUrl" alt="">
+            <img class="headerImg" :src="expert.faceUrl" alt="">
             <img class="rightImg" src="../../../images/arrow.png" alt="">
         </div>
 
@@ -108,12 +108,15 @@
                 isLunar: 0,
                 lunarDateData:[],
                 solarDateDate:[],
-                isLeapMonth:false
+                isLeapMonth:false,
+                expert:{},
+                alioss:null,
+                uploadpicinfo:null,
             }
         },
         mounted: function () {
-
-
+            this.initOss();
+            this.getExpertByUserId();
             let _this = this;
             var infokey = 'perfectinfo';
             xqzs.version.showed(infokey);
@@ -167,6 +170,57 @@
             }
         },
         methods: {
+            initOss:function () {
+                this.uploadpicinfo = {
+                    token: xqzs.string.guid(),
+                    smallpic: xqzs.constant.PIC_SMALL,
+                    middlepic: xqzs.constant.PIC_MIDDLE,
+                    removepicurl: web.BASE_PATH + 'api/removepicture',
+                    uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                    aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+                };
+                this.alioss = new aliyunoss({
+                    url:this.uploadpicinfo.aliossgeturl,
+                    token:this.uploadpicinfo.token
+                });
+            },
+            changeHeadpic:function () {
+                let _this=this;
+                xqzs.image.showClip(this.uploadpicinfo,this.alioss,function(){
+                    _this.showLoad=true;
+                },function (json,ix) {
+                    _this.showLoad=false;
+                    _this.expert.faceUrl=json.data.path;
+
+                    let data ={
+
+                        faceUrl: _this.expert.faceUrl,
+                        expertId:cookie.get("expertId"),
+                        userId:"_userId_"
+                    }
+                    _this.$http.post(web.API_PATH + "come/expert/modify", data)
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+
+                            }
+                        });
+
+
+                    xqzs.image.hideClip()
+                });
+
+
+            },
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+
+                        _this.expert = data.data.data;
+                    }
+                }, function (error) {
+                });
+            },
             changeSex:function () {
                 let _this=this;
                 weui.picker(  this.sexs, {
@@ -372,9 +426,11 @@
                     );
 
 
-            }
-
-        }
+            },
+        },
+        beforeDestroy:function () {
+            xqzs.image.hideClip()
+        },
     }
 </script>
 <style>

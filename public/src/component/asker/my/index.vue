@@ -4,9 +4,9 @@
         <div class="weui-tab__panel main">
             <div class="main">
             <div class="top">
-                    <img class="img" src="http://wx.qlogo.cn/mmopen/EqFW7C97wDeyDm7TRdE6cb2BL4iarJSJ1C3kyXbDkqibT9dmk2UFgDByRSofI58koW44ajgY2SibdUffyhmYErlBw/0">
+                    <img class="img" :src="user.faceUrl">
                     <div class="name">
-                       jacky小白
+                       {{user.nickName}}
                     </div>
                 <div class="clear"></div>
 
