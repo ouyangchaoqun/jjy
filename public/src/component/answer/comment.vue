@@ -166,12 +166,12 @@
     .answer_comment_box  .title .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
 
     .answer_comment_box .comment_selects{ padding:0.8823529411764706rem; background: #fff; padding-bottom: 0.3rem;}
-    .answer_comment_box .comment_selects span{display: inline-block; float:left; height: 1.352941176470588rem; line-height: 1.352941176470588rem; border: 1px solid #666; border-radius:0.676470588235294rem ; font-size: 0.8823529411764706rem; padding: 0 0.5rem; margin-right: 0.5882352941176471rem; margin-bottom: 0.5882352941176471rem; color:#666 }
+    .answer_comment_box .comment_selects span{display: inline-block; float:left; height: 1.352941176470588rem; line-height: 1.352941176470588rem; border: 1px solid #999; border-radius:0.676470588235294rem ; font-size: 0.76471rem; padding: 0 0.5rem; margin-right: 0.5882352941176471rem; margin-bottom: 0.5882352941176471rem; color:#999 }
     .answer_comment_box  .comment_selects span:first-child{border: 1px solid #D1D1D1; color:#D1D1D1 }
 
     .answer_comment_box .list_top{ margin-top:0.8823529411764706rem; background: #fff;border-bottom: 1px solid #EDEDED; font-size: 0.8823529411764706rem; height: 2.588235294117647rem; line-height: 2.588235294117647rem; padding: 0  0.8823529411764706rem }
     .answer_comment_box  .list_top span{ float:left; display: block}
-    .answer_comment_box  .list_top .img{  background: url(../../images/answer/finish.png); width: 1.176470588235294rem; height: 1.176470588235294rem; background-size: 1.176470588235294rem; margin-top: 0.7058823529411765rem; margin-right:0.5rem; }
+    .answer_comment_box  .list_top .img{  background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); width: 1.176470588235294rem; height: 1.176470588235294rem;border-radius: 50%; margin-top: 0.7058823529411765rem; margin-right:0.5rem; }
 
 
 
