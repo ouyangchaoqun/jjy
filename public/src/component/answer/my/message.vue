@@ -245,7 +245,15 @@
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             },
+
+
+            initVoice:function () {
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
             playV:function () {
+                this.initVoice();
                 let _this=this;
                 if(_this.vPaused){  //暂停中也就是已经获取到且为当前音频
                     _this.vPaused=false;
@@ -366,7 +374,7 @@
 
             });
             xqzs.wx.setConfig(_this);
-
+            xqzs.voice.audio=null;
 
         },
         beforeDestroy:function () {
