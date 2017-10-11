@@ -47,7 +47,7 @@
                 </div>
             </v-scroll>
         </div>
-
+        <div style="height: 60px; width: 60px; background: red; z-index: 10000; position: absolute; bottom:200px;left:0" @click="play2()">开始</div>
         <v-asker-bottom  tabOnIndex="1"></v-asker-bottom>
     </div>
 </template>
@@ -57,7 +57,7 @@
     import scroll from '../include/scroll.vue';
     import Bus from '../../js/bus.js';
     import askerBottom from "../asker/include/bottom.vue";
-
+    var musicPath= "http://oss.xqzs.cn/2017-08/17/";
     export default {
         data() {
             return {
@@ -67,7 +67,15 @@
                 row: 10,
                 isPageEnd: false,
                 isShowMoreText:true,
-                showLoad:false
+                showLoad:false,
+
+
+
+
+
+                audio:null,
+                isPlay:false,
+                url:musicPath+"C226C451614BD17FC04AF36FADCF084E.mp3",
 
             }
         },
@@ -78,7 +86,20 @@
             "v-asker-bottom": askerBottom
         },
         methods: {
+            play2:function () {
+                if(this.audio!=null){
+                    if (this.audio.paused) {
+                        this.audio.play();
+                        this.isPlay=true;
 
+                    } else {
+                        this.audio.pause();// 这个就是暂停
+                        this.noteTime="已经停止播放";
+                        this.isPlay=false;
+                    }
+                }
+
+            },
 
             play:function (index) {
                 let _this=this;
@@ -232,6 +253,11 @@
             $(".weui-tab__panel").height($(window).height()-100);
             this.getClassList();
             this.getList();
+
+            this.audio=document.createElement("audio");
+            this.audio.loop="loop";
+            this.audio.autobuffer=true;
+            this.audio.src=this.url;
 
         }
 
