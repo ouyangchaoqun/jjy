@@ -57,7 +57,7 @@
     import scroll from '../include/scroll.vue';
     import Bus from '../../js/bus.js';
     import askerBottom from "../asker/include/bottom.vue";
-    var musicPath= "http://oss.xqzs.cn/2017-08/17/";
+
     export default {
         data() {
             return {
@@ -75,7 +75,7 @@
 
                 audio:null,
                 isPlay:false,
-                url:musicPath+"C226C451614BD17FC04AF36FADCF084E.mp3",
+                url:"http://oss.xqzs.cn/2017-08/17/C226C451614BD17FC04AF36FADCF084E.mp3",
 
             }
         },
@@ -87,17 +87,20 @@
         },
         methods: {
             play2:function () {
-                if(this.audio!=null){
-                    if (this.audio.paused) {
-                        this.audio.play();
-                        this.isPlay=true;
+                this.audio=document.createElement("audio");
+                this.audio.autobuffer=true;
+                this.audio.src=this.url;
 
-                    } else {
-                        this.audio.pause();// 这个就是暂停
-                        this.noteTime="已经停止播放";
-                        this.isPlay=false;
-                    }
+                if (this.audio.paused) {
+                    this.audio.play();
+                    this.isPlay = true;
+
+                } else {
+                    this.audio.pause();// 这个就是暂停
+                    this.noteTime = "已经停止播放";
+                    this.isPlay = false;
                 }
+
 
             },
 
@@ -130,7 +133,7 @@
                     }else{     //重新打开播放
                         this.getVoiceUrl(item.expertId,function (url) {
                             console.log(3)
-                            xqzs.voice.pause();
+
                             if(url!=null&&url!=undefined&&url!=''){
                                 xqzs.voice.play(url);
                                 item.playing=true;
@@ -254,10 +257,7 @@
             this.getClassList();
             this.getList();
 
-            this.audio=document.createElement("audio");
-            this.audio.loop="loop";
-            this.audio.autobuffer=true;
-            this.audio.src=this.url;
+
 
         }
 

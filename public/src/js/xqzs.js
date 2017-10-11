@@ -542,11 +542,13 @@ var xqzs = {
         audio: document.createElement("audio"),
         play: function (url) {
 
+            console.log(url)
             if (url && url != '') {
-                if (xqzs.voice.audio != null) {
-                    xqzs.voice.audio.pause()
-                }
-                xqzs.voice.audio.src = "http://oss.xqzs.cn/2017-08/17/7680A0402DD1E1CB9C997B32915DD547.mp3";//路径
+                // if (xqzs.voice.audio != null) {
+                //     xqzs.voice.audio.pause()
+                // }
+                console.log("play")
+                xqzs.voice.audio.src = "http://oss.xqzs.cn/2017-08/17/C226C451614BD17FC04AF36FADCF084E.mp3";//路径
                 xqzs.voice.audio.autobuffer = true;
                 xqzs.voice.audio.play();
             } else {
