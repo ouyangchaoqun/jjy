@@ -259,50 +259,9 @@
             },
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
-            },
-            playV:function () {
-                let _this=this;
-                if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
-                    _this.detail.paused=false;
-                    _this.detail.playing=true;
-                    xqzs.voice.play();
-                    console.log("1")
-                }else{
-                    if(_this.detail.playing){    //播放中去做暂停操作
-                        _this.detail.paused=true;
-                        _this.detail.playing=false;
-                        xqzs.voice.pause();
-                        console.log( _this.detail.playing)
-                        console.log("2")
-                    }else{     //重新打开播放
-                        this.getVoiceUrl(_this.answerId,function (url) {
-                            xqzs.voice.play(url);
-                            _this.detail.playing=true;
-                            _this.detail.paused=false;
-                            console.log("3")
-                        })
-                    }
+            }
 
-                }
 
-            },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (answerId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data.path)
-                            }
-                        }
-                    });
-            },
         },
         beforeDestroy:function () {
             xqzs.voice.pause();
