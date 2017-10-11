@@ -245,7 +245,7 @@
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
                             xqzs.weui.toast("success","评论成功",function () {
-                                window.location.href=window.location.h
+                                window.location.href=window.location.href
                             })
                         }
                     });
