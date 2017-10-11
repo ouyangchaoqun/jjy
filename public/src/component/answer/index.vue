@@ -228,6 +228,7 @@
 
         },
         mounted: function () {
+            xqzs.wx.setConfig(this);
             $(".weui-tab__panel").height($(window).height()-100);
             this.getClassList();
             this.getList();

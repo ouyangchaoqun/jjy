@@ -194,7 +194,7 @@
 
         },
         mounted: function () {
-            xqzs.wx.setConfig(this);
+
             this.audio=document.createElement("audio");
             this.audio.loop="loop";
             this.audio.autobuffer=true;
