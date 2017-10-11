@@ -102,7 +102,6 @@
                     _this.$set(_this.list,index,item)
                     xqzs.voice.play();
                 }else{
-
                     if(item.playing){    //播放中去做暂停操作
                         console.log(2)
                         item.paused=true;
@@ -235,6 +234,7 @@
             $(".weui-tab__panel").height($(window).height()-100);
             this.getClassList();
             this.getList();
+            xqzs.voice.audio=null;
 
         }
 
