@@ -540,18 +540,27 @@ var xqzs = {
 
     voice: {
         audio: null,
+        listenEnded:function () {
+            xqzs.voice.audio.addEventListener('ended', function () {
+                xqzs.voice.onEnded()
+            }, false);
+        },
+        onEnded:function () {
+
+        },
         play: function (url) {
 
             if(xqzs.voice.audio!=null){
-            if (url && url != '') {
-                if(!xqzs.voice.audio.paused)xqzs.voice.audio.pause();
-                xqzs.voice.audio.src = url;//路径
-                xqzs.voice.audio.autobuffer = true;
-                xqzs.voice.audio.play();
-            } else {
-                if (xqzs.voice.audio && xqzs.voice.audio.paused)
-                    xqzs.voice.audio.play()
-            }
+                if (url && url != '') {
+                    if (!xqzs.voice.audio.paused) xqzs.voice.audio.pause();
+                    xqzs.voice.audio.src = url;//路径
+                    xqzs.voice.audio.autobuffer = true;
+                    xqzs.voice.audio.play();
+                } else {
+                    if (xqzs.voice.audio && xqzs.voice.audio.paused)
+                        xqzs.voice.audio.play()
+                }
+                xqzs.voice.listenEnded()
             }
         },
         pause: function () {
