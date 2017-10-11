@@ -78,6 +78,7 @@
 
 <script type="es6">
 
+
     import askerBottom from "./include/bottom.vue";
     export default {
         data() {
@@ -153,19 +154,15 @@
             submit:function () {
 
                 if(this.questionClass==0){
-                    xqzs.weui.tip("请选择类型",function () {
-                        
-                    })
+                    xqzs.weui.tip("请选择类型")
                     return;
                 }
                 let content= $(".content").val();
                 if(content==''){
-                    xqzs.weui.tip("请选择填写问题内容",function () {
-
-                    });
+                    xqzs.weui.tip("请选择填写问题内容");
                     return;
                 }
-
+                let _this = this;
 
                 if( this.expertId&& this.expertId!=''){
                     this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: this.questionClass,expertId:this.expertId})
@@ -177,24 +174,32 @@
                 }else{
                     let price= $(".price").val();
                     if(price==''){
-                        xqzs.weui.tip("请输入金额",function () {
-
-                        });
+                        xqzs.weui.tip("请输入金额");
                         return;
                     }
                     if(!xqzs.string.checkPrice(price)){
-                        xqzs.weui.tip("请输入正确的金额",function () {
-
-                        });
+                        xqzs.weui.tip("请输入正确的金额");
                         return;
                     }
 
-
-
-                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass})
+                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:price})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
-                                //Todo 提示支付
+
+                                //创建支付订单并支付
+                                _this.$http.put(web.API_PATH + 'power/plan/_userId_/' + 1 + '/' + 1 + '').then(function (res) {
+                                    let config = res.data.data;
+                                    xqzs.wx.pay.pay(config,function () {
+                                        xqzs.weui.tip("正在跳转支付")
+                                    },function () {//success
+                                        xqzs.weui.tip("支付成功",function () {
+                                            _this.$router.push("/asker/my/ask/list");
+                                        });
+                                    },function () {//error
+
+                                    })
+
+                                })
                             }
                         });
 
@@ -205,6 +210,8 @@
 
 
             },
+
+
 
             select:function (index) {
 

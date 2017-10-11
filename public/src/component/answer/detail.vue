@@ -91,7 +91,7 @@
                                 <span v-for="tag in item.tag">{{tag.title}}</span>
                                 <div class="clear"></div>
                             </div>
-                            <div class="time">2017-09-11</div>
+                            <div class="time">{{formatTime(item.addTime)}}</div>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="list">
-                    <div class="item" v-for="item in answerList">
+                    <div class="item" v-for="(item,index) in answerList">
                         <div class="question">
                             <div class="img"><img :src="item.faceUrl">
                             </div>
@@ -123,12 +123,28 @@
                             <div class="info audio">
                                 <div class="reply" v-if="item.needPay">
                                     <div class="audio_btn">
-                                        一元偷听
+                                        1元偷听
                                     </div>
-                                    <span class="minute">58"</span>
+                                    <span class="minute">{{item.length}}"</span>
                                 </div>
+
+
+                                <div class="reply" v-if="!item.needPay">
+                                    <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                        <div class="audio_btn" @click.stop="playAnswer(index)">
+                                            <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                            <template v-if="item.playing">正在播放..</template>
+                                            <template v-if="item.paused">播放暂停</template>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+
+
+
+
                                 <div class="status">
-                                    <div class="ask_time">刚刚</div>
+                                    <div class="ask_time">{{formatTime(item.queAddTime)}}</div>
                                     <div class="ask_status">听过 {{item.listenTimes}}
                                         <div class="icon2"><span>{{item.likeTimes}}</span></div>
                                     </div>
@@ -142,10 +158,12 @@
             </div>
 
         </v-scroll>
-        <div class="ask_bottom">
+        {{detail.expertUserId}}
+        <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
                 <img src="../../images/asker/listenin1.png" alt="">
-                <span>收听</span>
+                <span v-if="detail.followed===1">已收听</span>
+                <span v-if="detail.followed===0">收听</span>
             </div>
             <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>
         </div>
@@ -163,6 +181,7 @@
         data() {
             return {
                 detail:{
+                    expertUserId:null,
                     playing:false,
                     paused:false
 
@@ -178,7 +197,9 @@
                 isPageEnd: false,
                 isShowMoreText:true,
                 showLoad:false,
-                Hflag:true
+                Hflag:true,
+                user:{id:null},
+                scrollHeightBottom:0
             }
         },
         components: {
@@ -188,11 +209,93 @@
         mounted: function () {
             this.id = this.$route.query.id;
             this.getDetail();
+            this.getUser();
             this.getComment();
             this.getAnswer();
             xqzs.voice.audio=null;
         },
         methods:{
+
+            //回答播放
+            playAnswer:function (index) {
+                this.initVoice();
+                let _this=this;
+                let list = _this.answerList;
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.answerList,i,list[i]);
+                    }
+                }
+
+                let item= list[index];
+                console.log(index)
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    console.log(1)
+                    item.paused=false;
+                    item.playing=true;
+                    _this.$set(_this.answerList,index,item)
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        console.log(2)
+                        item.paused=true;
+                        item.playing=false;
+                        _this.$set(_this.answerList,index,item)
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        this.getVoiceUrlAnswer(item.answerId,function (url) {
+                            console.log(3)
+
+                            if(url!=null&&url!=undefined&&url!=''){
+                                xqzs.voice.play(url);
+                                item.playing=true;
+                                item.paused=false;
+                                _this.$set(_this.answerList,index,item)
+                            }
+
+                        })
+                    }
+
+                }
+
+            },
+            getVoiceUrlAnswer:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
+
+            formatTime:function (time) {
+              return xqzs.dateTime.formatDate(time)
+            },
+
+            getUser:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+
+
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             btn_sq:function () {
                 let _this=this;
                 _this.Hflag = !this.Hflag
@@ -248,25 +351,24 @@
             },
 
             follow:function () {
+                if(this.detail.followed===1){
+                    xqzs.weui.tip("已经收听");
+                    return ;
+                }
+
                 let that=this;
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+this.id+"/_userId_", {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
-                            xqzs.weui.toast("success","收听成功",function () {
-
-                            })
+                            that.detail.followed=1;
+                            that.detail.followCount=that.detail.followCount+1;
+                            xqzs.weui.toast("success","收听成功")
                         }else if(bt.data.status ==900004){
-                            xqzs.weui.toast("success","已经收听",function () {
-                                
-                            })
+                            xqzs.weui.toast("success","已经收听")
                         }else if(bt.data.status ==9000003){
-                            xqzs.weui.toast("fail","不能收听自己",function () {
-
-                            })
+                            xqzs.weui.toast("fail","不能收听自己")
                         }else {
-                            xqzs.weui.toast("fail","收听失败",function () {
-
-                            })
+                            xqzs.weui.toast("fail","收听失败")
                         }
                     });
             },
@@ -289,8 +391,16 @@
                this.$router.push("comment?expertId="+this.id );
             },
             ask:function () {
+                if(this.detail.expertUserId==null||this.user.id==null){
+                    xqzs.weui.tip('加载中，请稍后重试')
+                    return;
+                }
+                if(this.detail.expertUserId!=this.user.id){
+                    this.$router.push("/asker/ask?expertId="+this.id )
+                }else{
+                    xqzs.weui.tip('不能向自己提问')
+                }
 
-                this.$router.push("/asker/ask?expertId="+this.id )
             },
             getComment:function () {
                 let _this= this;
@@ -356,6 +466,9 @@
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
                         console.log( _this.detail)
+                        if(_this.detail.expertUserId!=_this.user.id&&_this.detail.expertUserId!=null&&_this.user.id!=null){
+                            _this.scrollHeightBottom=50;
+                        }
                     }
                 }, function (error) {
                 });

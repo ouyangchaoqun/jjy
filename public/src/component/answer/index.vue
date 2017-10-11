@@ -236,7 +236,10 @@
             this.getList();
             xqzs.voice.audio=null;
 
-        }
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
+        },
 
 
     }
