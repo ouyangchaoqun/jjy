@@ -83,6 +83,7 @@
                 }
             },
             play:function (index) {
+                this.initVoice();
                 let _this=this;
                 let list = _this.list;
                 //重置其他列表内容
@@ -234,7 +235,7 @@
             $(".weui-tab__panel").height($(window).height()-100);
             this.getClassList();
             this.getList();
-            this.initVoice();
+
         }
 
 
