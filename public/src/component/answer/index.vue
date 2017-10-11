@@ -67,7 +67,8 @@
                 row: 10,
                 isPageEnd: false,
                 isShowMoreText:true,
-                showLoad:false
+                showLoad:false,
+                audio: document.createElement("audio"),
 
             }
         },
@@ -78,6 +79,28 @@
             "v-asker-bottom": askerBottom
         },
         methods: {
+
+
+            voiceplay: function (url) {
+
+                if (url && url != '') {
+                    if (this.audio != null) {
+                        this.audio.pause()
+                    }
+                    this.audio.src = "http://oss.xqzs.cn/2017-08/17/7680A0402DD1E1CB9C997B32915DD547.mp3";//路径
+                    this.audio.autobuffer = true;
+                    this.audio.play();
+                } else {
+                    if (this.audio && this.audio.paused)
+                        this.audio.play()
+                }
+
+            },
+            voicepause: function () {
+                if (this.audio && this.audio != null) {
+                    this.audio.pause()
+                }
+            },
 
 
             play:function (index) {
@@ -94,27 +117,27 @@
                 let item= list[index];
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
                     console.log(1)
-                    list[index].paused=false;
-                    list[index].playing=true;
-                    _this.$set(_this.list,index,list[index])
-                    xqzs.voice.play();
+                    item.paused=false;
+                    item.playing=true;
+                    _this.$set(_this.list,index,item)
+                    _this.voiceplay();
                 }else{
 
                     if(item.playing){    //播放中去做暂停操作
                         console.log(2)
-                        list[index].paused=true;
-                        list[index].playing=false;
-                        _this.$set(_this.list,index,list[index])
-                        xqzs.voice.pause();
+                        item.paused=true;
+                        item.playing=false;
+                        _this.$set(_this.list,index,item)
+                        this.voicepause();
                     }else{     //重新打开播放
                         this.getVoiceUrl(item.expertId,function (url) {
                             console.log(3)
                             xqzs.voice.pause();
                             if(url!=null&&url!=undefined&&url!=''){
-                                xqzs.voice.play(url);
-                                list[index].playing=true;
-                                list[index].paused=false;
-                                _this.$set(_this.list,index,list[index])
+                                _this.voiceplay(url);
+                                item.playing=true;
+                                item.paused=false;
+                                _this.$set(_this.list,index,item)
                             }
 
                         })

@@ -539,18 +539,16 @@ var xqzs = {
     },
 
     voice: {
-        audio: null,
+        audio: document.createElement("audio"),
         play: function (url) {
 
             if (url && url != '') {
                 if (xqzs.voice.audio != null) {
                     xqzs.voice.audio.pause()
                 }
-                xqzs.voice.audio = document.createElement("audio");
-                xqzs.voice.audio.loop = "loop";
-                xqzs.voice.audio.src = url;//路径
+                xqzs.voice.audio.src = "http://oss.xqzs.cn/2017-08/17/7680A0402DD1E1CB9C997B32915DD547.mp3";//路径
                 xqzs.voice.audio.autobuffer = true;
-                xqzs.voice.audio.play()
+                xqzs.voice.audio.play();
             } else {
                 if (xqzs.voice.audio && xqzs.voice.audio.paused)
                     xqzs.voice.audio.play()
@@ -1324,8 +1322,16 @@ setTimeout(function () {
 
 document.addEventListener("visibilitychange", function () {
     if (document.visibilityState == 'hidden') {
-        xqzs.voice.pause()
+        if(xqzs.voice.audio && !xqzs.voice.audio.paused&&!xqzs.voice.audio.ended){
+            xqzs.voice.visibilityHidden=true;
+            xqzs.voice.pause()
+        }
+
     } else {
-        xqzs.voice.play()
+        if( xqzs.voice.visibilityHidden===true){
+            xqzs.voice.visibilityHidden=false;
+            xqzs.voice.play();
+        }
+
     }
 });
