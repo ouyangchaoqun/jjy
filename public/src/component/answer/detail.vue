@@ -266,6 +266,11 @@
                 this.initVoice();
                 let _this=this;
                 let list = _this.answerList;
+                xqzs.voice.onEnded=function () {
+                    list[index].paused=false;
+                    list[index].playing=false;
+                    _this.$set(_this.answerList,index,list[index])
+                };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
                     if(index!=i&&(list[i].playing||list[i].paused)){
@@ -353,6 +358,11 @@
             play:function () {
                 this.initVoice();
                 let _this=this;
+                xqzs.voice.onEnded=function () {
+                    _this.detail.paused=false;
+                    _this.detail.playing=false;
+                };
+
                 if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
                     _this.detail.paused=false;
                     _this.detail.playing=true;

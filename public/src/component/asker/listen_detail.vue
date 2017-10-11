@@ -147,7 +147,13 @@
             play:function (index) {
                 this.initVoice();
                 let _this=this;
+
                 let list = _this.detail.answerList;
+                xqzs.voice.onEnded=function () {
+                    list[index].paused=false;
+                    list[index].playing=false;
+                    _this.$set(_this.detail.answerList,index,list[index])
+                };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
                     if(index!=i&&(list[i].playing||list[i].paused)){

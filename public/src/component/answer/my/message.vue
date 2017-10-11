@@ -255,6 +255,12 @@
             playV:function () {
                 this.initVoice();
                 let _this=this;
+
+                xqzs.voice.onEnded=function () {
+                    _this.vPaused=false;
+                    _this.vPlaying=false;
+                };
+
                 if(_this.vPaused){  //暂停中也就是已经获取到且为当前音频
                     _this.vPaused=false;
                     _this.vPlaying=true;
