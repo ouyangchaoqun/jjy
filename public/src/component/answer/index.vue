@@ -254,8 +254,8 @@
    .class_list>div:nth-of-type(3) div{background-position:-8.588235rem 0 }
    .class_list>div:nth-of-type(4) div{background-position:-12.88235rem 0 }
    .class_list>div:nth-of-type(5) div{background-position:-17.176471rem 0 }
-   .class_list>div:nth-of-type(6) div{background-position:0 -4.2941176471rem }
-   .class_list>div:nth-of-type(7) div{background-position:-8.588235rem -4.2941176471rem }
-   .class_list>div:nth-of-type(8) div{background-position:-4.2941176471rem -4.2941176471rem }
-   .class_list>div:nth-of-type(9) div{background-position:-12.88235rem -4.2941176471rem }
+   .class_list>div:nth-of-type(6) div{background-position:0 -4.235294rem }
+   .class_list>div:nth-of-type(7) div{background-position:-8.588235rem -4.235294rem }
+   .class_list>div:nth-of-type(8) div{background-position:-4.2941176471rem -4.235294rem }
+   .class_list>div:nth-of-type(9) div{background-position:-12.88235rem -4.235294rem }
 </style>

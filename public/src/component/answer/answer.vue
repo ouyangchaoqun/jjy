@@ -34,47 +34,64 @@
 
 
         <!--播放状态-->
-        <div class="time_go "  v-if="!isAnswered" :class="{play_go:answering||playing}">
-            <template v-if="!outTime">
-            <div class="playing play"></div>
-            <div class="playing play2"></div>
-            <div class="playing play3"></div>
-            <div class="playing">{{answerTime}}</div>
-            </template>
+        <div class="addPlayBox">
+            <div class="time_go"  v-if="!isAnswered" :class="{play_go:answering||playing}">
+                <template v-if="!outTime">
+                    <div class="playing play"></div>
+                    <div class="playing play2"></div>
+                    <div class="playing play3"></div>
+                    <div class="playing">{{answerTime}}</div>
+                </template>
+            </div>
+            <!--操作按钮-->
+            <div class="action_btn" v-if="!isAnswered">
+                <div class="item" v-if="!isOver">
+                    <div class="audio_play">试听</div>
+                </div>
+                <div class="item" v-if="isOver">
+                    <div class="audio_play overStyle" @click="reStart()">重录</div>
+                </div>
+                <div class="item" style="flex: 2" v-if="!outTime&&!answering" @click="start()">
+                    <div class="audio_btn_in audio_begin"></div>
+                    <div class="txt">点击开始录制</div>
+                </div>
+                <div class="item" style="flex:2" v-if="answering&&!isOver" @click="stop()">
+                    <div class="audio_btn_in audio_end"></div>
+                    <div class="txt">录音中，再次点击结束录音</div>
+                </div>
+                <div class="item" style="flex: 2" v-if="isOver" @click="send()">
+                    <div class="audio_btn_in audio_send">
+                        <img src="../../images/audio_btn_send1.png" alt="">
+                    </div>
+                    <div class="txt">发布</div>
+                </div>
+                <div class="item" v-if="!isOver" >
+                    <div class="audio_send">发布</div>
+                </div>
+                <div class="item" v-if="isOver">
+                    <div class="audio_send overStyle" @click="play()">试听</div>
+                </div>
+
+                <!--<template v-if="false">-->
+                <!--<div class="item" @click="play()">-->
+                <!--<div class="audio_play"></div>-->
+                <!--<div class="txt">试听</div>-->
+                <!--</div>-->
+                <!--<div class="item" @click="reStart()">-->
+                <!--<div class="audio_btn_in audio_begin"></div>-->
+                <!--<div class="txt">重录</div>-->
+                <!--</div>-->
+                <!--<div class="item" @click="send()">-->
+                <!--<div class="audio_btn_in audio_send"></div>-->
+                <!--<div class="txt">发送</div>-->
+                <!--</div>-->
+                <!--</template>-->
+                <div class="item" v-if="outTime">
+                    <div class="audio_btn_in audio_cant_begin outTimeStyle"></div>
+                    <div class="txt">已超时</div>
+                </div>
+            </div>
         </div>
-
-        <!--操作按钮-->
-        <div class="action_btn" v-if="!isAnswered">
-            <div class="item" v-if="!outTime&&!answering&&!preAnswer" @click="start()">
-                <div class="audio_btn_in audio_begin"></div>
-                <div class="txt">开始</div>
-            </div>
-
-            <template v-if="preAnswer">
-            <div class="item" @click="play()">
-                <div class="audio_btn_in audio_play"></div>
-                <div class="txt">试听</div>
-            </div>
-            <div class="item" @click="reStart()">
-                <div class="audio_btn_in audio_begin"></div>
-                <div class="txt">重录</div>
-            </div>
-            <div class="item" @click="send()">
-                <div class="audio_btn_in audio_send"></div>
-                <div class="txt">发送</div>
-            </div>
-            </template>
-            <div class="item" v-if="answering" @click="stop()">
-                <div class="audio_btn_in audio_end"></div>
-                <div class="txt">停止</div>
-            </div>
-            <div class="item" v-if="outTime">
-                <div class="audio_btn_in audio_cant_begin"></div>
-                <div class="txt">超时</div>
-            </div>
-        </div>
-
-
     </div>
 </template>
 
@@ -86,7 +103,7 @@
                 isAnswered:false,
                 answering:false,
                 outTime:false,
-                preAnswer:false,
+//                preAnswer:false,
                 playing:false,
                 answerTime:"00",
                 timeOut:null,
@@ -95,7 +112,8 @@
                 str:null,
                 localId:null,
                 serviceId:null,
-                voiceLength:0
+                voiceLength:0,
+                isOver:false
             }
         },
         mounted: function () {
@@ -158,7 +176,7 @@
                 //重新开始录制
                 this.answerTime="00";
                 this.voiceLength=0;
-                this.preAnswer=false;
+//                this.preAnswer=false;
                 if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
                 this.playing=false;
 
@@ -244,6 +262,7 @@
             },
             stop:function () { //停止录制
                 let _this = this;
+                _this.isOver = true;
                 xqzs.wx.voice.stopRecord(function (localId) {
                     _this.localId=localId;
                     _this._recordStop();
@@ -255,7 +274,7 @@
                 let _this = this;
                 _this.clearTimeOut();
                 _this.answering=false;
-                _this.preAnswer=true;
+//                _this.preAnswer=true;
             },
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
@@ -276,7 +295,7 @@
    .answer_answer_box .answer .img img{ width: 100%; height: 100%; border-radius: 50%}
    .answer_answer_box .answer .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }
    .answer_answer_box .answer .info .names{ font-size: 0.7058823529411765rem;  color:#666; margin-bottom: 0.2rem; width: 14.11764705882353rem; line-height: 2.5rem}
-   .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:#333; line-height:1.176470588235294rem; margin-bottom: 0.4rem}
+   .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:#474747; line-height:1.176470588235294rem; margin-bottom: 0.4rem}
    .answer_answer_box .answer .info .last_time{ float:left;font-size:0.7647058823529412rem;color:#666; width: 6rem;
     }
    .answer_answer_box .answer .info .type{ font-size: 0.7058823529411765rem; color:#333;margin-bottom: 0.4rem}
@@ -287,8 +306,8 @@
 
 
     /*播放*/
-    .answer_answer_box   .time_go{ position: relative;  height: 4.8rem; width: 4.8rem; margin: 0 auto; margin-top: 2rem;}
-    .answer_answer_box  .time_go .playing { height: 4.8rem; width: 4.8rem; border-radius: 50%; background: #00b9e8; position: absolute; top:0;left:0; text-align: center; color:#fff; font-size: 1.764705882352941rem; line-height: 4.8rem;}
+    .answer_answer_box   .time_go{ position: relative;  height: 6.2rem; width: 6.2rem; margin: 0 auto;}
+    .answer_answer_box  .time_go .playing { height: 6.2rem; width: 6.2rem; border-radius: 50%; background: #00b9e8; position: absolute; top:0;left:0; text-align: center; color:#fff; font-size: 1.764705882352941rem; line-height: 6.2rem;}
     .answer_answer_box   .play{
            opacity: 0.1;
            transform:scale(1.6,1.6);
@@ -343,26 +362,19 @@
     .answer_answer_box    .times .bg .in{ padding:  0.1470588235294118rem; }
     .answer_answer_box    .times .bg .go{ background: #09bb07; height: 2.647058823529412rem; min-width:2.647058823529412rem;  width: 0; border-radius:1.323529411764706rem;      }
     .answer_answer_box  .times .last_time{ text-align: center; color:#666; margin-top: 0.5rem; font-size: 1.529411764705882rem;}
-    .answer_answer_box  .action_btn{ background: #fff; padding: 3.529411764705882rem 1rem;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-    }
-    .answer_answer_box  .action_btn .item{
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        text-align: center; color:#666; font-size: 0.7647058823529412rem;
-    }
+    .answer_answer_box  .action_btn{ background: #fff; padding: 6.4rem 1rem 0 1rem; display: -webkit-box; display: -webkit-flex;  display: flex;}
+    .answer_answer_box  .action_btn .item{  -webkit-box-flex: 1;  -webkit-flex: 1;  flex: 1;  text-align: center; color:#666; font-size: 0.7647058823529412rem;  }
     .answer_answer_box  .action_btn .item .txt{ margin-top: 0.6rem}
-    .answer_answer_box  .audio_btn_in{ background: #fff; border-radius: 50%; height: 4.117647058823529rem; width: 4.117647058823529rem;
-        -webkit-box-shadow:0 0 8px #09bb07;box-shadow:0 0 8px #09bb07;  position: relative; margin: 0 auto}
-    .answer_answer_box .audio_btn_in:active{ background: rgba(105,186,45,0.1)
-    }
+    .answer_answer_box  .audio_btn_in{ background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); border-radius: 50%; height: 4.117647058823529rem; width: 4.117647058823529rem;
+        -webkit-box-shadow:0 0 8px rgba(255,158,25,1);box-shadow:0 0 8px rgba(255,158,25,1);  position: relative; margin: 0 auto}
+    .answer_answer_box .audio_btn_in:active{ background: rgba(253,114,6,0.6)}
     .answer_answer_box  .audio_btn_in:before{content: " " ; display: block ; position: absolute; top:50%; left:50% ;}
-    .answer_answer_box   .audio_begin:before{ background:url(../../images/audio_btn_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
-    .answer_answer_box   .audio_end:before{ background:url(../../images/audio_btn_end.png)  no-repeat; background-size:  1.235294117647059rem; width:1.235294117647059rem;; height: 1.235294117647059rem;  margin-left: -0.6176470588235294rem; margin-top: -0.6176470588235294rem;  ;   }
-    .answer_answer_box   .audio_play:before{ background:url(../../images/audio_btn_play.png)  no-repeat; background-size: 1.323529411764706rem; width:1.323529411764706rem;; height: 1.529411764705882rem;  margin-left: -0.517647058823529rem; margin-top: -0.7647058823529412rem;  }
-    .answer_answer_box   .audio_send:before{ background:url(../../images/audio_btn_send.png)  no-repeat; background-size:  1.352941176470588rem; width:1.470588235294118rem;; height:1.411764705882353rem;  margin-left: -0.7352941176470588rem; margin-top: -0.7058823529411765rem;   }
-    .answer_answer_box   .audio_cant_begin:before{ background:url(../../images/audio_btn_cant_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
+    .answer_answer_box   .audio_begin:before{ background:url(../../images/audio_btn_begin1.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
+    .answer_answer_box   .audio_end:before{ background:#fff; background-size:  1.235294117647059rem; width:1.235294117647059rem;; height: 1.235294117647059rem;  margin-left: -0.6176470588235294rem; margin-top: -0.6176470588235294rem; border-radius: 5px ;   }
+    .answer_answer_box   .audio_play,.audio_send{width:2.588rem;height:2.588rem;background:#ccc;border-radius: 50%;margin:0.76471rem auto;color:#fff;font-size: 0.76471rem;line-height: 2.588rem}
+    .answer_answer_box .audio_send  img{position: absolute;left:50%;top:1.176rem;margin-left:-0.88235rem;width:1.76471rem}
+    .answer_answer_box   .audio_cant_begin:before{ background:url(../../images/audio_btn_begin1.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
+    .answer_answer_box .overStyle{background: #00B9E8;}
+    .answer_answer_box .outTimeStyle{background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4))}
+    .answer_answer_box .addPlayBox{position: absolute;bottom:2rem;width:100%;}
 </style>

@@ -51,7 +51,7 @@
                             class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                    <img src="../../../images/asker/listenin.png" alt="" @click="follow(detail.expertId)">
+                    <img src="../../../images/asker/listenin1.png" alt="" @click="follow(detail.expertId)">
                 </div>
             </template>
         </div>
@@ -346,8 +346,8 @@
         margin-right: 0.235294rem;
     }
     .problem_assess_item span.on{
-        border:1px solid #09bb07;
-        color:#09bb07;
+        border:1px solid rgba(255,158,25,1);
+        color:rgba(253,114,6,1);
     }
     .problem_assess_class{
         margin-bottom: 0.88235rem;

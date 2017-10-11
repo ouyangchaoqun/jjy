@@ -447,7 +447,7 @@
     .cancel{ color:#666}
     .setQualification_box{  background: #fff;  color: #666;  font-size: 0.8235rem;  padding-bottom: 1.76471rem;  }
     .setQualification_box header{  padding:1.176471rem 0.88235rem 0.88235rem 0.88235rem;  border-bottom: 0.588235rem solid #F4F4F7;  }
-    .header_top{ position: relative;margin-bottom: 0.35294117rem;font-size: 0.88235rem;  color: #333;}
+    .header_top{ position: relative;margin-bottom: 0.35294117rem;font-size: 0.88235rem;  color: #474747;}
     .setQualification_box .header-right{  position: absolute;  top:0px;  right:0;  padding:0.2941176471rem 0.588235rem;  border-radius: 0.6176471rem;  line-height: 1;  color: #fff;  font-size: 0.70588235rem;  background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));}
     .setQualification_box .header_top .addStyle{  background: none;  color: rgba(253,114,6,1);  }
     .setQualification_box .textarea_box{  height:2.0588235rem;  border:1.5px solid #EAE7E7; line-height: 1.176471rem;  color: #666;  font-size: 0.8235rem;  padding:0.588235rem;  border-radius: 0.29411rem;  }
@@ -473,8 +473,8 @@
     .dialog_select_type .level_types{padding:0 0.88235rem;}
     .dialog_select_type .level_types .item span{margin-left: 1.470588235rem;}
     .dialog_select_type .level_item{height:14px;width:14px;position: absolute;border-radius: 50%;border:1px solid #D2D2D2;top:1.2px;left:0}
-    .dialog_select_type .checked_item{border-color: #09bb07}
-    .dialog_select_type .checked_item::after{  content: '';  width:10px;  height: 10px;  background: #09bb07;  border-radius: 50%;  position: absolute;  top:50%;  margin-top:-5px;  left: 50%;  margin-left:-5px;  }
+    .dialog_select_type .checked_item{border-color: rgba(253,114,6,1)}
+    .dialog_select_type .checked_item::after{  content: '';  width:10px;  height: 10px;  background: rgba(253,114,6,1);  border-radius: 50%;  position: absolute;  top:50%;  margin-top:-5px;  left: 50%;  margin-left:-5px;  }
     .dialog_select_type .levle_type_bottom{  padding:0.8235rem 0.88235rem;font-size: 0.70588235rem;  color: #666;  }
     .dialog_select_type .levle_type_bottom>div:nth-of-type(1){  margin-bottom: 1rem;  }
     .dialog_select_type .levle_type_bottom>div:nth-of-type(2) .input_box{  line-height: 1.8235294rem;  color: #A9A7A7;  font-size: 0.70588235rem;  text-align: center;  }

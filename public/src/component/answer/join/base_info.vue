@@ -4,7 +4,6 @@
         <div v-title>入驻心理咨询师</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-answer-top-step step="1"  preUrl="" nextUrl="" title="填写基本信息"></v-answer-top-step>
-        <div class="submit" @click="msgSubmit()">下一项</div>
 
         <div class="head">
         <div class="weui-cell ">
@@ -75,19 +74,22 @@
 
 
 
-                    <li>
-                        <div class="info_left"></div>
-                        <div class="info_right">
-                            <i @click="changeCardType(0)"  :class="{right_active:cardType==0}">身份证</i>
-                            <i @click="changeCardType(1)" :class="{right_active:cardType==1}">护照</i>
-                        </div>
+                    <!--<li>-->
+                        <!--<div class="info_left"></div>-->
+                        <!--<div class="info_right">-->
+                            <!--<i @click="changeCardType(0)"  :class="{right_active:cardType==0}">身份证</i>-->
+                            <!--<i @click="changeCardType(1)" :class="{right_active:cardType==1}">护照</i>-->
+                        <!--</div>-->
 
-                    </li>
-                    <li>
-                        <div class="info_left">证件</div><span>*</span>
-                        <input type="text" class="idcard" :value="user.idcard ">
-                    </li>
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<div class="info_left">证件</div><span>*</span>-->
+                        <!--<input type="text" class="idcard" :value="user.idcard ">-->
+                    <!--</li>-->
                 </ul>
+        </div>
+        <div class="subBox">
+            <div class="submit" @click="msgSubmit()">下一项</div>
         </div>
 
     </div>
@@ -468,9 +470,9 @@
     }
 </script>
 <style>
-
-    .answer_join_base_info_box .submit{ position: absolute; top:0; right:0.88235rem;    line-height: 2.647058823529412rem;
-        font-size: 0.9rem;}
+    .answer_join_base_info_box .subBox{position: absolute;bottom:1.471rem;width:100%;}
+    .answer_join_base_info_box .submit{height:2.588235rem;line-height: 2.588235rem;color:#fff;background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4));text-align: center;
+    border-radius: 1.176471rem;margin:0 0.88235rem}
     .answer_join_base_info_box .weui-cell__bd .img{
         width: 3.764705882352941rem; height: 3.764705882352941rem; background: #F4F4F7; color:#fff; font-size: 3.2rem; line-height: 3.2rem ; text-align: center; margin-left: 2rem
     }

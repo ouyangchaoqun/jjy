@@ -470,12 +470,12 @@
         text-align: center; color:#fff; font-size: 0.7647058823529412rem;
     }
     .answer_join_voice  .action_btn .item .txt{ margin-top: 0.6rem}
-    .answer_join_voice  .audio_btn_in{ background: #fff; border-radius: 50%; height: 4.117647058823529rem; width: 4.117647058823529rem;
-        -webkit-box-shadow:0 0 8px #09bb07;box-shadow:0 0 8px #09bb07;  position: relative; margin: 0 auto}
+    .answer_join_voice  .audio_btn_in{ background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); border-radius: 50%; height: 4.117647058823529rem; width: 4.117647058823529rem;
+        -webkit-box-shadow:0 0 8px rgba(255,158,25,1);box-shadow:0 0 8px rgba(255,158,25,1);  position: relative; margin: 0 auto}
     .answer_join_voice .audio_btn_in:active{ background: rgba(105,186,45,0.1)
     }
     .answer_join_voice  .audio_btn_in:before{content: " " ; display: block ; position: absolute; top:50%; left:50% ;}
-    .answer_join_voice   .audio_begin:before{ background:url(../../../images/audio_btn_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
+    .answer_join_voice   .audio_begin:before{ background:url(../../../images/audio_btn_begin1.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
     .answer_join_voice   .audio_end:before{ background:url(../../../images/audio_btn_end.png)  no-repeat; background-size:  1.235294117647059rem; width:1.235294117647059rem;; height: 1.235294117647059rem;  margin-left: -0.6176470588235294rem; margin-top: -0.6176470588235294rem;  ;   }
     .answer_join_voice   .audio_play:before{ background:url(../../../images/audio_btn_play.png)  no-repeat; background-size: 1.323529411764706rem; width:1.323529411764706rem;; height: 1.529411764705882rem;  margin-left: -0.517647058823529rem; margin-top: -0.7647058823529412rem;  }
     .answer_join_voice   .audio_send:before{ background:url(../../../images/audio_btn_send.png)  no-repeat; background-size:  1.352941176470588rem; width:1.470588235294118rem;; height:1.411764705882353rem;  margin-left: -0.7352941176470588rem; margin-top: -0.7058823529411765rem;   }
