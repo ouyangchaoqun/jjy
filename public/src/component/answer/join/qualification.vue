@@ -7,57 +7,60 @@
 
         <div class="checks">
 
-            <div class="weui-cells weui-cells_checkbox">
-                <label class="weui-cell weui-check__label" for="s11">
-                    <div class="weui-cell__hd">
-                        <input type="radio" class="weui-check"  value="国家二级咨询师" name="jobTitle" id="s11" @click="jobTitleChange('国家二级咨询师')" />
-                        <i class="weui-icon-checked"></i>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <p>国家二级咨询师</p>
-                    </div>
-                </label>
-                <label class="weui-cell weui-check__label" for="s12">
-                    <div class="weui-cell__hd">
-                        <input type="radio" name="jobTitle"  value="国家三级咨询师" class="weui-check" id="s12" @click="jobTitleChange('国家三级咨询师')" />
-                        <i class="weui-icon-checked"></i>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <p>国家三级咨询师</p>
-                    </div>
-                </label>
+            <!--<div class="weui-cells weui-cells_checkbox">-->
+                <!--<label class="weui-cell weui-check__label" for="s11">-->
+                    <!--<div class="weui-cell__hd">-->
+                        <!--<input type="radio" class="weui-check"  value="国家二级咨询师" name="jobTitle" id="s11" @click="jobTitleChange('国家二级咨询师')" />-->
+                        <!--<i class="weui-icon-checked"></i>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<p>国家二级咨询师</p>-->
+                    <!--</div>-->
+                <!--</label>-->
+                <!--<label class="weui-cell weui-check__label" for="s12">-->
+                    <!--<div class="weui-cell__hd">-->
+                        <!--<input type="radio" name="jobTitle"  value="国家三级咨询师" class="weui-check" id="s12" @click="jobTitleChange('国家三级咨询师')" />-->
+                        <!--<i class="weui-icon-checked"></i>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<p>国家三级咨询师</p>-->
+                    <!--</div>-->
+                <!--</label>-->
 
-                <label class="weui-cell weui-check__label" for="s13">
-                    <div class="weui-cell__hd">
-                        <input type="radio" name="jobTitle"  value="注册系统咨询师" class="weui-check" id="s13" @click="jobTitleChange('注册系统咨询师')" />
-                        <i class="weui-icon-checked"></i>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <p>注册系统咨询师</p>
-                    </div>
-                </label>
-                <label class="weui-cell weui-check__label" for="s14">
-                    <div class="weui-cell__hd">
-                        <input type="radio" name="jobTitle"  value="注册系统督导师" class="weui-check" id="s14" @click="jobTitleChange('注册系统督导师')" />
-                        <i class="weui-icon-checked"></i>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <p>注册系统督导师</p>
-                    </div>
-                </label>
-                <label class="weui-cell weui-check__label" for="s15">
-                    <div class="weui-cell__hd">
-                        <input type="radio" name="jobTitle" value="其它" class="weui-check" id="s15" @click="jobTitleChange('其它')" />
-                        <i class="weui-icon-checked"></i>
-                    </div>
-                    <div class="weui-cell__bd">
-                        <p>其它</p>
-                    </div>
-                </label>
+                <!--<label class="weui-cell weui-check__label" for="s13">-->
+                    <!--<div class="weui-cell__hd">-->
+                        <!--<input type="radio" name="jobTitle"  value="注册系统咨询师" class="weui-check" id="s13" @click="jobTitleChange('注册系统咨询师')" />-->
+                        <!--<i class="weui-icon-checked"></i>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<p>注册系统咨询师</p>-->
+                    <!--</div>-->
+                <!--</label>-->
+                <!--<label class="weui-cell weui-check__label" for="s14">-->
+                    <!--<div class="weui-cell__hd">-->
+                        <!--<input type="radio" name="jobTitle"  value="注册系统督导师" class="weui-check" id="s14" @click="jobTitleChange('注册系统督导师')" />-->
+                        <!--<i class="weui-icon-checked"></i>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<p>注册系统督导师</p>-->
+                    <!--</div>-->
+                <!--</label>-->
+                <!--<label class="weui-cell weui-check__label" for="s15">-->
+                    <!--<div class="weui-cell__hd">-->
+                        <!--<input type="radio" name="jobTitle" value="其它" class="weui-check" id="s15" @click="jobTitleChange('其它')" />-->
+                        <!--<i class="weui-icon-checked"></i>-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<p>其它</p>-->
+                    <!--</div>-->
+                <!--</label>-->
 
+                <!--<div class="clear"></div>-->
+            <!--</div>-->
+            <div class="level_types">
+                <div class="item"  v-for="(item,index) in level" @click="getItemClass(index)"  :index="index" ><div class="level_item "></div><span >{{item.name}}</span></div>
                 <div class="clear"></div>
             </div>
-
 
         </div>
 
@@ -75,16 +78,23 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
                 <div class="weui-cell__bd">
-                    <div class="upload" @click="upload()"><span>+</span><font>上传证书</font></div>
+                    <div class="upload" @click="upload()"><font>上传证书</font></div>
                 </div>
             </div>
         </div>
-        <div class="photo">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label"></label> </div>
-                <div class="weui-cell__bd">
-                    <div class="img"><img :src="certificateFile" > </div>
+        <div class="photo_img">
+            <div class="img">
+                <div>
+                    <b>+</b>
                 </div>
+                <p>上传证书头像页面</p>
+            </div>
+            <div class="img">
+                <div>
+                    <b>+</b>
+                </div>
+                <p>上传证书信息页面</p>
+                <img :src="certificateFile" >
             </div>
         </div>
 
@@ -105,11 +115,29 @@
                 certificateFile:'',
                 alioss:null,
                 uploadpicinfo:null,
+                level:[
+                    {name:'国家二级咨询师'},
+                    {name:'国家三级咨询师'},
+                    {name:'注册系统咨询师'},
+                    {name:'注册系统督导师'},
+                    {name:'其他'}
+                ],
             }
         },
 
 
         mounted: function () {
+            $('.level_types .item').click(function () {
+                $('.level_types .item').find('.level_item').removeClass('checked_item')
+                $(this).find('.level_item').addClass('checked_item')
+                this.jobTitleTemp = $(this).find('span').html()
+            });
+
+            $(".level_types .item").each(function () {
+                if( this.jobTitle ==$(this).find("span").html()){
+                    $(this).find(".level_item ").addClass("checked_item");
+                }
+            });
             xqzs.wx.setConfig(this);
             this.uploadpicinfo = {
                 token: xqzs.string.guid(),
@@ -178,11 +206,19 @@
 
                 this.check()
             },
-            jobTitleChange:function (v) {
+            getItemClass:function (index) {
+                let _this = this;
+                let v = _this.level[index].name
+                console.log(index)
                 console.log(v)
                 cookie.set("jobTitle",escape(v));
                 this.check()
             },
+//            jobTitleChange:function (v) {
+//                console.log(v)
+//                cookie.set("jobTitle",escape(v));
+//                this.check()
+//            },
             check:function () {
                 let jobTitle= cookie.get("jobTitle");
                 let certificateNo =(cookie.get("certificateNo"));
@@ -213,6 +249,16 @@
     }
 
     .weui-check__label:active{ background: none}
-    .answer_join_quali .weui-cell__bd img{ width: 80%}
-
+    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:2rem;}
+    .answer_join_quali .photo_img .img{background:#f4f4f7;width:9.71rem;height:6.76471rem;position: relative}
+    .img div{width:44px;height:44px;border-radius: 50%;background: #fff;text-align: center;line-height: 40px;position: absolute;top:25%;left:50%;margin-left:-22px;}
+    .img div b{color:rgba(253,114,6,1);font-size: 1.6rem}
+    .img p{color:#A9A7A7;font-size: 0.70588235rem;text-align: center;position: absolute;width:100%;top:75%;}
+    .checks .level_types{padding:0 0.88235rem;padding-top: 4rem}
+    .checks .level_types .item{width:36%;float: left;margin:0 7%;margin-bottom: 0.88235rem;position: relative;font-size:0.70588235rem;color:#666}
+    .checks .level_types .item span{margin-left: 1.470588235rem;}
+    .checks .level_item{margin:0;height:14px;width:14px;position: absolute;border-radius: 50%;border:1px solid #D2D2D2;top:0.07rem;left:0}
+    .checks .checked_item{border-color: rgba(253,114,6,1)}
+    .checks .checked_item::after{  content: '';  width:10px;  height: 10px;  background: rgba(253,114,6,1);  border-radius: 50%;  position: absolute;  top:50%;  margin-top:-5px;  left: 50%;  margin-left:-5px;  }
+    .photo,.number .weui-cell__hd{font-size: 0.8235rem;color:#666}
  </style>

@@ -57,7 +57,7 @@
                         <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{item.sign}}</div>
-                    <img src="../../images/asker/listenin.png" alt="" @click="follow(item.expertId)">
+                    <img src="../../images/asker/listenin1.png" alt="" @click="follow(item.expertId)">
                 </div>
             </li>
 
