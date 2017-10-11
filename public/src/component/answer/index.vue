@@ -105,6 +105,7 @@
             },
 
             play:function (index) {
+                xqzs.voice.audio=document.createElement("audio");
                 let _this=this;
                 let list = _this.list;
                 //重置其他列表内容

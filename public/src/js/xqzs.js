@@ -539,7 +539,7 @@ var xqzs = {
     },
 
     voice: {
-        audio: document.createElement("audio"),
+        audio: null,
         play: function (url) {
 
             console.log(url)
