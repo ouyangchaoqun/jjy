@@ -47,7 +47,6 @@
                 </div>
             </v-scroll>
         </div>
-        <div style="height: 60px; width: 60px; background: red; z-index: 10000; position: absolute; bottom:200px;left:0" @click="play2()">开始</div>
         <v-asker-bottom  tabOnIndex="1"></v-asker-bottom>
     </div>
 </template>
@@ -69,14 +68,6 @@
                 isShowMoreText:true,
                 showLoad:false,
 
-
-
-
-
-                audio:null,
-                isPlay:false,
-                url:"http://oss.xqzs.cn/2017-08/17/C226C451614BD17FC04AF36FADCF084E.mp3",
-
             }
         },
 
@@ -86,28 +77,12 @@
             "v-asker-bottom": askerBottom
         },
         methods: {
-            play2:function () {
-                this.audio=document.createElement("audio");
-                this.audio.autobuffer=true;
-                this.audio.src=this.url;
-
-                if (this.audio.paused) {
-                    this.audio.play();
-                    this.isPlay = true;
-
-                } else {
-                    this.audio.pause();// 这个就是暂停
-                    this.noteTime = "已经停止播放";
-                    this.isPlay = false;
-                }
-
-
-            },
-
-            play:function (index) {
+            initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
                 }
+            },
+            play:function (index) {
                 let _this=this;
                 let list = _this.list;
                 //重置其他列表内容
@@ -259,9 +234,7 @@
             $(".weui-tab__panel").height($(window).height()-100);
             this.getClassList();
             this.getList();
-
-
-
+            this.initVoice();
         }
 
 

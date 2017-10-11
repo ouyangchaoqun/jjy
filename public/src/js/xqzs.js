@@ -542,20 +542,17 @@ var xqzs = {
         audio: null,
         play: function (url) {
 
-            console.log(url)
+            if(xqzs.voice.audio!=null){
             if (url && url != '') {
-                // if (xqzs.voice.audio != null) {
-                //     xqzs.voice.audio.pause()
-                // }
-                console.log("play")
-                xqzs.voice.audio.src = "http://oss.xqzs.cn/2017-08/17/C226C451614BD17FC04AF36FADCF084E.mp3";//路径
+                if(!xqzs.voice.audio.paused)xqzs.voice.audio.pause();
+                xqzs.voice.audio.src = url;//路径
                 xqzs.voice.audio.autobuffer = true;
                 xqzs.voice.audio.play();
             } else {
                 if (xqzs.voice.audio && xqzs.voice.audio.paused)
                     xqzs.voice.audio.play()
             }
-
+            }
         },
         pause: function () {
             if (xqzs.voice.audio && xqzs.voice.audio != null) {
