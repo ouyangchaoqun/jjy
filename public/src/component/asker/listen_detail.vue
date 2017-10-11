@@ -80,15 +80,21 @@
         },
         mounted: function () {
             this.questionId=this.$route.query.questionId;
-            this.getDetail()
+            this.getDetail();
+            xqzs.voice.audio=null;
 
         },
         components: {
             'v-showLoad': showLoad
         },
         methods:{
-
+            initVoice:function () {
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
             play:function (index) {
+                this.initVoice();
                 let _this=this;
                 let list = _this.detail.answerList;
                 //重置其他列表内容
