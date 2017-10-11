@@ -38,7 +38,7 @@
                                         </span>
 
                                         <!--付费听-->
-                                        <div class="index_li_voice" @click.stop="pay(item)" v-if="item.answerType==2||item.answerType==4">
+                                        <div class="index_li_voice" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
                                             <img src="../../images/charge.png" alt="">
                                             <div class="position_change1">1元偷听</div>
                                         </div>
@@ -153,6 +153,51 @@
             xqzs.voice.audio=null;
         },
         methods:{
+            pay:function (index) {
+                let  item = this.list[index];
+                let _this=this;
+                this.$http.get(web.API_PATH + "come/listen/create/order/_userId_/"+item.answerId)
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+
+                            let result = bt.data.data;
+                            let config =result.config;
+                            console.log(config)
+
+                            //delete ToDo
+                            _this.$http.put(web.API_PATH + "pay/wxpay", {tradeNo:result.order.tradeNo})
+                                .then(function (bt) {
+                                    if (bt.data && bt.data.status == 1) {
+
+                                        xqzs.weui.tip("支付成功", function () {
+                                            _this.setPayed(index);
+                                        });
+
+                                    }
+                                });
+                            return;
+                            /// TOdO
+
+
+
+                            xqzs.wx.pay.pay(config, function () {
+                                xqzs.weui.tip("正在跳转支付")
+                            }, function () {//success
+                                xqzs.weui.tip("支付成功", function () {
+                                    _this.setPayed(index);
+                                });
+                            }, function () {//error
+
+                            })
+                        }
+                    });
+            },
+            //设置dom 已经支付
+            setPayed:function (index) {
+                let item = this.list[index];
+                item.answerType=1;
+                this.$set(this.list,index,item);
+            },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");

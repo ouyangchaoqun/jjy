@@ -168,7 +168,35 @@
                     this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: this.questionClass,expertId:this.expertId})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
-                                //Todo 提示支付
+                                let result = bt.data.data;
+                                let config =result.config;
+                                console.log(config)
+
+
+                                //delete ToDo
+                                _this.$http.put(web.API_PATH + "pay/wxpay", {tradeNo:result.order.tradeNo})
+                                    .then(function (bt) {
+                                        if (bt.data && bt.data.status == 1) {
+
+                                            xqzs.weui.tip("支付成功", function () {
+                                                  _this.$router.push("/asker/my/ask/list");
+                                            });
+
+                                        }
+                                    });
+                                return;
+                                /// TOdO
+
+
+                                xqzs.wx.pay.pay(config, function () {
+                                    xqzs.weui.tip("正在跳转支付")
+                                }, function () {//success
+                                    xqzs.weui.tip("支付成功", function () {
+                                        _this.$router.push("/asker/my/ask/list");
+                                    });
+                                }, function () {//error
+
+                                })
                             }
                         });
                 }else{
@@ -185,21 +213,23 @@
                     this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:price})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
-
-                                //创建支付订单并支付
-                                _this.$http.put(web.API_PATH + 'power/plan/_userId_/' + 1 + '/' + 1 + '').then(function (res) {
-                                    let config = res.data.data;
-                                    xqzs.wx.pay.pay(config,function () {
-                                        xqzs.weui.tip("正在跳转支付")
-                                    },function () {//success
-                                        xqzs.weui.tip("支付成功",function () {
-                                            _this.$router.push("/asker/my/ask/list");
-                                        });
-                                    },function () {//error
-
-                                    })
+                                xqzs.weui.tip("支付成功", function () {
+                                    _this.$router.push("/asker/my/ask/list");
+                                });
+                                return;
+                                /// TOdO
+                                let config = bt.data.data;
+                                xqzs.wx.pay.pay(config, function () {
+                                    xqzs.weui.tip("正在跳转支付")
+                                }, function () {//success
+                                    xqzs.weui.tip("支付成功", function () {
+                                        _this.$router.push("/asker/my/ask/list");
+                                    });
+                                }, function () {//error
 
                                 })
+
+
                             }
                         });
 
