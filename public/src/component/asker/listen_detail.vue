@@ -30,9 +30,11 @@
                         </template>
 
                         <!--付费听-->
-                        <template @click="pay()" v-if="item.needPay==1">
+                        <template  v-if="item.needPay==1">
+                            <div @click="pay(index)">
                             <img class="pay_listen" src="../../images/charge.png" alt="">
-                            <div class="position_change1">1元偷听</div>
+                            <div class="position_change_detail">1元偷听</div>
+                            </div>
                         </template>
                         <!--限时免费听-->
                         <template v-if="item.answerType==3&&item.needPay==0">
@@ -46,7 +48,7 @@
 
 
                     </div>
-                    <div :class="{position_change1:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
+                    <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
                     <div><img src="../../images/asker/zan_nor.png" alt="">  <span>{{item.likeTimes}}</span></div>
@@ -88,6 +90,55 @@
             'v-showLoad': showLoad
         },
         methods:{
+
+            pay:function (index) {
+                console.log(index)
+                let  item = this.detail.answerList[index];
+                let _this=this;
+                this.$http.get(web.API_PATH + "come/listen/create/order/_userId_/"+item.answerId)
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+
+                            let result = bt.data.data;
+                            let config =result.config;
+                            console.log(config)
+
+                            //delete ToDo
+                            _this.$http.put(web.API_PATH + "pay/wxpay", {tradeNo:result.order.tradeNo})
+                                .then(function (bt) {
+                                    if (bt.data && bt.data.status == 1) {
+
+                                        xqzs.weui.tip("支付成功", function () {
+                                            _this.setPayed(index);
+                                        });
+
+                                    }
+                                });
+                            return;
+                            /// TOdO
+
+
+
+                            xqzs.wx.pay.pay(config, function () {
+                                xqzs.weui.tip("正在跳转支付")
+                            }, function () {//success
+                                xqzs.weui.tip("支付成功", function () {
+                                    _this.setPayed(index);
+                                });
+                            }, function () {//error
+
+                            })
+                        }
+                    });
+            },
+            //设置dom 已经支付
+            setPayed:function (index) {
+                let item =  this.detail.answerList[index];
+                item.answerType=1;
+                item.needPay=0;
+                this.$set( this.detail.answerList,index,item);
+            },
+
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
@@ -192,9 +243,12 @@
 
 </script>
 <style>
-    .position_change1{
-        margin-top: 1.1rem;
+    .position_change_detail{
+        color:#fff;
+        position: absolute;
+        top: 0.8rem;left:1.5rem; font-size: 0.88235rem;
     }
+    .position_change2{ margin-top: 1rem;}
     .pay_listen{ width: 10.35294117647059rem; height: auto}
     .steal_detail_header{
         padding:0.70588rem 0.88235rem 0 0.88235rem;
