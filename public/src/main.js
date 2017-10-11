@@ -51,6 +51,8 @@ let routers =
                 require('./routes/answer/join/voice'),
                 require('./routes/answer/join/price'),
                 require('./routes/answer/join/reviewing'),
+                require('./routes/music'),
+
 
 
             ]

@@ -6,6 +6,7 @@
         <div style="height: 500px;" class="diididdid">
             <router-link to="/asker/listen">用户</router-link>
             <router-link to="/answer/race/list">咨询师</router-link>
+            <router-link to="/music">music</router-link>
 
 
 
