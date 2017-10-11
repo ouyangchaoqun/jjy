@@ -190,13 +190,20 @@
             this.getDetail();
             this.getComment();
             this.getAnswer();
+            xqzs.voice.audio=null;
         },
         methods:{
             btn_sq:function () {
                 let _this=this;
                 _this.Hflag = !this.Hflag
             },
+            initVoice:function () {
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
             play:function () {
+                this.initVoice();
                 let _this=this;
                 if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
                     _this.detail.paused=false;
