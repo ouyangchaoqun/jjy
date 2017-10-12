@@ -51,7 +51,7 @@
                 <div class="item" v-if="isOver">
                     <div class="audio_play overStyle" @click="reStart()">重录</div>
                 </div>
-                <div class="item" style="flex: 2" v-if="!outTime&&!answering" @click="start()">
+                <div class="item" style="flex: 2" v-if="!outTime&&!answering&&!isOver" @click="start()">
                     <div class="audio_btn_in audio_begin"></div>
                     <div class="txt">点击开始录制</div>
                 </div>
@@ -65,27 +65,12 @@
                     </div>
                     <div class="txt">发布</div>
                 </div>
-                <div class="item" v-if="!isOver" >
-                    <div class="audio_send">发布</div>
-                </div>
+
                 <div class="item" v-if="isOver">
                     <div class="audio_send overStyle" @click="play()">试听</div>
                 </div>
 
-                <!--<template v-if="false">-->
-                <!--<div class="item" @click="play()">-->
-                <!--<div class="audio_play"></div>-->
-                <!--<div class="txt">试听</div>-->
-                <!--</div>-->
-                <!--<div class="item" @click="reStart()">-->
-                <!--<div class="audio_btn_in audio_begin"></div>-->
-                <!--<div class="txt">重录</div>-->
-                <!--</div>-->
-                <!--<div class="item" @click="send()">-->
-                <!--<div class="audio_btn_in audio_send"></div>-->
-                <!--<div class="txt">发送</div>-->
-                <!--</div>-->
-                <!--</template>-->
+
                 <div class="item" v-if="outTime">
                     <div class="audio_btn_in audio_cant_begin outTimeStyle"></div>
                     <div class="txt">已超时</div>
@@ -185,7 +170,7 @@
             },
             send:function () {
                 let _this=this;
-
+                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(this.localId,function (serverId) {
                     _this.serverId=serverId;
@@ -220,6 +205,7 @@
                 console.log("startRecord")
 //                开始录制
                 let _this=this;
+                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
                 this.clearTimeOut();
                 this.answering=true;
                 this.timeout()
@@ -283,7 +269,7 @@
 
         },
         beforeDestroy:function () {
-            xqzs.voice.pause();
+            if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
         },
 
 
