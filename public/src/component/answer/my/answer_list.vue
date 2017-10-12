@@ -374,7 +374,7 @@
         margin-top:-10px;
     }
     .problem_bestAns{
-        color: #666;
+        color: #44A3FF;
         font-size: 0.70588235rem;
         position: absolute;
         right:-6.6rem;
@@ -382,6 +382,7 @@
         line-height: 1;
         top:50%;
         margin-top:-10px;
+
     }
     .problem_answer_info .problem_answer_sond{
         height:16px;
