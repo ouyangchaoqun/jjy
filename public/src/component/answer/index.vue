@@ -182,6 +182,7 @@
                 console.log(vm.isLoading);
                 console.log(vm.isPageEnd);
                 if (vm.isLoading || vm.isPageEnd) {
+                    vm.showLoad = false;
                     return;
                 }
 
@@ -203,8 +204,8 @@
                         return;
                     }
 
-
                     let arr = response.data.data;
+
 //
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
