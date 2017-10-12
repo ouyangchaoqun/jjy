@@ -1,7 +1,7 @@
 <template  >
     <div style="height: 100% " class="answer_list_box" :class="{wbg:list.length==0}">
 
-        <div v-title>抢答</div>
+        <div v-title>找专家</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="main_title" v-if="list.length==0">{{name}}</div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="0"
@@ -154,15 +154,13 @@
 
                 let vm= this;
                 let classId= vm.$route.query.id;
-                vm.showLoad=true;
+
                 let url = web.API_PATH + "come/expert/get/by/class/"+classId+"/"+vm.page+"/"+vm.row+"";
 
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
-
-
 
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
