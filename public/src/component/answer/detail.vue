@@ -161,7 +161,8 @@
         {{detail.expertUserId}}
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
-                <img src="../../images/asker/listenin1.png" alt="">
+                <img v-if="detail.followed===1" src="../../images/asker/listenin1.png" alt="">
+                <img v-if="detail.followed===0" src="../../images/asker/nothing_answer.png" alt="">
                 <span v-if="detail.followed===1">已收听</span>
                 <span v-if="detail.followed===0">收听</span>
             </div>
@@ -698,7 +699,7 @@
     .answer_detail_box  .list .word{ font-size:0.7647058823529412rem;  color:#333; margin-bottom: 0.2rem;;}
     .answer_detail_box  .list .time{ font-size:0.7058823529411765rem; color:#C1C1C1; margin-top: 0.6rem;margin-bottom: 0.6rem;}
     .answer_detail_box  .list .info .class_s { clear: both; margin-top: 0.3rem;}
-    .answer_detail_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #C1C1C1 ; color:#C1C1C1 ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
+    .answer_detail_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #C1C1C1 ; color:#C1C1C1 ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;margin-bottom: 0.6rem}
     .answer_detail_box .ask_answer{
         margin-top: 0.41176471rem;
     }

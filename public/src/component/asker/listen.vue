@@ -39,7 +39,7 @@
 
                                         <!--付费听-->
                                         <div class="index_li_voice" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
-                                            <img src="../../images/charge.png" alt="">
+                                            <img src="../../images/charge1.png" alt="">
                                             <div class="position_change1">1元偷听</div>
                                         </div>
                                         <!--限时免费听-->

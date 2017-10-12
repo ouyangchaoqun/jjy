@@ -5,5 +5,4 @@ const answer = resolve => require(['../../component/answer/answer.vue'], resolve
 module.exports = {
     path: '/answer/answer',
     component: answer,
-
 }

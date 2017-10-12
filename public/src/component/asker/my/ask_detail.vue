@@ -45,15 +45,16 @@
                         <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                     </div>
                 </div>
-                <div class="steal_expert_info">
-                    <div>
-                        <span class="steal_expert_name">{{detail.expert.nickName}}</span><span
-                            class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
-                    </div>
-                    <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                    <img src="../../../images/asker/listenin1.png" alt="" @click="follow(detail.expertId)">
-                </div>
+
             </template>
+            <div class="steal_expert_info">
+                <div>
+                    <span class="steal_expert_name">{{detail.expert.nickName}}</span><span
+                        class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
+                </div>
+                <div class="steal_expert_des">{{detail.expert.sign}}</div>
+                <img src="../../../images/asker/listenin1.png" alt="" @click="follow(detail.expertId)">
+            </div>
         </div>
 
 
@@ -90,7 +91,9 @@
         data() {
             return {
                 problem_assess_flag:true,
-                detail:{},
+                detail:{
+                    expert:{}
+                },
                 point:0,
                 tags:[],
                 MAX_TAG_COUNT:5
@@ -390,7 +393,7 @@
         font-size: 0.76471rem;
     }
     .problem_box_background{
-        background: #fff;
+        background: #F4F4F7;
     }
     .problem_answer_info .problem_answer_yy{margin-top: 3px}
 </style>
