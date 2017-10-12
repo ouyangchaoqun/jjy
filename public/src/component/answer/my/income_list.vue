@@ -2,7 +2,7 @@
     <div style="height: 100%" class="ask_my_income_list wbg">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                  :bottomHeight="50"
+                  :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
             <div v-title>心情指数</div>
 

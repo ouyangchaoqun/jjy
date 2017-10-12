@@ -2,7 +2,7 @@
     <div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                  :bottomHeight="50"
+                  :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
             <div class="my_problem_tabs">
                 <div class="my_problem_active">抢答</div>
@@ -16,7 +16,10 @@
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
                             <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
-                            <div class="problem_item_right">全部赏金<i>￥{{item.wage}}</i></div>
+                            <div class="problem_item_right" v-if="item.wageType!=0">
+                                <template v-if="item.wageType==4">赏金<i>￥{{formatPrice(item.wage)}}</i></template>
+                                <template v-if="item.wageType==5">平分<i>￥{{formatPrice(item.wage)}}</i></template>
+                            </div>
                         </div>
                         <div class="problem_item_del">{{item.questionContent}}</div>
                         <div class="problem_answer_info">
@@ -32,14 +35,15 @@
                                     <div class="clear"></div>
                                 </div>
                                 <div class="answer_play_time">{{item.voiceLength}}"</div>
-                                <span class="problem_bestAns" v-if="item.isBestAnswer==1">最佳答案</span>
+                                <span class="problem_bestAns" v-if="item.isBestAnswer==1">最佳回答</span>
+                                <span class="problem_bestAns" v-if="item.isBestAnswer!=1">非最佳回答</span>
                             </div>
                         </div>
                         <!--回答后底部显示详情-->
                         <div class="problem_answer_bottom">
                             <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过{{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥{{item.inCome}}</span></div>
+                                <div  v-if="item.inCome!=0"><span>偷听分成 </span><span style="color:#FF9900">￥{{formatPrice(item.inCome)}}</span></div>
                                 <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
@@ -53,7 +57,7 @@
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
                             <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
-                            <div class="problem_item_right">问题酬金<i>￥{{item.wage}} </i></div>
+                            <div class="problem_item_right">酬金<i>￥{{formatPrice(item.wage)}} </i></div>
                         </div>
                         <div class="problem_item_del">{{item.questionContent}}</div>
                         <div class="problem_answer_info">
@@ -75,7 +79,7 @@
                         <div class="problem_answer_bottom">
                             <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过 {{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
-                                <div><span>偷听分成 </span><span style="color:#FF9900">￥{{item.inCome}}</span></div>
+                                <div><span>偷听分成 </span><span style="color:#FF9900">￥{{formatPrice(item.inCome)}}</span></div>
                                 <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
@@ -252,6 +256,9 @@
             formatDateText: function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             },
+            formatPrice:function (price) {
+                return xqzs.string.formatPrice(price)
+            }
 
         },
         beforeDestroy:function () {
@@ -308,7 +315,6 @@
         background: #fff;
         margin-bottom: 0.588235rem;
     }
-    .problem_item li:active{background: #eee}
     .problem_item_top{display: -webkit-box;display: -webkit-flex;display: flex;font-size: 12px;line-height: 34px;color:#999;position: relative}
     .problem_item_top span{color:#666;margin-right: 10px;}
     .problem_item_top i{font-style: normal;color:#FF9900;margin-left: 5px}

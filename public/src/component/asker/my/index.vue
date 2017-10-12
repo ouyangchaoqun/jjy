@@ -41,36 +41,35 @@
         methods: {
             join: function () {
                 let _this= this;
-
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         console.log(data)
                         if(data.data.data!=null){
                             let status = data.data.data.status;
                             if(status==0){
-                                this.$router.push("/answer/join/reviewing");
+                                _this.$router.push("/answer/join/reviewing");
                             }else{
-                                if( _this.user.mobile&& _this.user.mobile.length==11){
-                                    this.$router.push("/answer/join/base/info");
+                                if(status==1){
+                                    xqzs.weui.tip("您已成功入驻咨询师，请从公众号移步到咨询师。")
                                 }else{
-                                    this.$router.push("/answer/join/mobile");
+                                    _this.goJoin()
                                 }
                             }
                         }else{
-                            if( _this.user.mobile&& _this.user.mobile.length==11){
-                                this.$router.push("/answer/join/base/info");
-                            }else{
-                                this.$router.push("/answer/join/mobile");
-                            }
+                            _this.goJoin()
                         }
-
-
                     }
                 }, function (error) {
-
                 });
 
 
+            },
+            goJoin:function () {
+                if( this.user.mobile&& this.user.mobile.length==11){
+                    this.$router.push("/answer/join/base/info");
+                }else{
+                    this.$router.push("/answer/join/mobile");
+                }
             },
             getIncome:function () {
 

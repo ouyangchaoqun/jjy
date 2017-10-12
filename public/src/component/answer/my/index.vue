@@ -15,7 +15,7 @@
                     <router-link to = "/answer/my/income"  class="income"  ><i></i>我的收益
                         <div class="price" v-if="income!=0">￥{{formatPrice(income)}}</div>
                     </router-link>
-                    <router-link to = "/answer/my/level" class="level" ><i></i>我的等级</router-link>
+                    <!--<router-link to = "/answer/my/level" class="level" ><i></i>我的等级</router-link>-->
                     <router-link to = "/answer/my/setanswer" class="setanswer" ><i></i>解答设置</router-link>
                     <router-link to = "/answer/my/answer/list" class="answer_list" ><i></i>我的回答</router-link>
                     <router-link to = "/answer/my/fans" class="fans" ><i></i>我的粉丝</router-link>

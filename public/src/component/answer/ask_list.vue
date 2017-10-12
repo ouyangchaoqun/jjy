@@ -5,7 +5,7 @@
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">
             <div v-title>待答</div>
-            <div class="list  weui-tab__panel">
+            <div class="list  ">
                 <div class="item" v-for="item in list" @click="answer(item.id)">
                     <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">
