@@ -29,8 +29,8 @@
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
                                     <div>听过 {{item.listenCount}}</div>
-                                    <div>收入分成￥{{item.inCome}}</div>
-                                    <div class="my_problem_money">￥{{item.price}}</div>
+                                    <div>收入分成￥{{formatPrice(item.inCome)}}</div>
+                                    <div class="my_problem_money">￥{{formatPrice(item.price)}}</div>
                                 </div>
                             </a>
                         </li>
@@ -56,7 +56,7 @@
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
                                     <div>回复{{item.answerCount}}</div>
-                                    <div class="my_problem_money">￥{{item.price}}</div>
+                                    <div class="my_problem_money">￥{{formatPrice(item.price)}}</div>
                                 </div>
                             </a>
                         </li>
@@ -112,6 +112,9 @@
             this.getList();
         },
         methods: {
+            formatPrice:function (price) {
+              return xqzs.string.formatPrice(price)
+            },
             formatDateText: function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             },

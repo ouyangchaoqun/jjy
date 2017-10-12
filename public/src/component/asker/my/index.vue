@@ -12,7 +12,7 @@
 
             </div>
             <router-link to = "../my/income"  class="income"  ><i></i>我的收益
-                <div class="price">￥{{income}}</div>
+                <div class="price" v-if="income!=0">￥{{formatPrice(income)}}</div>
             </router-link>
             <router-link to = "../my/listen/list" class="listen" ><i></i>我的偷听</router-link>
             <router-link to = "../my/answer/list" class="answer" ><i></i>我的收听</router-link>
@@ -39,6 +39,9 @@
             "v-asker-bottom": askerBottom
         },
         methods: {
+            formatPrice:function (v) {
+              return xqzs.string.formatPrice(v)
+            },
             join: function () {
                 let _this= this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法

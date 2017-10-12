@@ -558,6 +558,7 @@
         width: 100%;
         border-radius: 50%;
         display: block;
+        height: 100%;
     }
     .answer_detail_box .answer_name{
         font-size: 1.0588235rem;
@@ -670,14 +671,15 @@
         font-weight: normal;
     }
     .answer_detail_box .btn_sq{
-        width:5.235rem;
-        height:1.352rem;
-        border-radius: 0.66rem ;
+        width:5.835rem;
+        height:1.852rem;
+        line-height: 1.852rem;
+        border-radius: 0.4rem ;
         border: 1px solid rgba(254,115,1,1);
         margin:0 auto;
+        margin-top: 0.6rem;
         text-align: center;
         color: rgba(254,115,1,1);
-        line-height: 1.352rem;
         font-size: 0.70588235rem;
     }
     .answer_detail_box .answer_comments{
