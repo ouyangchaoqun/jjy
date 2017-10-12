@@ -66,6 +66,9 @@
                     <div class="txt">发布</div>
                 </div>
 
+                <div class="item" v-if="!isOver" >
+                    <div class="audio_send">发布</div>
+                </div>
                 <div class="item" v-if="isOver">
                     <div class="audio_send overStyle" @click="play()">试听</div>
                 </div>
