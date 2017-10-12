@@ -168,28 +168,18 @@
             getList: function () {
 
                 let vm= this;
-
-                vm.showLoad=true;
                 let url = web.API_PATH + "come/expert/get/by/class/0/"+vm.page+"/"+vm.row+"";
-
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
 
-
-
-                console.log(vm.isLoading);
-                console.log(vm.isPageEnd);
                 if (vm.isLoading || vm.isPageEnd) {
-                    vm.showLoad = false;
                     return;
                 }
-
                 if (vm.page == 1) {
                     vm.showLoad = true;
                 }
-
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
                     vm.showLoad = false;
