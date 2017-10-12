@@ -225,16 +225,17 @@
                 if(this.playing){  //在播放中则暂停
                     if(_this.localId!=null) {
                         _this.clearTimeOut();
+                        this.playing = false;
                         xqzs.wx.voice.pausePlay(_this.localId);
                         console.log("pausePlay")
-                        this.playing = false;
+
                     }
                 }else{
                     if(_this.localId!=null){
                         this.clearTimeOut();
-                        xqzs.wx.voice.startPlay(_this.localId);
                         this.playing=true;
                         this.timeout(true);
+                        xqzs.wx.voice.startPlay(_this.localId);
                         xqzs.wx.voice.onPlayEnd(function () {
                             console.log("onPlayEnd")
                             if(_this.playing)_this.clearTimeOut();
