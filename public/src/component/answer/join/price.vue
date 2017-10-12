@@ -3,7 +3,7 @@
 
         <div v-title>入驻心理咨询师</div>
 
-        <v-answer-top-step step="9"  preUrl="./voice" nextUrl="" title="设置咨询者向我提问需要支付的酬金"></v-answer-top-step>
+        <v-answer-top-step step="10"  preUrl="./voice" nextUrl="" title="设置咨询者向我提问需要支付的酬金"></v-answer-top-step>
 
         <div class="set_price">
             <div class="til">设置提问酬金：</div>
@@ -17,7 +17,7 @@
         </div>
 
 
-         <div class="submit" @click="submit()">提交审核</div>
+         <!--<div class="submit" @click="submit()">提交审核</div>-->
     </div>
 </template>
 
@@ -66,6 +66,37 @@
             }
             let price = cookie.get("price");
             if(price)this.price= price;
+
+            $('#subBtn').click(function () {
+                console.log('sub')
+                let that=this;
+                let data={
+                    userId:"_userId_",
+                    price:cookie.get("price"),
+                    freeTime:cookie.get("freeTime"),
+                    sign:unescape(cookie.get("sign")),
+                    mediaId:cookie.get("mediaId"),
+                    voiceLength:cookie.get("voiceLength"),
+                    questionClassId:cookie.get("questionClassId").split(','),
+                    jobTitle:unescape(cookie.get("jobTitle")),
+                    certificateNo:unescape(cookie.get("certificateNo")),
+                    certificateFile:cookie.get("certificateFile"),
+                    introduction:unescape(cookie.get("introduction")),
+                    experience:unescape(cookie.get("experience")),
+                    goodat:unescape(cookie.get("goodAt"))
+
+                };
+                $.ajax({
+                    url: web.API_PATH + "come/expert/register",
+                    data:data,
+                    type: 'PUT',
+                    success: function( bt ) {
+                        if (bt.data && bt.data.status == 1) {
+                            this.$router.push("./reviewing")
+                        }
+                    }
+                });
+            })
 
         } ,
         methods:  {
