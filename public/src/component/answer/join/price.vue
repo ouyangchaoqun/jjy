@@ -99,7 +99,7 @@
                     data:data,
                     type: 'PUT',
                     success: function( bt ) {
-                        if (bt.data && bt.data.status == 1) {
+                        if ( bt.status === 1) {
                             _this.isSubmitting=false;
                             _this.$router.push("./reviewing")
                         }
