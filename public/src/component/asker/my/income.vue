@@ -3,7 +3,12 @@
 
         <div v-title>我的收益</div>
         <div class="nothing income" v-if="income==0">
-            没有收益明细
+            <img src="../../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>没有收益明细</p>
+                可以对专家进行提问
+                <div>去提问</div>
+            </div>
         </div>
         <div class="my_income"  v-if="income>0">
             <div class="img"></div>
@@ -54,7 +59,6 @@
 </script>
 <style>
 
-   .asker_my_income_box .nothing.income{ background: url(../../../images/asker/nothing_income.png) no-repeat center top; background-size: 5.205882352941176rem; }
 
    .asker_my_income_box .my_income .img{ background: url(../../../images/asker/my_income_money.png) no-repeat; width: 5.382352941176471rem; height: 5.382352941176471rem; background-size: 5.382352941176471rem; margin: 0 auto ; margin-top:3.7rem; }
    .asker_my_income_box .my_income{ line-height: 1}

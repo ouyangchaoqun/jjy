@@ -3,7 +3,12 @@
 
         <div v-title>我的评价</div>
         <div class="nothing comment" v-if="list.length==0">
-            您还没有做任何评价
+            <img src="../../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>您还没有过任何评价</p>
+                在问页面可以点击收听按钮进行评价
+                <div>去评价</div>
+            </div>
         </div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
@@ -147,8 +152,6 @@
     }
 </script>
 <style>
-
-    .asker_my_coment_list .nothing.comment{ background: url(../../../images/asker/nothing_star.png) no-repeat center top; background-size: 5.852941176470588rem; }
 
    .asker_my_coment_list .item{ padding: 0.88235rem; border-bottom: 0.7058823529411765rem solid #F4F4F7;}
     .asker_my_coment_list .comment .img{ width: 2rem; height: 100%; float:left; margin-right: 0.5rem;}

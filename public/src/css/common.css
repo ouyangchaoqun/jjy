@@ -367,8 +367,10 @@ a{
     border-top: 0.6764705882352941rem solid rgb(0, 138, 182);}
 
 
-.nothing{ padding-top: 6.5rem ;color:#B3B3B3; text-align: center; width: 100%; font-size: 0.7647058823529412rem; position: absolute;
-    top: 50%; margin-top: -9rem;}
+.nothing{ padding-top: 4.4rem ; text-align: center; width: 100%;  position: relative;}
+.nothing .nothing_bottom{position: absolute;width:100%;bottom:0;color:#C3C5CD;font-size: 0.70588rem;line-height: 1.2rem}
+.nothing .nothing_bottom p{font-size: 0.88235rem;color:#95979D;}
+.nothing .nothing_bottom div{width:6.471rem;height:1.76471rem;border:1px solid #FE7301;color:#FE7301;font-size: 0.88235rem;line-height: 1.76471rem;border-radius: 5px;margin:0 auto;margin-top:0.471rem;}
 .wbg{ background: #fff !important}
 .top_tip{ background: #F4F4F7;text-align: center; line-height:2.588235294117647rem; font-size:0.8823529411764706rem;  color:#999  }
 
