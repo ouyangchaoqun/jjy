@@ -54,6 +54,7 @@
             this.getUser();
             this.getExpertByUserId();
             this.getIncome();
+            xqzs.wx.setConfig(this)
 
         },
         methods:{
