@@ -2,7 +2,7 @@
     <div style="height: 100%" class="wbg answer_join_price_box">
 
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./field" title="请拍摄身份证正反面，该信息仅用于心情加油站身份验证" errorWord="请上传身份认证"></v-answer-top-step>
+        <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./field" :canGoNext="canGoNext"title="请拍摄身份证正反面，该信息仅用于心情加油站身份验证" errorWord="请上传身份认证"></v-answer-top-step>
         <div class="identity_tabs">
             <div class="identity_tabs_active">身份证</div>
 
@@ -103,6 +103,7 @@
                 let identityNo= cookie.get("identityNo");
                 let identityFile1 =(cookie.get("identityFile1"));
                 let identityFile2 =(cookie.get("identityFile2"));
+
 
                 if(identityFile1&&identityFile1!=''&&identityFile2&&identityFile2!=''&&identityNo&&identityNo!=''){
                     this.canGoNext=true;
