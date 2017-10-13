@@ -323,8 +323,7 @@ a{
     border-radius: 1.2rem ; text-align: center; color:#fff;  }
  .audio .audio_btn:active{ background: rgb(0, 138, 182);
 }
-.audio .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
-    content:" "; display: block; height: 0.97rem; background: url(/common/dist/sond.png) no-repeat; background-size: 0.6764705882352941rem;  top:30%; left:0.8rem;}
+
 .audio.playing .audio_btn:before{
     animation: sond_playing 1.5s infinite;
     -webkit-animation: sond_playing 1.5s infinite;
@@ -373,8 +372,7 @@ a{
 .wbg{ background: #fff !important}
 .top_tip{ background: #F4F4F7;text-align: center; line-height:2.588235294117647rem; font-size:0.8823529411764706rem;  color:#999  }
 
-.arrow:after{background: url(/common/dist/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
-    right:0.88235rem;top:50% ; margin-top:-0.4705882352941177rem;content: " "}
+
 /*专家头像及个人描述*/
 .steal_expert_info{
     border-top: 1px solid #eee;

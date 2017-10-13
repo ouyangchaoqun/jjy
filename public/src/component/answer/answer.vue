@@ -209,11 +209,11 @@
 //                开始录制
                 let _this=this;
                 if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
-                this.clearTimeOut();
+                this.clearTimeOut()
+                xqzs.wx.voice.startRecord();
                 this.answering=true;
                 this.timeout()
                 console.log("startRecordtimeout")
-                xqzs.wx.voice.startRecord();
                 xqzs.wx.voice.onRecordEnd(function (localId) {
                     _this.localId=localId;
                     _this._recordStop();

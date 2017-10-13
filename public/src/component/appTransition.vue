@@ -108,6 +108,15 @@
 </script>
 
 <style>
+
+    .audio .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
+        content:" "; display: block; height: 0.97rem; background: url(../images/sond.png) no-repeat; background-size: 0.6764705882352941rem;  top:30%; left:0.8rem;}
+
+    .arrow:after{background: url(../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
+        right:0.88235rem;top:50% ; margin-top:-0.4705882352941177rem;content: " "}
+
+
+
     .child-view {
         position: absolute !important;
         width: 100% !important;
