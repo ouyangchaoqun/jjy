@@ -103,7 +103,7 @@
                     success: function( bt ) {
                         _this.showLoad=false;
                          _this.isSubmitting=false;
-                        _this.$router.push("./reviewing")
+                        _this.$router.replace("./reviewing")
                     }
                 });
             })
