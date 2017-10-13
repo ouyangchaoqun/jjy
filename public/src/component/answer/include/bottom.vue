@@ -1,12 +1,12 @@
 <template >
     <div  class="answer_bottom_box">
-        <router-link to='/answer/race/list'  :class="{on:tabOnIndex==0}">
+        <router-link to='/answer/race/list' replace :class="{on:tabOnIndex==0}">
             <span class="icon race"></span>抢答
         </router-link>
-        <router-link to='/answer/ask/list'  :class="{on:tabOnIndex==1}" >
+        <router-link to='/answer/ask/list'  replace :class="{on:tabOnIndex==1}" >
             <span class="icon ask"></span>待答
         </router-link>
-        <router-link to='/answer/my/index' :class="{on:tabOnIndex==2}">
+        <router-link to='/answer/my/index' replace :class="{on:tabOnIndex==2}">
             <span class="icon my"></span>我的
         </router-link>
     </div>
