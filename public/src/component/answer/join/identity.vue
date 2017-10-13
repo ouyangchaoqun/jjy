@@ -13,8 +13,8 @@
                     身份证 <span>*</span><input type="text" class="identityNo"@keyup="changeidentityNo()" pattern="[0-9a-zA-Z]*" >
                 </div>
                 <div class="content_list2">
-                    <img src="../../../images/positive.png" alt="" @click="upload(1)">
-                    <img src="../../../images/negative.png" alt="" @click="upload(2)">
+                    <img :src="identityFile1?identityFile1:'../../../images/positive.png'" alt="" @click="upload(1)">
+                    <img :src="identityFile1?identityFile1:'../../../images/negative.png'" alt="" @click="upload(2)">
                 </div>
             </div>
 
@@ -82,6 +82,7 @@
                         _this.identityFile2 = json.data.path;
                         cookie.set("identityFile2",escape(_this.identityFile2))
                     }
+                    this.check();
 
                  },function (e) {
                     console.info(e);
