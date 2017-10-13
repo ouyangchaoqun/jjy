@@ -12,11 +12,11 @@
                 <div class="last_time">{{getTime(detail.addTime)}}</div>
                 <div class="clear"></div>
 
-                <div class="audio" :class="{playing:detail.playing,paused:detail.paused}" v-if="isAnswered&&answerId">
+                <div class="audio" :class="{playing:playing,paused:paused}" v-if="isAnswered&&answerId">
                     <div class="audio_btn" @click.stop="play()" >
-                        <template v-if="!detail.playing&&!detail.paused">点击播放</template>
-                        <template v-if="detail.playing">正在播放..</template>
-                        <template v-if="detail.paused">播放暂停</template>
+                        <template v-if="!playing&&!paused">点击播放</template>
+                        <template v-if="playing">正在播放..</template>
+                        <template v-if="paused">播放暂停</template>
                     </div>
                     <div class="minute">{{voiceLength}}"</div>
                     <div class="clear"></div>
@@ -226,6 +226,7 @@
                     if(_this.localId!=null) {
                         _this.clearTimeOut();
                         this.playing = false;
+                        this.paused = true;
                         xqzs.wx.voice.pausePlay(_this.localId);
                         console.log("pausePlay")
 
@@ -235,12 +236,13 @@
                         this.clearTimeOut();
                         this.playing=true;
                         this.timeout(true);
+                        this.paused = false;
                         xqzs.wx.voice.startPlay(_this.localId);
                         xqzs.wx.voice.onPlayEnd(function () {
                             console.log("onPlayEnd")
                             if(_this.playing)_this.clearTimeOut();
                             _this.playing = false;
-
+                            _this.paused = false;
                             if(_this.voiceLength<10){
                                 _this.answerTime = "0"+_this.voiceLength
                             }else{
