@@ -251,6 +251,7 @@
     .weui-check__label:active{ background: none}
     .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:2rem;}
     .answer_join_quali .photo_img .img{background:#f4f4f7;width:9.71rem;height:6.76471rem;position: relative}
+    .answer_join_quali .photo_img .img img{ max-height: 100%; max-width: 100%}
     .img div{width:44px;height:44px;border-radius: 50%;background: #fff;text-align: center;line-height: 40px;position: absolute;top:25%;left:50%;margin-left:-22px;}
     .img div b{color:rgba(253,114,6,1);font-size: 1.6rem}
     .img p{color:#A9A7A7;font-size: 0.70588235rem;text-align: center;position: absolute;width:100%;top:75%;}
