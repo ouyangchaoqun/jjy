@@ -501,5 +501,5 @@
     .lut.on{ float:left; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); color:#fff;}
     .showdL{ float:left; margin-left: 1rem;}
     .showdL span{ color:#333 !important}
-
+    .answer_join_base_info_box .subBox{position: static;margin-bottom: 1.471rem}
 </style>
