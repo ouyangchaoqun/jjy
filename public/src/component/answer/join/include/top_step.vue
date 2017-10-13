@@ -35,7 +35,7 @@
 
     .answer_join_top .step span{ font-size:0.9411764705882353rem; }
     .btn_box{width:100%;position: absolute;bottom:1.471rem;display: flex;display: -webkit-flex;text-align: center;line-height: 2.35rem}
-    .btn_box a{flex: 1;border:1px solid rgba(253,115,1,1);margin:0 0.88235rem;border-radius: 1.176471rem;color:rgba(253,115,1,1)}
+    .btn_box a{flex: 1;border:1px solid rgba(253,115,1,1);margin:0 0.88235rem;border-radius: 1.176471rem;color:rgba(253,115,1,1);background: #fff;}
     .btn_box a:last-of-type{color:#fff;background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1))}
     .text_area{ margin: 0 0.88235rem; margin-top: 1.5rem; border: 1px solid #EAE7E7; border-radius: 0.3rem; overflow: hidden; background: #fff; padding: 0.5rem; position: relative }
     .text_area textarea{ width: 100%; font-size: 0.7647058823529412rem; line-height: 1.2rem; border: none; max-height:13.23529411764706rem; }

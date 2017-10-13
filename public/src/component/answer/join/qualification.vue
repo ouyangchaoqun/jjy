@@ -4,7 +4,7 @@
         <div v-title>入驻心理咨询师</div>
         <v-answer-top-step step="4"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
 
-
+        <div style="height:28rem;overflow-y: scroll">
         <div class="checks">
 
             <!--<div class="weui-cells weui-cells_checkbox">-->
@@ -96,6 +96,7 @@
                 <p>上传证书信息页面</p>
                 <img :src="certificateFile" >
             </div>
+        </div>
         </div>
 
     </div>
