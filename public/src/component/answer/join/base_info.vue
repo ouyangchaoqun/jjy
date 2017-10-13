@@ -446,7 +446,7 @@
                     .then(
                         (response) => {
                             xqzs.weui.toast("success", "修改成功", function () {
-                                _this.$router.replace("../field")
+                                _this.$router.replace("../identity")
                             })
                         }
                     );

@@ -128,7 +128,7 @@
 
 
 
-    .asker_my_index_box .main  a i{ display: block;background: url(../../../images/asker/asker_my_left_icon.png) no-repeat ; background-size: 1.705882352941176rem; width:1.705882352941176rem; height:1.705882352941176rem;  position: absolute; left: 0.75rem; top:50% ; margin-top: -0.852941176470588rem;}
+    .asker_my_index_box .main  a i{ display: block;background: url(../../../images/asker/asker_my_left_icon1.png) no-repeat ; background-size: 1.705882352941176rem; width:1.705882352941176rem; height:1.705882352941176rem;  position: absolute; left: 0.75rem; top:50% ; margin-top: -0.852941176470588rem;}
     .asker_my_index_box .main  a.income i{ background-position: 0 0 }
     .asker_my_index_box .main  a.listen i{ background-position: 0 -1.705882352941176rem; }
     .asker_my_index_box .main  a.answer i{ background-position: 0 -3.411764705882352rem}

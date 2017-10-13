@@ -3,7 +3,7 @@
 
         <div v-title>入驻心理咨询师</div>
 
-        <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./qualification" title="擅长领域" errorWord="请选择擅长领域" :canGoNext="canGoNext"></v-answer-top-step>
+        <v-answer-top-step step="3"  preUrl="./identity" nextUrl="./qualification" title="擅长领域" errorWord="请选择擅长领域" :canGoNext="canGoNext"></v-answer-top-step>
         <div class="sub_title">（最多可选3个）</div>
         <div class="types">
             <div class="item" :class="{on:item.isSelect}" v-for="(item,index) in types" @click="select(index)"><span>{{item.title}}</span></div>

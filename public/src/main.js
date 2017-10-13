@@ -50,6 +50,7 @@ let routers =
                 require('./routes/answer/join/sign'),
                 require('./routes/answer/join/voice'),
                 require('./routes/answer/join/price'),
+                require('./routes/answer/join/identity'),
                 require('./routes/answer/join/reviewing'),
                 require('./routes/music'),
 

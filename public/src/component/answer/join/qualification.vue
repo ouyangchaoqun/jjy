@@ -2,7 +2,7 @@
     <div style="height: 100%" class="wbg answer_join_quali">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="3"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
+        <v-answer-top-step step="4"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
 
 
         <div class="checks">

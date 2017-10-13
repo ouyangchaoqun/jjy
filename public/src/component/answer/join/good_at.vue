@@ -2,7 +2,7 @@
     <div style="height: 100%" class="wbg">
 
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="6"  preUrl="../training" nextUrl="../sign" title="擅长领域问题"   errorWord="请填写擅长领域问题" :canGoNext="canGoNext"></v-answer-top-step>
+        <v-answer-top-step step="7"  preUrl="../training" nextUrl="../sign" title="擅长领域问题"   errorWord="请填写擅长领域问题" :canGoNext="canGoNext"></v-answer-top-step>
         <div class="text_area">
             <textarea name="" class="goodAt" @keyup="changeGoodAt()"   placeholder="请填写您擅长领域的具体问题
 
