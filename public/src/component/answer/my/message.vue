@@ -304,66 +304,6 @@
             },
 
 
-
-//            timeout:function (play) {
-//                let _this=this;
-//                _this.timeOut =    setTimeout(function () {
-//                    let time = parseInt(_this.answerTime);
-//                    if(play==true){  //试听
-//                        if(time>0){
-//                            time = time -1 ;
-//                            if(time<10)time="0"+time
-//                            _this.answerTime = time ;
-//                            _this.timeout(play);
-//                        }else{
-//                            _this.playing=false;
-//                        }
-//                    }else{
-//                        if(time<60){
-//                            time = time +1 ;
-//                            if(time<10)time="0"+time
-//                            _this.answerTime = time ;
-//                            _this.timeout();
-//                        }else{
-//                            _this.stop();
-//                        }
-//                    }
-//
-//                },1000)
-//
-//            },
-//            clearTimeOut:function () {
-//                let _this=this;
-//                if(_this.timeOut!==null){
-//                    clearTimeout(_this.timeOut);
-//                }
-//            },
-//            reStart:function () {
-//                this.answerTime="00";
-//                this.preAnswer=false;
-//                this.clearTimeOut();
-//                this.start()
-//            },
-//            send:function () {
-//                this.clearTimeOut();
-//                this.answering=false;
-//                this.finish=true;
-//            },
-//            start:function () {
-//                this.clearTimeOut();
-//                this.answering=true;
-//                this.timeout()
-//            },
-//            play:function () {
-//                this.clearTimeOut();
-//                this.playing=true;
-//                this.timeout(true);
-//            },
-//            stop:function () {
-//                this.clearTimeOut();
-//                this.answering=false;
-//                this.preAnswer=true;
-//            }
         },
         mounted: function () {
             let _this=this ;
@@ -384,6 +324,8 @@
 
         },
         beforeDestroy:function () {
+
+         if(this.localId!=null)  xqzs.wx.voice.pausePlay(this.localId);
             xqzs.voice.pause();
         }
     }
