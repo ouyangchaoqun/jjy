@@ -324,7 +324,15 @@
 
         },
         beforeDestroy:function () {
-            console.log("this.localId2:")
+            console.log("beforeDestroy")
+            console.log(wx)
+            $(".audio_btn").click();
+            xqzs.voice.pause();
+            this.stop()
+        },
+        destroyed: function () {
+            console.log("destroyed:")
+            console.log(wx)
             $(".audio_btn").click();
             xqzs.voice.pause();
             this.stop()
