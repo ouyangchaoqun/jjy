@@ -35,7 +35,7 @@
     if(!empty($guest)){echo "web.guest=true;";}
     ?>
 
-    var vueRoutesBaseUrl="/comeon"
+    var vueRoutesBaseUrl=""
 </script>
 
 <script src="<?=env("BASE_PATH")?>src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>

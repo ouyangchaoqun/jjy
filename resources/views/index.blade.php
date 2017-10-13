@@ -37,7 +37,7 @@
     ?>
 
 
-    var vueRoutesBaseUrl="/comeon"
+    var vueRoutesBaseUrl=""
 
 </script>
 <script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
