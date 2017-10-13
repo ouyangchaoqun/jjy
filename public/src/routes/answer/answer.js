@@ -3,6 +3,6 @@
  */
 const answer = resolve => require(['../../component/answer/answer.vue'], resolve)
 module.exports = {
-    path: '/answer/answer',
+    path: vueRoutesBaseUrl+'/answer/answer',
     component: answer,
 }

@@ -3,7 +3,7 @@
  */
 const answerJoinPrice = resolve => require(['../../../component/answer/join/price.vue'], resolve);
 module.exports = {
-    path: '/answer/join/price',
+    path: vueRoutesBaseUrl+'/answer/join/price',
     component: answerJoinPrice,
 
 }

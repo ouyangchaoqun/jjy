@@ -3,7 +3,7 @@
  */
 const answerJoinIntroduce = resolve => require(['../../../component/answer/join/introduce.vue'], resolve);
 module.exports = {
-    path: '/answer/join/introduce',
+    path: vueRoutesBaseUrl+'/answer/join/introduce',
     component: answerJoinIntroduce,
 
 }

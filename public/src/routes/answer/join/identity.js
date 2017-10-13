@@ -3,7 +3,7 @@
  */
 const identity = resolve => require(['../../../component/answer/join/identity.vue'], resolve);
 module.exports = {
-    path: '/answer/join/identity',
+    path:vueRoutesBaseUrl+ '/answer/join/identity',
     component: identity,
 
 }

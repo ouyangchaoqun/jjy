@@ -3,7 +3,7 @@
  */
 const askerMyIndex = resolve => require(['../../../component/asker/my/index.vue'], resolve)
 module.exports = {
-    path: 'asker/my/index',
+    path: vueRoutesBaseUrl+'asker/my/index',
     component: askerMyIndex,
 
 }

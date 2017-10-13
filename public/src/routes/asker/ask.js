@@ -3,7 +3,7 @@
  */
 const askerAsk = resolve => require(['../../component/asker/ask.vue'], resolve)
 module.exports = {
-    path: 'asker/ask',
+    path: vueRoutesBaseUrl+'/asker/ask',
     component: askerAsk,
 
 }

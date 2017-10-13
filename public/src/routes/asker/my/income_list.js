@@ -3,7 +3,7 @@
  */
 const askerMyIncomeList = resolve => require(['../../../component/asker/my/income_list.vue'], resolve)
 module.exports = {
-    path: '/asker/my/income/list',
+    path: vueRoutesBaseUrl+'/asker/my/income/list',
     component: askerMyIncomeList,
 
 }

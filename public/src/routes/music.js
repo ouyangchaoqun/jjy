@@ -3,7 +3,7 @@
  */
 const music = resolve => require(['../component/music.vue'], resolve)
 module.exports = {
-    path: '/music',
+    path: vueRoutesBaseUrl+'/music',
     component: music,
 
 }

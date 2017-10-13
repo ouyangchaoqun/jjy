@@ -3,7 +3,7 @@
  */
 const answerMyCommentList = resolve => require(['../../../component/answer/my/comment_list.vue'], resolve)
 module.exports = {
-    path: '/answer/my/comment/list',
+    path: vueRoutesBaseUrl+'/answer/my/comment/list',
     component: answerMyCommentList,
 
 }

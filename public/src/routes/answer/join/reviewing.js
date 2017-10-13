@@ -3,7 +3,7 @@
  */
 const answerJoinReviewing = resolve => require(['../../../component/answer/join/reviewing.vue'], resolve);
 module.exports = {
-    path: '/answer/join/reviewing',
+    path: vueRoutesBaseUrl+'/answer/join/reviewing',
     component: answerJoinReviewing,
 
 }

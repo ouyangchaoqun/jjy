@@ -3,7 +3,7 @@
  */
 const setQualification = resolve => require(['../../../component/answer/my/set_qualification.vue'], resolve);
 module.exports = {
-    path: '/answer/my/set/qualification',
+    path: vueRoutesBaseUrl+'/answer/my/set/qualification',
     component: setQualification
 
 }

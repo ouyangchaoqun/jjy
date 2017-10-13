@@ -3,7 +3,7 @@
  */
 const answerJoinSign = resolve => require(['../../../component/answer/join/sign.vue'], resolve);
 module.exports = {
-    path: '/answer/join/sign',
+    path:vueRoutesBaseUrl+ '/answer/join/sign',
     component: answerJoinSign,
 
 }

@@ -3,7 +3,7 @@
  */
 const fans = resolve => require(['../../../component/answer/my/fans.vue'], resolve)
 module.exports = {
-    path: '/answer/my/fans',
+    path: vueRoutesBaseUrl+'/answer/my/fans',
     component: fans,
 
 }

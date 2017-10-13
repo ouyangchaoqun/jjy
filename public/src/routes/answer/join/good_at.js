@@ -3,7 +3,7 @@
  */
 const answerJoinGoodAt = resolve => require(['../../../component/answer/join/good_at.vue'], resolve);
 module.exports = {
-    path: '/answer/join/good/at',
+    path: vueRoutesBaseUrl+'/answer/join/good/at',
     component: answerJoinGoodAt,
 
 }

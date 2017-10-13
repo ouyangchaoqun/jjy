@@ -3,7 +3,7 @@
  */
 const answerJoinQualification = resolve => require(['../../../component/answer/join/qualification.vue'], resolve);
 module.exports = {
-    path: '/answer/join/qualification',
+    path:vueRoutesBaseUrl+ '/answer/join/qualification',
     component: answerJoinQualification,
 
 }

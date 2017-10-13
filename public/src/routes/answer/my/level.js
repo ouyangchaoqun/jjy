@@ -3,7 +3,7 @@
  */
 const level = resolve => require(['../../../component/answer/my/level.vue'], resolve)
 module.exports = {
-    path: '/answer/my/level',
+    path: vueRoutesBaseUrl+'/answer/my/level',
     component: level,
 
 }

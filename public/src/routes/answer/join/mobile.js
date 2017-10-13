@@ -3,7 +3,7 @@
  */
 const answerJoinMobile = resolve => require(['../../../component/answer/join/mobile.vue'], resolve);
 module.exports = {
-    path: '/answer/join/mobile',
+    path: vueRoutesBaseUrl+'/answer/join/mobile',
     component: answerJoinMobile,
 
 }

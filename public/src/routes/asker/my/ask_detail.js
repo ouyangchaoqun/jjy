@@ -3,7 +3,7 @@
  */
 const myAskDetail= resolve => require(['../../../component/asker/my/ask_detail.vue'], resolve)
 module.exports = {
-    path: '/asker/my/ask/detail',
+    path: vueRoutesBaseUrl+'/asker/my/ask/detail',
     component: myAskDetail,
 
 }

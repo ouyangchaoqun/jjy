@@ -3,7 +3,7 @@
  */
 const answerMessage = resolve => require(['../../../component/answer/my/message.vue'], resolve)
 module.exports = {
-    path: '/answer/my/message',
+    path: vueRoutesBaseUrl+'/answer/my/message',
     component: answerMessage,
 
 }

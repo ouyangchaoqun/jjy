@@ -3,7 +3,7 @@
  */
 const answerList = resolve => require(['../../component/answer/list.vue'], resolve)
 module.exports = {
-    path: '/answer/list',
+    path: vueRoutesBaseUrl+'/answer/list',
     component: answerList
 
 }

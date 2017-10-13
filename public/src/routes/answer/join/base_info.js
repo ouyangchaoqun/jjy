@@ -3,7 +3,7 @@
  */
 const answerJoinBaseInfo = resolve => require(['../../../component/answer/join/base_info.vue'], resolve);
 module.exports = {
-    path: '/answer/join/base/info',
+    path: vueRoutesBaseUrl+'/answer/join/base/info',
     component: answerJoinBaseInfo,
 
 }

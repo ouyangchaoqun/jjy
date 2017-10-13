@@ -3,7 +3,7 @@
  */
 const answerJoinTraining = resolve => require(['../../../component/answer/join/training.vue'], resolve);
 module.exports = {
-    path: '/answer/join/training',
+    path: vueRoutesBaseUrl+'/answer/join/training',
     component: answerJoinTraining,
 
 }

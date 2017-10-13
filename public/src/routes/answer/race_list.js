@@ -3,7 +3,7 @@
  */
 const raceList = resolve => require(['../../component/answer/race_list.vue'], resolve)
 module.exports = {
-    path: '/answer/race/list',
+    path: vueRoutesBaseUrl+'/answer/race/list',
     component: raceList,
 
 }

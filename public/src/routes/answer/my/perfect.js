@@ -3,7 +3,7 @@
  */
 const perfect = resolve => require(['../../../component/answer/my/perfect.vue'], resolve)
 module.exports = {
-    path: '/answer/my/perfect',
+    path: vueRoutesBaseUrl+'/answer/my/perfect',
     component: perfect,
 
 }

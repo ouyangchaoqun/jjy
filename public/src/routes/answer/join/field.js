@@ -3,7 +3,7 @@
  */
 const answerJoinField= resolve => require(['../../../component/answer/join/field.vue'], resolve);
 module.exports = {
-    path: '/answer/join/field',
+    path: vueRoutesBaseUrl+'/answer/join/field',
     component: answerJoinField,
 
 }

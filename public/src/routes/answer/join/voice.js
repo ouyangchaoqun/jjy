@@ -3,7 +3,7 @@
  */
 const answerJoinVoice = resolve => require(['../../../component/answer/join/voice.vue'], resolve);
 module.exports = {
-    path: '/answer/join/voice',
+    path: vueRoutesBaseUrl+'/answer/join/voice',
     component: answerJoinVoice,
 
 }

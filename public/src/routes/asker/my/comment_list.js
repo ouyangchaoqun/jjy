@@ -3,7 +3,7 @@
  */
 const askerMyCommentList = resolve => require(['../../../component/asker/my/comment_list.vue'], resolve)
 module.exports = {
-    path: '/asker/my/comment/list',
+    path: vueRoutesBaseUrl+'/asker/my/comment/list',
     component: askerMyCommentList,
 
 }
