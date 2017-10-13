@@ -324,8 +324,11 @@
 
         },
         beforeDestroy:function () {
-            console.log("this.localId:")
-            xqzs.wx.voice.pausePlay(this.localId);
+            console.log("this.localId2:")
+            wx.stopVoice({
+                localId: this.localId // 需要停止的音频的本地ID，由stopRecord接口获得
+            });
+
             xqzs.voice.pause();
         }
     }
