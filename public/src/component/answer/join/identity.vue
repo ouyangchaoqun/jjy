@@ -2,6 +2,7 @@
     <div style="height: 100%" class="wbg answer_join_price_box">
 
         <div v-title>入驻心理咨询师</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./field" :canGoNext="canGoNext"title="请拍摄身份证正反面，该信息仅用于心情加油站身份验证" errorWord="请上传身份认证"></v-answer-top-step>
         <div class="identity_tabs">
             <div class="identity_tabs_active">身份证</div>
@@ -29,6 +30,7 @@
 
     import answerTopStep from "./include/top_step.vue";
 
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
@@ -113,6 +115,7 @@
             }
         },
         components: {
+            'v-showLoad': showLoad,
             "v-answer-top-step": answerTopStep
         }
 
