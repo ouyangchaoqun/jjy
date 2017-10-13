@@ -29,7 +29,7 @@
     web.BASE_PATH2="<?=env("BASE_PATH")?>";
     web.BASE_PATH="<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH2+"api/";
-    web.IMG_PATH="/dist/";
+    web.IMG_PATH="/comeon/dist/";
     var now_week= "<?=date("W")?>";
     <?php
     if(!empty($guest)){echo "web.guest=true;";}
