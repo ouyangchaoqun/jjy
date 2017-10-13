@@ -532,6 +532,9 @@
             beforeDestroy:function () {
                 xqzs.voice.pause();
             },
+        },
+        beforeDestroy:function () {
+            xqzs.voice.pause();
         }
 
 
