@@ -32,6 +32,7 @@
                 price:"1.00",
                 freeTime:null,
                 freeTimeText:'',
+                isSubmitting:false,
                 times:[{
                     label: '不免费',
                     value: 0
@@ -66,9 +67,14 @@
             }
             let price = cookie.get("price");
             if(price)this.price= price;
-
+            let _this =this;
             $('#subBtn').click(function () {
-                console.log('sub')
+                if(_this.isSubmitting){
+                    return;
+                }
+                _this.isSubmitting=true;
+
+                console.log('sub');
                 let that=this;
                 let data={
                     userId:"_userId_",
@@ -80,10 +86,12 @@
                     questionClassId:cookie.get("questionClassId").split(','),
                     jobTitle:unescape(cookie.get("jobTitle")),
                     certificateNo:unescape(cookie.get("certificateNo")),
-                    certificateFile:cookie.get("certificateFile"),
+                    certificateFile:unescape(cookie.get("certificateFile")),
                     introduction:unescape(cookie.get("introduction")),
                     experience:unescape(cookie.get("experience")),
-                    goodat:unescape(cookie.get("goodAt"))
+                    goodat:unescape(cookie.get("goodAt")),
+                    identityNo:unescape(cookie.get("identityNo")),
+                    cardImage:[unescape(cookie.get("identityFile1")),unescape(cookie.get("identityFile2"))]
 
                 };
                 $.ajax({
@@ -92,7 +100,8 @@
                     type: 'PUT',
                     success: function( bt ) {
                         if (bt.data && bt.data.status == 1) {
-                            this.$router.push("./reviewing")
+                            _this.isSubmitting=false;
+                            _this.$router.push("../reviewing")
                         }
                     }
                 });
