@@ -325,8 +325,7 @@
         },
         beforeDestroy:function () {
             console.log("this.localId:")
-            console.log(this.localId)
-          if(this.localId!=null)  xqzs.wx.voice.pausePlay(this.localId);
+            xqzs.wx.voice.pausePlay(this.localId);
             xqzs.voice.pause();
         }
     }
