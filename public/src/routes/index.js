@@ -3,7 +3,7 @@
  */
 const index = resolve => require(['../component/index.vue'], resolve)
 module.exports = {
-    path: '',
+    path: 'comeon',
     component: index,
 
 }
