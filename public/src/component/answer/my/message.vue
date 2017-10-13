@@ -325,11 +325,9 @@
         },
         beforeDestroy:function () {
             console.log("this.localId2:")
-            wx.stopVoice({
-                localId: this.localId // 需要停止的音频的本地ID，由stopRecord接口获得
-            });
-
+            $(".audio_btn").click();
             xqzs.voice.pause();
+            this.stop()
         }
     }
 </script>
