@@ -84,7 +84,7 @@
                         _this.identityFile2 = json.data.path;
                         cookie.set("identityFile2",escape(_this.identityFile2))
                     }
-                    this.check();
+                    _this.check();
 
                  },function (e) {
                     console.info(e);
