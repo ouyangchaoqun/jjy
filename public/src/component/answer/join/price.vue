@@ -2,7 +2,7 @@
     <div style="height: 100%" class="wbg answer_join_price_box">
 
         <div v-title>入驻心理咨询师</div>
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <v-answer-top-step step="10"  preUrl="./voice" nextUrl="" title="设置咨询者向我提问需要支付的酬金"></v-answer-top-step>
 
         <div class="set_price">
@@ -25,11 +25,13 @@
 
     import answerTopStep from "./include/top_step.vue";
 
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
                 prices:["1.00","2.00","3.00","5.00","10.00","15.00","20.00","30.00","50.00"],
                 price:"1.00",
+                showLoad:false,
                 freeTime:null,
                 freeTimeText:'',
                 isSubmitting:false,
@@ -73,7 +75,7 @@
                     return;
                 }
                 _this.isSubmitting=true;
-
+                _this.showLoad=true;
                 console.log('sub');
                 let that=this;
                 let data={
@@ -99,8 +101,10 @@
                     data:data,
                     type: 'PUT',
                     success: function( bt ) {
+                        _this.showLoad=false;
                         if ( bt.status === 1) {
                             _this.isSubmitting=false;
+
                             _this.$router.push("./reviewing")
                         }
                     }
@@ -178,6 +182,7 @@
             }
         },
         components: {
+            'v-showLoad': showLoad,
             "v-answer-top-step": answerTopStep
         }
 
