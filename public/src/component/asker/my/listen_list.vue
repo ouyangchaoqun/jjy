@@ -3,7 +3,12 @@
 
         <div v-title>我的偷听</div>
         <div class="nothing listen" v-if="list.length==0">
-            没有任何偷听
+            <img src="../../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>您还没有偷听</p>
+                在偷听页面可以点击播放按钮进行偷听
+                <div>去偷听</div>
+            </div>
         </div>
 
         <v-showLoad v-if="showLoad"></v-showLoad>
@@ -219,7 +224,6 @@
 <style>
     .asker_my_listen_list_box .questCount{height:2.588235rem;text-align: center;background: #F4F4F7;font-size: 0.88235rem;line-height: 2.588235rem;color:#999;}
     .asker_my_listen_list_box .item{ border-bottom: 1px solid #eee; padding-bottom: 0.85rem;}
-    .asker_my_listen_list_box .nothing.listen{ background: url(../../../images/asker/nothing_listen.png) no-repeat center top; background-size: 4.5rem; }
     .asker_my_listen_list_box .question{ padding: 0.88235rem;display: flex;display: -webkit-box;display: -webkit-flex;}
     .asker_my_listen_list_box .question .img{border-radius: 50%; width:2rem; height: 2rem;display: block; margin-right:0.8235294117647059rem;}
     .asker_my_listen_list_box .question .title{ font-size: 0.88235rem; color:#333 }

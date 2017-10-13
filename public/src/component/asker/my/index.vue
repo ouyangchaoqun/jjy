@@ -113,8 +113,8 @@
     }
 </script>
 <style>
-    .asker_my_index_box .top{ height:  3.529411764705882rem; line-height:  3.529411764705882rem; font-size: 1.058823529411765rem; background: #fff; padding:0.8823529411764706rem;}
-    .asker_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem; border-radius: 50%;  margin-right: 0.98rem;}
+    .asker_my_index_box .top{ height:  3.176471rem; line-height:  3.176471rem;color:#fff; font-size: 1.058823529411765rem; background:url("../../../images/asker/topBackground.png") no-repeat; padding:0.8823529411764706rem;background-size: 100% 100%;}
+    .asker_my_index_box .top img{ display: block; float:left; width:3.176471rem; height: 3.176471rem; border-radius: 50%;  margin-right: 0.735rem;}
 
     .asker_my_index_box .main a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem; background: #fff;
      color:#333; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; }

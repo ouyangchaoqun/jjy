@@ -3,7 +3,12 @@
 
         <div v-title>我的收听</div>
         <div class="nothing answer" v-if="list.length==0" >
-            没有任何收听
+            <img src="../../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>您还没有任何收听</p>
+                在问页面可以点击收听按钮进行收听
+                <div>去收听</div>
+            </div>
         </div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
@@ -138,7 +143,6 @@
     }
 </script>
 <style>
-    .asker_my_answer_list_box .nothing.answer{ background: url(../../../images/asker/nothing_answer.png) no-repeat center top; background-size: 5.205882352941176rem; }
     .asker_my_answer_list_box  .answer_list .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; }
     .asker_my_answer_list_box  .answer_list .title{ width: 16rem; color:#666; font-size: 0.7647058823529412rem;}
     .asker_my_answer_list_box .answer_list .address{ color:#999}
