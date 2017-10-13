@@ -4,8 +4,8 @@
         <div v-title>心情指数</div>
 
         <div style="height: 500px;" class="diididdid">
-            <router-link to="/asker/listen">用户</router-link>
-            <router-link to="/answer/race/list">咨询师</router-link>
+            <router-link to="/comeon/asker/listen">用户</router-link>
+            <router-link to="/comeon/answer/race/list">咨询师</router-link>
 
 
 
@@ -15,7 +15,6 @@
 </template>
 
 <script type="es6">
-    import Bus from '../js/bus.js';
 
 
     export default {
