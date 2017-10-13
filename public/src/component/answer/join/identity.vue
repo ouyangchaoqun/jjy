@@ -5,27 +5,19 @@
         <v-answer-top-step step="2"  preUrl="./base/info" nextUrl="./field" title="请拍摄身份证正反面，该信息仅用于心情加油站身份验证" errorWord="请上传身份认证"></v-answer-top-step>
         <div class="identity_tabs">
             <div class="identity_tabs_active">身份证</div>
-            <div>护照</div>
+
         </div>
         <div class="identity_content">
             <div class="content_active">
                 <div class="content_list1">
-                    身份证 <span>*</span><input type="text">
+                    身份证 <span>*</span><input type="text" class="identityNo"@keyup="changeidentityNo()" pattern="[0-9a-zA-Z]*" >
                 </div>
                 <div class="content_list2">
-                    <img src="../../../images/positive.png" alt="">
-                    <img src="../../../images/negative.png" alt="">
+                    <img src="../../../images/positive.png" alt="" @click="upload(1)">
+                    <img src="../../../images/negative.png" alt="" @click="upload(2)">
                 </div>
             </div>
-            <div>
-                <div class="content_list1">
-                    护照 <span>*</span><input type="text">
-                </div>
-                <div class="content_list2">
-                    <img src="../../../images/positive.png" alt="">
-                    <img src="../../../images/negative.png" alt="">
-                </div>
-            </div>
+
         </div>
 
 
@@ -40,20 +32,83 @@
     export default {
         data() {
             return {
+                identityFile1:'',
+                identityFile2:'',
+                alioss:null,
+                uploadpicinfo:null,
             }
         },
 
         mounted: function () {
-            $('.identity_tabs div').click(function () {
-                $('.identity_tabs div').removeClass('identity_tabs_active')
-                $('.identity_content>div').removeClass('content_active')
-                $(this).addClass('identity_tabs_active')
-                $('.identity_content>div').eq($(this).index()).addClass('content_active')
-            })
+            xqzs.wx.setConfig(this);
+            this.uploadpicinfo = {
+                token: xqzs.string.guid(),
+                smallpic: xqzs.constant.PIC_SMALL,
+                middlepic: xqzs.constant.PIC_MIDDLE,
+                removepicurl: web.BASE_PATH + 'api/removepicture',
+                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+            };
+            this.alioss = new aliyunoss({
+                url:this.uploadpicinfo.aliossgeturl,
+                token:this.uploadpicinfo.token
+            });
+
+
+            let identityFile1= cookie.get("identityFile1")
+            if(identityFile1&&identityFile1!=''){
+                this.identityFile1= unescape(identityFile1);
+            }
+
+            let identityFile2= cookie.get("identityFile2")
+            if(identityFile2&&identityFile2!=''){
+                this.identityFile2= unescape(identityFile2);
+            }
+            this.check()
 
         } ,
         methods:  {
+            upload:function (v) {
+                let _this=this;
+                xqzs.wx.takePhotos(['camera','album'],1,_this.uploadpicinfo,_this.alioss,function (filecount) {
+                    _this.showLoad=true;
 
+                },function (json,ix) {
+                    _this.showLoad=false;
+                    if(v==1){
+                        _this.identityFile1 = json.data.path;
+                        cookie.set("identityFile1",escape(_this.identityFile1))
+                    }else{
+                        _this.identityFile2 = json.data.path;
+                        cookie.set("identityFile2",escape(_this.identityFile2))
+                    }
+
+                 },function (e) {
+                    console.info(e);
+                })
+            },
+            changeidentityNo:function (v) {
+                let identityNo = $(".identityNo").val();
+
+                if(identityNo!=''){
+                    cookie.set("identityNo",escape(identityNo))
+                }else{
+                    cookie.set("identityNo",'')
+                }
+
+                this.check()
+            },
+            check:function () {
+                let identityNo= cookie.get("identityNo");
+                let identityFile1 =(cookie.get("identityFile1"));
+                let identityFile2 =(cookie.get("identityFile2"));
+
+                if(identityFile1&&identityFile1!=''&&identityFile2&&identityFile2!=''&&identityNo&&identityNo!=''){
+                    this.canGoNext=true;
+                }else{
+                    this.canGoNext=false;
+                }
+            }
         },
         components: {
             "v-answer-top-step": answerTopStep
