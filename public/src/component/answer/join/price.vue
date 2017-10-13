@@ -102,6 +102,7 @@
                     type: 'PUT',
                     success: function( bt ) {
                         _this.showLoad=false;
+                        console.log(bt)
                         if ( bt.status === 1) {
                             _this.isSubmitting=false;
 
