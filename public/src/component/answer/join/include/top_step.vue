@@ -9,7 +9,7 @@
         <div class="btn_box">
             <router-link replace :to="preUrl" v-if="preUrl!=''">上一项</router-link>
             <a   class="nextBtn"   @click="goNext()" v-if="nextUrl!=''">下一项</a>
-            <a id="subBtn"  v-if="nextUrl==''&&step!=1" @click="submit()">提交审核</a>
+            <a id="subBtn"  v-if="nextUrl==''&&step!=1" >提交审核</a>
         </div>
     </div>
 </template>
