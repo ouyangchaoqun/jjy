@@ -101,7 +101,7 @@
                     success: function( bt ) {
                         if (bt.data && bt.data.status == 1) {
                             _this.isSubmitting=false;
-                            _this.$router.push("../reviewing")
+                            _this.$router.push("./reviewing")
                         }
                     }
                 });
