@@ -767,13 +767,13 @@
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
        background: url("../../images/asker/listenin1.png") no-repeat;
-       background-size: 1.05rem;
+       background-size: 0.936rem;
        padding-left: 0.8rem;
        background-position: 0.9rem 0.294rem;
    }
     .answer_detail_box .care_img_.icon2{
          background: url("../../images/asker/zan_por1.png") no-repeat;
-        background-size: 1.05rem;
+        background-size: 0.936rem;
          background-position: 0.9rem 0;
     }
     .answer_detail_box .care_img_{
