@@ -2,9 +2,25 @@
     <div class="setAnswer_box">
         <div class="setItem">
             <div>
-                <div>设置向我提问的价格：<input type="text" placeholder="￥1.00" v-model="price" @input="getPrice()"/></div>
-                <div @click="showTimePicker()">设置限时免费听：<input id="timePic" type="text" v-model="label"></div>
+                <div class="set_price">
+                    <div class="til">设置提问酬金：</div>
+                    <div class="select" ><input type="" class="priceInput" @input="getPrice()" :value="'￥'+formatPrice(expert.price)"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="set_price mt_mb" @click="showTimePicker()" >
+                    <div class="til">设置限时免费：</div>
+                    <div class="select" ><input type="" readonly   :value="label"></div>
+                    <div class="clear"></div>
+                </div>
+
             </div>
+
+
+            <div class="btn_box">
+
+                <a id="subBtn" @click="submit()" >提交审核</a>
+            </div>
+
 
             <div class="setItem_bottom" @click="showMask()">
                 <span>
@@ -37,64 +53,73 @@
             return {
                 label:'',
                 myask_mask_flag:false,
-                price:10
+                expert:{ },
+                keyValue:[{
+                    label: '不免费',
+                    value: 0
+                }, {
+                    label: '30分钟',
+                    value: 30
+                }, {
+                    label: '1小时',
+                    value: 60
+                },{
+                    label: '2小时',
+                    value: 120
+                }, {
+                    label: '3小时',
+                    value: 180
+                },{
+                    label: '4小时',
+                    value: 240
+                }]
             }
         },
-
-
         mounted: function () {
-
+            this.getExpertByUserId();
             $("#timePic").focus(function(){
                 document.activeElement.blur();
             });
         },
         methods:{
+            formatPrice:function (v) {
+              return xqzs.string.formatPrice(v)
+            },
             showTimePicker:function () {
                 let _this = this;
-                weui.picker([{
-                    label: '不免费',
-                    value: 0
-                }, {
-                    label: '30分钟',
-                    value: 1
-                }, {
-                    label: '1小时',
-                    value: 2
-                },{
-                    label: '2小时',
-                    disabled: true,
-                    value: 3
-                }, {
-                    label: '3小时',
-                    value: 4
-                },{
-                    label: '4小时',
-                    value: 4
-                }], {
+                let defaultValue= _this.expert.freeTime;
+                weui.picker(_this.keyValue, {
+                    defaultValue: defaultValue,
                     onChange: function (result) {
-                        console.log(result);
+
                     },
                     onConfirm: function (result) {
+                        console.log(result);
                         _this.label = result[0].label;
-                        let expertId = cookie.get('expertId');
-                        let pri  = _this.price;
-                        let time = result[0].value;
-                        let msg = {
-                            expertId:expertId,
-                            userId:'',
-                            price:pri,
-                            freeTime:time
-                        };
-                        _this.$http.post(web.API_PATH + 'come/expert/answerset', msg,{emulateJSON: true})
-                            .then(
-                                (response) => {
-                                    console.log('success')
-                                    xqzs.weui.toast("success", "修改成功", function () {
-                                        _this.$router.go(-1)
-                                    })
-                                });
+                        _this.expert.freeTime = result[0].value;
+
+
                     }
                 });
+            },
+            submit:function () {
+                let _this=this;
+                let expertId = cookie.get('expertId');
+
+                let msg = {
+                    expertId:expertId,
+                    userId:'',
+                    price: _this.expert.price,
+                    freeTime: _this.expert.freeTime
+                };
+                _this.$http.post(web.API_PATH + 'come/expert/answerset', msg,{emulateJSON: true})
+                    .then(
+                        (response) => {
+                            console.log('success')
+                            xqzs.weui.toast("success", "修改成功", function () {
+                                _this.$router.go(-1)
+                            })
+                        });
             },
             showMask:function () {
                 this.myask_mask_flag = true
@@ -103,8 +128,25 @@
                 this.myask_mask_flag = false
             },
             getPrice:function () {
-                console.log(this.price)
-            }
+                this.expert.price=$(".priceInput").val().replace("￥","");
+            },
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1&&data.body.data!=null) {
+                        _this.expert = data.data.data;
+                        for(let i =0  ;i< _this.keyValue.length;i++){
+                            if(_this.keyValue[i].value== _this.expert.freeTime){
+                                _this.label=_this.keyValue[i].label;
+                                break;
+
+                            }
+                        }
+
+                    }
+                }, function (error) {
+                });
+            },
         }
 
 
@@ -115,34 +157,7 @@
         background: #fff;
         position: relative;
     }
-    .setItem{
-        width:100%;
-        text-align: right;
-        position: absolute;
-        top:40%;
-        color: #333;
-        font-size: 0.88235rem;
-        line-height: 1;
-        right:0;
-    }
-    .setItem input{
-        outline: none;
-        border:1px solid #B3B3B3;
-        width:9rem;
-        height:1.88235rem;
-        border-radius: 5px;
-        text-align: center;
-        margin-left:0.88235rem;
-        color:rgba(253,114,6,1);
-    }
 
-    .setItem>div:nth-of-type(1){
-        margin-bottom: 2.1rem;
-        padding-right: 2.29411rem;
-    }
-    .setItem>div:nth-of-type(1)>div:nth-of-type(1){
-        margin-bottom: 2.3529411rem;
-    }
     .setItem .setItem_bottom{
         text-align: center;
         font-size: 0.70588235rem;
@@ -161,5 +176,17 @@
         position: relative;
         padding-left: 1.176471rem;
     }
+    .set_price{ width: 66%; margin: 0rem auto; margin-top: 48% }
+    .set_price .til,  .set_price .select{ float:left; line-height: 2rem; text-align: center; color:#333; font-size: 0.88235rem;}
+    .set_price .select input{ width: 6rem;font-size: 1.2rem; line-height: 2rem;;color: #ffaa00; text-align: center}
+    .set_price .select{ margin-left: 0.6rem; width:50%;color: #ffaa00; font-size: 1.2rem; line-height: 2rem;; border-radius: 0.3rem; border: 1px solid #B3B3B3
+    }
+    .set_price.mt_mb{ margin-top: 30px; margin-bottom: 30px;}
 
+    .btn_box{width:100%;position: absolute;bottom:1.471rem;display: flex;display: -webkit-flex;text-align: center;line-height: 2.35rem}
+    .btn_box a{flex: 1;border:1px solid rgba(253,115,1,1);margin:0 0.88235rem;border-radius: 1.176471rem;color:rgba(253,115,1,1);background: #fff;}
+    .btn_box a:last-of-type{color:#fff;background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1))}
+    .btn_box a:active{
+        color:#fff;background:linear-gradient(to right, rgb(217, 128, 25), rgb(220, 107, 6))
+    }
 </style>
