@@ -6,7 +6,7 @@
                 <div class="top" @click="goPerfect()">
                         <img class="img" :src="expert.faceUrl">
                         <div class="name">
-                            {{user.nickName}}
+                            {{expert.nickName}}
                         </div>
                         <div class="perfect" >完善资料</div>
                         <div class="clear"></div>
@@ -51,7 +51,6 @@
             var obj =  $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);
 
-            this.getUser();
             this.getExpertByUserId();
             this.getIncome();
             xqzs.wx.setConfig(this)
@@ -86,23 +85,8 @@
                     }
                 }, function (error) {
                 });
-            },
-            getUser:function () {
-                let _this=this;
-                _this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-                }).then(function (data) {//es5写法
-                    if (data.data.data !== null) {
-                        _this.user = eval(data.data.data);
-
-
-                    }
-                }, function (error) {
-                    //error
-                });
             }
+
         }
 
 

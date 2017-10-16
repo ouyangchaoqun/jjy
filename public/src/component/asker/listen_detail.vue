@@ -51,7 +51,7 @@
                     <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div><img src="../../images/asker/zan_nor.png" alt="">  <span>{{item.likeTimes}}</span></div>
+                    <div @click="like(index)"><div class="img_care " :class="{cared_img:item.isCared}"></div>   <span>{{item.likeTimes}}</span></div>
                     <div>听过  <span>{{item.listenTimes}}</span></div>
                 </div>
                 <div class="steal_expert_info">
@@ -90,6 +90,22 @@
             'v-showLoad': showLoad
         },
         methods:{
+            like:function (index) {
+                let  item = this.detail.answerList[index];
+                if(item.isCared){
+                    xqzs.weui.tip("已经点赞");
+                    return ;
+                }
+                let _this=this;
+                this.$http.put(web.API_PATH + "come/user/like/answer/_userId_/"+item.answerId, {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            item.isCared=1;
+                            item.likeTimes=item.likeTimes+1;
+                            _this.$set(_this.detail.answerList,index,item);
+                        }
+                    });
+            },
 
             pay:function (index) {
                 console.log(index)
@@ -249,6 +265,15 @@
 
 </script>
 <style>
+    .img_care{
+        display:inline-block;
+        background: url(../../images/asker/zan_nor.png) no-repeat; width: 0.941176471rem;; height: 0.941176471rem;;  float:left!important; background-size: 0.941176471rem; margin-right: 0.3rem;
+    }
+    .img_care.cared_img{
+        background: url(../../images/asker/zan_por1.png) no-repeat; background-size: 0.941176471rem;
+
+    }
+
     .position_change_detail{
         color:#fff;
         position: absolute;
@@ -330,10 +355,7 @@
     .steal_answer_zan div{
         float: right;
     }
-    .steal_answer_zan img{
-        display: inline-block;
-        width:0.941176471rem;
-    }
+
     .steal_answer_zan div:nth-of-type(2){
         margin-right:1.235rem;
     }

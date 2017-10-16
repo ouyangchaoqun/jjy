@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
-                                    <div>回复{{item.answerCount}}</div>
+                                    <div>{{item.answerCount}}个回答</div>
                                     <div class="my_problem_money">￥{{formatPrice(item.price)}}</div>
                                 </div>
                             </a>

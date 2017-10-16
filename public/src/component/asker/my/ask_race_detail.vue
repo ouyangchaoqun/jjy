@@ -8,8 +8,13 @@
             <div class="problem_detail_content">
                 {{detail.question}}
             </div>
+
+            <!--const QUESTION_CONTINUE = 0;//问题还在进行-->
+            <!--const QUESTION_FINISH = 1;//问题结束有最佳答案-->
+            <!--const QUESTION_FINISH_NOT_BEST = 2;//问题结束但是没有最佳答案-->
+            <!--const QUESTION_NOT_PAY = 3;//问题还未支付-->
             <!--超时未解答-->
-            <div class="rob_status_box" v-if="detail.questionStatus==2">
+            <div class="rob_status_box" v-if="detail.questionStatus==2&&detail.answerCount==0">
                 <div>未解答</div>
                 <div>48小时内无人抢答，赏金已全额退还</div>
             </div>
@@ -18,7 +23,7 @@
                 <div>还{{formatTimeLastText(detail.endTime)}}</div>
                 <div>已有{{detail.answerCount}}人抢答，可以选择一个最佳答案，其答主将获得全部赏金，且该回答将产生偷偷听收入</div>
             </div>
-            <div class="rob_status_box" v-if="detail.questionStatus==2">
+            <div class="rob_status_box" v-if="detail.questionStatus==2&&detail.answerCount!=0">
                 <div>已解答</div>
                 <div>共有{{detail.answerCount}}人抢答，抢答者平分赏金。</div>
             </div>
@@ -27,7 +32,7 @@
                 <div>共有{{detail.answerCount}}人抢答，{{bestAnswer.expertNickName}}的回答被选为最佳回答。。</div>
             </div>
             <ul class="rob_lists">
-                <li v-for="item in detail.answers">
+                <li v-for="(item,index) in detail.answers">
                     <div class="rob_box_top">
                         <img :src="item.expertFaceUrl" alt="">
                         <div>{{item.expertNickName}}</div>
@@ -53,7 +58,7 @@
                         <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                         <div class="problem_answer_zan">
                             <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
-                            <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
+                            <div @click="like(index)" ><span class="care_img_"   :class="{icon2:item.isCared}"></span><span>{{item.likeTimes}}</span></div>
                         </div>
                     </div>
                 </li>
@@ -101,6 +106,22 @@
 
         },
         methods: {
+            like:function (index) {
+                let  item = this.detail.answers[index];
+                if(item.isCared){
+                    xqzs.weui.tip("已经点赞");
+                    return ;
+                }
+                let _this=this;
+                this.$http.put(web.API_PATH + "come/user/like/answer/_userId_/"+item.answerId, {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            item.isCared=1;
+                            item.likeTimes=item.likeTimes+1;
+                            _this.$set(_this.detail.answers,index,item);
+                        }
+                    });
+            },
             setBestAnswerId:function () {
                 //post /api/v1/come/user/set/question/best/answer
 

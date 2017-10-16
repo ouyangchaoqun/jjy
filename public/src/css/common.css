@@ -636,6 +636,15 @@ a{
     background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)) !important;
 }
 
-
-
-
+.care_img_.icon2{
+    background: url("../images/asker/zan_por1.png") no-repeat;
+    background-size:0.94117647058823529411764705882353rem;
+}
+.care_img_{
+    float: left;
+    display: inline-block;
+    background: url("../images/asker/zan_nor.png") no-repeat;
+    background-size: 0.94117647058823529411764705882353rem;
+    height:0.91176470588235294117647058823529rem;
+    width: 0.94117647058823529411764705882353rem;
+}

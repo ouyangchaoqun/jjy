@@ -183,7 +183,8 @@
                         voiceLength:_this.voiceLength,
                         expertId:cookie.get("expertId"),
                         userId:"_userId_"
-                    }
+                    };
+                    console.log(data);
                     _this.$http.put(web.API_PATH + "come/expert/answer/"+_this.questionId, data)
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {

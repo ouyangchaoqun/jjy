@@ -145,8 +145,9 @@
 
                                 <div class="status">
                                     <div class="ask_time">{{formatTime(item.queAddTime)}}</div>
-                                    <div class="ask_status">听过 {{item.listenTimes}}
-                                        <div class="icon2"><span>{{item.likeTimes}}</span></div>
+                                    <div class="ask_status">
+                                        听过 {{item.listenTimes}}
+                                        <div class="care_img_"  @click="like(index)" :class="{icon2:item.isCared}"><span>{{item.likeTimes}}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +220,22 @@
             xqzs.voice.audio=null;
         },
         methods:{
-
+            like:function (index) {
+                let  item = this.answerList[index];
+                if(item.isCared){
+                    xqzs.weui.tip("已经点赞");
+                    return ;
+                }
+                let _this=this;
+                this.$http.put(web.API_PATH + "come/user/like/answer/_userId_/"+item.answerId, {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            item.isCared=1;
+                            item.likeTimes=item.likeTimes+1;
+                            _this.$set(_this.answerList,index,item);
+                        }
+                    });
+            },
             pay:function (index) {
                 let  item = this.answerList[index];
                 let _this=this;
@@ -755,13 +771,19 @@
        padding-left: 0.8rem;
        background-position: 0.9rem 0.294rem;
    }
-    .answer_detail_box .icon2{
+    .answer_detail_box .care_img_.icon2{
+         background: url("../../images/asker/zan_por1.png") no-repeat;
+        background-size: 1.05rem;
+         background-position: 0.9rem 0;
+    }
+    .answer_detail_box .care_img_{
         float: right;
-        background: url("../../images/asker/zan_por1.png") no-repeat;
+        background: url("../../images/asker/zan_nor.png") no-repeat;
         background-size: 1.05rem;
         padding-left: 2rem;
         background-position: 0.9rem 0;
     }
+
     .answer_detail_box .pay_ask{width: 75%;float: right; background: linear-gradient(to right, rgba(255,158,25,1), rgba(254,115,1,1));color: white;line-height: 2.588rem;height: 2.588rem}
     .friestP{overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;line-height:1.176rem;-webkit-box-orient: vertical;}
     .addopen{margin-top:1.76rem;height:auto;}
