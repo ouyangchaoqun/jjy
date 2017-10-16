@@ -731,7 +731,7 @@ var xqzs = {
             }
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url, guest: guest}}).then(function (response) {
-                // response.body.debug = true;
+                response.body.debug = true;
 
 
                 console.log(response.body)
@@ -741,6 +741,8 @@ var xqzs = {
                     if (callback && typeof (callback) == "function") {
                         callback()
                     }
+
+
                     console.log('wx.ready');
                 });
                 wx.error(function (res) {

@@ -18,7 +18,7 @@
 
 
         <div class="action_btn" v-if="detail.voiceMessageIdStatus!=0" >
-            <div class="item voice_start" >
+            <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
                 <div class="txt" style=" color:#666">重录</div>
             </div>
@@ -45,20 +45,20 @@
 
 
                 <template v-if="preAnswer">
-                    <div class="item voice_play" >
+                    <div class="item" @click="play()">
                         <div class="audio_btn_in audio_play"></div>
                         <div class="txt">试听</div>
                     </div>
-                    <div class="item voice_re_start" >
+                    <div class="item" @click="reStart()">
                         <div class="audio_btn_in audio_begin"></div>
                         <div class="txt">重录</div>
                     </div>
-                    <div class="item  voice_send">
+                    <div class="item" @click="send()">
                         <div class="audio_btn_in audio_send"></div>
                         <div class="txt">完成</div>
                     </div>
                 </template>
-                <div class="item voice_stop" v-if="answering">
+                <div class="item" v-if="answering" @click="stop()">
                     <div class="audio_btn_in audio_end"></div>
                     <div class="txt">停止</div>
                 </div>
@@ -319,12 +319,7 @@
             }, function (error) {
 
             });
-            xqzs.wx.setConfig(_this,function () {
-                console.log("voice_start")
-                $(".voice_start").click(function () {
-                    _this.start();
-                })
-            });
+            xqzs.wx.setConfig(_this);
             xqzs.voice.audio=null;
 
         },
