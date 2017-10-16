@@ -26,7 +26,7 @@
                     </li>
                     <li>
                         <div class="info_left">真实姓名</div><span>*</span>
-                        <input type="text" class="realName" :value="user.realName " placeholder="还未填写（如张三）">
+                        <input type="text" class="realName" :value="user.realName " @keyup="changeRealName()" placeholder="还未填写（如张三）">
                     </li>
                     <li>
                         <div class="info_left">性别</div><span>*</span>
@@ -88,8 +88,8 @@
                     <!--</li>-->
                 </ul>
         </div>
-        <div class="subBox">
-            <div class="submit" @click="msgSubmit()">下一项</div>
+        <div class="btn_box">
+            <a class="submit " :class="{cannotsub:canGoNext}" @click="msgSubmit()">下一项</a>
         </div>
 
     </div>
@@ -124,7 +124,8 @@
                 uploadpicinfo:null,
                 sex:1,
                 cardType:0, //身份证,
-                faceUrl:''
+                faceUrl:'',
+                canGoNext:false
             }
         },
 
@@ -151,20 +152,20 @@
         },
         methods: {
             //能否进入下一项
-            checkNext:function () {
+            checkNext:function (isTip) {
                 let _this=this;
                 let realName = $('.realName').val();
                 if( !(_this.faceUrl&&_this.faceUrl!='')){
-                    xqzs.weui.tip("请上传头像");
+                    if(isTip)  xqzs.weui.tip("请上传头像");
                     return false;
                 }else if(!(realName&&realName!='')){
-                    xqzs.weui.tip("请输入您的姓名");
+                    if(isTip)   xqzs.weui.tip("请输入您的姓名");
                     return false;
                 }else if(!(_this.birthday&&_this.birthday!='')){
-                    xqzs.weui.tip("请选择你的生日");
+                    if(isTip)   xqzs.weui.tip("请选择你的生日");
                     return false;
                 }else if(!(_this.areaId&&_this.areaId!='')){
-                    xqzs.weui.tip("请选择所在城市");
+                    if(isTip)  xqzs.weui.tip("请选择所在城市");
                     return false;
                 }
                 return true;
@@ -223,6 +224,7 @@
                         _this.cityId = _this.user.cityId;
                         _this.areaId = _this.user.areaId;
                         _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                        _this.canGoNext=_this.checkNext();
                     }
                 }, function (error) {
                     //error
@@ -241,7 +243,9 @@
             changeSex:function (v) {
                 this.sex=v;
             },
-
+            changeRealName:function () {
+                this.canGoNext=this.checkNext();
+            },
             changeCardType:function (v) {
                 this.cardType=v;
             },
@@ -330,6 +334,7 @@
 
 
                             _this.birthday = result[0].value + ',' +monthValue + ',' + result[2].value;
+                            _this.canGoNext=_this.checkNext();
                         },
                     });
 
@@ -350,6 +355,7 @@
 
 
                             _this.birthday = result[0].value + ',' + result[1].value + ',' + result[2].value;
+                            _this.canGoNext=_this.checkNext();
 
                         },
                     });
@@ -382,6 +388,7 @@
                                 _this.areaId = '';
                                 _this.areaName = '';
                             }
+                            _this.canGoNext=_this.checkNext();
 
                         },
                         id: 'cascadePicker'
@@ -397,6 +404,7 @@
                 },function (json,ix) {
                     _this.showLoad=false;
                     _this.faceUrl=json.data.path;
+                    _this.canGoNext=_this.checkNext();
 //
 //                    let data ={
 //
@@ -415,7 +423,7 @@
             },
 
             msgSubmit: function () {
-                if( !this.checkNext()){
+                if( !this.checkNext(true)){
                     return;
                 }
                 let _this = this;
@@ -464,9 +472,11 @@
     }
 </script>
 <style>
-    .answer_join_base_info_box .subBox{position: absolute;bottom:1.471rem;width:100%;}
+    .answer_join_base_info_box .btn_box{position: absolute;bottom:1.471rem;width:100%;}
     .answer_join_base_info_box .submit{height:2.588235rem;line-height: 2.588235rem;color:#fff;background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4));text-align: center;
     border-radius: 1.176471rem;margin:0 0.88235rem}
+
+    .cannotsub{    background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4)) !important; border: 1px solid #fff;}
     .answer_join_base_info_box .weui-cell__bd .img{
         width: 3.764705882352941rem; height: 3.764705882352941rem; background: #F4F4F7; color:#fff; font-size: 3.2rem; line-height: 3.2rem ; text-align: center; margin-left: 2rem
     }
