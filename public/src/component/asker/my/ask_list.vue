@@ -254,10 +254,6 @@
         margin-bottom: 0.41176471rem;
     }
 
-    .my_problem_list1:active {
-        background: #eee;
-    }
-
     .problem_header {
         display: -webkit-box;
         display: -webkit-flex;

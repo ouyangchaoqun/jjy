@@ -251,8 +251,9 @@
     }
 </script>
 <style>
-   .answer_index  .class_list{  padding:1.176rem 0.88235rem;background: #fff;padding-bottom: 0.47rem}
-   .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;margin-bottom: 12px }
+   .answer_index  .class_list{  padding:0.47rem 0.88235rem;background: #fff;}
+   .answer_index  .class_list .class_item:active{ background:#f1f1f1}
+   .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;padding: 6px 0 ; }
    .answer_index  .class_list .class_item span{}
    .answer_list .info .other{margin-bottom: 0.88235rem}
     .addClassImg{height:2.4941176471rem; width:2.4941176471rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/asker/newClass_icon.png") no-repeat;background-size: 19.6471rem;}
