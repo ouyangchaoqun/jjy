@@ -48,11 +48,11 @@
                 <div class="voice">
                     <span class="hello">您好：</span>
                     <div class="problem_answer_yy">
-                        <div class="audio" :class="{playing:detail.playing,paused:detail.paused}">
+                        <div class="audio" :class="{playing:playing2,paused:paused2}">
                             <div class="audio_btn" @click.stop="play()">
-                                <span v-if="!detail.playing&&!detail.paused">点击播放</span>
-                                <span v-if="detail.playing">正在播放..</span>
-                                <span v-if="detail.paused">播放暂停</span>
+                                <span v-if="!playing2&&!paused2">点击播放</span>
+                                <span v-if="playing2">正在播放..</span>
+                                <span v-if="paused2">播放暂停</span>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -183,10 +183,13 @@
             return {
                 detail:{
                     expertUserId:null,
-                    playing:false,
-                    paused:false
+
 
                 },
+                playing:false,
+                paused:false,
+                playing2:false,
+                paused2:false,
                 id:0,
                 viewType:0,
                 commentList:[],
@@ -360,27 +363,27 @@
                 this.initVoice();
                 let _this=this;
                 xqzs.voice.onEnded=function () {
-                    _this.detail.paused=false;
-                    _this.detail.playing=false;
+                    _this.paused2=false;
+                    _this.playing2=false;
                 };
 
-                if(_this.detail.paused){  //暂停中也就是已经获取到且为当前音频
-                    _this.detail.paused=false;
-                    _this.detail.playing=true;
+                if(_this.paused2){  //暂停中也就是已经获取到且为当前音频
+                    _this.paused2=false;
+                    _this.playing2=true;
                     xqzs.voice.play();
                     console.log("1")
                 }else{
-                    if(_this.detail.playing){    //播放中去做暂停操作
-                        _this.detail.paused=true;
-                        _this.detail.playing=false;
+                    if(_this.playing2){    //播放中去做暂停操作
+                        _this.paused2=true;
+                        _this.playing2=false;
                         xqzs.voice.pause();
-                        console.log( _this.detail.playing)
+                        console.log( _this.playing2)
                         console.log("2")
                     }else{     //重新打开播放
                         this.getVoiceUrl(_this.detail.expertId,function (url) {
                             xqzs.voice.play(url);
-                            _this.detail.playing=true;
-                            _this.detail.paused=false;
+                            _this.playing2=true;
+                            _this.paused2=false;
                             console.log("3")
                         })
                     }
