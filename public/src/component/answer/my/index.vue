@@ -1,5 +1,5 @@
 <template >
-    <div style="height: 100%" class="asker_my_index_box">
+    <div style="height: 100%" class="answer_my_index_box">
         <div v-title>我的</div>
         <div class="weui-tab__panel main">
             <div class="main">
@@ -109,12 +109,12 @@
     }
 </script>
 <style>
-    .asker_my_index_box{background: #fff}
-    .asker_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); padding:0.8823529411764706rem;border-bottom: 0.41176471rem solid #f4f4f8;}
-    .asker_my_index_box .top:active{background:#eee}
-    .asker_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem;margin-right: 0.98rem;}
-    .asker_my_index_box .top .name{color:rgba(255,255,255,1);padding-top: 0.8235rem;margin-bottom:0.52941rem}
-    .asker_my_index_box .top .perfect{color:rgba(255,255,255,1);font-size: 0.76471rem;}
+    .answer_my_index_box{background: #fff}
+    .answer_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); padding:0.8823529411764706rem;border-bottom: 0.41176471rem solid #f4f4f8;}
+    .answer_my_index_box .top:active{background:#eee}
+    .answer_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem;margin-right: 0.98rem;}
+    .answer_my_index_box .top .name{color:rgba(255,255,255,1);padding-top: 0.8235rem;margin-bottom:0.52941rem}
+    .answer_my_index_box .top .perfect{color:rgba(255,255,255,1);font-size: 0.76471rem;}
     .main_lists a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem;
         color:#333; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; background: #fff;  }
     .main_lists a:after{ background: url(../../../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;

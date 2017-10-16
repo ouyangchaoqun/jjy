@@ -135,67 +135,12 @@
                 $(this).addClass('right_active')
             })
             let _this = this;
-
-
-            this.uploadpicinfo = {
-                token: xqzs.string.guid(),
-                smallpic: xqzs.constant.PIC_SMALL,
-                middlepic: xqzs.constant.PIC_MIDDLE,
-                removepicurl: web.BASE_PATH + 'api/removepicture',
-                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
-                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
-            };
-            this.alioss = new aliyunoss({
-                url:this.uploadpicinfo.aliossgeturl,
-                token:this.uploadpicinfo.token
-            });
+            this.initOss();
             var infokey = 'perfectinfo';
             xqzs.version.showed(infokey);
-            //用户信息
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-            }).then(function (data) {//es5写法
-                if (data.data.data !== null) {
-
-                    _this.user = eval(data.data.data);
-                    _this.sex=_this.user.sex;
-                    _this.cardType=_this.user.cardType;
-
-                    _this.birthday = _this.user.birthday;
-                    if (_this.birthday) {
-                        let date = _this.birthday.split(',');
-                        _this.year = date[0];
-                        _this.month = date[1];
-                        _this.day = date[2];
-                        if( _this.user.isLunar==1||_this.user.isLunar==2){
-                            _this.isLunar=true;
-                            _this.yearN = date[0]+'年';
-                            _this.monthN =  calendar.toChinaMonth(date[1]);
-                            if(_this.user.isLunar==2) {
-                                _this.isLeapMonth=true;
-                                _this.monthN= "闰"+ _this.monthN;
-                            }
-                            _this.dayN = calendar.toChinaDay(date[2]);
-                        }
-
-                    }
-                    _this.provinceName = _this.user.provinceName;
-                    _this.cityName = _this.user.cityName;
-                    _this.areaName = _this.user.areaName;
-                    _this.provinceId = _this.user.provinceId;
-                    _this.cityId = _this.user.cityId;
-                    _this.areaId = _this.user.areaId;
-                    _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
-                }
-            }, function (error) {
-                //error
-            });
-
             this.getExpertByUserId();
             xqzs.wx.setConfig(_this);
-
+            this.getUserInfo();
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
             this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
         },
@@ -205,10 +150,88 @@
             }
         },
         methods: {
+            //能否进入下一项
+            checkNext:function () {
+                let _this=this;
+                let realName = $('.realName').val();
+                if( !(_this.faceUrl&&_this.faceUrl!='')){
+                    xqzs.weui.tip("请上传头像");
+                    return false;
+                }else if(!(_this.realName&&_this.realName!='')){
+                    xqzs.weui.tip("请输入您的姓名");
+                    return false;
+                }else if(!(_this.birthday&&_this.birthday!='')){
+                    xqzs.weui.tip("请选择你的生日");
+                    return false;
+                }else if(!(_this.areaId&&_this.areaId!='')){
+                    xqzs.weui.tip("请选择所在城市");
+                    return false;
+                }
+                return true;
+
+            },
+            initOss:function () {
+                this.uploadpicinfo = {
+                    token: xqzs.string.guid(),
+                    smallpic: xqzs.constant.PIC_SMALL,
+                    middlepic: xqzs.constant.PIC_MIDDLE,
+                    removepicurl: web.BASE_PATH + 'api/removepicture',
+                    uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                    aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+                };
+                this.alioss = new aliyunoss({
+                    url:this.uploadpicinfo.aliossgeturl,
+                    token:this.uploadpicinfo.token
+                });
+            },
+            getUserInfo:function () {
+                let _this = this;
+                //用户信息
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+
+                        _this.user = eval(data.data.data);
+                        _this.sex=_this.user.sex;
+                        _this.cardType=_this.user.cardType;
+
+                        _this.birthday = _this.user.birthday;
+                        if (_this.birthday) {
+                            let date = _this.birthday.split(',');
+                            _this.year = date[0];
+                            _this.month = date[1];
+                            _this.day = date[2];
+                            if( _this.user.isLunar==1||_this.user.isLunar==2){
+                                _this.isLunar=true;
+                                _this.yearN = date[0]+'年';
+                                _this.monthN =  calendar.toChinaMonth(date[1]);
+                                if(_this.user.isLunar==2) {
+                                    _this.isLeapMonth=true;
+                                    _this.monthN= "闰"+ _this.monthN;
+                                }
+                                _this.dayN = calendar.toChinaDay(date[2]);
+                            }
+
+                        }
+                        _this.provinceName = _this.user.provinceName;
+                        _this.cityName = _this.user.cityName;
+                        _this.areaName = _this.user.areaName;
+                        _this.provinceId = _this.user.provinceId;
+                        _this.cityId = _this.user.cityId;
+                        _this.areaId = _this.user.areaId;
+                        _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             getExpertByUserId:function () {
                 let _this=this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
-                    if (data.body.status == 1) {
+                    if (data.body.status == 1&&data.body.data!=null) {
 
                         _this.faceUrl = data.data.data.faceUrl;
                     }
@@ -374,13 +397,13 @@
                 },function (json,ix) {
                     _this.showLoad=false;
                     _this.faceUrl=json.data.path;
-
-                    let data ={
-
-                        faceUrl: _this.faceUrl,
-                        expertId:cookie.get("expertId"),
-                        userId:"_userId_"
-                    }
+//
+//                    let data ={
+//
+//                        faceUrl: _this.faceUrl,
+//                        expertId:cookie.get("expertId"),
+//                        userId:"_userId_"
+//                    }
 //                    _this.$http.post(web.API_PATH + "come/expert/modify", data)
 //                        .then(function (bt) {
 //                            if (bt.data && bt.data.status == 1) {
@@ -392,16 +415,16 @@
             },
 
             msgSubmit: function () {
+                if( !this.checkNext()){
+                    return;
+                }
                 let _this = this;
                 let nick = $('.nickName').val();
                 let realName = $('.realName').val();
                 let address = $('.address').val();
-                let idcard=  $('.idcard').val();
-                let msg = {
+                 let msg = {
                     "id": _this.user.id,
-                    "idcard":idcard,
-                    "cardType":_this.cardType,
-                    "realName": realName,
+                     "realName": realName,
                     "nickName": nick,
                     "sex": _this.sex,
                     "birthday": _this.birthday,
