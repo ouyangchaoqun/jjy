@@ -80,7 +80,7 @@
                 let that=this;
                 let data={
                     userId:"_userId_",
-                    price:cookie.get("price"),
+                    price:_this.price,
                     freeTime:cookie.get("freeTime"),
                     sign:unescape(cookie.get("sign")),
                     mediaId:cookie.get("mediaId"),
@@ -114,7 +114,7 @@
                 let price= $(".priceInput").val()
                 price=  price.replace(/[^\d\.￥]/g,'');
                 $(".priceInput").val(price)
-                cookie.set("price", price.replace('￥',''));
+                this.price=price;
 
             },
             selectFreeTime:function () {
