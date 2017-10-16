@@ -106,6 +106,9 @@
                 let identityFile1 =(cookie.get("identityFile1"));
                 let identityFile2 =(cookie.get("identityFile2"));
 
+                console.log("identityNo:"+identityNo)
+                console.log("identityFile1:"+identityFile1)
+                console.log("identityFile2:"+identityFile2)
 
                 if(identityFile1&&identityFile1!=''&&identityFile2&&identityFile2!=''&&identityNo&&identityNo!=''){
                     this.canGoNext=true;
