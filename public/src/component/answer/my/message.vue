@@ -17,14 +17,14 @@
         </div>
 
 
-        <div class="action_btn" v-if="detail.voiceMessageIdStatus!=0" >
+        <div class="action_btn" v-if="detail&&detail.voiceMessageIdStatus!=0" >
             <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
                 <div class="txt" style=" color:#666">重录</div>
             </div>
         </div>
 
-        <div class="applying" v-if="detail.voiceMessageIdStatus==0" >
+        <div class="applying" v-if="detail&&detail.voiceMessageIdStatus==0" >
              审核中..
         </div>
 
@@ -303,6 +303,16 @@
                         }
                     });
             },
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1&&data.body.data!=null) {
+                        _this.voiceLength = data.data.data.voiceLength
+
+                    }
+                }, function (error) {
+                });
+            }
 
 
         },
@@ -311,11 +321,12 @@
             let expertId= cookie.get("expertId")
             this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+expertId + "/_userId_" ).then(function (data) {//es5写法
                 if (data.body.status == 1) {
-                  _this.detail=data.body.data;
-                  _this.voiceLength= _this.detail.voiceLength
-                  if( _this.detail.voiceMessageIdStatus==0){
-                      //0 审核中  1 通过  2 未通过审核
+                  if( data.body.data!=null){
+
+                      _this.detail.voiceMessageIdStatus=data.body.data.voiceMessageIdStatus;
+
                   }
+
 
                 }
             }, function (error) {
@@ -323,6 +334,7 @@
             });
             xqzs.wx.setConfig(_this);
             xqzs.voice.audio=null;
+            this.getExpertByUserId();
 
         },
         beforeDestroy:function () {
