@@ -69,7 +69,7 @@
             }
             let identityNo= cookie.get("identityNo")
             if(identityNo&&identityNo!=''){
-                this.identityFile2= unescape(identityNo);
+                this.identityNo= unescape(identityNo);
             }
             this.check()
 
@@ -136,7 +136,7 @@
     .identity_tabs .identity_tabs_active{color:#fff;background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));border-color:rgba(253,114,6,1) }
     .content_list1{height:2.35294rem;line-height: 2.35294rem;color:#666;padding:0.88235rem 0.88235rem 1.5294rem 0.8235rem;font-size: 0.8235rem;}
     .content_list1 span{color:red;}
-    .content_list1 input{width:16rem;height:2.35294rem;background:#f4f4f7;border-radius:0.294rem;float: right}
+    .content_list1 input{width:14.6rem;height:2.35294rem;background:#f4f4f7;border-radius:0.294rem;float: right; padding: 0 0.7rem;}
     .content_list2{padding:0 0.88235rem;}
     .content_list2 img{display:block;width:9.4rem;float: left}
     .content_list2 img:nth-of-type(2){float: right}
