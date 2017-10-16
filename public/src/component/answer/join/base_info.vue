@@ -89,7 +89,7 @@
                 </ul>
         </div>
         <div class="btn_box">
-            <a class="submit " :class="{cannotsub:canGoNext}" @click="msgSubmit()">下一项</a>
+            <a class="submit " :class="{cannotsub:!canGoNext}" @click="msgSubmit()">下一项</a>
         </div>
 
     </div>
@@ -476,7 +476,7 @@
     .answer_join_base_info_box .submit{height:2.588235rem;line-height: 2.588235rem;color:#fff;background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4));text-align: center;
     border-radius: 1.176471rem;margin:0 0.88235rem}
 
-    .cannotsub{    background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4)) !important; border: 1px solid #fff;}
+    .cannotsub{    background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4)) !important; border: 1px solid #fff !important;}
     .answer_join_base_info_box .weui-cell__bd .img{
         width: 3.764705882352941rem; height: 3.764705882352941rem; background: #F4F4F7; color:#fff; font-size: 3.2rem; line-height: 3.2rem ; text-align: center; margin-left: 2rem
     }
