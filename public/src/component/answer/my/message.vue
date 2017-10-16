@@ -320,6 +320,7 @@
 
             });
             xqzs.wx.setConfig(_this,function () {
+                console.log("voice_start")
                 $(".voice_start").click(function () {
                     _this.start();
                 })
