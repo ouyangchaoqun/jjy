@@ -112,6 +112,10 @@
             this.getList();
         },
         methods: {
+            initActive:function () {
+                var obj =  $(".my_problem_list1")
+                xqzs.weui.active(obj);
+            },
             formatPrice:function (price) {
               return xqzs.string.formatPrice(price)
             },
@@ -186,6 +190,9 @@
                 this.getList();
                 done() // call done
             },
+        },
+        updated:function () {
+            this.initActive();
         }
 
 

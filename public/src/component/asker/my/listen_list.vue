@@ -82,7 +82,11 @@
 
         },
         methods:{
-            initView:function () {
+            initActive:function () {
+
+                var obj =  $(".asker_my_listen_list_box .item")
+                xqzs.weui.active(obj);
+
                 $(".good , .audio ").on("touchstart",function () {
                     event.stopPropagation();
                 })
@@ -223,9 +227,7 @@
                     }
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;
-                    vm.$nextTick(function () {
-                        vm.initView();
-                    })
+
 
                 }, (response) => {
                     vm.isLoading = false;
@@ -241,6 +243,9 @@
         beforeDestroy:function () {
             xqzs.voice.pause();
         },
+        updated:function () {
+            this.initActive()
+        }
 
 
 
@@ -250,7 +255,6 @@
 <style>
     .asker_my_listen_list_box .questCount{height:2.588235rem;text-align: center;background: #F4F4F7;font-size: 0.88235rem;line-height: 2.588235rem;color:#999;}
     .asker_my_listen_list_box .item{ border-bottom: 1px solid #eee; padding-bottom: 0.85rem;}
-    .asker_my_listen_list_box .item:active{ background: #f1f1f1}
     .asker_my_listen_list_box .question{ padding: 0.88235rem;display: flex;display: -webkit-box;display: -webkit-flex;}
     .asker_my_listen_list_box .question .img{border-radius: 50%; width:2rem; height: 2rem;display: block; margin-right:0.8235294117647059rem;}
     .asker_my_listen_list_box .question .title{ font-size: 0.88235rem; color:#333 }

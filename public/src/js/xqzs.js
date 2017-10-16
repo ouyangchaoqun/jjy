@@ -57,10 +57,13 @@ var xqzs = {
         },
         tip: function (msg, fun) {
             var html = "";
+            $("#toast").remove();
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
             var len = msg.length;
-            html += '<p class="weui-toast__content weui_tip" style="margin-left:-' + ((msg.length * 13 + 20) / 2) + 'px">' + msg + '</p></div>';
+            html += '<p class="weui-toast__content weui_tip" style="margin-left:-' + ((msg.length * 14 + 20) / 2) + 'px">' + msg + '</p></div>';
             $("body").append(html);
+            var w=$(".weui_tip").width();
+             $(".weui_tip").css({"margin-left":'-'+ (w+36)/2 +"px"})
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
                     $("#toast").remove();
@@ -68,7 +71,7 @@ var xqzs = {
                     if (typeof(fun) == "function")
                         fun();
                 });
-            }, 800);
+            },1200);
         },
         tipClose: function () {
             $("#toast").remove();

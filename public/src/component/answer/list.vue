@@ -83,6 +83,14 @@
             xqzs.voice.audio=null;
         },
         methods:{
+            initActive:function () {
+                var obj =  $(".answer_list .item")
+                xqzs.weui.active(obj);
+
+                $(".audio ").on("touchstart",function () {
+                    event.stopPropagation();
+                })
+            },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
@@ -212,6 +220,9 @@
         },
         beforeDestroy:function () {
             xqzs.voice.pause();
+        },
+        updated:function () {
+            this.initActive()
         }
 
     }
