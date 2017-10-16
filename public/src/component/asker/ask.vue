@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%" class="asker_ask_box">
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>提问</div>
         <div class="ask_type" >
             <div class="tab">选择问题类型：</div>
@@ -79,10 +79,12 @@
 <script type="es6">
 
 
+    import showLoad from '../include/showLoad.vue';
     import askerBottom from "./include/bottom.vue";
     export default {
         data() {
             return {
+                showLoad:false,
                 types:[],
                 showTypes:false,
                 showTip:false,
@@ -98,6 +100,7 @@
             }
         },
         components: {
+            'v-showLoad': showLoad,
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
@@ -163,6 +166,7 @@
                     return;
                 }
                 let _this = this;
+                _this.showLoad=true;
 
                 if( this.expertId&& this.expertId!=''){
                     this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: this.questionClass,expertId:this.expertId})
@@ -171,7 +175,7 @@
                                 let result = bt.data.data;
                                 let config =result.config;
                                 console.log(config)
-
+                                _this.showLoad=false;
 
                                 //delete ToDo
                                 _this.$http.put(web.API_PATH + "pay/wxpay", {tradeNo:result.order.tradeNo})
@@ -209,13 +213,15 @@
                         xqzs.weui.tip("请输入正确的金额");
                         return;
                     }
+                    _this.showLoad=true;
 
                     this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:price})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 let result = bt.data.data;
                                 let config =result.config;
-                                console.log(config)
+                                console.log(config);
+                                _this.showLoad=false;
 
                                 //delete ToDo
                                 _this.$http.put(web.API_PATH + "pay/wxpay", {tradeNo:result.order.tradeNo})
@@ -228,26 +234,6 @@
 
                                         }
                                     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 return;
                                 /// TOdO
@@ -269,11 +255,6 @@
                         });
 
                 }
-
-
-
-
-
             },
 
 
@@ -426,7 +407,7 @@
     }
 
     .asker_ask_box .submit:active {
-        background: #09a907
+        background: linear-gradient(to right, rgb(239, 143, 25), rgb(211, 105, 6));
     }
 
      .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:19rem; position: fixed;
