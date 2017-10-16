@@ -12,7 +12,7 @@
                 <template v-if="vPlaying">正在播放..</template>
                 <template v-if="vPaused">播放暂停</template>
             </div>
-            <div class="minute">{{detail.voiceLength}}"</div>
+            <div class="minute">{{voiceLength}}"</div>
             <div class="clear"></div>
         </div>
 
@@ -167,7 +167,8 @@
                     _this.$http.post(web.API_PATH + "come/expert/modify/voice", data)
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
-                                this.finish=true;
+                                _this.finish=true;
+                                _this.detail.voiceMessageIdStatus=0
                             }
                         });
 
@@ -311,6 +312,7 @@
             this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+expertId + "/_userId_" ).then(function (data) {//es5写法
                 if (data.body.status == 1) {
                   _this.detail=data.body.data;
+                  _this.voiceLength= _this.detail.voiceLength
                   if( _this.detail.voiceMessageIdStatus==0){
                       //0 审核中  1 通过  2 未通过审核
                   }
