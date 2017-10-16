@@ -157,7 +157,7 @@
                 if( !(_this.faceUrl&&_this.faceUrl!='')){
                     xqzs.weui.tip("请上传头像");
                     return false;
-                }else if(!(_this.realName&&_this.realName!='')){
+                }else if(!(realName&&realName!='')){
                     xqzs.weui.tip("请输入您的姓名");
                     return false;
                 }else if(!(_this.birthday&&_this.birthday!='')){
