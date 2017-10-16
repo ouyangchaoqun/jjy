@@ -381,45 +381,16 @@
                         expertId:cookie.get("expertId"),
                         userId:"_userId_"
                     }
-                    _this.$http.post(web.API_PATH + "come/expert/modify", data)
-                        .then(function (bt) {
-                            if (bt.data && bt.data.status == 1) {
-
-                            }
-                        });
-
-
+//                    _this.$http.post(web.API_PATH + "come/expert/modify", data)
+//                        .then(function (bt) {
+//                            if (bt.data && bt.data.status == 1) {
+//
+//                            }
+//                        });
                     xqzs.image.hideClip()
                 });
-
-//                let that=this;
-//                xqzs.wx.takePhotos(['camera','album'],1,this.uploadpicinfo,that.alioss,function (filecount) {
-//                    that.showLoad=true;
-//
-//                },function (json,ix) {
-//                    that.showLoad=false;
-//                   console.log(json.data)
-//                },function (e) {
-//                    console.info(e);
-//                })
-
             },
-            updateHeadpic: function () {
-                let _this = this;
-                _this.$http({
-                    method: 'POST',
-                    url: web.API_PATH + 'user/update/user/headpic/_userId_',
-                }).then(function (data) {//es5写法
-                    if (data.data == 1) {
-                        xqzs.weui.toast("success", "更新成功", function () {
 
-                        });
-                    }
-                }, function (error) {
-                    //error
-                });
-
-            },
             msgSubmit: function () {
                 let _this = this;
                 let nick = $('.nickName').val();
@@ -439,15 +410,15 @@
                     "cityId": _this.cityId,
                     "areaId": _this.areaId,
                     "address": address,
-                    "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0
+                    "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0,
+                    "faceUrl":_this.faceUrl
                 };
                 console.log(msg);
-                _this.$http.post(web.API_PATH + 'user/update', msg)
+                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
                     .then(
                         (response) => {
-                            xqzs.weui.toast("success", "修改成功", function () {
-                                _this.$router.replace("../identity")
-                            })
+                            _this.$router.replace("../identity")
+
                         }
                     );
 
