@@ -3,7 +3,7 @@
 
         <div v-title>我的评价</div>
         <div class="nothing comment" v-show="list.length==0"  >
-            您还没有做任何评价
+            您还没收到任何评价
         </div>
         <div>
             <v-showLoad v-if="showLoad"></v-showLoad>
@@ -176,7 +176,7 @@
 </script>
 <style>
 
-    .answer_my_coment_list .nothing.comment{ background: url(../../../images/asker/nothing_star.png) no-repeat center top; background-size: 5.852941176470588rem; }
+    .answer_my_coment_list .nothing.comment{ background: url(../../../images/asker/nothing_star.png) no-repeat center top; background-size: 5.852941176470588rem; margin-top: 8rem; padding-top: 8rem; }
 
     .answer_my_coment_list .item{ padding: 0.88235rem; border-bottom: 0.7058823529411765rem solid #F4F4F7;}
     .answer_my_coment_list .comment .img{ width: 2rem; height: 100%; float:left; margin-right: 0.5rem;}
