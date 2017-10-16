@@ -12,7 +12,7 @@
         </div>
         <div class="set_price mt" @click="selectFreeTime()" >
             <div class="til">设置限时免费：</div>
-            <div class="select" ><input type=""  :value="freeTimeText"></div>
+            <div class="select" ><input type="" readonly  :value="freeTimeText"></div>
             <div class="clear"></div>
         </div>
 
