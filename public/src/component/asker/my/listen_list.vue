@@ -43,7 +43,7 @@
                         <div class="others">
                             <div class="time">{{formatTime(item.answerTime)}}</div>
                             <div class="listen_count">听过 {{item.listenTimes}}</div>
-                            <div class="good">{{item.likeTimes}}</div>
+                            <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}">{{item.likeTimes}}</div>
                         </div>
                     </a>
                 </div>
@@ -82,6 +82,27 @@
 
         },
         methods:{
+            initView:function () {
+                $(".good , .audio ").on("touchstart",function () {
+                    event.stopPropagation();
+                })
+            },
+            like:function (index) {
+                let  item = this.list[index];
+                if(item.isCared){
+                    xqzs.weui.tip("已经点赞");
+                    return ;
+                }
+                let _this=this;
+                this.$http.put(web.API_PATH + "come/user/like/answer/_userId_/"+item.answerId, {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            item.isCared=1;
+                            item.likeTimes=item.likeTimes+1;
+                            _this.$set(_this.list,index,item);
+                        }
+                    });
+            },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
@@ -202,6 +223,9 @@
                     }
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;
+                    vm.$nextTick(function () {
+                        vm.initView();
+                    })
 
                 }, (response) => {
                     vm.isLoading = false;
@@ -219,11 +243,14 @@
         },
 
 
+
+
     }
 </script>
 <style>
     .asker_my_listen_list_box .questCount{height:2.588235rem;text-align: center;background: #F4F4F7;font-size: 0.88235rem;line-height: 2.588235rem;color:#999;}
     .asker_my_listen_list_box .item{ border-bottom: 1px solid #eee; padding-bottom: 0.85rem;}
+    .asker_my_listen_list_box .item:active{ background: #f1f1f1}
     .asker_my_listen_list_box .question{ padding: 0.88235rem;display: flex;display: -webkit-box;display: -webkit-flex;}
     .asker_my_listen_list_box .question .img{border-radius: 50%; width:2rem; height: 2rem;display: block; margin-right:0.8235294117647059rem;}
     .asker_my_listen_list_box .question .title{ font-size: 0.88235rem; color:#333 }
@@ -235,7 +262,8 @@
 
     .asker_my_listen_list_box .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding: 0 0.88235rem; margin-top: 1.1rem;}
     .asker_my_listen_list_box .others .listen_count{ position: absolute; right:4.5rem; top:0}
-    .asker_my_listen_list_box .others .good{ position: absolute; right:0.88235rem; top:0; background: url(../../../images/asker/zan_nor.png) no-repeat; background-size: 0.9411764705882353rem; padding-left: 1.3rem; background-position: 0.1rem;}
+    .asker_my_listen_list_box .others .good{ position: absolute; right:0.88235rem; top:0; background: url(../../../images/asker/zan_nor.png) no-repeat; background-size: 0.9411764705882353rem; padding-left: 1rem; background-position: 0rem;}
+    .asker_my_listen_list_box .others .good.care_img_on{background: url(../../../images/asker/zan_por1.png) no-repeat;background-position: 0rem;}
 
 
 

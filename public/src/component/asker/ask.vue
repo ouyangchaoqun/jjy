@@ -168,8 +168,9 @@
                 let _this = this;
                 _this.showLoad=true;
 
+                console.log(_this.questionClass)
                 if( this.expertId&& this.expertId!=''){
-                    this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: this.questionClass,expertId:this.expertId})
+                    this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: _this.questionClass,expertId:this.expertId})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 let result = bt.data.data;
@@ -294,11 +295,16 @@
                     _this.typeSelectIndex=index;
                 });
                 $(".dialog_select_type .yes").click(function () {
+
+
                     if(_this.typeSelectIndex==null){
                         xqzs.weui.tip("请选择类型");
                     }else{
                         _this.type= _this.types[_this.typeSelectIndex].title;
                         _this.questionClass=_this.types[_this.typeSelectIndex].id;
+                        if( _this.questionClass==undefined){
+                            _this.questionClass=_this.types[_this.typeSelectIndex].classId;
+                        }
                         xqzs.weui.dialogClose();
 
                     }

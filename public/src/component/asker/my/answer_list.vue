@@ -31,7 +31,7 @@
 
                             <div class="clear"></div>
                         </div>
-                            <div class="other">{{item.answerCount}}个回答，{{item.listenCount}}人收听</div>
+                            <div class="other">{{item.answerCount}}个回答，{{item.followCount}}人收听</div>
 
                     </div>
                     <div class="clear"></div>
