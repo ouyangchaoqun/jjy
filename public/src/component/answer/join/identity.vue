@@ -11,7 +11,7 @@
         <div class="identity_content">
             <div class="content_active">
                 <div class="content_list1">
-                    身份证 <span>*</span><input type="text" class="identityNo" @keyup="changeidentityNo()" pattern="[0-9a-zA-Z]*" >
+                    身份证 <span>*</span><input type="text" class="identityNo"  @input="changeidentityNo()" :value="identityNo" pattern="[0-9a-zA-Z]*" >
                 </div>
                 <div class="content_list2">
                     <img :src="identityFile1?identityFile1:'../../../images/positive.png'" alt="" @click="upload(1)">
@@ -38,6 +38,7 @@
                 identityFile2:'',
                 alioss:null,
                 uploadpicinfo:null,
+                identityNo:''
             }
         },
 
@@ -65,6 +66,10 @@
             let identityFile2= cookie.get("identityFile2")
             if(identityFile2&&identityFile2!=''){
                 this.identityFile2= unescape(identityFile2);
+            }
+            let identityNo= cookie.get("identityNo")
+            if(identityNo&&identityNo!=''){
+                this.identityFile2= unescape(identityNo);
             }
             this.check()
 
@@ -98,7 +103,7 @@
                 }else{
                     cookie.set("identityNo",'')
                 }
-
+                this.identityNo=identityNo;
                 this.check()
             },
             check:function () {
