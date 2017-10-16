@@ -731,7 +731,7 @@ var xqzs = {
             }
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url, guest: guest}}).then(function (response) {
-                response.body.debug = true;
+                // response.body.debug = true;
 
 
                 console.log(response.body)
@@ -741,7 +741,13 @@ var xqzs = {
                     if (callback && typeof (callback) == "function") {
                         callback()
                     }
-
+                    // wx.checkJsApi({
+                    //     jsApiList: response.body.jsApiList, // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    //     success: function (res) {
+                    //
+                    //         console.log(res)
+                    //     }
+                    // });
 
                     console.log('wx.ready');
                 });
