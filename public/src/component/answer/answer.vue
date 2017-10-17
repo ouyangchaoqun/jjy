@@ -278,10 +278,12 @@
 
         },
         beforeDestroy:function () {
+            wx.stopRecord();
+            this.clearTimeOut()
+
             console.log("beforeDestroy")
             console.log("this.playing："+this.playing)
             console.log("tthis.localId："+this.localId)
-            xqzs.wx.voice.stopRecord();
             if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
         },
 

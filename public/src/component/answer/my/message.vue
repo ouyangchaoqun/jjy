@@ -330,20 +330,18 @@
             }, function (error) {
 
             });
-            xqzs.wx.setConfig(_this,function () {
-                console.log("stop stop stop")
-               _this.stop();
-                console.log("stop 2stop 2st2p")
-            });
+            xqzs.wx.setConfig(_this);
             xqzs.voice.audio=null;
             this.getExpertByUserId();
 
         },
         beforeDestroy:function () {
             console.log("beforeDestroy");
-            wx.stopRecord()
+            wx.stopRecord();
+            this.clearTimeOut()
             console.log(wx)
             $(".audio_btn").click();
+
             xqzs.voice.pause();
             this.stop()
         },
