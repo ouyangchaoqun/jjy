@@ -181,7 +181,6 @@
 
             },
             start:function () {
-                console.log("startRecord")
 //                开始录制
                 let _this=this;
                 _this.vPaused=true;
@@ -337,7 +336,8 @@
 
         },
         beforeDestroy:function () {
-            console.log("beforeDestroy")
+            console.log("beforeDestroy");
+            xqzs.wx.voice.stopRecord();
             console.log(wx)
             $(".audio_btn").click();
             xqzs.voice.pause();

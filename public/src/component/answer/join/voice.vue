@@ -159,7 +159,7 @@
 
             },
             start:function () {
-                console.log("startRecord")
+
 //                开始录制
                 let _this=this;
                 _this.vPaused=true;
@@ -257,6 +257,7 @@
             "v-answer-top-step": answerTopStep
         },
         beforeDestroy:function () {
+            xqzs.wx.voice.stopRecord();
             xqzs.voice.pause();
         }
 
