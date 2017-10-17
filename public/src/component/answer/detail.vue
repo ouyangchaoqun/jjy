@@ -505,16 +505,15 @@
                 let _this= this;
                 let id=  this.id;
 
-//                if (_this.page == 1) {_this.showLoad=true;}
+                if (_this.page == 1) {_this.showLoad=true;}
                 if(   _this.isLoading ){return ;}
                 _this.isLoading = true;
                 _this.$http.get(web.API_PATH + 'come/expert/get/answer/'+id+"/"+_this.answerType+'/'+_this.page+'/'+_this.row+'/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad=false;
                     if (data.body.status == 1) {
 //                        _this.answerList= data.body.data;
-
-                        _this.showLoad = false;
-                        _this.isLoading = false;
-//                    console.log(response)
+                          _this.isLoading = false;
+//                        console.log(response)
 
                         if( data.body.status!=1&&_this.page==1){
                             _this.list = [];
@@ -546,7 +545,9 @@
             getDetail:function () {
                 let _this= this;
                 let id=  this.id;
+                _this.showLoad=true;
                 _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad=false;
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
                         console.log( _this.detail)
