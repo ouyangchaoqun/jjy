@@ -27,7 +27,6 @@
                     </div>
                     <div class="answer_countBox">
                         <div class="counts" v-if="detail.listenCount!=null">{{detail.listenCount}}</div>
-                        <div class="counts" v-if="detail.listenCount==null">0</div>
                         <div class="nr">次偷听</div>
                         <div class="line_1"></div>
                     </div>
@@ -184,6 +183,10 @@
             return {
                 detail:{
                     expertUserId:null,
+                    answerCount:0,
+                    evaluate:0,
+                    listenCount:0,
+                    followCount:0
 
 
                 },

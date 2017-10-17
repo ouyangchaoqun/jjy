@@ -91,7 +91,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText: true,
+                isShowMoreText: false,
                 showLoad: false,
                 list: [],
                 type: 2
@@ -150,7 +150,7 @@
                 this.page = 1;
                 this.list = [];
                 this.isPageEnd = false;
-                this.isShowMoreText = true;
+                this.isShowMoreText = false;
                 this.getList();
             },
             getList: function () {
@@ -185,10 +185,12 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText = true;
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
-
+                    arr=[]
                     if (vm.page == 1) {
                         vm.list = arr;
                     } else {

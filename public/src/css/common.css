@@ -367,6 +367,7 @@ a{
 
 
 .nothing{ padding-top: 4.4rem ; text-align: center; width: 100%;  position: relative;}
+.nothing img{ max-width: 100%}
 .nothing .nothing_bottom{position: absolute;width:100%;bottom:0;color:#C3C5CD;font-size: 0.70588rem;line-height: 1.2rem}
 .nothing .nothing_bottom p{font-size: 0.88235rem;color:#95979D;}
 .nothing .nothing_bottom div{width:6.471rem;height:1.76471rem;border:1px solid #FE7301;color:#FE7301;font-size: 0.88235rem;line-height: 1.76471rem;border-radius: 5px;margin:0 auto;margin-top:0.471rem;}
