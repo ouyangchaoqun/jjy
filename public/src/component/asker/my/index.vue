@@ -53,7 +53,7 @@
                                 _this.$router.push("/answer/join/reviewing");
                             }else{
                                 if(status==1){
-                                    xqzs.weui.tip("您已成功入驻咨询师，请从公众号移步到咨询师。")
+                                    xqzs.weui.tip("您已成功入驻咨询师，请从公众号移步到咨询师。您已成功入驻咨询师，请从公众号移步到咨询师。")
                                 }else{
                                     _this.goJoin()
                                 }

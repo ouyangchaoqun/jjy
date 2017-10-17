@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="{wbg:list.length==0}">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
@@ -8,6 +8,15 @@
             <div class="my_problem_tabs">
                 <div class="my_problem_active">一对一咨询</div>
                 <div>抢答模式</div>
+            </div>
+
+            <div class="nothing answer" v-if="list.length==0&&!showLoad" >
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>您还没有任何提问</p>
+                    到问页面可以进行提问
+                    <div @click="goAsk()">去提问</div>
+                </div>
             </div>
             <div class="my_problem_box">
                 <!--一对一列表-->
@@ -112,6 +121,14 @@
             this.getList();
         },
         methods: {
+            goAsk:function () {
+                if(this.type==2){
+                    this.$router.push("/answer/index");
+                }else{
+                    this.$router.push("/asker/ask");
+                }
+
+            },
             initActive:function () {
                 var obj =  $(".my_problem_list1")
                 xqzs.weui.active(obj);

@@ -60,18 +60,24 @@ var xqzs = {
             $("#toast").remove();
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
             var len = msg.length;
-            html += '<p class="weui-toast__content weui_tip">' + msg + '</p></div>';
+            html += '<p class="weui-toast__content weui_tip" style="display: none">' + msg + '</p></div>';
             $("body").append(html);
-            var w=$(".weui_tip").width();
-             $(".weui_tip").css({"margin-left":'-'+ (w+36)/2 +"px"})
-            setTimeout(function () {
-                $("#toast").animate({opacity: 0}, 200, function () {
-                    $("#toast").remove();
 
-                    if (typeof(fun) == "function")
-                        fun();
-                });
-            },1200);
+            var w=$(".weui_tip").width();
+            console.log(w)
+            $(".weui_tip").width(w).show();
+            var h=$(".weui_tip").height();
+            $(".weui_tip").css({"margin-top":'-'+ (h+36)/2 +"px"})
+            $(".weui_tip").css({"margin-left":'-'+ (w+36)/2 +"px"})
+
+            // setTimeout(function () {
+            //     $("#toast").animate({opacity: 0}, 200, function () {
+            //         $("#toast").remove();
+            //
+            //         if (typeof(fun) == "function")
+            //             fun();
+            //     });
+            // },1200);
         },
         tipClose: function () {
             $("#toast").remove();

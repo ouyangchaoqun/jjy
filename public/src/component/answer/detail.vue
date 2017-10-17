@@ -771,17 +771,12 @@
        padding-left: 0.8rem;
        background-position: 0.9rem 0.294rem;
    }
-    .answer_detail_box .care_img_.icon2{
-         background: url("../../images/asker/zan_por1.png") no-repeat;
-        background-size: 0.936rem;
-         background-position: 0.9rem 0;
-    }
+
     .answer_detail_box .care_img_{
         float: right;
-        background: url("../../images/asker/zan_nor.png") no-repeat;
-        background-size: 1.05rem;
-        padding-left: 2rem;
-        background-position: 0.9rem 0;
+        padding-left:1.1rem;
+        margin-left: 0.6rem;
+
     }
 
     .answer_detail_box .pay_ask{width: 75%;float: right; background: linear-gradient(to right, rgba(255,158,25,1), rgba(254,115,1,1));color: white;line-height: 2.588rem;height: 2.588rem}

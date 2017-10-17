@@ -58,7 +58,7 @@
 
                         </ul>
                     </div>
-                    <div v-show="list.length==0">
+                    <div v-show="list.length==0&&!showLoad">
                         <div class="index_nocontent">
                             <div>
                                 <img src="../../images/asker/newNoContent.png" alt="">
@@ -91,7 +91,7 @@
     export default {
         data() {
             return {
-                navLists:[{title:'推荐'},{title:'情感困惑'},{title:'性心理'},{title:'人际关系'},{title:'职场事业'},{title:'婚姻家庭'},{title:'个人成长'},{title:'情绪管理'},{title:'心理健康'},{title:'亲子教育'}],
+                navLists:[{title:'全部'},{title:'情感困惑'},{title:'性心理'},{title:'人际关系'},{title:'职场事业'},{title:'婚姻家庭'},{title:'个人成长'},{title:'情绪管理'},{title:'心理健康'},{title:'亲子教育'}],
                 page: 1,
                 row: 10,
                 isPageEnd: false,

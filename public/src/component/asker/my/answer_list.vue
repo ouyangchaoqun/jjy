@@ -2,12 +2,12 @@
     <div style="height: 100%" class="asker_my_answer_list_box wbg">
 
         <div v-title>我的收听</div>
-        <div class="nothing answer" v-if="list.length==0" >
+        <div class="nothing answer" v-if="list.length==0&&!showLoad" >
             <img src="../../../images/asker/newNoContent.png" alt="">
             <div class="nothing_bottom">
                 <p>您还没有任何收听</p>
-                在问页面可以点击收听按钮进行收听
-                <div>去收听</div>
+                在偷听页面可以点击收听按钮进行收听
+                <div @click="goAnswerIndex()">去收听</div>
             </div>
         </div>
         <v-showLoad v-if="showLoad"></v-showLoad>
@@ -72,6 +72,9 @@
 
         },
         methods:{
+            goAnswerIndex:function () {
+                this.$router.push("/answer/index")
+            },
             formatTime:function (time) {
                 return xqzs.dateTime.formatDateTime(time)
             },

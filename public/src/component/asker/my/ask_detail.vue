@@ -265,21 +265,16 @@
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+id+"/_userId_", {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
+                            that.detail.expert.isFollow=1;
                             xqzs.weui.toast("success","收听成功",function () {
 
                             })
                         }else if(bt.data.status ==900004){
-                            xqzs.weui.toast("success","已经收听",function () {
-
-                            })
+                            xqzs.weui.tip("已经收听")
                         }else if(bt.data.status ==9000003){
-                            xqzs.weui.toast("fail","不能收听自己",function () {
-
-                            })
+                            xqzs.weui.tip("不能收听自己")
                         }else {
-                            xqzs.weui.toast("fail","收听失败",function () {
-
-                            })
+                            xqzs.weui.tip("收听失败")
                         }
                     });
             },

@@ -39,7 +39,7 @@
             </div>
 
         </v-scroll>
-        <div class="no_body" v-show="list.length==0">
+        <div class="no_body" v-show="list.length==0&&!showLoad">
 
             <!--<div class="img"></div>-->
             <!--<div class="txt">暂无该方面专家</div>-->
