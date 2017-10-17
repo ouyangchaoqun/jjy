@@ -217,7 +217,7 @@
                 this.getList();
                 done() // call done
             },
-        },
+        }
         beforeDestroy:function () {
             xqzs.voice.pause();
         },
@@ -229,7 +229,7 @@
    .asker_my_coment_list .item{ padding: 0.88235rem; border-bottom: 0.7058823529411765rem solid #F4F4F7;}
     .asker_my_coment_list .comment .img{ width: 2rem; height: 100%; float:left; margin-right: 0.5rem;}
     .asker_my_coment_list .comment .img img{width: 2rem; height: 2rem; border-radius: 1rem;}
-    .asker_my_coment_list .comment .info{ width: 17rem; float:left;}
+    .asker_my_coment_list .comment .info{     max-width: 17rem;float:left;}
     .asker_my_coment_list  .comment .info .times{ color:#666; font-size:0.7058823529411765rem; }
     .asker_my_coment_list .comment .info .times span{ font-weight: bold; color:#444}
     .asker_my_coment_list .comment .info .content{ color:#333; font-size: 0.8235294117647059rem; margin: 0.2rem  0}

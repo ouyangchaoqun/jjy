@@ -60,24 +60,25 @@ var xqzs = {
             $("#toast").remove();
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
             var len = msg.length;
-            html += '<p class="weui-toast__content weui_tip" style="display: none">' + msg + '</p></div>';
+            html += '<div class="weui-toast__content weui_tip" style="display: none"><div class="tip_txt">' + msg + '</div></div></div>';
             $("body").append(html);
 
-            var w=$(".weui_tip").width();
-            console.log(w)
-            $(".weui_tip").width(w).show();
-            var h=$(".weui_tip").height();
-            $(".weui_tip").css({"margin-top":'-'+ (h+36)/2 +"px"})
-            $(".weui_tip").css({"margin-left":'-'+ (w+36)/2 +"px"})
 
-            setTimeout(function () {
-                $("#toast").animate({opacity: 0}, 200, function () {
-                    $("#toast").remove();
+               var w=$(".weui_tip").outerWidth();
+                $(".weui_tip").show();
+               var h=$(".weui_tip").outerHeight();
+            $(".weui_tip").css({"margin-left":'-'+ (w)/2 +"px"})
+               $(".weui_tip").css({"margin-top":'-'+ (h)/2 +"px"})
 
-                    if (typeof(fun) == "function")
-                        fun();
-                });
-            },1200);
+
+            // setTimeout(function () {
+            //     $("#toast").animate({opacity: 0}, 200, function () {
+            //         $("#toast").remove();
+            //
+            //         if (typeof(fun) == "function")
+            //             fun();
+            //     });
+            // },1200);
         },
         tipClose: function () {
             $("#toast").remove();
