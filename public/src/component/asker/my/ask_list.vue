@@ -190,7 +190,7 @@
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
-                    arr=[]
+
                     if (vm.page == 1) {
                         vm.list = arr;
                     } else {
