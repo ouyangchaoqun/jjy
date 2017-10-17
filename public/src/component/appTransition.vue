@@ -116,6 +116,18 @@
         right:0.88235rem;top:50% ; margin-top:-0.4705882352941177rem;content: " "}
 
 
+    .care_img_.icon2{
+        background: url("../images/asker/zan_por1.png") no-repeat;
+        background-size:0.936rem;
+    }
+    .care_img_{
+        float: left;
+        display: inline-block;
+        background: url("../images/asker/zan_nor.png") no-repeat;
+        background-size: 0.94117647058823529411764705882353rem;
+        height:0.91176470588235294117647058823529rem;
+        width: 0.94117647058823529411764705882353rem;
+    }
 
     .child-view {
         position: absolute !important;
