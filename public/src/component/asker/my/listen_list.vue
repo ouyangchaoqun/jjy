@@ -7,7 +7,7 @@
             <div class="nothing_bottom">
                 <p>您还没有偷听</p>
                 在偷听页面可以点击播放按钮进行偷听
-                <div>去偷听</div>
+                <div @click="goAsk()">去偷听</div>
             </div>
         </div>
 
@@ -175,6 +175,9 @@
 
             formatTime:function (time) {
               return xqzs.dateTime.formatDateTime(time)
+            },
+            goAsk:function () {
+                this.$router.push("/asker/listen")
             },
             goDetail:function (questionId) {
               this.$router.push("/asker/listen/detail?questionId="+questionId)

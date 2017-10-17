@@ -53,8 +53,8 @@
                         class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
                 </div>
                 <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                <img src="../../../images/asker/listenin1.png" v-if="detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
-                <img src="../../../images/asker/listen_no.png" v-if="!detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
+                <img src="../../../images/asker/isfollowed.png" v-if="detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
+                <img src="../../../images/asker/nofollowed.png" v-if="!detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
             </div>
         </div>
 

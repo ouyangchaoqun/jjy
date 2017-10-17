@@ -167,7 +167,7 @@
         {{detail.expertUserId}}
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
-                <img v-if="detail.followed===0" src="../../images/asker/listenin1.png" alt="">
+                <img v-if="detail.followed===0" src="../../images/asker/nofollowed.png" alt="">
                 <img v-if="detail.followed===1" src="../../images/asker/isfollowed.png" alt="">
                 <span v-if="detail.followed===1">已收听</span>
                 <span v-if="detail.followed===0">收听</span>
