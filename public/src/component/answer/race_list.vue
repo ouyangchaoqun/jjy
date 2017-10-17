@@ -1,18 +1,11 @@
 <template >
-    <div style="height: 100%" class="answer_race_list" :class="{wbg:list.length==0&&!showLoad}">
-        <div v-title>抢答</div>
+    <div style="height: 100%" class="answer_race_list">
         <v-showLoad v-if="showLoad"></v-showLoad>
-
-        <div class="nothing comment" v-if="list.length==0&&!showLoad">
-            <img src="../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>暂无抢答问题</p>
-            </div>
-        </div>
-
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">
+            <div v-title>抢答</div>
+
             <div class="list">
                 <div class="item" v-for="item in list">
                     <div class="img"><img :src="item.faceUrl"></div>
@@ -45,29 +38,25 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:false,
+                isShowMoreText:true,
                 list:[],
             }
         },
         mounted: function () {
             let expertId;
-            let _this=this;
             if(cookie.get('expertId')==null){
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         console.log(data)
                         expertId = data.data.data.id;
-                        cookie.set('expertId',expertId,30);
-                        _this.expertId = cookie.get('expertId');
-                        _this.getList()
+                        cookie.set('expertId',expertId,30)
                     }
                 }, function (error) {
                 });
             }else {
-                this.expertId = cookie.get('expertId');
-                this.getList()
+                this.expertId = cookie.get('expertId')
             }
-
+            this.getList()
         },
         methods: {
             getList: function () {
@@ -101,10 +90,10 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
-                    }else{
-                        vm.isShowMoreText=true;
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
 
                     if (vm.page == 1) {
                         vm.list = arr;
@@ -150,10 +139,11 @@
     }
     .answer_race_list  .list .info .price{ float:left;font-size: 0.7647058823529412rem;color:#666;   width: 7rem;}
     .answer_race_list  .list .info .price span{ color:#FF9900; font-size: .8823529411764706rem;}
-    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 28%; margin: 0 auto; line-height: 2.4rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); margin-top: 0.6rem;}
     .answer_race_list .list .btn_race:active{
         background: linear-gradient(to right, rgb(238, 146, 24), rgb(238, 109, 6));
     }
+    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 5.294rem; margin: 0 auto; line-height: 1.71rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); margin-top: 0.6rem;font-size: 0.88235rem}
+
 
 
 </style>

@@ -1,6 +1,7 @@
 <template id="stealListen_index">
     <div class="asker_listen_box" :class="{wbg:list.length==0    }">
         <!--头部导航栏-->
+        <div v-title>偷听</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
@@ -355,7 +356,7 @@
         border-bottom: 1px solid #eee;
     }
     .navSwiper .swiper-slide{
-        width:4.70588rem;
+        width:4rem;
     }
     .nav_active{
         color:#FE7301;
@@ -384,7 +385,7 @@
     .index_box li{
         background: #fff;
         padding:0.70588rem 0.88235rem 1.176471rem 0.88235rem;
-        margin-top: 0.41176471rem;
+        margin-bottom: 0.41176471rem;
     }
 
     .index_box li:active{

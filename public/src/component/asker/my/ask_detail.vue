@@ -60,7 +60,7 @@
 
 
         <!--匿名评价-->
-        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null">
+        <div class="problem_assess" ><!--v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"-->
             <h4>匿名评价此回答</h4>
             <div class="star">
 
@@ -300,10 +300,10 @@
     }
 </script>
 <style>
+    .problem_assess_btn .weui-btn{border-radius: 50px;}
 
-
-    .star span{ display: inline-block;  height:0.9411764705882353rem; width: 0.9411764705882353rem; background: url(../../../images/star_no.png) no-repeat; background-size: 0.9411764705882353rem; margin: 0.9rem  0.4rem;  }
-    .star span.on{ background: url(../../../images/star.png) no-repeat; background-size: 0.9411764705882353rem;}
+    .problem_assess .star span{ display: inline-block;  height:0.9411764705882353rem; width: 0.9411764705882353rem; background: url(../../../images/star_no.png) no-repeat; background-size: 0.9411764705882353rem; margin: 0.9rem  0.4rem;  }
+    .problem_assess .star span.on{ background: url(../../../images/star.png) no-repeat; background-size: 0.9411764705882353rem;}
     .problem_answer_info{
         padding:0 0.88235rem;
         display: -webkit-box;

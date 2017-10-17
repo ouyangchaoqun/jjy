@@ -405,7 +405,7 @@
         color: #ff9900;}
     .asker_ask_box .submit {
         background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
-        border-radius: 6px;
+        border-radius: 50px;
         color: #fff;
         text-align: center;
         line-height: 2.588235294117647rem;
