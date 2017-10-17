@@ -163,7 +163,7 @@
             <div class="listen"  @click="follow()">
                 <img v-if="detail.followed===1" src="../../images/asker/listenin1.png" alt="">
                 <img v-if="detail.followed===0" src="../../images/asker/nothing_answer.png" alt="">
-                <span v-if="detail.followed===1">已收听</span>
+                <span v-if="detail.followed===1">已听</span>
                 <span v-if="detail.followed===0">收听</span>
             </div>
             <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>

@@ -69,7 +69,8 @@
                 row: 10,
                 isPageEnd: false,
                 isShowMoreText:true,
-                showLoad:false,name:''
+                showLoad:false,
+                name:''
             }
         },
         components: {
