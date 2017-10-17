@@ -767,6 +767,19 @@ var xqzs = {
                 return '?x-oss-process=image/resize,h_' + width + ',w_' + height + '/quality,q_100';
             }
         },
+        resizeImg:function (v,width,height) {
+            if(!width){
+                width=100;
+            }
+            if(!height){
+                height=100;
+            }
+            if(v!=undefined&&v!=null&&v!=''){
+                return v+ xqzs.oss.Size.resize(width,height)
+            }else{
+                return '';
+            }
+        },
         /**
          *
          * @param $uploadpicinfo

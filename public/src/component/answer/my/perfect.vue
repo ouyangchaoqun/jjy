@@ -6,7 +6,7 @@
 
         <div class="list0 perfect_header active_tab" @click="changeHeadpic()">
             头像
-            <img class="headerImg" :src="expert.faceUrl" alt="">
+            <img class="headerImg" :src="resizeImg(expert.faceUrl)" alt="">
             <img class="rightImg" src="../../../images/arrow.png" alt="">
         </div>
 
@@ -170,6 +170,9 @@
             }
         },
         methods: {
+            resizeImg:function (v) {
+                return   xqzs.oss.resizeImg(v,100,100)
+            },
             initOss:function () {
                 this.uploadpicinfo = {
                     token: xqzs.string.guid(),
@@ -419,9 +422,14 @@
                 _this.$http.post(web.API_PATH + 'user/update', msg)
                     .then(
                         (response) => {
-                            xqzs.weui.toast("success", "修改成功", function () {
-                                _this.$router.go(-1)
-                            })
+                            if(response.body.status==1){
+                                xqzs.weui.toast("success", "修改成功", function () {
+                                    _this.$router.go(-1)
+                                })
+                            }else{
+                                xqzs.weui.tip("修改失败")
+                            }
+
                         }
                     );
 

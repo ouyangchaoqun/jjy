@@ -36,6 +36,7 @@
     ?>
 
     var vueRoutesBaseUrl=""
+    var cookieVersion="<?=STATIC_XQZS_VERSION?>";
 </script>
 
 <script src="<?=env("BASE_PATH")?>src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>

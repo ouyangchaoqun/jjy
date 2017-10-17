@@ -4,7 +4,7 @@
         <div class="weui-tab__panel main">
             <div class="main">
                 <div class="top" @click="goPerfect()">
-                        <img class="img" :src="expert.faceUrl">
+                        <img class="img" :src="resizeImg(expert.faceUrl)">
                         <div class="name">
                             {{expert.nickName}}
                         </div>
@@ -57,6 +57,9 @@
 
         },
         methods:{
+            resizeImg:function (v) {
+                return   xqzs.oss.resizeImg(v,100,100)
+            },
             formatPrice:function(price){
                 console.log(price)
                 return  xqzs.string.formatPrice(price)
@@ -95,7 +98,7 @@
 <style>
     .answer_my_index_box{background: #fff}
     .answer_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); padding:0.8823529411764706rem;border-bottom: 0.41176471rem solid #f4f4f8;}
-    .answer_my_index_box .top:active{background:#eee}
+    .answer_my_index_box .top:active{background: linear-gradient(to right, rgb(238, 148, 25), rgb(226, 92, 6));}
     .answer_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem;margin-right: 0.98rem;}
     .answer_my_index_box .top .name{color:rgba(255,255,255,1);padding-top: 0.8235rem;margin-bottom:0.52941rem}
     .answer_my_index_box .top .perfect{color:rgba(255,255,255,1);font-size: 0.76471rem;}

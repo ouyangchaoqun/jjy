@@ -7,7 +7,7 @@
             <div class="nothing_bottom">
                 <p>您还没有过任何评价</p>
                 在问页面可以点击收听按钮进行评价
-                <div>去评价</div>
+                <!--<div>去评价</div>-->
             </div>
         </div>
         <v-showLoad v-if="showLoad"></v-showLoad>

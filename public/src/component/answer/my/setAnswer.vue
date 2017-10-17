@@ -18,7 +18,7 @@
 
             <div class="btn_box">
 
-                <a id="subBtn" @click="submit()" >提交审核</a>
+                <a id="subBtn" @click="submit()" >提交设置</a>
             </div>
 
 
@@ -115,10 +115,15 @@
                 _this.$http.post(web.API_PATH + 'come/expert/answerset', msg,{emulateJSON: true})
                     .then(
                         (response) => {
-                            console.log('success')
-                            xqzs.weui.toast("success", "修改成功", function () {
-                                _this.$router.go(-1)
-                            })
+                            if(response.body.status==1){
+                                console.log('success')
+                                xqzs.weui.toast("success", "设置成功", function () {
+                                    _this.$router.go(-1)
+                                })
+                            }else{
+                                xqzs.weui.tip("设置失败")
+                            }
+
                         });
             },
             showMask:function () {
