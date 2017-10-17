@@ -45,11 +45,13 @@
             </div>
             <!--操作按钮-->
             <div class="action_btn" v-if="!isAnswered">
-                <div class="item" v-if="!isOver">
-                    <div class="audio_play">试听</div>
-                </div>
+
                 <div class="item" v-if="isOver">
                     <div class="audio_play overStyle" @click="reStart()">重录</div>
+                </div>
+
+                <div class="item" v-if="!isOver" >
+                    <div class="audio_send">重录</div>
                 </div>
                 <div class="item" style="flex: 2" v-if="!outTime&&!answering&&!isOver" @click="start()">
                     <div class="audio_btn_in audio_begin"></div>
@@ -66,13 +68,13 @@
                     <div class="txt">发布</div>
                 </div>
 
-                <div class="item" v-if="!isOver" >
-                    <div class="audio_send">发布</div>
-                </div>
                 <div class="item" v-if="isOver">
                     <div class="audio_send overStyle" @click="play()">试听</div>
                 </div>
 
+                <div class="item" v-if="!isOver">
+                    <div class="audio_play">试听</div>
+                </div>
 
                 <div class="item" v-if="outTime">
                     <div class="audio_btn_in audio_cant_begin outTimeStyle"></div>
@@ -167,6 +169,7 @@
 //                this.preAnswer=false;
                 if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
                 this.playing=false;
+                this.isOver=false;
 
                 this.localId=null;
                 this.start();

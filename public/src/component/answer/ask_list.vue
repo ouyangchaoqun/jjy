@@ -1,6 +1,12 @@
 <template >
-    <div style="height: 100%" class="answer_ask_list_box">
+    <div style="height: 100%" class="answer_ask_list_box"  :class="{wbg:list.length==0&&!showLoad}">
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="nothing comment" v-if="list.length==0&&!showLoad">
+            <img src="../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>暂无待答问题</p>
+            </div>
+        </div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">
@@ -37,7 +43,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:true,
+                isShowMoreText:false,
                 list:[],
             }
         },
@@ -80,6 +86,8 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText=true;
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 

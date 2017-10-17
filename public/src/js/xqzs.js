@@ -619,17 +619,29 @@ var xqzs = {
         voice: {
             //开始录音
             startRecord: function () {
-                wx.startRecord();
+                var recordTimer = setTimeout(function () {
+                        wx.startRecord({
+                                success: function () {
+                                    console.log("recordsuccess")
+                                },
+                                cancel: function () {
+                                    alert('用户拒绝授权录音');
+                                }
+                            }
+                        );
+                    }
+                    , 300)
             },
             // 停止录音
             stopRecord: function (fun) {
+                var recordTimer = setTimeout(function () {
                 wx.stopRecord({
                     success: function (res) {
                         var localId = res.localId;
                         if (typeof fun == 'function')
                             fun(localId)
                     }
-                });
+                })},100)
             },
             // 监听自动停止录音
             onRecordEnd: function (fun) {
