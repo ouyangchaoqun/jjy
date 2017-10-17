@@ -896,7 +896,7 @@ var xqzs = {
     toDecimal2: function (x) {
         var f = parseFloat(x);
         if (isNaN(f)) {
-            return false;
+            return "0.00";
         }
         var f = Math.round(x * 100) / 100;
         var s = f.toString();
@@ -957,7 +957,12 @@ var xqzs = {
             return out;
         },
         formatPrice: function (v) {
-            return xqzs.toDecimal2(v)
+            if(v!=null&&v!=''){
+                return xqzs.toDecimal2(v)
+            }else{
+                return "0.00";
+            }
+
         }
     },
 

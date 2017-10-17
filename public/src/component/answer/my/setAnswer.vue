@@ -1,10 +1,11 @@
 <template id="setAnswer">
     <div class="setAnswer_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="setItem">
             <div>
                 <div class="set_price">
                     <div class="til">设置提问酬金：</div>
-                    <div class="select" ><input type="" class="priceInput" @input="getPrice()" :value="'￥'+formatPrice(expert.price)"></div>
+                    <div class="select" ><input type="" class="priceInput" @input="getPrice()" :value="'￥'+expert.price"></div>
                     <div class="clear"></div>
                 </div>
                 <div class="set_price mt_mb" @click="showTimePicker()" >
@@ -36,9 +37,7 @@
                     <li><b>1.</b>提交问题，设置赏金支付后，心情指数将为您匹配专业咨询师开始抢答。<br/>（1）设置的赏金越高，匹配的咨询师等级越高，抢答的咨询师越多。<br/>（2）问题描述越清楚，咨询师的回答将精准。</li>
                     <li><b>2.</b>你可以选择做佳答案：<br/>（1）该回答将产生偷偷听收入；<br/>（2）其咨询师将获得全部赏金；</li>
                     <li><b>3.</b>48小时内无人抢答，则全额退款。</li>
-                    <li><b>1.</b>提交问题，设置赏金支付后，心情指数将为您匹配专业咨询师开始抢答。<br/>（1）设置的赏金越高，匹配的咨询师等级越高，抢答的咨询师越多。<br/>（2）问题描述越清楚，咨询师的回答将精准。</li>
-                    <li><b>2.</b>你可以选择做佳答案：<br/>（1）该回答将产生偷偷听收入；<br/>（2）其咨询师将获得全部赏金；</li>
-                    <li><b>3.</b>48小时内无人抢答，则全额退款。</li>
+
 
                 </ul>
                 <div class="myask_class_true" @click="hide_myask_mask()">知道了</div>
@@ -48,12 +47,17 @@
 </template>
 
 <script type="es6">
+
+
+
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
+                showLoad:false,
                 label:'',
                 myask_mask_flag:false,
-                expert:{ },
+                expert:{ price:"0.00"},
                 keyValue:[{
                     label: '不免费',
                     value: 0
@@ -137,8 +141,11 @@
             },
             getExpertByUserId:function () {
                 let _this=this;
+                _this.showLoad=true;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad=false;
                     if (data.body.status == 1&&data.body.data!=null) {
+
                         _this.expert = data.data.data;
                         for(let i =0  ;i< _this.keyValue.length;i++){
                             if(_this.keyValue[i].value== _this.expert.freeTime){
@@ -150,10 +157,14 @@
 
                     }
                 }, function (error) {
+                    _this.showLoad=false;
                 });
             },
-        }
+        },
+        components: {
+            'v-showLoad': showLoad,
 
+        },
 
     }
 </script>

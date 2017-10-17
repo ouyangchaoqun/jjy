@@ -1,11 +1,10 @@
 <template >
     <div style="height: 100%" class="answer_race_list">
+        <div v-title>抢答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">
-            <div v-title>抢答</div>
-
             <div class="list">
                 <div class="item" v-for="item in list">
                     <div class="img"><img :src="item.faceUrl"></div>
@@ -44,19 +43,23 @@
         },
         mounted: function () {
             let expertId;
+            let _this=this;
             if(cookie.get('expertId')==null){
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         console.log(data)
                         expertId = data.data.data.id;
-                        cookie.set('expertId',expertId,30)
+                        cookie.set('expertId',expertId,30);
+                        _this.expertId = cookie.get('expertId');
+                        _this.getList()
                     }
                 }, function (error) {
                 });
             }else {
-                this.expertId = cookie.get('expertId')
+                this.expertId = cookie.get('expertId');
+                this.getList()
             }
-            this.getList()
+
         },
         methods: {
             getList: function () {
@@ -140,7 +143,9 @@
     .answer_race_list  .list .info .price{ float:left;font-size: 0.7647058823529412rem;color:#666;   width: 7rem;}
     .answer_race_list  .list .info .price span{ color:#FF9900; font-size: .8823529411764706rem;}
     .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 28%; margin: 0 auto; line-height: 2.4rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); margin-top: 0.6rem;}
-
+    .answer_race_list .list .btn_race:active{
+        background: linear-gradient(to right, rgb(238, 146, 24), rgb(238, 109, 6));
+    }
 
 
 </style>
