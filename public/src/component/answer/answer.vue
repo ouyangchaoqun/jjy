@@ -211,6 +211,8 @@
             start:function () {
 //                开始录制
                 let _this=this;
+                xqzs.wx.voice.stopRecord();
+                console.log("stopRecord")
                 if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
                 this.clearTimeOut()
                 xqzs.wx.voice.startRecord();
