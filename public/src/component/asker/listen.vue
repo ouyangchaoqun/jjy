@@ -400,9 +400,7 @@
     }
 
 
-    .index_box li:last-of-type{
-        margin-bottom: 3.5294rem;
-    }
+
     .index_li_header{
         font-size: 0.70588rem;
         color: #474747;

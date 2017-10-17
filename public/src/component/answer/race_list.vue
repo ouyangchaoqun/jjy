@@ -1,12 +1,13 @@
 <template >
     <div style="height: 100%" class="answer_race_list">
+        <div v-title>抢答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">
-            <div v-title>抢答</div>
 
-            <div class="list">
+
+            <div class="list weui-tab__panel">
                 <div class="item" v-for="item in list">
                     <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">
