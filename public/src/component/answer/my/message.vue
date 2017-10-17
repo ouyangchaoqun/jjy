@@ -331,7 +331,7 @@
 
             });
             xqzs.wx.setConfig(_this,function () {
-                wx.stopRecord()
+               _this.stop();
             });
             xqzs.voice.audio=null;
             this.getExpertByUserId();
