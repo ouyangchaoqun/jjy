@@ -43,6 +43,13 @@
             });
         },
         methods: {
+
+            //清除声音
+            clearAllVoice:function () {
+                wx.stopRecord();
+
+            },
+
             //清除未关闭的控件
             clearPlugs: function () {
                 $(".child-view").removeClass("page-xqzs-left-enter-active").removeClass("page-xqzs-left-leave-active").removeClass("page-xqzs-right-enter-active").removeClass("page-xqzs-right-leave-active");
@@ -74,6 +81,7 @@
 
         beforeRouteUpdate (to, from, next) {
             this.clearPlugs();
+            this.clearAllVoice();
             //是否底部tab切换
             if(this.isTabChange(from,to)){
                 this.transitionName='';
