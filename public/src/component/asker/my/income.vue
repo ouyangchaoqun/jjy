@@ -13,7 +13,7 @@
         <div class="my_income"  v-if="income>0">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
-            <div class="money">￥{{income}}</div>
+            <div class="money">￥{{formatPrice(income)}}</div>
             <div class="get_money">提现</div>
             <div class="income_list" @click="incomeList()"><span>收益明细</span></div>
         </div>
@@ -38,6 +38,9 @@
 
         },
         methods:{
+            formatPrice:function () {
+              return xqzs.string.formatPrice(v)
+            },
             goAsk:function () {
                 this.$router.push("/answer/index");
             },

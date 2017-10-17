@@ -908,7 +908,7 @@ var xqzs = {
         if (isNaN(f)) {
             return "0.00";
         }
-        var f = Math.round(x * 100) / 100;
+        var f = Math.floor(x * 100) / 100;
         var s = f.toString();
         var rs = s.indexOf('.');
         if (rs < 0) {
