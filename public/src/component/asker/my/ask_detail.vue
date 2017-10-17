@@ -60,7 +60,7 @@
 
 
         <!--匿名评价-->
-        <div class="problem_assess" ><!--v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"-->
+        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null">
             <h4>匿名评价此回答</h4>
             <div class="star">
 
