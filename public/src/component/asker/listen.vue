@@ -1,5 +1,5 @@
 <template id="stealListen_index">
-    <div class="asker_listen_box" :class="{wbg:list.length==0    }">
+    <div class="asker_listen_box" :class="{wbg:list.length==0 }">
         <!--头部导航栏-->
         <div v-title>偷听</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
@@ -154,6 +154,14 @@
             xqzs.voice.audio=null;
         },
         methods:{
+            initActive:function () {
+                var obj =  $(".index_box li")
+                xqzs.weui.active(obj);
+
+                $(".audio ").on("touchstart",function () {
+                    event.stopPropagation();
+                })
+            },
             pay:function (index) {
                 let  item = this.list[index];
                 let _this=this;
@@ -391,9 +399,7 @@
         margin-bottom: 0.41176471rem;
     }
 
-    .index_box li:active{
-        background: #eee;
-    }
+
     .index_box li:last-of-type{
         margin-bottom: 3.5294rem;
     }
