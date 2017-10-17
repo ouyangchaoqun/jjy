@@ -7,7 +7,7 @@
                   :isShowMoreText="isShowMoreText">
 
 
-            <div class="list weui-tab__panel">
+            <div class="list">
                 <div class="item" v-for="item in list">
                     <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">

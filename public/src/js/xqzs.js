@@ -15,6 +15,7 @@ var xqzs = {
             $(".weui-mask").removeClass("weui-animate-fade-in").addClass("weui-animate-fade-out");
         },
         active: function (obj) {
+            console.log("active")
             obj.on("touchstart", function () {
                 $(this).addClass("active")
             }).on("touchend", function () {
@@ -60,15 +61,11 @@ var xqzs = {
             $("#toast").remove();
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
             var len = msg.length;
-            html += '<div class="weui-toast__content weui_tip" style="display: none"><div class="tip_txt">' + msg + '</div></div></div>';
+            html += '<div class="weui-toast__content weui_tip"><div class="tip_txt">' + msg + '</div></div></div>';
             $("body").append(html);
 
-
-               var w=$(".weui_tip").outerWidth();
-                $(".weui_tip").show();
                var h=$(".weui_tip").outerHeight();
-            $(".weui_tip").css({"margin-left":'-'+ (w)/2 +"px"})
-               $(".weui_tip").css({"margin-top":'-'+ (h)/2 +"px"})
+                $(".weui_tip").css({"margin-top":'-'+ (h)/2 +"px"})
 
 
             setTimeout(function () {

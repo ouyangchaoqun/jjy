@@ -2,7 +2,7 @@
     <div>
         <!--详情头部-->
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="steal_detail_header">
+        <div class="steal_detail_header" v-if="detail.title">
             <div class="steal_detail_top"><img :src="detail.faceUrl" alt=""><div>在<span>{{detail.title}}</span>方面</div></div>
             <div class="steal_detail_content">{{detail.content}}</div>
         </div>
@@ -223,12 +223,14 @@
 
             getDetail:function () {
                 let _this= this;
-
+                _this.showLoad=true;
                 _this.$http.get(web.API_PATH + 'come/listen/question/detail/'+_this.questionId +"/_userId_").then(function (data) {//es5写法
+                    _this.showLoad=false;
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
                     }
                 }, function (error) {
+                    _this.showLoad=false;
                 });
 
             },

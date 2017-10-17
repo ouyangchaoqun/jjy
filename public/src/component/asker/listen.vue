@@ -322,6 +322,9 @@
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
+                    vm.$nextTick(function () {
+                        vm.initActive()
+                    });
 
 
                     if (vm.page == 1) {

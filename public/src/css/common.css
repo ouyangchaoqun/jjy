@@ -298,8 +298,8 @@ a{
     text-align: center;
 }
 
-.weui_tip{ position: absolute; top:50%; margin-top: -18px ; left: 50%; line-height: 24px !important; z-index: 10010; text-align: center }
-.tip_txt{background:rgba(0,0,0,0.6); border-radius: 10px;  color:#fff; display: inline-block; padding: 18px 18px;}
+.weui_tip{ position: absolute; top:50%; margin-top: -18px ; width:50%;left:25%;background:rgba(0,0,0,0.6); border-radius: 10px;  color:#fff;   padding: 18px 0px;   line-height: 24px !important; z-index: 10010; text-align: center }
+.weui_tip .tip_txt{ margin: 0 18px; text-align: center; display: block}
 .clear{ clear: both;}
 
 
