@@ -44,19 +44,23 @@
         },
         mounted: function () {
             let expertId;
+            let _this=this;
             if(cookie.get('expertId')==null){
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         console.log(data)
                         expertId = data.data.data.id;
-                        cookie.set('expertId',expertId,30)
+                        cookie.set('expertId',expertId,300);
+                        _this.expertId = expertId;
+                        _this.getList()
                     }
                 }, function (error) {
                 });
             }else {
                 this.expertId = cookie.get('expertId')
+                this.getList()
             }
-            this.getList()
+
         },
         methods: {
             getList: function () {
