@@ -330,14 +330,16 @@
             }, function (error) {
 
             });
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,function () {
+                wx.stopRecord()
+            });
             xqzs.voice.audio=null;
             this.getExpertByUserId();
 
         },
         beforeDestroy:function () {
             console.log("beforeDestroy");
-            xqzs.wx.voice.stopRecord();
+            wx.stopRecord()
             console.log(wx)
             $(".audio_btn").click();
             xqzs.voice.pause();
