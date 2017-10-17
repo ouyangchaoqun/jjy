@@ -331,6 +331,7 @@
 
             });
             xqzs.wx.setConfig(_this,function () {
+                console.log("stop stop stop")
                _this.stop();
             });
             xqzs.voice.audio=null;
