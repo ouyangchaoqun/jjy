@@ -71,14 +71,14 @@ var xqzs = {
                $(".weui_tip").css({"margin-top":'-'+ (h)/2 +"px"})
 
 
-            // setTimeout(function () {
-            //     $("#toast").animate({opacity: 0}, 200, function () {
-            //         $("#toast").remove();
-            //
-            //         if (typeof(fun) == "function")
-            //             fun();
-            //     });
-            // },1200);
+            setTimeout(function () {
+                $("#toast").animate({opacity: 0}, 200, function () {
+                    $("#toast").remove();
+
+                    if (typeof(fun) == "function")
+                        fun();
+                });
+            },1200);
         },
         tipClose: function () {
             $("#toast").remove();
