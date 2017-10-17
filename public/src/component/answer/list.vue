@@ -45,7 +45,7 @@
             <!--<div class="txt">暂无该方面专家</div>-->
                 <div class="no_body_box">
                     <img src="../../images/asker/newNoContent.png" alt="">
-                    <div class="nocontent_html">暂无该方面问题</div>
+                    <div class="nocontent_html">暂无该方面专家</div>
                     <div class="nocontent_bottom">我们会尽快安排该方面专家入驻</div>
                 </div>
 

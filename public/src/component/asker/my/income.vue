@@ -7,7 +7,7 @@
             <div class="nothing_bottom">
                 <p>没有收益明细</p>
                 可以对专家进行提问
-                <div>去提问</div>
+                <div @click="goAsk()">去提问</div>
             </div>
         </div>
         <div class="my_income"  v-if="income>0">
@@ -38,6 +38,9 @@
 
         },
         methods:{
+            goAsk:function () {
+                this.$router.push("/answer/index");
+            },
             getIncome:function () {
 
                 let _this= this;
