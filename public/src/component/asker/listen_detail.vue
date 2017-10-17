@@ -59,7 +59,8 @@
                         <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{item.sign}}</div>
-                    <img src="../../images/asker/listenin1.png" alt="" @click="follow(item.expertId)">
+                    <img src="../../images/asker/isfollowed.png" v-if="item.isFollowed==1" alt="" @click="follow(item.expertId)">
+                    <img src="../../images/asker/nofollowed.png" v-if="item.isFollowed==0" alt="" @click="follow(item.expertId)">
                 </div>
             </li>
 
@@ -228,6 +229,7 @@
                     _this.showLoad=false;
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
+                        console.log(_this.detail)
                     }
                 }, function (error) {
                     _this.showLoad=false;
