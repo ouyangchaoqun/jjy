@@ -32,7 +32,11 @@
         data() {
             return {
                 income:0,
-                user:{}
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         components: {
