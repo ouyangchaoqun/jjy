@@ -74,8 +74,8 @@
                 <div class="btn_sq" @click="btn_sq()"><span v-if="!Hflag">收起</span><span v-if="Hflag">展开全部</span></div>
             </div>
             <div class="answer_comments">
-                <div>
                     <div class="answer_title">最新评价({{detail.evaluateCount}})</div>
+                <div v-if="detail.evaluateCount>0">
                     <div class="list">
                         <div class="item" v-for="item in commentList">
                             <div class="img"><img
@@ -98,6 +98,9 @@
 
                     </div>
                     <div class="btn_sq" @click="moreComment()">查看更多评价</div>
+                </div>
+                <div v-if="detail.evaluateCount==0">
+                    <div class="comment_btn">暂无评价</div>
                 </div>
 
             </div>
@@ -567,6 +570,16 @@
     }
 </script>
 <style>
+    .comment_btn{
+        width: 5.235rem;
+        height: 1.3235rem;
+        line-height: 1.3235rem;
+        margin: 0 auto;
+        margin-top: 0.88rem;
+        text-align: center;
+        color: #999;
+        font-size: 0.70588235rem;
+    }
     .answer_detail_box .answer_info{
         width: 100%;
     }
@@ -700,7 +713,7 @@
         font-weight: normal;
     }
     .answer_detail_box .btn_sq{
-        width:5.235rem;
+        width:6rem;
         height:1.3235rem;
         line-height: 1.3235rem;
         border-radius: 0.7rem ;
@@ -716,7 +729,7 @@
         margin-top: 0.41176471rem;
         padding-bottom: 0.88rem;
     }
-   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 1.23rem 0.8823529411764706rem;margin-bottom: 0.41176471rem  }
+   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 0.6rem 0.8823529411764706rem;margin-bottom: 0.41176471rem  }
     .answer_detail_box .list .star span{ background: url(../../images/answer/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
     .answer_detail_box  .list .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
 
@@ -744,7 +757,7 @@
     .answer_detail_box .new{float: right;margin-right: 0.58rem; position: relative; padding-right: 1.17rem; color: #999999 ;}
     .answer_detail_box .price{font-size: 0.74rem;color:#ff6600}
     .answer_detail_box .reply{height: 50px;}
-    .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.58rem }
+    .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.88235rem }
     .answer_detail_box .ask_time{float: left;}
     .answer_detail_box .answer{margin-top: 0.88rem}
     .answer_detail_box .ask_status{float: right;}
@@ -768,8 +781,8 @@
         height: 2.588rem;
         position: relative;
     }
-    .listen img{display: block;position: absolute;left:0.88235rem;width:1.70588rem;height:1.70588rem;top:50%;margin-top: -0.85294rem;}
-    .answer_detail_box .listen span{color: #999;position: absolute;right:0.2rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
+    .listen img{display: block;position: absolute;left:0.88235rem;width:1.4rem;height:1.4rem;top:50%;margin-top: -0.7rem;}
+    .answer_detail_box .listen span{color: #999;position: absolute;right:0.4rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
        background: url("../../images/asker/listenin1.png") no-repeat;
