@@ -217,7 +217,7 @@
                 this.getList();
                 done() // call done
             },
-        }
+        },
         beforeDestroy:function () {
             xqzs.voice.pause();
         },

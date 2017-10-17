@@ -96,7 +96,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:true,
+                isShowMoreText:false,
                 showLoad:false,
                 list:[],
                 type:0
@@ -146,7 +146,7 @@
                 //数据
                 _this.page=1;
                 _this.isPageEnd = false;
-                _this.isShowMoreText = true;
+                _this.isShowMoreText = false;
                 _this.getList();
             });
 
@@ -308,6 +308,9 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+
+                        vm.isShowMoreText = true;
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
