@@ -333,6 +333,7 @@
             xqzs.wx.setConfig(_this,function () {
                 console.log("stop stop stop")
                _this.stop();
+                console.log("stop 2stop 2st2p")
             });
             xqzs.voice.audio=null;
             this.getExpertByUserId();
