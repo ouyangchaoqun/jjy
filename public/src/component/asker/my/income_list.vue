@@ -49,7 +49,7 @@
         },
         methods:{
             formatPrice:function (price) {
-                return xqzs.toDecimal2(price)
+                return xqzs.string.formatPrice(price)
             },
             formatTime:function (time) {
                 return xqzs.dateTime.formatDateTime(time);

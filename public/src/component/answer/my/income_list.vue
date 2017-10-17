@@ -5,14 +5,13 @@
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
             <div v-title>心情指数</div>
-
             <div>
                 <div class="top_tip">每份收入的90%为收益哦</div>
                 <div class="list">
                     <div class="item" v-for="item in list">
-                        <div class="time">2017-09-12 12:00</div>
-                        <div class="type_txt">偷听分成</div>
-                        <div class="price">¥0.45</div>
+                        <div class="time">{{formatTime(item.addTime)}}</div>
+                        <div class="type_txt">{{item.note}}</div>
+                        <div class="price">¥{{formatPrice(item.amount)}}</div>
                     </div>
                 </div>
             </div>
@@ -34,7 +33,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:true,
+                isShowMoreText:false,
                 list:[],
             }
         },
@@ -44,10 +43,16 @@
             this.getList()
         },
         methods:{
+            formatTime:function (v) {
+              return xqzs.dateTime.formatDateTime(v)
+            },
+            formatPrice:function (v) {
+              return xqzs.string.formatPrice(v)
+            },
             getList: function () {
                 let expertId = cookie.get('expertId')
                 let vm= this;
-                let url =web.API_PATH + 'come/expert/query/income/page/'+expertId+'/1289/'+vm.page+'/'+vm.row;
+                let url =web.API_PATH + 'come/expert/query/income/page/'+expertId+'/_userId_/'+vm.page+'/'+vm.row;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
@@ -62,20 +67,23 @@
                 vm.$http.get(vm.rankUrl).then((response) => {
                     vm.showLoad = false;
                     vm.isLoading = false;
-//                    console.log(response)
+                    console.log(response)
 
-                    if(response.data.status!=1&&vm.page==1){
+                    if((response.body.status!=1&&vm.page==1)||response.body.data.total==0){
                         vm.list = [];
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false;
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
+                    console.log("ddddddd")
                     let arr = response.data.data.rows;
 //
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText = true
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
