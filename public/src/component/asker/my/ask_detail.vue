@@ -300,10 +300,10 @@
     }
 </script>
 <style>
+    .problem_assess_btn .weui-btn{border-radius: 50px;}
 
-
-    .star span{ display: inline-block;  height:0.9411764705882353rem; width: 0.9411764705882353rem; background: url(../../../images/star_no.png) no-repeat; background-size: 0.9411764705882353rem; margin: 0.9rem  0.4rem;  }
-    .star span.on{ background: url(../../../images/star.png) no-repeat; background-size: 0.9411764705882353rem;}
+    .problem_assess .star span{ display: inline-block;  height:0.9411764705882353rem; width: 0.9411764705882353rem; background: url(../../../images/star_no.png) no-repeat; background-size: 0.9411764705882353rem; margin: 0.9rem  0.4rem;  }
+    .problem_assess .star span.on{ background: url(../../../images/star.png) no-repeat; background-size: 0.9411764705882353rem;}
     .problem_answer_info{
         padding:0 0.88235rem;
         display: -webkit-box;

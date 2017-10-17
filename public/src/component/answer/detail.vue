@@ -74,29 +74,32 @@
                 <div class="btn_sq" @click="btn_sq()"><span v-if="!Hflag">收起</span><span v-if="Hflag">展开全部</span></div>
             </div>
             <div class="answer_comments">
-                <div class="answer_title">最新评价({{detail.evaluateCount}})</div>
-                <div class="list">
-                    <div class="item" v-for="item in commentList">
-                        <div class="img"><img
-                                :src="item.faceUrl">
+                <div>
+                    <div class="answer_title">最新评价({{detail.evaluateCount}})</div>
+                    <div class="list">
+                        <div class="item" v-for="item in commentList">
+                            <div class="img"><img
+                                    :src="item.faceUrl">
+                            </div>
+                            <div class="info">
+                                <div class="name">{{item.nickName}}</div> <!--该名字-->
+                                <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span>
+                                </div>
+                                <div class="word">{{item.content}}
+                                </div>
+                                <div class="class_s">
+                                    <span v-for="tag in item.tag">{{tag.title}}</span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="time">{{formatTime(item.addTime)}}</div>
+                            </div>
+                            <div class="clear"></div>
                         </div>
-                        <div class="info">
-                            <div class="name">{{item.nickName}}</div> <!--该名字-->
-                            <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span>
-                            </div>
-                            <div class="word">{{item.content}}
-                            </div>
-                            <div class="class_s">
-                                <span v-for="tag in item.tag">{{tag.title}}</span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="time">{{formatTime(item.addTime)}}</div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
 
+                    </div>
+                    <div class="btn_sq" @click="moreComment()">查看更多评价</div>
                 </div>
-                <div class="btn_sq" @click="moreComment()">查看更多评价</div>
+
             </div>
             <div class="ask_answer">
                 <div class="answer_title">问答({{detail.answerCount}})
@@ -161,9 +164,9 @@
         {{detail.expertUserId}}
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
-                <img v-if="detail.followed===1" src="../../images/asker/listenin1.png" alt="">
-                <img v-if="detail.followed===0" src="../../images/asker/nothing_answer.png" alt="">
-                <span v-if="detail.followed===1">已听</span>
+                <img v-if="detail.followed===0" src="../../images/asker/listenin1.png" alt="">
+                <img v-if="detail.followed===1" src="../../images/asker/isfollowed.png" alt="">
+                <span v-if="detail.followed===1">已收听</span>
                 <span v-if="detail.followed===0">收听</span>
             </div>
             <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>
@@ -697,10 +700,10 @@
         font-weight: normal;
     }
     .answer_detail_box .btn_sq{
-        width:5.835rem;
-        height:1.852rem;
-        line-height: 1.852rem;
-        border-radius: 0.4rem ;
+        width:5.235rem;
+        height:1.3235rem;
+        line-height: 1.3235rem;
+        border-radius: 0.7rem ;
         border: 1px solid rgba(254,115,1,1);
         margin:0 auto;
         margin-top: 0.6rem;
@@ -766,7 +769,7 @@
         position: relative;
     }
     .listen img{display: block;position: absolute;left:0.88235rem;width:1.70588rem;height:1.70588rem;top:50%;margin-top: -0.85294rem;}
-    .answer_detail_box .listen span{color: #999;position: absolute;left:3rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
+    .answer_detail_box .listen span{color: #999;position: absolute;right:0.2rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
        background: url("../../images/asker/listenin1.png") no-repeat;

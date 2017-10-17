@@ -22,7 +22,7 @@
                 <span class="img"></span><span>只看评价内容</span>
             </div>
             <div class="list">
-                <div class="item" v-for="item in list">
+                    <div class="item" v-for="item in list">
                     <div class="img"><img
                             :src="item.faceUrl">
                     </div>
@@ -171,7 +171,7 @@
 
     .answer_comment_box .list_top{ margin-top:0.8823529411764706rem; background: #fff;border-bottom: 1px solid #EDEDED; font-size: 0.8823529411764706rem; height: 2.588235294117647rem; line-height: 2.588235294117647rem; padding: 0  0.8823529411764706rem }
     .answer_comment_box  .list_top span{ float:left; display: block}
-    .answer_comment_box  .list_top .img{  background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); width: 1.176470588235294rem; height: 1.176470588235294rem;border-radius: 50%; margin-top: 0.7058823529411765rem; margin-right:0.5rem; }
+    .answer_comment_box  .list_top .img{  background:url("../../images/asker/comment_per.png") no-repeat; width: 1.176470588235294rem; height: 1.176470588235294rem;border-radius: 50%; margin-top: 0.7058823529411765rem; margin-right:0.5rem;background-size: 1.176470588235294rem }
 
 
 
