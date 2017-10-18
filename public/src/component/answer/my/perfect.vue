@@ -174,7 +174,7 @@
                 console.log('$(key).offset().top'+$(key).offset().top);
 
                 setTimeout(function () {
-                    $("html,body").animate({scrollTop: $(key).offset().top}, 3);
+                    $(".child-view").animate({scrollTop: $(key).offset().top}, 3);
                 },800)
 
             },
