@@ -446,9 +446,8 @@ a{
 .problem_detail_content{
     padding:0 0.88235rem;
     color: #333;
-    font-size: 0.88235rem;
-    line-height: 1.235294rem;
-    margin-bottom: 0.70588rem;
+    font-size: 0.8235rem;
+    line-height: 1.4rem;
 }
 /*底部 信息展示 听过 点赞*/
 .problem_answer_bottom{
@@ -456,7 +455,7 @@ a{
     font-size: 0.70588rem;
     height: 0.941176rem;
     line-height: 0.941176rem;
-    margin-bottom: 0.588235rem;
+    margin-bottom: 0.7rem;
     padding:0 0.88235rem;
 }
 .problem_answer_time{
@@ -477,7 +476,8 @@ a{
 }
 .problem_answer_zan span{
     float: left;
-    margin-top:1px;
+    padding-top:0.1rem;
+    margin-left: 0.1rem;
 }
 /* 弹出框 解答须知*/
 .myask_know_box{

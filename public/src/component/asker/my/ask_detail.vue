@@ -8,7 +8,7 @@
             <div class="problem_detail_content">
                 {{detail.question}}
             </div>
-            <div class="problem_answer_info">
+            <div class="problem_answer_info" :class="{addContentStyle:detail.questionStatus==0||detail.questionStatus==2}">
                 <!--待回答-->
                 <div class="problem_wait_style" v-if="detail.questionStatus==0">
                     <span>待回答</span><span>还{{formatTimeLastText(detail.endTime)}}</span>
@@ -414,4 +414,5 @@
         background: #F4F4F7;
     }
     .problem_answer_info .problem_answer_yy{margin-top: 3px}
+    .addContentStyle{margin-bottom: 0}
 </style>
