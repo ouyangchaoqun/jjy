@@ -58,7 +58,7 @@
                         <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                         <div class="problem_answer_zan">
                             <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
-                            <div @click="like(index)" ><span class="care_img_"   :class="{icon2:item.isCared}"></span><span> {{item.likeTimes}}</span></div>
+                            <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span> {{item.likeTimes}}</span></div>
                         </div>
                     </div>
                 </li>

@@ -41,10 +41,10 @@
                         </div>
                         <!--回答后底部显示详情-->
                         <div class="problem_answer_bottom">
-                            <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过{{item.listenTimes}}</span></div>
+                            <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过 {{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
                                 <div  v-if="item.inCome!=0"><span>偷听分成 </span><span style="color:#FF9900">￥{{formatPrice(item.inCome)}}</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
+                                <div class="good_care"><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
                     </li>
@@ -80,7 +80,7 @@
                             <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过 {{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
                                 <div><span>偷听分成 </span><span style="color:#FF9900">￥{{formatPrice(item.inCome)}}</span></div>
-                                <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
+                                <div class="good_care"><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
                     </li>

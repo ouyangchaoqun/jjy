@@ -162,19 +162,18 @@
         content: " "
     }
 
-    .care_img_.icon2 {
+    .good_care.good_cared {
         background: url("../images/asker/zan_por1.png") no-repeat;
-        background-size: 0.936rem;
+        background-size: 0.94117647058823529411764705882353rem;
+        background-position: 0,0.3rem;
     }
-
-    .care_img_ {
+    .good_care {
         float: left;
         display: inline-block;
         margin-right: 0.2rem;
         background: url("../images/asker/zan_nor.png") no-repeat;
-        background-size: 0.94117647058823529411764705882353rem;
-        height: 0.91176470588235294117647058823529rem;
-        width: 0.94117647058823529411764705882353rem;
+        background-position: 0,0.3rem;
+        background-size: 0.94117647058823529411764705882353rem;padding-left: 1.1rem; margin-left: 0.3rem;
     }
 
     .child-view {

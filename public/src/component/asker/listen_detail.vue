@@ -51,7 +51,7 @@
                     <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div @click="like(index)"><span class="care_img_ " :class="{icon2:item.isCared}"></span>   <span>{{item.likeTimes}}</span></div>
+                    <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span>{{item.likeTimes}}</span></div>
                     <div>听过  <span>{{item.listenTimes}}</span></div>
                 </div>
                 <div class="steal_expert_info">

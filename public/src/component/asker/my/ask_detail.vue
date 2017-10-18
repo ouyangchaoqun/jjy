@@ -42,7 +42,7 @@
                     <div class="problem_answer_zan">
                         <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
                         <div><span>收入分成￥</span><span>{{formatPrice(item.inCome)}}</span></div>
-                        <div  @click="like(index)"><span class="care_img_" :class="{icon2:item.isLiked}"></span><span>{{item.likeTimes}}</span></div>
+                        <div @click="like(index)" class="good_care" :class="{good_cared:item.isLiked}"><span>{{item.likeTimes}}</span></div>
                     </div>
                 </div>
              </template>

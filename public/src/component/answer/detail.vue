@@ -157,7 +157,7 @@
                             <div class="time">{{formatTime(item.queAddTime)}}</div>
                             <div class="others_right">
                                 <div class="listen_count">听过 {{item.listenTimes}}</div>
-                                <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}"><span class="addSPanStyle">{{item.likeTimes}}</span></div>
+                                <div class="good_care" :class="{good_cared:item.isCared}" @click.stop="like(index)" ><span>{{item.likeTimes}}</span></div>
                             </div>
 
                         </div>
@@ -809,8 +809,6 @@
 
      .item .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding-left: 2.88235rem;}
      .item .others .listen_count{ float: left;margin-right: 0.588235rem}
-     .item .others .good{ float: right; background: url(../../images/asker/zan_nor.png) no-repeat; background-size: 0.9411764705882353rem; padding-left: 1rem; background-position: 0rem;}
-     .item .others .good.care_img_on{background: url(../../images/asker/zan_por1.png) no-repeat;background-position: 0rem;background-size: 0.9411764705882353rem;}
-    .item .addSPanStyle{margin-left: 0.235rem;  float: right;  line-height: 1;  margin-top: 0.235rem;}
+
     .item .others_right{position: absolute;right:0;top:0}
 </style>
