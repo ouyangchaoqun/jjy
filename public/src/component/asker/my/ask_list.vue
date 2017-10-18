@@ -1,5 +1,5 @@
 <template>
-    <div :class="{wbg:list.length==0}">
+    <div :class="{wbg:list.length==0&&!showLoad}">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"

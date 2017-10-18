@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%" class="transitionBox">
         <transition :name="transitionName">
-            <router-view class="child-view" :user=user :isGoIndex="isGoIndex"></router-view>
+            <router-view class="child-view" :user=user :isGoIndex="isGoIndex" :expert="expert"></router-view>
         </transition>
     </div>
 </template>
@@ -15,6 +15,7 @@
                 pagesIn: [],
                 isFunny: false,
                 user: {},
+                expert:{},
                 friendMoodsSpe: [],
                 friendMoods: [],
                 myLastMood: null,
@@ -42,8 +43,21 @@
             Bus.$on("goIndex", function (v) {
                 _this.isGoIndex = v;
             });
+            this.getExpert();
         },
         methods: {
+            getExpert:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        let  expertId = data.data.data.id;
+                        _this.expert= data.data.data;
+                        cookie.set('expertId',expertId,300);
+
+                    }
+                }, function (error) {
+                });
+            },
 
             //清除声音
             clearAllVoice: function () {

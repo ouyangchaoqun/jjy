@@ -39,8 +39,13 @@
                 user:{
                     income:0
                 },
-                income:0,
-                expert:{}
+                income:0
+
+            }
+        },
+        props:{
+            expert:{
+                type:Object
             }
         },
         components: {
@@ -81,13 +86,18 @@
             },
             getExpertByUserId:function () {
                 let _this=this;
-                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
-                    if (data.body.status == 1) {
+                if(_this.expert.id&&_this.expert.id!=null){
 
-                        _this.expert = data.data.data;
-                    }
-                }, function (error) {
-                });
+                }else{
+                    this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                        if (data.body.status == 1) {
+
+                            _this.expert = data.data.data;
+                        }
+                    }, function (error) {
+                    });
+                }
+
             }
 
         }

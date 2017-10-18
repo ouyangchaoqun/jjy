@@ -444,8 +444,11 @@
     }
 </script>
 <style>
+    .goodat:nth-child(6){
+        margin-bottom: 1.76471rem;
+    }
     .cancel{ color:#666}
-    .setQualification_box{  background: #fff;  color: #666;  font-size: 0.8235rem;  padding-bottom: 1.76471rem;  }
+    .setQualification_box{  background: #fff;  color: #666;  font-size: 0.8235rem;   }
     .setQualification_box header{  padding:1.176471rem 0.88235rem 0.88235rem 0.88235rem;  border-bottom: 0.588235rem solid #F4F4F7;  }
     .header_top{ position: relative;margin-bottom: 0.35294117rem;font-size: 0.88235rem;  color: #474747;}
     .setQualification_box .header-right{  position: absolute;  top:0px;  right:0;  padding:0.2941176471rem 0.588235rem;  border-radius: 0.6176471rem;  line-height: 1;  color: #fff;  font-size: 0.70588235rem;  background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));}
