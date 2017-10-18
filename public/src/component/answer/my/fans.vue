@@ -40,7 +40,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:true,
+                isShowMoreText:false,
                 list:[],
                 count:0
             }
@@ -86,6 +86,8 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText = true
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 

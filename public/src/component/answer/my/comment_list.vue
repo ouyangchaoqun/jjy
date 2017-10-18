@@ -2,7 +2,7 @@
     <div style="height: 100%" class="answer_my_coment_list wbg">
 
         <div v-title>我的评价</div>
-        <div class="nothing comment" v-show="list.length==0"  >
+        <div class="nothing comment" v-show="list.length==0&&!showLoad"  >
             您还没收到任何评价
         </div>
         <div>
@@ -70,7 +70,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText: true,
+                isShowMoreText: false,
                 showLoad: false,
                 list: [],
             }
@@ -147,6 +147,8 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText = true
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 

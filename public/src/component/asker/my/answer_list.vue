@@ -55,7 +55,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
-                isShowMoreText:true,
+                isShowMoreText:false,
                 showLoad:false,
                 list:[],
                 total:0
@@ -81,7 +81,7 @@
             goDetail:function (id) {
                 this.$router.push("/answer/detail?id="+id)
             },
-            getList: function () {
+            getList: function (done) {
 
                 let vm= this;
                 let url =web.API_PATH + 'come/user/query/follow/page/_userId_/'+vm.page+'/'+vm.row;
@@ -100,6 +100,9 @@
 
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
@@ -117,6 +120,8 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText =false
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
@@ -137,8 +142,7 @@
 
             },
             onInfinite(done) {
-                this.getList();
-                done() // call done
+                this.getList(done);
             },
         }
 
