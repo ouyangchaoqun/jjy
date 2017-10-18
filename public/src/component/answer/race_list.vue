@@ -61,7 +61,14 @@
                 this.expertId = cookie.get('expertId')
                 this.getList()
             }
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,function () {
+                let localId = xqzs.localdb.get("voice_localId");
+                console.log("voice_localId："+localId);
+                if (localId && localId != "") {
+                    wx.stopVoice(localId);
+                    console.log(localId)
+                }
+            });
 
         },
         methods: {
