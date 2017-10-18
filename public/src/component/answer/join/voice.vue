@@ -171,7 +171,8 @@
                 console.log("startRecordtimeout")
                 xqzs.wx.voice.startRecord();
                 xqzs.wx.voice.onRecordEnd(function (localId) {
-                    _this.localId=localId;
+                    _this.localId=localId
+                    xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
                 });
 
@@ -209,6 +210,7 @@
                 let _this = this;
                 xqzs.wx.voice.stopRecord(function (localId) {
                     _this.localId=localId;
+                    xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
                 });
 
@@ -246,8 +248,6 @@
                 }
 
             }
-
-
         },
         mounted: function () {
 
@@ -255,10 +255,6 @@
         },
         components: {
             "v-answer-top-step": answerTopStep
-        },
-        beforeDestroy:function () {
-            xqzs.wx.voice.stopRecord();
-            xqzs.voice.pause();
         }
 
 

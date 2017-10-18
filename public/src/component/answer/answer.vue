@@ -278,27 +278,7 @@
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             }
-
-
-        },
-
-
-        beforeRouteLeave (to, from, next) {
-            if(this.localId)xqzs.wx.voice.stopPlay( this.localId);
-            console.log('组件路由勾子：beforeRouteLeavelocalId'+this.localId)
-            next()
-        },
-        beforeDestroy:function () {
-            wx.stopRecord();
-            this.clearTimeOut()
-
-            console.log("beforeDestroy")
-            console.log("this.playing："+this.playing)
-            console.log("tthis.localId："+this.localId)
-            if(this.localId)xqzs.wx.voice.stopPlay( this.localId);
-        },
-
-
+        }
     }
 </script>
 <style>
