@@ -69,8 +69,15 @@ router.beforeEach((to, from, next) => {
     let localId = xqzs.localdb.get("voice_localId");
     console.log("voice_localId："+localId);
     if (localId && localId != "") {
-        wx.stopVoice(localId);
-        console.log(localId)
+
+        wx.stopVoice({
+            localId: localId // 需要停止的音频的本地ID，由stopRecord接口获得
+        });
+
+        wx.pauseVoice({
+            localId: localId // 需要暂停的音频的本地ID，由stopRecord接口获得
+        });
+        console.log(localId+"bbbbbb")
     }
 
     next()
