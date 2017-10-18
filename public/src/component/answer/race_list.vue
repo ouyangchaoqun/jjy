@@ -61,6 +61,7 @@
                 this.expertId = cookie.get('expertId')
                 this.getList()
             }
+            xqzs.wx.setConfig(_this);
 
         },
         methods: {
