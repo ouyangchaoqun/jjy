@@ -47,14 +47,14 @@
 
             //清除声音
             clearAllVoice: function () {
-                xqzs.voice.pause();
-                wx.stopRecord();
-                let localId = xqzs.localdb.get("voice_localId");
-                console.log("voice_localId："+localId);
-                if (localId && localId != "") {
-                    wx.stopVoice(localId);
-                    console.log(localId)
-                }
+//                xqzs.voice.pause();
+//                wx.stopRecord();
+//                let localId = xqzs.localdb.get("voice_localId");
+//                console.log("voice_localId："+localId);
+//                if (localId && localId != "") {
+//                    wx.stopVoice(localId);
+//                    console.log(localId)
+//                }
             },
 
             //清除未关闭的控件
