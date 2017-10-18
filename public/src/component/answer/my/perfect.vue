@@ -36,7 +36,7 @@
         </router-link>
         <div class="list0 ">
             <span>身份证号</span>
-            <input type="text" class="idcard" :value="user.idcard" placeholder="填写身份证号">
+            <input type="text" class="idcard" @focus="scrollTop('.idcard')" :value="user.idcard" placeholder="填写身份证号">
             <div class="line"></div>
         </div>
         <div class="list0 list02 " @click="showDate()">
@@ -76,7 +76,7 @@
         </div>
         <div class="list0 ">
             <span>详细地址</span>
-            <input type="text" class="address" v-model:value="user.address" placeholder="还未填写">
+            <input type="text" class="address" @focus="scrollTop('.address')" v-model:value="user.address" placeholder="还未填写">
         </div>
         <div class="list03" @click="msgSubmit()">
             <a class="weui-btn weui-btn_primary">提交</a>
@@ -170,6 +170,9 @@
             }
         },
         methods: {
+            scrollTop:function (key) {
+                $("body").animate({scrollTop: $(key).offset().top}, 500);
+            },
             resizeImg:function (v) {
                 return   xqzs.oss.resizeImg(v,100,100)
             },
