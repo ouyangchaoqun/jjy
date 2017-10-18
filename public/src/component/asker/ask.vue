@@ -9,9 +9,9 @@
                 <div class="clear"></div>
             </div>
             <div class="text_area">
-                <textarea v-if="isSelectAnswer" class="content" @focus="inputing()" @blur="inputing()"
+                <textarea v-if="isSelectAnswer" class="content"
                           placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
-                <textarea v-if="!isSelectAnswer" class="content" @focus="inputing()" @blur="inputing()"
+                <textarea v-if="!isSelectAnswer" class="content"
                           placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
                 <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
                 <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
@@ -119,6 +119,10 @@
             let _this=this;
 
             _this.$nextTick(function () {
+
+                $(document).resize(function() {
+                    $(".asker_ask_box .change_height").height($(document).height()-50)
+                });
                 $(".content").keyup(function () {
 
                     let content  =  $(this).val();
@@ -137,13 +141,7 @@
 
         },
         methods: {
-            inputing:function () {
 
-                setTimeout(function () {
-                    console.log("$(document).height()"+$(document).height())
-                    $(".asker_ask_box .change_height").height($(document).height())
-                },500)
-            },
             getExpert:function () {
                 let _this= this;
                 let id=  this.expertId;
@@ -360,7 +358,7 @@
         border-radius: 6px;
         font-size: 0.7647058823529412rem;
         padding: 1rem;
-        height: 10rem;
+        height: 8rem;
         margin-top: 0.8823529411764706rem;
     }
     .asker_ask_box .text_area .price{
@@ -395,7 +393,7 @@
         margin-top: 0.8rem;
     }
     .asker_ask_box .set_price {
-        margin-top: 3rem;
+        margin-top: 2rem;
         text-align: center;
         line-height: 2rem;
     }
@@ -419,7 +417,7 @@
         color: #fff;
         text-align: center;
         line-height: 2.588235294117647rem;
-        margin: 3rem 0.88rem;
+        margin: 2rem 0.88rem 5rem;
     }
 
     .asker_ask_box .submit:active {
