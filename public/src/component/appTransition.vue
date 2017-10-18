@@ -7,20 +7,21 @@
 </template>
 <script>
     import Bus from '../js/bus.js';
+
     export default {
-        data () {
+        data() {
             return {
                 transitionName: 'page-xqzs-left',
                 pagesIn: [],
                 isFunny: false,
-                user:{},
-                friendMoodsSpe:[],
-                friendMoods:[],
-                myLastMood:null,
-                isGoIndex:false
+                user: {},
+                friendMoodsSpe: [],
+                friendMoods: [],
+                myLastMood: null,
+                isGoIndex: false
             }
         },
-        created:function () {
+        created: function () {
             console.log("create");
             var _this = this;
             _this.$http({
@@ -45,10 +46,15 @@
         methods: {
 
             //清除声音
-            clearAllVoice:function () {
+            clearAllVoice: function () {
+                xqzs.voice.pause();
                 wx.stopRecord();
-                let localId=xqzs.localdb.get("voice_localId");
-                if(localId&&localId!="") wx.stopVoice(localId)
+                let localId = xqzs.localdb.get("voice_localId");
+                console.log("voice_localId："+localId);
+                if (localId && localId != "") {
+                    wx.stopVoice(localId);
+                    console.log(localId)
+                }
             },
 
             //清除未关闭的控件
@@ -80,13 +86,13 @@
             }
         },
 
-        beforeRouteUpdate (to, from, next) {
+        beforeRouteUpdate(to, from, next) {
             this.clearPlugs();
             this.clearAllVoice();
             //是否底部tab切换
-            if(this.isTabChange(from,to)){
-                this.transitionName='';
-            }else{
+            if (this.isTabChange(from, to)) {
+                this.transitionName = '';
+            } else {
                 let isBack = false;
                 //左右滑动判断存储
                 for (let i = 0; i < this.pagesIn.length; i++) {
@@ -97,7 +103,7 @@
                         break;
                     }
                 }
-                if (!isBack){
+                if (!isBack) {
                     this.pagesIn.push({to: to.fullPath, from: from.fullPath})
                 }
 
@@ -110,7 +116,7 @@
             this.$nextTick(function () {
                 setTimeout(function () {
                     next()
-                },10)
+                }, 10)
             })
         }
     }
@@ -118,23 +124,41 @@
 
 <style>
 
-    .audio .audio_btn:before{ width: 0.6764705882352941rem; position: absolute;
-        content:" "; display: block; height: 0.97rem; background: url(../images/sond.png) no-repeat; background-size: 0.6764705882352941rem;  top:30%; left:0.8rem;}
-
-    .arrow:after{background: url(../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
-        right:0.88235rem;top:50% ; margin-top:-0.4705882352941177rem;content: " "}
-
-
-    .care_img_.icon2{
-        background: url("../images/asker/zan_por1.png") no-repeat;
-        background-size:0.936rem;
+    .audio .audio_btn:before {
+        width: 0.6764705882352941rem;
+        position: absolute;
+        content: " ";
+        display: block;
+        height: 0.97rem;
+        background: url(../images/sond.png) no-repeat;
+        background-size: 0.6764705882352941rem;
+        top: 30%;
+        left: 0.8rem;
     }
-    .care_img_{
+
+    .arrow:after {
+        background: url(../images/arrow.png);
+        width: 0.9411764705882353rem;
+        height: 0.9411764705882353rem;
+        background-size: 0.9411764705882353rem;
+        position: absolute;
+        right: 0.88235rem;
+        top: 50%;
+        margin-top: -0.4705882352941177rem;
+        content: " "
+    }
+
+    .care_img_.icon2 {
+        background: url("../images/asker/zan_por1.png") no-repeat;
+        background-size: 0.936rem;
+    }
+
+    .care_img_ {
         float: left;
         display: inline-block;
         background: url("../images/asker/zan_nor.png") no-repeat;
         background-size: 0.94117647058823529411764705882353rem;
-        height:0.91176470588235294117647058823529rem;
+        height: 0.91176470588235294117647058823529rem;
         width: 0.94117647058823529411764705882353rem;
     }
 
@@ -148,62 +172,85 @@
         overflow-y: scroll !important;
         -webkit-overflow-scrolling: touch
     }
-    .transitionBox{ position: relative}
-    .transitionBox .child-view:nth-child(1){ z-index: 2}
-    .transitionBox .child-view:nth-child(2){ z-index: 1}
+
+    .transitionBox {
+        position: relative
+    }
+
+    .transitionBox .child-view:nth-child(1) {
+        z-index: 2
+    }
+
+    .transitionBox .child-view:nth-child(2) {
+        z-index: 1
+    }
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .38s;
     }
+
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
         animation-duration: .38s;
     }
+
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
         animation-duration: .25s;
     }
+
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
         animation-duration: .25s;
     }
-    @media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+
+    @media (device-height: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+        /* 兼容iphone4/4s */
         .page-xqzs-left-enter-active {
             animation-name: noA;
             animation-duration: 0s;
         }
+
         .page-xqzs-left-leave-active {
             animation-name: noA;
             animation-duration: 0s;
         }
+
         .page-xqzs-right-enter-active {
             animation-name: noA;
             animation-duration: 0s;
         }
+
         .page-xqzs-right-leave-active {
             animation-name: noA;
             animation-duration: 0s;
         }
     }
-    @media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */
+
+    @media (device-height: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+        /* 兼容iphone5 */
         .page-xqzs-left-enter-active {
             animation-name: noA;
             animation-duration: 0s;
         }
+
         .page-xqzs-left-leave-active {
             animation-name: noA;
             animation-duration: 0s;
         }
+
         .page-xqzs-right-enter-active {
             animation-name: noA;
             animation-duration: 0s;
         }
+
         .page-xqzs-right-leave-active {
             animation-name: noA;
             animation-duration: 0s;
         }
     }
+
     @keyframes fold-right-in {
         0% {
             transform: translate3d(0, 0, 0);
@@ -226,6 +273,7 @@
             -webkit-transform: translate3d(100%, 0, 0);
         }
     }
+
     @keyframes fold-in {
         0% {
             transform: translate3d(100%, 0, 0);
@@ -242,6 +290,7 @@
             z-index: 2;
         }
     }
+
     @keyframes fold-out {
         0% {
             transform: translate3d(0%, 0, 0);
@@ -258,7 +307,6 @@
             z-index: 1;
         }
     }
-
 
 
 </style>
