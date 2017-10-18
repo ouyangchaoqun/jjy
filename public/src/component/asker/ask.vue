@@ -22,10 +22,11 @@
                 <div class="txt">设置赏金：</div>
                 <input type="text" class="price" placeholder="10元起">
             </div>
-            <div class="submit" @click="submit()">提交</div>
+            <div class="submit weui-btn weui-btn_primary weui-btn_disabled" v-if="!isSubFlag">提交</div>
+            <div class="submit weui-btn weui-btn_primary" @click="submit()" v-if="isSubFlag">提交</div>
         </div>
 
-        <v-asker-bottom ></v-asker-bottom>
+        <v-asker-bottom v-if="!isSelectAnswer"></v-asker-bottom>
 
         <div id="select_type" style="display: none">
             <div class="dialog_select_type">
@@ -98,7 +99,8 @@
                 expertId:0,
                 expertDetail:{},
                 contentLength:0,
-                MAX_LENGTH:140
+                MAX_LENGTH:140,
+                isSubFlag:false
 
             }
         },
@@ -127,6 +129,11 @@
 
                     let content  =  $(this).val();
                     console.log(content)
+                    if(content.length>0){
+                        _this.isSubFlag=true
+                    }else{
+                        _this.isSubFlag=false
+                    }
                     if(content.length>_this.MAX_LENGTH){
                         $(this).val(content.substr(0,_this.MAX_LENGTH));
                         _this.contentLength=_this.MAX_LENGTH;
@@ -412,11 +419,7 @@
     ::-webkit-input-placeholder {
         color: #ff9900;}
     .asker_ask_box .submit {
-        background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
         border-radius: 50px;
-        color: #fff;
-        text-align: center;
-        line-height: 2.588235294117647rem;
         margin: 2rem 0.88rem 5rem;
     }
 
@@ -434,7 +437,7 @@
       .dialog_select_type .types{ margin: 0.9rem;}
      .dialog_select_type .types .item{ width: 27%; float:left;text-align: center; border: 1px solid #9E9E9E ; line-height: 1.411764705882353rem; border-radius:0.7058823529411765rem; margin: 0 2%; margin-bottom: 1.8rem; font-size: 0.7058823529411765rem;color:#999; padding: 0 0.5%; }
      .dialog_select_type .types .item.on{  border: 1px solid rgba(255,81,2,1); color:rgba(255,81,2,1)}
-    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:rgba(255,81,2,1); text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
+    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
     .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 12rem; overflow: auto}
     .dialog_select_type .tip_content p{ margin-bottom: 0.6rem;}
 </style>

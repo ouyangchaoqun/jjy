@@ -9,8 +9,11 @@
                 <div class="top_tip">每份收入的90%为收益哦</div>
                 <div class="list">
                     <div class="item" v-for="item in list">
-                        <div class="time">{{formatTime(item.addTime)}}</div>
-                        <div class="type_txt">{{item.note.substr(0,5)}}</div>
+                        <div class="type_txt">{{item.note}}
+                            <div class="time">{{formatTime(item.addTime)}}</div>
+                        </div>
+
+
                         <div class="price">¥{{formatPrice(item.amount)}}</div>
                     </div>
                 </div>
@@ -119,8 +122,8 @@
 <style>
 
 
-    .ask_my_income_list  .list .item{ height: 2.941176470588235rem; line-height: 2.941176470588235rem; border-bottom: 0.0588235294117647rem solid #eee; color:#666; font-size: 0.7647058823529412rem; position: relative  }
-    .ask_my_income_list  .list .item .time{ margin-left:0.9705882352941176rem; }
-    .ask_my_income_list .list .item .type_txt{ position: absolute; right:6rem; top:0;}
-    .ask_my_income_list .list .item .price{ position: absolute; top:0; right:0.9705882352941176rem; color:#FF9900; font-size: 1.058823529411765rem;}
+    .ask_my_income_list  .list .item{ height: 3.52rem; line-height: 3.52rem; border-bottom: 0.0588235294117647rem solid #eee; position: relative;font-size: 0.88235rem;padding-left: 0.88235rem  }
+    .ask_my_income_list  .list .item .time{padding-top: 0.6rem;font-size: 0.6471rem;color:#999;}
+    .ask_my_income_list .list .item .type_txt{line-height: 1;color:#454B54;padding-top: 0.8rem}
+    .ask_my_income_list .list .item .price{ position: absolute; top:0; right:0.9705882352941176rem; color:#FF9900;}
 </style>

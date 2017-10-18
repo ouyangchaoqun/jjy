@@ -28,7 +28,7 @@
                                     <img :src="item.faceUrl" alt="">
                                     <div>{{item.nickName}}</div>
                                     <div class="wait_Answer wait_style" v-if="item.questionStatus==0">待回答</div>
-                                    <div class="wait_Answer over_style" v-if="item.questionStatus==1">完成</div>
+                                    <div class="wait_Answer over_style" v-if="item.questionStatus==1">已回答</div>
                                     <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
                                     <div class="wait_Answer nop_style" v-if="item.questionStatus==3">未支付</div>
                                 </div>
@@ -51,11 +51,11 @@
                     <ul>
                         <li class="my_problem_list1" v-if="type==1" v-for="item in list">
                             <a @click="goRaceDetail(item.questionId)">
-                                <div class="problem_header">
+                                <div class="problem_header headerStyle">
                                     问题类型：
                                     <div style="color: #333;margin-left: 10px">情感困惑</div>
                                     <div class="wait_Answer wait_style" v-if="item.questionStatus==0">正在进行</div>
-                                    <div class="wait_Answer over_style" v-if="item.questionStatus==1">完成</div>
+                                    <div class="wait_Answer over_style" v-if="item.questionStatus==1">已回答</div>
                                     <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
                                     <div class="wait_Answer nop_style" v-if="item.questionStatus==3">未支付</div>
                                 </div>
@@ -267,7 +267,7 @@
     }
 
     .my_problem_list1 {
-        padding: 0.70588235rem 0.88235rem 0.7rem 0.88235rem;
+        padding: 0.70588235rem 0.88235rem 0.9rem 0.88235rem;
         background: #fff;
         line-height: 2rem;
         margin-bottom: 0.41176471rem;
@@ -297,14 +297,14 @@
 
     .my_problem_content {
         color: #333;
-        font-size: 0.88235rem;
-        line-height: 1.235rem;
+        font-size: 0.8235rem;
+        line-height: 1.4rem;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        margin-bottom: 0.70588rem;
+        margin-bottom: 0.5rem;
     }
 
     .my_problem_bottom {
@@ -330,4 +330,5 @@
     .wait_style{color:rgba(51,141,255,1)}
     .nop_style{color:rgba(51,51,51,1)}
     .over_style{color:rgba(153,153,153,1)}
+    .headerStyle{margin-bottom: 0}
 </style>
