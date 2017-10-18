@@ -1410,17 +1410,31 @@ setTimeout(function () {
 
 
 document.addEventListener("visibilitychange", function () {
+    let localId = xqzs.localdb.get("voice_localId");
     if (document.visibilityState == 'hidden') {
-        if(xqzs.voice.audio && !xqzs.voice.audio.paused&&!xqzs.voice.audio.ended){
-            xqzs.voice.visibilityHidden=true;
+        if (xqzs.voice.audio && !xqzs.voice.audio.paused && !xqzs.voice.audio.ended) {
+            xqzs.voice.visibilityHidden = true;
             xqzs.voice.pause()
         }
 
+
+        if (localId && localId != "") {
+            wx.pauseVoice({
+                localId: localId // 需要暂停的音频的本地ID，由stopRecord接口获得
+            });
+        }
+
+
     } else {
-        if( xqzs.voice.visibilityHidden===true){
-            xqzs.voice.visibilityHidden=false;
+        if (xqzs.voice.visibilityHidden === true) {
+            xqzs.voice.visibilityHidden = false;
             xqzs.voice.play();
         }
+
+        if (localId && localId != "") {
+            xqzs.wx.voice.startPlay(localId)
+        }
+
 
     }
 });

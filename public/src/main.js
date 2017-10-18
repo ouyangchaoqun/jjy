@@ -63,20 +63,17 @@ let router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log('路由全局勾子：beforeEach -- 有next方法');
+    console.log('路由全局勾子：beforeEach');
     xqzs.voice.pause();
     wx.stopRecord();
     let localId = xqzs.localdb.get("voice_localId");
-    console.log("voice_localId："+localId);
     if (localId && localId != "") {
-
         wx.pauseVoice({
             localId: localId // 需要暂停的音频的本地ID，由stopRecord接口获得
         });
         wx.stopVoice({
             localId: localId // 需要停止的音频的本地ID，由stopRecord接口获得
         });
-        console.log(localId+"bbbbbb")
     }
     xqzs.localdb.set('voice_localId','');
     next()
