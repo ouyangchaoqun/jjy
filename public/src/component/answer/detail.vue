@@ -783,7 +783,7 @@
         position: relative;
     }
     .listen img{display: block;position: absolute;left:0.88235rem;width:1.4rem;height:1.4rem;top:50%;margin-top: -0.7rem;}
-    .answer_detail_box .listen span{color: #999;position: absolute;right:0.4rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
+    .answer_detail_box .listen span{color: #999;position: absolute;left:2.68235rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
        background: url("../../images/asker/listenin1.png") no-repeat;

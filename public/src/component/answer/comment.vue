@@ -18,8 +18,8 @@
                     v-for="item in tags">{{item.title}} {{item.count}}</span>
                 <div class="clear"></div>
             </div>
-            <div class="list_top">
-                <span class="img"></span><span>只看评价内容</span>
+            <div class="list_top"  @click="changeType()" >
+                <span class="img":class="{not_on:viewType==0}"></span><span>只看有评价内容</span>
             </div>
             <div class="list">
                     <div class="item" v-for="item in list">
@@ -62,7 +62,7 @@
                 commentCount:0,
                 viewType:0,
                 page: 1,
-                row: 3 ,
+                row: 5 ,
                 isPageEnd: false,
                 isShowMoreText:false,
                 showLoad:false,
@@ -78,6 +78,16 @@
             this.getList();
         },
         methods: {
+            changeType:function () {
+                if(this.viewType==0){
+                    this.viewType=1;
+                }else{
+                    this.viewType=0
+                }
+                this.page=1;
+                this.isPageEnd=false;
+                this.getList();
+            },
             formatTime:function (time) {
                 return xqzs.dateTime.formatDate(time);
             },
@@ -176,7 +186,10 @@
 
     .answer_comment_box .list_top{ margin-top:0.8823529411764706rem; background: #fff;border-bottom: 1px solid #EDEDED; font-size: 0.8823529411764706rem; height: 2.588235294117647rem; line-height: 2.588235294117647rem; padding: 0  0.8823529411764706rem }
     .answer_comment_box  .list_top span{ float:left; display: block}
-    .answer_comment_box  .list_top .img{  background:url("../../images/asker/comment_per.png") no-repeat; width: 1.176470588235294rem; height: 1.176470588235294rem;border-radius: 50%; margin-top: 0.7058823529411765rem; margin-right:0.5rem;background-size: 1.176470588235294rem }
+    .answer_comment_box  .list_top .img{  background:url("../../images/asker/comment_per.png") no-repeat; width: 1.176470588235294rem; height: 1.176470588235294rem;border-radius: 50%; margin-top: 0.7058823529411765rem; margin-right:0.5rem;background-size: 1.176470588235294rem; border:1px solid #fff; }
+    .answer_comment_box  .list_top .img.not_on{
+        background: #fff; border:1px solid #ccc;
+    }
 
 
 
