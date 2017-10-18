@@ -43,7 +43,10 @@
                         <div class="others">
                             <div class="time">{{formatTime(item.answerTime)}}</div>
                             <div class="listen_count">听过 {{item.listenTimes}}</div>
-                            <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}">{{item.likeTimes}}</div>
+                            <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}">
+                                <span class="care_img_" :class="{icon2:item.isCared}"></span>
+                                <span>{{item.likeTimes}}</span>
+                            </div>
                         </div>
                     </a>
                 </div>
@@ -273,8 +276,7 @@
 
     .asker_my_listen_list_box .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding: 0 0.88235rem; margin-top: 1.1rem;}
     .asker_my_listen_list_box .others .listen_count{ position: absolute; right:4.5rem; top:0}
-    .asker_my_listen_list_box .others .good{ position: absolute; right:0.88235rem; top:0; background: url(../../../images/asker/zan_nor.png) no-repeat; background-size: 0.9411764705882353rem; padding-left: 1rem; background-position: 0rem;}
-    .asker_my_listen_list_box .others .good.care_img_on{background: url(../../../images/asker/zan_por1.png) no-repeat;background-position: 0rem;}
+    .asker_my_listen_list_box .others .good{ position: absolute; right:0.88235rem; top:0;   padding-left: 1.3rem; }
 
 
 

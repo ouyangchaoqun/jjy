@@ -170,6 +170,7 @@
     .care_img_ {
         float: left;
         display: inline-block;
+        margin-right: 0.2rem;
         background: url("../images/asker/zan_nor.png") no-repeat;
         background-size: 0.94117647058823529411764705882353rem;
         height: 0.91176470588235294117647058823529rem;

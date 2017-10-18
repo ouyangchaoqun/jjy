@@ -51,7 +51,7 @@
                     <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div @click="like(index)"><div class="img_care " :class="{cared_img:item.isCared}"></div>   <span>{{item.likeTimes}}</span></div>
+                    <div @click="like(index)"><span class="care_img_ " :class="{icon2:item.isCared}"></span>   <span>{{item.likeTimes}}</span></div>
                     <div>听过  <span>{{item.listenTimes}}</span></div>
                 </div>
                 <div class="steal_expert_info">
@@ -269,14 +269,6 @@
 
 </script>
 <style>
-    .img_care{
-        display:inline-block;
-        background: url(../../images/asker/zan_nor.png) no-repeat; width: 0.941176471rem;; height: 0.941176471rem;;  float:left!important; background-size: 0.941176471rem; margin-right: 0.3rem;
-    }
-    .img_care.cared_img{
-        background: url(../../images/asker/zan_por1.png) no-repeat; background-size: 0.941176471rem;
-
-    }
 
     .position_change_detail{
         color:#fff;
