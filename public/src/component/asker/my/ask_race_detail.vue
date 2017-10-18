@@ -201,9 +201,13 @@
         font-size: 0.70588235rem;
         border-bottom: 0.41176471rem solid #f4f4f8;
     }
-    .rob_status_box>div{
+    .rob_status_box>div:nth-of-type(1){
         margin-bottom: 0.2rem;
         line-height: 1.0588235rem;
+        padding-top: 0.5rem;
+    }
+    .rob_status_box>div:nth-of-type(2){
+        margin-bottom: 0.6rem;
     }
     .rob_lists li{
         background: #fff;

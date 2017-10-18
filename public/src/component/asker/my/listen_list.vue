@@ -42,11 +42,14 @@
                         </div>
                         <div class="others">
                             <div class="time">{{formatTime(item.answerTime)}}</div>
-                            <div class="listen_count">听过 {{item.listenTimes}}</div>
-                            <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}">
-                                <span class="care_img_" :class="{icon2:item.isCared}"></span>
-                                <span>{{item.likeTimes}}</span>
+                            <div class="other_right">
+                                <div class="listen_count">听过 {{item.listenTimes}}</div>
+                                <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}">
+                                    <span class="care_img_" :class="{icon2:item.isCared}"></span>
+                                    <span class="addSPanStyle">{{item.likeTimes}}</span>
+                                </div>
                             </div>
+
                         </div>
                     </a>
                 </div>
@@ -275,10 +278,10 @@
     .asker_my_listen_list_box .answer .audio .audio_btn{ width: 47%}
 
     .asker_my_listen_list_box .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding: 0 0.88235rem; margin-top: 1.1rem;}
-    .asker_my_listen_list_box .others .listen_count{ position: absolute; right:4.5rem; top:0}
-    .asker_my_listen_list_box .others .good{ position: absolute; right:0.88235rem; top:0;   padding-left: 1.3rem; }
-
-
+    .asker_my_listen_list_box .others .listen_count{ margin-right:0.588235rem;float: left}
+    .asker_my_listen_list_box .others .good{float: right }
+    .asker_my_listen_list_box .other_right{position: absolute;right:0.88235rem;top:0}
+    .asker_my_listen_list_box .addSPanStyle{margin-left: 0.235rem;  float: right;  line-height: 1;margin-top: 0.2rem;}
 
 
 </style>
