@@ -19,7 +19,7 @@
                 <div class="clear"></div>
             </div>
             <div class="list_top"  @click="changeType()" >
-                <span class="img":class="{not_on:viewType==0}"></span><span>只看有评价内容</span>
+                <span class="img":class="{not_on:viewType==0}"></span><span>只看有内容的评价</span>
             </div>
             <div class="list">
                     <div class="item" v-for="item in list">

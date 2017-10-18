@@ -43,7 +43,7 @@
                         <div class="others">
                             <div class="time">{{formatTime(item.answerTime)}}</div>
                             <div class="listen_count">听过 {{item.listenTimes}}</div>
-                            <div class="good" @click.stop="like(index)" :class="{care_img_on:item.isCared}">
+                            <div class="good" @click.stop="like(index)" >
                                 <span class="care_img_" :class="{icon2:item.isCared}"></span>
                                 <span>{{item.likeTimes}}</span>
                             </div>

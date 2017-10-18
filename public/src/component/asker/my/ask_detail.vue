@@ -3,7 +3,7 @@
         <div class="my_problem_detail">
             <div class="problem_detail_header">
                 问题类型:  <div>{{detail.title}}</div>
-                <div>￥{{detail.price}}</div>
+                <div>￥{{formatPrice(detail.price)}}</div>
             </div>
             <div class="problem_detail_content">
                 {{detail.question}}
@@ -41,12 +41,11 @@
                     <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                     <div class="problem_answer_zan">
                         <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
-                        <div><span>收入分成￥</span><span>{{item.inCome}}</span></div>
-                        <div><img src="../../../images/asker/zan_nor.png" alt=""><span>{{item.likeTimes}}</span></div>
+                        <div><span>收入分成￥</span><span>{{formatPrice(item.inCome)}}</span></div>
+                        <div  @click="like(index)"><span class="care_img_" :class="{icon2:item.isLiked}"></span><span>{{item.likeTimes}}</span></div>
                     </div>
                 </div>
-
-            </template>
+             </template>
             <div class="steal_expert_info">
                 <div>
                     <span class="steal_expert_name">{{detail.expert.nickName}}</span><span
@@ -108,6 +107,29 @@
             xqzs.voice.audio=null;
         },
         methods: {
+
+            like:function (index) {
+                let  item = this.detail.answers[index];
+                if(item.isLiked){
+                    xqzs.weui.tip("已经点赞");
+                    return ;
+                }
+                let _this=this;
+                this.$http.put(web.API_PATH + "come/user/like/answer/_userId_/"+item.id, {})
+                    .then(function (bt) {
+                        if (bt.data && bt.data.status == 1) {
+                            item.isLiked=1;
+                            item.likeTimes=item.likeTimes+1;
+                            _this.$set(_this.detail.answers,index,item);
+                        }else if(bt.data.status==920006){
+                            xqzs.weui.tip("已经点赞");
+
+                        }
+                    });
+            },
+            formatPrice:function (v) {
+               return xqzs.string.formatPrice(v)
+            },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
