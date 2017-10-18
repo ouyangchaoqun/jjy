@@ -11,7 +11,7 @@
             <div class="list">
                 <div class="item" v-for="item in list">
                     <div class="time">{{formatTime(item.addTime)}}</div>
-                    <div class="type_txt">{{item.note}}</div>
+                    <div class="type_txt">{{item.note.substr(0,5)}}</div>
                     <div class="price">¥{{formatPrice(item.amount)}}</div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 page: 1,
                 row: 20,
                 isPageEnd: false,
-                isShowMoreText:true,
+                isShowMoreText:false,
                 showLoad:false,
                 list:[]
             }
@@ -48,6 +48,7 @@
             this.getList();
         },
         methods:{
+
             formatPrice:function (price) {
                 return xqzs.string.formatPrice(price)
             },
@@ -89,6 +90,8 @@
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText = true
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 

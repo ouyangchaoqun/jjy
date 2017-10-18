@@ -10,7 +10,7 @@
                 <div class="list">
                     <div class="item" v-for="item in list">
                         <div class="time">{{formatTime(item.addTime)}}</div>
-                        <div class="type_txt">{{item.note}}</div>
+                        <div class="type_txt">{{item.note.substr(0,5)}}</div>
                         <div class="price">¥{{formatPrice(item.amount)}}</div>
                     </div>
                 </div>

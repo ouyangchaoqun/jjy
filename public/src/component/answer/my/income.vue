@@ -2,10 +2,16 @@
     <div style="height: 100%" class="answer_my_income_box wbg">
 
         <div v-title>我的收益</div>
-        <div class="nothing income" v-if="false">
-            没有收益明细
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="nothing income" v-if="income==0&&!showLoad">
+            <img src="../../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>没有收益</p>
+                可以对一对一提问进行回答
+                <div @click="goQuestion()">去回答</div>
+            </div>
         </div>
-        <div class="my_income">
+        <div class="my_income" v-if="income>0">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
             <div class="money">￥{{formatPrice(income)}}</div>
@@ -17,27 +23,37 @@
 </template>
 
 <script type="es6">
-
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
+                showLoad:false,
                 income:0
             }
         },
-
+        components: {
+            'v-showLoad': showLoad
+        },
 
         mounted: function () {
+            let _this=this;
             let expertId = cookie.get('expertId')
+            _this.showLoad=true;
             this.$http.get(web.API_PATH + 'come/expert/query/income/'+expertId+'/_userId_' ).then(function (data) {//es5写法
+                _this.showLoad=false;
                 if (data.body.status == 1) {
                     console.log(data)
-                    this.income = data.data.data.inCome
+                    _this.income = data.data.data.inCome
                 }
             }, function (error) {
+                _this.showLoad=false;
             });
 
         },
         methods:{
+            goQuestion:function () {
+                this.$router.push("/answer/ask/list")
+            },
             formatPrice:function(price){
                 console.log(price)
                 return  xqzs.string.formatPrice(price)
@@ -52,7 +68,6 @@
 </script>
 <style>
 
-   .answer_my_income_box .nothing.income{ background: url(../../../images/asker/nothing_income.png) no-repeat center top; background-size: 5.205882352941176rem; }
 
    .answer_my_income_box .my_income .img{ background: url(../../../images/asker/my_income_money.png) no-repeat; width: 5.382352941176471rem; height: 5.382352941176471rem; background-size: 5.382352941176471rem; margin: 0 auto ; margin-top:3.7rem; }
    .answer_my_income_box .my_income{ line-height: 1}

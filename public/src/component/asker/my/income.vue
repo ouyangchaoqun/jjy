@@ -2,7 +2,8 @@
     <div style="height: 100%" class="asker_my_income_box wbg">
 
         <div v-title>我的收益</div>
-        <div class="nothing income" v-if="income==0">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="nothing income" v-if="income==0&&!showLoad">
             <img src="../../../images/asker/newNoContent.png" alt="">
             <div class="nothing_bottom">
                 <p>没有收益明细</p>
@@ -24,10 +25,12 @@
 <script type="es6">
 
 
+    import showLoad from '../../include/showLoad.vue';
 
     export default {
         data() {
             return {
+                showLoad:false,
                 income:0
             }
         },
@@ -37,8 +40,11 @@
             this.getIncome()
 
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         methods:{
-            formatPrice:function () {
+            formatPrice:function (v) {
               return xqzs.string.formatPrice(v)
             },
             goAsk:function () {
@@ -47,11 +53,14 @@
             getIncome:function () {
 
                 let _this= this;
+                _this.showLoad=true;
                 _this.$http.get(web.API_PATH + 'come/user/query/income/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad=false;
                     if (data.body.status == 1) {
                         _this.income= data.body.data.inCome
                     }
                 }, function (error) {
+                    _this.showLoad=false;
                 });
 
             },
