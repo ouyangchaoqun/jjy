@@ -17,10 +17,7 @@
             </div>
 
 
-            <div class="btn_box">
 
-                <a id="subBtn" @click="submit()" >提交设置</a>
-            </div>
 
 
             <div class="setItem_bottom" @click="showMask()">
@@ -28,6 +25,10 @@
                     <img src="../../../images/asker/need_know.png" alt="">
                     解答须知
                 </span>
+            </div>
+
+            <div class="btn_box">
+                <a id="subBtn" @click="submit()" >提交设置</a>
             </div>
         </div>
         <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
@@ -169,6 +170,7 @@
     }
 </script>
 <style>
+
     .setAnswer_box{
         background: #fff;
         position: relative;
@@ -199,7 +201,7 @@
     }
     .set_price.mt_mb{ margin-top: 30px; margin-bottom: 30px;}
 
-    .btn_box{width:100%;position: absolute;bottom:1.471rem;display: flex;display: -webkit-flex;text-align: center;line-height: 2.35rem}
+     .setAnswer_box  .btn_box{width:100%;position: relative;margin-top: 5rem;display: flex;display: -webkit-flex;text-align: center;line-height: 2.35rem}
     .btn_box a{flex: 1;border:1px solid rgba(253,115,1,1);margin:0 0.88235rem;border-radius: 1.176471rem;color:rgba(253,115,1,1);background: #fff;}
     .btn_box a:last-of-type{color:#fff;background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1))}
     .btn_box a:active{
