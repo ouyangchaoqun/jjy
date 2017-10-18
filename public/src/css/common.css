@@ -336,19 +336,19 @@ a{
 
 @keyframes  sond_playing {
     0%{
-       width:0.2254901960784314rem;
+       width:0.2rem;
     }
     25%{
-        width:0.2254901960784314rem;
+        width:0.2rem;
     }
     49%{
-        width:0.2254901960784314rem;
+        width:0.2rem;
     }
     50%{
-        width:0.4509803921568627rem;
+        width:0.42rem;
     }
     74%{
-        width:0.4509803921568627rem;
+        width:0.42rem;
     }
     75%{
         width:0.68rem;
