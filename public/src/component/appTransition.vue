@@ -47,7 +47,8 @@
             //清除声音
             clearAllVoice:function () {
                 wx.stopRecord();
-
+                let localId=xqzs.localdb.get("voice_localId");
+                if(localId&&localId!="") wx.stopVoice(localId)
             },
 
             //清除未关闭的控件

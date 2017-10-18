@@ -213,7 +213,7 @@
                 let _this=this;
                 xqzs.wx.voice.stopRecord();
                 console.log("stopRecord")
-                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
+                if(this.localId)xqzs.wx.voice.stopPlay( this.localId);
                 this.clearTimeOut()
                 xqzs.wx.voice.startRecord();
                 this.answering=true;
@@ -221,6 +221,7 @@
                 console.log("startRecordtimeout")
                 xqzs.wx.voice.onRecordEnd(function (localId) {
                     _this.localId=localId;
+                    xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
                 });
 
@@ -262,6 +263,7 @@
                 _this.isOver = true;
                 xqzs.wx.voice.stopRecord(function (localId) {
                     _this.localId=localId;
+                    xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
                 });
 
