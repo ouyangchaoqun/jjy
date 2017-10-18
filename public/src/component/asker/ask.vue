@@ -1,26 +1,29 @@
 <template>
     <div style="height: 100%" class="asker_ask_box">
-        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>提问</div>
-        <div class="ask_type" >
-            <div class="tab">选择问题类型：</div>
-            <div class="select_box" @click="selectType()">{{type}}</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="change_height">
+            <div class="ask_type">
+                <div class="tab">选择问题类型：</div>
+                <div class="select_box" @click="selectType()">{{type}}</div>
+                <div class="clear"></div>
+            </div>
+            <div class="text_area">
+                <textarea v-if="isSelectAnswer" class="content" @focus="inputing()" @blur="inputing()"
+                          placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
+                <textarea v-if="!isSelectAnswer" class="content" @focus="inputing()" @blur="inputing()"
+                          placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
+                <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
+                <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
+            </div>
+            <div class="tip" @click="tip()">提问须知</div>
             <div class="clear"></div>
+            <div class="set_price" v-if="!isSelectAnswer">
+                <div class="txt">设置赏金：</div>
+                <input type="text" class="price" placeholder="10元起">
+            </div>
+            <div class="submit" @click="submit()">提交</div>
         </div>
-        <div class="text_area">
-            <textarea v-if="isSelectAnswer" class="content" @focus="inputing()" @blur="inputing()" placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
-            <textarea v-if="!isSelectAnswer" class="content"  @focus="inputing()" @blur="inputing()" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
-            <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
-            <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
-        </div>
-        <div class="tip" @click="tip()">提问须知</div>
-        <div class="clear"></div>
-        <div class="set_price" v-if="!isSelectAnswer">
-            <div class="txt">设置赏金：</div>
-            <input type="text" class="price" placeholder="10元起">
-        </div>
-        <div class="submit" @click="submit()">提交</div>
-
 
         <v-asker-bottom ></v-asker-bottom>
 
@@ -138,7 +141,7 @@
 
                 setTimeout(function () {
                     console.log("$(document).height()"+$(document).height())
-                    $(".asker_ask_box.child-view").height($(document).height())
+                    $(".asker_ask_box .change_height").height($(document).height())
                 },500)
             },
             getExpert:function () {
@@ -327,7 +330,7 @@
     }
 </script>
 <style>
-
+    .change_height{ height: 100%; overflow-y: scroll; width: 100%;}
     .asker_ask_box {
         background: #fff
     }
