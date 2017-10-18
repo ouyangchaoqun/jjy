@@ -8,8 +8,8 @@
             <div class="clear"></div>
         </div>
         <div class="text_area">
-            <textarea v-if="isSelectAnswer" class="content" placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
-            <textarea v-if="!isSelectAnswer" class="content" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
+            <textarea v-if="isSelectAnswer" class="content" @focus="inputing()" @blur="inputing()" placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
+            <textarea v-if="!isSelectAnswer" class="content"  @focus="inputing()" @blur="inputing()" placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
             <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
             <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
         </div>
@@ -134,6 +134,10 @@
 
         },
         methods: {
+            inputing:function () {
+                console.log("$(document).height()"+$(document).height())
+                $(".asker_ask_box.child-view").height($(document).height())
+            },
             getExpert:function () {
                 let _this= this;
                 let id=  this.expertId;
@@ -415,6 +419,10 @@
     .asker_ask_box .submit:active {
         background: linear-gradient(to right, rgb(239, 143, 25), rgb(211, 105, 6));
     }
+
+
+
+
 
      .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:19rem; position: fixed;
         top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;}
