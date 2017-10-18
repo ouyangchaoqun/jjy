@@ -338,10 +338,7 @@
 
         },
         beforeDestroy:function () {
-            console.log("beforeDestroy");
-            wx.stopRecord();
             this.clearTimeOut()
-            xqzs.voice.pause();
         },
 
     }

@@ -255,7 +255,10 @@
         },
         components: {
             "v-answer-top-step": answerTopStep
-        }
+        },
+        beforeDestroy:function () {
+            this.clearTimeOut()
+        },
 
 
     }

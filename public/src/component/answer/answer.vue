@@ -278,7 +278,10 @@
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             }
-        }
+        },
+        beforeDestroy:function () {
+            this.clearTimeOut()
+        },
     }
 </script>
 <style>
