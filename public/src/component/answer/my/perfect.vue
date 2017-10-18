@@ -174,8 +174,8 @@
                 console.log('$(key).offset().top'+$(key).offset().top);
 
                 setTimeout(function () {
-                    $(".child-view").animate({scrollTop: $(key).offset().top}, 3);
-                },800)
+                    $(".child-view").animate({scrollTop: $(key).offset().top}, 100);
+                },300)
 
             },
             resizeImg:function (v) {
