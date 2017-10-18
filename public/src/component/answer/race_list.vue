@@ -72,7 +72,7 @@
 
         },
         methods: {
-            getList: function () {
+            getList: function (done) {
                 let vm= this;
                 let url =web.API_PATH + 'come/expert/query/grab/page/'+this.expertId+'/_userId_/'+vm.page+'/'+vm.row;
                 this.rankUrl = url + "?";
@@ -87,6 +87,9 @@
                 }
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
@@ -125,8 +128,8 @@
 
             },
             onInfinite(done) {
-                this.getList();
-                done() // call done
+                this.getList(done);
+
             },
             answer:function (askId) {
                 this.$router.push("../answer?askId="+askId);

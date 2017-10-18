@@ -193,7 +193,7 @@
                         }
                     });
             },
-            getList: function () {
+            getList: function (done) {
                 let expertId = cookie.get('expertId');
                 let vm = this;
                 let url = web.API_PATH + 'come/expert/query/my/answer/page/' + this.type + '/'+expertId+'/_userId_/' + vm.page + '/' + vm.row;
@@ -209,6 +209,9 @@
                 }
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
@@ -243,8 +246,7 @@
 
             },
             onInfinite(done) {
-                this.getList();
-                done() // call done
+                this.getList(done);
             },
             changeType: function (v) {
                 this.type = v;

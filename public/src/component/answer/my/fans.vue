@@ -52,7 +52,7 @@
             console.log(xqzs.dateTime.formatTime(1506477018))
         },
         methods:{
-            getList: function () {
+            getList: function (done) {
                 let vm= this;
                 let expertId = cookie.get('expertId')
                 let url =web.API_PATH + 'come/expert/query/follows/page/'+expertId+'/'+vm.page+'/'+vm.row;
@@ -68,6 +68,9 @@
                 }
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
@@ -108,8 +111,7 @@
 
             },
             onInfinite(done) {
-                this.getList();
-                done() // call done
+                this.getList(done);
             },
             getFormatDate: function (time) {
                 return xqzs.dateTime.formatDate(time)

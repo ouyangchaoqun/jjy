@@ -289,7 +289,7 @@
                 }, function (error) {
                 });
             },
-            getList: function () {
+            getList: function (done) {
                 let vm= this;
                 let url =web.API_PATH + 'come/listen/listen/list/_userId_/'+vm.type+'/'+vm.page+'/'+vm.row;
                 this.rankUrl = url + "?";
@@ -304,6 +304,9 @@
                 }
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
@@ -348,8 +351,8 @@
 
             },
             onInfinite(done) {
-                this.getList();
-                done() // call done
+                this.getList(done);
+
             },
         },
         beforeDestroy:function () {
