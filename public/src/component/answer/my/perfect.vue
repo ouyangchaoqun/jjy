@@ -171,8 +171,9 @@
         },
         methods: {
             scrollTop:function (key) {
-                console.log('$(key).offset().top'+$(key).offset().top)
-                $("body").animate({scrollTop: $(key).offset().top}, 500);
+                console.log('$(key).offset().top'+$(key).offset().top);
+
+                $("html,body").animate({scrollTop: $(key).offset().top}, 500);
             },
             resizeImg:function (v) {
                 return   xqzs.oss.resizeImg(v,100,100)
