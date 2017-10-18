@@ -730,7 +730,7 @@
         margin-top: 0.41176471rem;
         padding-bottom: 0.88rem;
     }
-   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 0.6rem 0.8823529411764706rem;margin-bottom: 0.41176471rem  }
+   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 0.6rem 0.8823529411764706rem;margin-bottom: 0.41176471rem;position: relative  }
     .answer_detail_box .list .star span{ background: url(../../images/answer/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
     .answer_detail_box  .list .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
 
@@ -761,7 +761,7 @@
     .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.88235rem }
     .answer_detail_box .ask_time{float: left;}
     .answer_detail_box .answer{margin-top: 0.88rem}
-    .answer_detail_box .ask_status{float: right;}
+    .answer_detail_box .ask_status{float: right;position: absolute;right:0.3rem;}
     .answer_detail_box .ask_status img{width: 0.94rem;}
 
     .answer_detail_box .ask_bottom{

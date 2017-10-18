@@ -636,6 +636,9 @@ a{
 .weui-picker__action:first-child{
     color:#888 !important;
 }
+.weui-btn_disabled{
+    background: linear-gradient(to right, rgba(255,158,25,0.6), rgba(253,114,6,0.6)) !important;
+}
 .weui-btn_primary{
-    background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)) !important;
+    background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
 }
