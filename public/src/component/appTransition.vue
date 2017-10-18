@@ -144,11 +144,31 @@
         content: " ";
         display: block;
         height: 0.97rem;
-        background: url(../images/sond.png) no-repeat;
+        background: url(../images/sond_blue.png) no-repeat;
         background-size: 0.6764705882352941rem;
         top: 30%;
-        left: 0.8rem;
+        left: 0.6rem;
+        z-index: 2;
     }
+
+    .audio .audio_btn.pay:before {
+        width: 0.6764705882352941rem;
+        position: absolute;
+        content: " ";
+        display: block;
+        height: 0.97rem;
+        background: url(../images/sond_yello.png) no-repeat;
+        background-size: 0.6764705882352941rem;
+        top: 30%;
+        left: 0.6rem;
+        z-index: 2;
+    }
+
+    .audio .audio_btn:after{ position: absolute;     top: -0.06rem;
+        left: -0.5rem;height: 2.6727272727272727272727272727273rem; background: url(../images/audio_blue_left.png) no-repeat; width:2.8636363636363636363636363636364rem; background-size: 2.8636363636363636363636363636364rem;  display: block; content:" "; z-index: 1}
+    .audio .audio_btn.pay:after{ position: absolute;     top: -0.06rem;
+        left: -0.5rem; height: 2.6727272727272727272727272727273rem; background: url(../images/audio_yellow_left.png) no-repeat; width:2.8636363636363636363636363636364rem; background-size: 2.8636363636363636363636363636364rem;  display: block; content:" "; z-index: 1}
+
 
     .arrow:after {
         background: url(../images/arrow.png);
@@ -321,6 +341,8 @@
             z-index: 1;
         }
     }
+
+
 
 
 </style>

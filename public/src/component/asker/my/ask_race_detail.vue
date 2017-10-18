@@ -38,10 +38,18 @@
                         <div>{{item.expertNickName}}</div>
                     </div>
                     <div class="rob_answer">
-                        <img class="answer_line" src="../../../images/nocharge.png" alt="">
-                        <img class="answer_play" src="../../../images/sond.png" />
-                        <div class="paly_html">点击播放</div>
-                        <span>{{item.voiceLength}}”</span>
+                        <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                            <div class="audio_btn" @click.stop="play(index)">
+                                <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                <template v-if="item.playing">正在播放..</template>
+                                <template v-if="item.paused">播放暂停</template>
+                                <div class="second">{{item.voiceLength}}”</div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+
                         <!--选择最佳答案选框-->
                         <div v-if="detail.bestAnswerId==0&&detail.questionStatus==0" @click="selectBestAnswerId(item)" class="best_answer" :class='[{best_answer_true:selBestAnswerId==item.answerId}]'></div>
                         <!--最佳确定-->
@@ -58,7 +66,7 @@
                         <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
                         <div class="problem_answer_zan">
                             <div><span>听过</span><span>{{item.ListenTimes}}</span></div>
-                            <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span> {{item.likeTimes}}</span></div>
+                            <div @click="like(index)" class="good_care" :class="{good_cared:item.isLiked}"><span> {{item.likeTimes}}</span></div>
                         </div>
                     </div>
                 </li>
@@ -106,9 +114,75 @@
 
         },
         methods: {
+            initVoice:function () {
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
+            play:function (index) {
+                this.initVoice();
+                let _this=this;
+                console.log(_this.detail.answers)
+                let list = _this.detail.answers;
+                xqzs.voice.onEnded=function () {
+                    list[index].paused=false;
+                    list[index].playing=false;
+                    _this.$set(_this.detail.answers,index,list[index])
+                };
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.detail.answers,i,list[i]);
+                    }
+                }
+                let item= this.detail.answers[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.list,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.detail.answers,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.answerId;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.detail.answers,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
+
             like:function (index) {
                 let  item = this.detail.answers[index];
-                if(item.isCared){
+                if(item.isLiked){
                     xqzs.weui.tip("已经点赞");
                     return ;
                 }
@@ -116,7 +190,7 @@
                 this.$http.put(web.API_PATH + "come/user/like/answer/_userId_/"+item.answerId, {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
-                            item.isCared=1;
+                            item.isLiked=1;
                             item.likeTimes=item.likeTimes+1;
                             _this.$set(_this.detail.answers,index,item);
                         }

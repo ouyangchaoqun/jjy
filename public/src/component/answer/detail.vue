@@ -52,10 +52,11 @@
                                 <span v-if="!playing2&&!paused2">点击播放</span>
                                 <span v-if="playing2">正在播放..</span>
                                 <span v-if="paused2">播放暂停</span>
+                                <div class="second">{{detail.length}}”</div>
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="answer_play_time">60”</div>
+
                     </div>
                 </div>
             </div>
@@ -127,10 +128,10 @@
                             </div>
                             <div class="info audio">
                                 <div class="reply" v-if="item.needPay" @click.stop="pay(index)">
-                                    <div class="audio_btn">
+                                    <div class="audio_btn pay">
                                         1元偷听
+                                        <div class="second">{{item.length}}”</div>
                                     </div>
-                                    <span class="minute">{{item.length}}"</span>
                                 </div>
                                 <div class="reply" v-if="!item.needPay">
                                     <div class="audio" :class="{playing:item.playing,paused:item.paused}">
@@ -138,6 +139,7 @@
                                             <template v-if="!item.playing&&!item.paused">点击播放</template>
                                             <template v-if="item.playing">正在播放..</template>
                                             <template v-if="item.paused">播放暂停</template>
+                                            <div class="second">{{item.length}}”</div>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -145,13 +147,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <!--<div class="status">-->
-                            <!--<div class="ask_time">{{formatTime(item.queAddTime)}}</div>-->
-                            <!--<div class="ask_status">-->
-                                <!--听过 {{item.listenTimes}}-->
-                                <!--<div class="care_img_"  @click="like(index)" :class="{icon2:item.isCared}"><span>{{item.likeTimes}}</span></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+
 
                         <div class="others">
                             <div class="time">{{formatTime(item.queAddTime)}}</div>
@@ -691,9 +687,7 @@
 
 
 
-    .answer_detail_box  .audio_btn:active:after{
-        border-top: 0.6764705882352941rem solid rgb(0, 138, 182);;
-    }
+
     .answer_detail_box .answer_detail{
         background: white;
         margin-top: 0.41176471rem;

@@ -3,7 +3,7 @@
 
         <div v-title>入驻心理咨询师</div>
         <v-answer-top-step step="9"  preUrl="./sign" nextUrl="./price" title="60''语音寄语" canGoNext="true"></v-answer-top-step>
-        <div class="tip">此60''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
+        <div class="tip">此{{voiceLength}}”的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
 
 
 
@@ -12,8 +12,9 @@
                 <template v-if="!vPlaying&&!vPaused">点击播放</template>
                 <template v-if="vPlaying">正在播放..</template>
                 <template v-if="vPaused">播放暂停</template>
+                <div class="second">{{voiceLength}}”</div>
             </div>
-            <div class="minute">{{voiceLength}}"</div>
+
             <div class="clear"></div>
         </div>
 

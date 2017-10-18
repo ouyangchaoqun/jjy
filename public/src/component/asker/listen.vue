@@ -30,6 +30,7 @@
                                         <span class="problem_answer_yy"  v-if="item.answerType==1">
                                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
                                                 <div class="audio_btn" @click.stop="play(index)">
+                                                    <div class="radio"><span></span><i></i></div>
                                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
@@ -39,9 +40,8 @@
                                         </span>
 
                                         <!--付费听-->
-                                        <div class="index_li_voice" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
-                                            <img src="../../images/charge1.png" alt="">
-                                            <div class="position_change1">1元偷听</div>
+                                        <div class="problem_answer_yy" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
+                                            <div class="audio"><div class="audio_btn pay" >1元偷听</div></div>
                                         </div>
                                         <!--限时免费听-->
                                         <span class="problem_answer_yy"   v-if="item.answerType==3">
@@ -494,4 +494,9 @@
         width:100%;
     }
     .nocontent_html{margin-top:-3.8rem}
+
+
+
+
+
 </style>

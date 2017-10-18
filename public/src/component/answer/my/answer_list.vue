@@ -31,10 +31,11 @@
                                         <template v-if="!item.playing&&!item.paused">点击播放</template>
                                         <template v-if="item.playing">正在播放..</template>
                                         <template v-if="item.paused">播放暂停</template>
+                                        <div class="second">{{item.voiceLength}}”</div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="answer_play_time">{{item.voiceLength}}"</div>
+
                                 <span class="problem_bestAns" v-if="item.isBestAnswer==1">最佳回答</span>
                                 <span class="problem_bestAns" v-if="item.isBestAnswer!=1">非最佳回答</span>
                             </div>
@@ -69,10 +70,11 @@
                                         <template v-if="!item.playing&&!item.paused">点击播放</template>
                                         <template v-if="item.playing">正在播放..</template>
                                         <template v-if="item.paused">播放暂停</template>
+                                        <div class="second">{{item.voiceLength}}”</div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="answer_play_time">{{item.voiceLength}}”</div>
+
                             </div>
                         </div>
                         <!--回答后底部显示详情-->

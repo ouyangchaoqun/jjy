@@ -33,8 +33,9 @@
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                     <template v-if="item.playing">正在播放..</template>
                                     <template v-if="item.paused">播放暂停</template>
+                                    <div class="second">{{item.answerVoiceLength}}”</div>
                                 </div>
-                                <div class="minute">{{item.answerVoiceLength}}"</div>
+
                                 <div class="clear"></div>
                             </div>
 
@@ -42,10 +43,13 @@
                         </div>
                         <div class="others">
                             <div class="time">{{formatTime(item.answerTime)}}</div>
-                            <div class="listen_count">听过 {{item.listenTimes}}</div>
-                            <div   class="good_care" :class="{good_cared:item.isCared}" @click.stop="like(index)" >
-                                <span>{{item.likeTimes}}</span>
+                            <div class="others_right">
+                                <div class="listen_count">听过 {{item.listenTimes}}</div>
+                                <div class="good_care" :class="{good_cared:item.isCared}" @click.stop="like(index)">
+                                    <span>{{item.likeTimes}}</span>
+                                </div>
                             </div>
+
                         </div>
                     </a>
                 </div>
@@ -274,10 +278,9 @@
     .asker_my_listen_list_box .answer .audio .audio_btn{ width: 47%}
 
     .asker_my_listen_list_box .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding: 0 0.88235rem; margin-top: 1.1rem;}
-    .asker_my_listen_list_box .others .listen_count{ position: absolute; right:4.5rem; top:0}
-    .asker_my_listen_list_box .others .good{ position: absolute; right:0.88235rem; top:0;   padding-left: 1.3rem; }
+    .asker_my_listen_list_box .others .listen_count{ float:left;    margin-right: 0.588235rem;}
 
 
-
+    .asker_my_listen_list_box .others .others_right{position: absolute;right:0.8rem;top:0}
 
 </style>

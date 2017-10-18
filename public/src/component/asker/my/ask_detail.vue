@@ -29,10 +29,10 @@
                                 <span v-if="!item.playing&&!item.paused">点击播放</span>
                                 <span v-if="item.playing">正在播放..</span>
                                 <span v-if="item.paused">播放暂停</span>
+                                <div class="second">{{item.voiceLength}}”</div>
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="answer_play_time">{{item.voiceLength}}”</div>
                     </div>
                 </div>
 

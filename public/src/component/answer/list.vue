@@ -26,8 +26,8 @@
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                     <template v-if="item.playing">正在播放..</template>
                                     <template v-if="item.paused">播放暂停</template>
+                                    <div class="second">{{item.length}}”</div>
                                 </div>
-                                <div class="minute">{{item.length}}"</div>
                                 <div class="clear"></div>
                             </div>
 

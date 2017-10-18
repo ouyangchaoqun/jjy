@@ -32,8 +32,7 @@
                         <!--付费听-->
                         <template  v-if="item.needPay==1">
                             <div @click="pay(index)">
-                            <img class="pay_listen" src="../../images/charge.png" alt="">
-                            <div class="position_change_detail">1元偷听</div>
+                                <div class="audio"><div class="audio_btn pay" >1元偷听</div></div>
                             </div>
                         </template>
                         <!--限时免费听-->

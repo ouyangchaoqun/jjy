@@ -43,8 +43,8 @@
                                 <div class="audio">
                                     <div class="audio_btn">
                                         点击播放
+                                        <div class="second">{{item.length}}”</div>
                                     </div>
-                                    <div class="minute">{{item.length}}"</div>
                                     <div class="clear"></div>
                                 </div>
                             </div>
