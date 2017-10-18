@@ -22,7 +22,7 @@
         </div>
         <div class="list0 list02" @click="changeSex()">
             <span>性别</span>
-            <input type="text" class="sex" :value="sexs[sex-1].label" >
+            <div class="input sex">{{sexs[sex-1].label}}</div>
             <div class="line"></div>
         </div>
 
@@ -173,7 +173,10 @@
             scrollTop:function (key) {
                 console.log('$(key).offset().top'+$(key).offset().top);
 
-                $("html,body").animate({scrollTop: $(key).offset().top}, 500);
+                setTimeout(function () {
+                    $("html,body").animate({scrollTop: $(key).offset().top}, 500);
+                },500)
+
             },
             resizeImg:function (v) {
                 return   xqzs.oss.resizeImg(v,100,100)
@@ -529,7 +532,7 @@
         margin-right: 20px
     }
 
-    .list0 input {
+    .list0 input,.list0 .input {
         float: right;
         font-size: 14px;
         color: #999999;
