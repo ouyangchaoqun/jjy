@@ -158,7 +158,7 @@
                 var obj =  $(".index_box li")
                 xqzs.weui.active(obj);
 
-                $(".audio ").on("touchstart",function () {
+                $(".audio ,.index_li_voice ").on("touchstart",function () {
                     event.stopPropagation();
                 })
             },
@@ -206,6 +206,10 @@
                 let item = this.list[index];
                 item.answerType=1;
                 this.$set(this.list,index,item);
+                this.$nextTick(function () {
+                    this.initActive();
+                })
+
             },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
