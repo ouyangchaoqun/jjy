@@ -229,6 +229,7 @@
             },
             stop:function () { //停止录制
                 let _this = this;
+                console.log("stopstopRecord")
                 xqzs.wx.voice.stopRecord(function (localId) {
                     _this.localId=localId;
                     xqzs.localdb.set("voice_localId",localId);
