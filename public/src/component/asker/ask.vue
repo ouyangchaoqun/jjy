@@ -135,10 +135,11 @@
         },
         methods: {
             inputing:function () {
-                console.log("$(document).height()"+$(document).height())
+
                 setTimeout(function () {
+                    console.log("$(document).height()"+$(document).height())
                     $(".asker_ask_box.child-view").height($(document).height())
-                },300)
+                },500)
             },
             getExpert:function () {
                 let _this= this;
