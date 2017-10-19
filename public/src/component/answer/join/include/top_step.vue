@@ -61,6 +61,7 @@
         },
         methods:{
             goNext:function () {
+
                 if(this.canGoNext){
                     this.$router.replace(this.nextUrl)
                 }else{

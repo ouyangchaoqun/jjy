@@ -72,7 +72,7 @@
                     {name:'国家三级咨询师'},
                     {name:'注册系统咨询师'},
                     {name:'注册系统督导师'},
-                    {name:'其他'}
+                    {name:'其它'}
                 ],
             }
         },
@@ -163,8 +163,13 @@
                 let v = _this.level[index].name
                 console.log(index)
                 console.log(v)
+                if(v=='其它'){
+                    _this.canGoNext = true
+                }else {
+                    this.check()
+                }
                 cookie.set("jobTitle",escape(v));
-                this.check()
+
             },
 //            jobTitleChange:function (v) {
 //                console.log(v)
