@@ -253,7 +253,7 @@
         border-bottom: 0.7rem solid #F1F1F5;}
 
 
-    .asker_my_coment_list .answer .img{ width: 2rem; height: 2rem; float:left; margin-top: 0.2rem;  margin-right: 0.5rem;}
+    .asker_my_coment_list .answer .img{ width: 2rem; height: 2rem; float:left; margin-top: 0.2rem;  margin-right: 0.88235rem;}
     .asker_my_coment_list .answer .img img{ width: 100%; height: 100%; border-radius: 50%;}
     .asker_my_coment_list .answer .audio{ width: 100%; margin-top: 0}
     .asker_my_coment_list .question{ border: 0.1470588235294118rem solid #F1F1F5; border-radius: 0.4rem; padding: 0.6176470588235294rem; margin-top:0.5882352941176471rem; color:#666; font-size: 0.7058823529411765rem  }
