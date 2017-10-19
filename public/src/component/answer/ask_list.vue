@@ -15,8 +15,8 @@
                 <div class="item" v-for="item in list" @click="answer(item.id)">
                     <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">
-                        <div class="names"><span>{{item.nickName}}陈**</span> 在哪方面：{{item.questionClassName}}1234</div>
-                        <div class="content">{{item.content}}暂无待答问题暂无待答问题暂无待答问题暂无待答问题</div>
+                        <div class="names"><span>{{item.nickName}}陈**</span> 在哪方面：{{item.questionClassName}}</div>
+                        <div class="content">{{item.content}}</div>
                         <div class="last_time">还{{formatDateText(item.endTime)}}</div>
                         <div class="price">酬金 <span>￥{{item.price}}</span></div>
 
