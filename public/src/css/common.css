@@ -314,7 +314,7 @@ a{
 .answer_list .info .class_s { clear: both; margin-top: 0.3rem;}
 .answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#ccc; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
 .answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#999; margin-top: 0.7058823529411765rem; }
-.answer_list .info .other .price{ color:rgba(253,114,6,1)}
+.answer_list .info .other .price{ color:#FE7301}
 .answer_list .info .other .ml{ margin-left:0.8rem; }
 
  .audio{ margin-bottom: 0.3rem;}
@@ -434,7 +434,7 @@ a{
     margin-left: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(2){
-    color: #FF9900;
+    color: #FE7301;
     position: absolute;
     right:0.88235rem;
 }

@@ -77,8 +77,8 @@
 
    .asker_my_income_box .my_income .img{ background: url(../../../images/asker/my_income_money.png) no-repeat; width: 5.382352941176471rem; height: 5.382352941176471rem; background-size: 5.382352941176471rem; margin: 0 auto ; margin-top:3.7rem; }
    .asker_my_income_box .my_income{ line-height: 1}
-   .asker_my_income_box .my_income .my_income_txt{ width: 100%; text-align: center; margin-top: 1.470588235294118rem;font-size: 0.8823529411764706rem; }
-   .asker_my_income_box .my_income .money{ margin-top: 0.7058823529411765rem; text-align: center; width: 100%; font-size: 2.117647058823529rem; font-weight: bold; line-height: 1;color:rgba(253,114,6,1)}
+   .asker_my_income_box .my_income .my_income_txt{ width: 100%; text-align: center; margin-top: 1.470588235294118rem;font-size: 0.8823529411764706rem; color:#333;}
+   .asker_my_income_box .my_income .money{ margin-top: 0.7058823529411765rem; text-align: center; width: 100%; font-size: 2.117647058823529rem; font-weight: bold; line-height: 1;color:#FE7301}
 
    .asker_my_income_box  .my_income .get_money{ margin:1rem auto; width: 58.66666666666667%; line-height:2.588235294117647rem; border:1px solid #999;border-radius: 5px; text-align: center; font-size: 1.058823529411765rem; margin-top: 2.205882352941176rem;}
    .asker_my_income_box .my_income .income_list{ margin-top: 6rem; text-align: center;  width: 100%}
