@@ -2,6 +2,7 @@
     <div style="height: 100%" class="answer_answer_box wbg">
 
         <div v-title>回答</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <!--问题详情-->
         <div class="answer" >
             <div class="img"><img :src="detail.faceUrl"></div>
@@ -86,10 +87,11 @@
 </template>
 
 <script type="es6">
-
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
+                showLoad:false,
                 isAnswered:false,
                 answering:false,
                 outTime:false,
@@ -187,9 +189,10 @@
                         expertId:cookie.get("expertId"),
                         userId:"_userId_"
                     };
-                    console.log(data);
+                    _this.showLoad=true;
                     _this.$http.put(web.API_PATH + "come/expert/answer/"+_this.questionId, data)
                         .then(function (bt) {
+                            _this.showLoad=false
                             if (bt.data && bt.data.status == 1) {
                                 this.isAnswered=true;
                                 this.answerId= bt.data.data.answerId;
@@ -282,6 +285,10 @@
         beforeDestroy:function () {
             this.clearTimeOut()
         },
+        components: {
+            'v-showLoad': showLoad,
+
+        }
     }
 </script>
 <style>
