@@ -296,7 +296,7 @@
    .answer_answer_box .answer .info .type{ font-size: 0.7058823529411765rem; color:#333;margin-bottom: 0.4rem}
     .answer_answer_box .answer .info .type span{ color:#666}
    .answer_answer_box .answer .price{ font-size: 0.8823529411764706rem;color:#535353; text-align: right;position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
-    .answer_answer_box .answer  .price span{ color:#FF9900; font-size: 1.058823529411765rem;}
+    .answer_answer_box .answer  .price span{ color:#FE7301; font-size: 1.058823529411765rem;}
     .answer_answer_box .answer .info  .audio{ margin-top: 0.6rem;}
 
 

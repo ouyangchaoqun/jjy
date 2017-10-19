@@ -141,5 +141,5 @@
     .answer_ask_list_box .list .info .names span{ color:#535353; font-size: 0.8823529411764706rem; margin-right: 0.4rem}
     .answer_ask_list_box  .list .info .content{ font-size: 0.823529411764706rem; color:#474747;margin-bottom: 0.3rem }
     .answer_ask_list_box  .list .info .last_time{ float:left;font-size: 0.70588235rem;color:#999;}
-    .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.7647058823529412rem;color:rgba(253,114,6,1); text-align: right; width: 7rem;}
+    .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.7647058823529412rem;color:#FE7301; text-align: right; width: 7rem;}
 </style>

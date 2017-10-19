@@ -157,7 +157,7 @@
     .answer_race_list .item .content{ font-size: 0.823529411764706rem;color:#474747;margin-bottom: 0.4rem;padding-left: 3.176471rem}
     .answer_race_list .item .content>div:nth-of-type(1){margin-bottom:0.3rem;}
     .answer_race_list .item .last_time{font-size: 0.70588235rem;color:#666;}
-    .answer_race_list  .list .info .price{ float:left;font-size: 0.88235rem;color:rgba(253,114,6,1);   width: 7rem;}
+    .answer_race_list  .list .info .price{ float:left;font-size: 0.88235rem;color:#FE7301;   width: 7rem;}
     .answer_race_list .list .btn_race:active{
         background: linear-gradient(to right, rgb(238, 146, 24), rgb(238, 109, 6));
     }

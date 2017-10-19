@@ -757,7 +757,7 @@
         margin-left: 0.294rem;
     }
     .answer_detail_box .new{float: right;margin-right: 0.58rem; position: relative; padding-right: 1.17rem; color: #999999 ;}
-    .answer_detail_box .price{font-size: 0.74rem;color:rgba(253,114,6,1)}
+    .answer_detail_box .price{font-size: 0.74rem;color:#FE7301}
     .answer_detail_box .reply{height: 50px;}
     .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.88235rem }
     .answer_detail_box .ask_time{float: left;}
