@@ -2,6 +2,8 @@
     <div style="height: 100%" class="wbg answer_join_price_box">
 
         <div v-title>入驻心理咨询师</div>
+        <div class="stepStyle">10/10</div>
+        <div class="joinStep_title">设置咨询者向我提问需要支付的酬金</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-answer-top-step step="10"  preUrl="./voice" nextUrl="" title="设置咨询者向我提问需要支付的酬金"></v-answer-top-step>
 
@@ -10,11 +12,11 @@
             <div class="select" ><input type="" class="priceInput"   @input="changePrice()" :value="'￥'+price"></div>
             <div class="clear"></div>
         </div>
-        <div class="set_price mt" @click="selectFreeTime()" >
-            <div class="til">设置限时免费：</div>
-            <div class="select" ><input type="" readonly  :value="freeTimeText"></div>
-            <div class="clear"></div>
-        </div>
+        <!--<div class="set_price mt" @click="selectFreeTime()" >-->
+            <!--<div class="til">设置限时免费：</div>-->
+            <!--<div class="select" ><input type="" readonly  :value="freeTimeText"></div>-->
+            <!--<div class="clear"></div>-->
+        <!--</div>-->
 
 
          <!--<div class="submit" @click="submit()">提交审核</div>-->
@@ -83,21 +85,21 @@
                 this.price=price;
 
             },
-            selectFreeTime:function () {
-                let  data= this.times;
-                let _this=this;
-                weui.picker(  data, {
-                    id:"id"+Math.random(),
-                    onChange: function (result) {
-                        console.log(result);
-                    },
-                    onConfirm: function (result) {
-                        _this.freeTime = result[0].value;
-                        cookie.set("freeTime", _this.freeTime );
-                        _this.freeTimeText= result[0].label;
-                    },
-                });
-            },
+//            selectFreeTime:function () {
+//                let  data= this.times;
+//                let _this=this;
+//                weui.picker(  data, {
+//                    id:"id"+Math.random(),
+//                    onChange: function (result) {
+//                        console.log(result);
+//                    },
+//                    onConfirm: function (result) {
+//                        _this.freeTime = result[0].value;
+//                        cookie.set("freeTime", _this.freeTime );
+//                        _this.freeTimeText= result[0].label;
+//                    },
+//                });
+//            },
             select:function () {
                 let _this= this;
                 let data = [];

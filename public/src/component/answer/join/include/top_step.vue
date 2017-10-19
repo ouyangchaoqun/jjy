@@ -1,11 +1,11 @@
 <template>
     <div class="answer_join_top_box">
-        <div class="answer_join_top">
+        <!--<div class="answer_join_top">-->
 
-            <div class="step">{{step}}<span>/10</span></div>
+            <!--<div class="step">{{step}}<span>/10</span></div>-->
 
-        </div>
-        <div :class="{title:true,addStyle:step==2}">{{title}}</div>
+        <!--</div>-->
+        <!--<div :class="{title:true,addStyle:step==2}">{{title}}</div>-->
         <div class="btn_box">
             <router-link replace :to="preUrl" v-if="preUrl!=''">上一项</router-link>
             <a   class="nextBtn"   @click="goNext()" v-if="nextUrl!=''">下一项</a>
@@ -14,27 +14,28 @@
     </div>
 </template>
 <style>
-    .answer_join_top_box .title{
-        color: #333; font-size: 0.9411764705882353rem;  text-align: center; line-height:2.647058823529412rem;}
-    .answer_join_top {
+    .answer_join_top_box{width:100%;position: absolute;bottom:1.471rem;}
+    /*.answer_join_top_box .title{*/
+        /*color: #333; font-size: 0.9411764705882353rem;  text-align: center; line-height:2.647058823529412rem;}*/
+    /*.answer_join_top {*/
 
-        line-height: 2.647058823529412rem;
-        font-size: 0.7647058823529412rem;
-        background: #FEFEFE ;
-        border-bottom: 1px solid #E5E5E5;
-        color: #333;
-        width: 100%;
-        position: relative;
-    }
+        /*line-height: 2.647058823529412rem;*/
+        /*font-size: 0.7647058823529412rem;*/
+        /*background: #FEFEFE ;*/
+        /*border-bottom: 1px solid #E5E5E5;*/
+        /*color: #333;*/
+        /*width: 100%;*/
+        /*position: relative;*/
+    /*}*/
 
-    .answer_join_top .step {
-        width: 100%;
-        text-align: center;
-         font-size: 0.8235294117647059rem;
-    }
+    /*.answer_join_top .step {*/
+        /*width: 100%;*/
+        /*text-align: center;*/
+         /*font-size: 0.8235294117647059rem;*/
+    /*}*/
 
-    .answer_join_top .step span{ font-size:0.9411764705882353rem; }
-    .btn_box{width:100%;position: absolute;bottom:1.471rem;display: flex;display: -webkit-flex;text-align: center;line-height: 2.35rem}
+    /*.answer_join_top .step span{ font-size:0.9411764705882353rem; }*/
+    .btn_box{display: flex;display: -webkit-flex;text-align: center;line-height: 2.35rem}
     .btn_box a{flex: 1;border:1px solid rgba(253,115,1,1);margin:0 0.88235rem;border-radius: 1.176471rem;color:rgba(253,115,1,1);background: #fff;}
     .btn_box a:last-of-type{color:#fff;background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1))}
     .btn_box a:active{
@@ -60,6 +61,7 @@
         },
         methods:{
             goNext:function () {
+
                 if(this.canGoNext){
                     this.$router.replace(this.nextUrl)
                 }else{

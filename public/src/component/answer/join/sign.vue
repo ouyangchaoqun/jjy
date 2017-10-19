@@ -2,6 +2,8 @@
     <div style="height: 100%" class="wbg">
 
         <div v-title>入驻心理咨询师</div>
+        <div class="stepStyle">8/10</div>
+        <div class="joinStep_title">一句话签名</div>
         <v-answer-top-step step="8"  preUrl="./good/at" nextUrl="./voice" title="一句话签名"    errorWord="请填写一句话签名" :canGoNext="canGoNext"></v-answer-top-step>
         <div class="text_area">
             <textarea name=""   class="sign" @keyup="changeSign()"  placeholder="限25个字符。

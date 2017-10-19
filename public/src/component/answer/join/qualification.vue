@@ -2,61 +2,11 @@
     <div style="height: 100%" class="wbg answer_join_quali">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>入驻心理咨询师</div>
-        <v-answer-top-step step="4"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
-
-        <div style="height:28rem;overflow-y: scroll">
+        <div class="stepStyle">4/10</div>
+        <div class="joinStep_title">从业资质</div>
+        <div class="sub_title">（如果没有资质证书请选择其它）</div>
+        <div>
         <div class="checks">
-
-            <!--<div class="weui-cells weui-cells_checkbox">-->
-                <!--<label class="weui-cell weui-check__label" for="s11">-->
-                    <!--<div class="weui-cell__hd">-->
-                        <!--<input type="radio" class="weui-check"  value="国家二级咨询师" name="jobTitle" id="s11" @click="jobTitleChange('国家二级咨询师')" />-->
-                        <!--<i class="weui-icon-checked"></i>-->
-                    <!--</div>-->
-                    <!--<div class="weui-cell__bd">-->
-                        <!--<p>国家二级咨询师</p>-->
-                    <!--</div>-->
-                <!--</label>-->
-                <!--<label class="weui-cell weui-check__label" for="s12">-->
-                    <!--<div class="weui-cell__hd">-->
-                        <!--<input type="radio" name="jobTitle"  value="国家三级咨询师" class="weui-check" id="s12" @click="jobTitleChange('国家三级咨询师')" />-->
-                        <!--<i class="weui-icon-checked"></i>-->
-                    <!--</div>-->
-                    <!--<div class="weui-cell__bd">-->
-                        <!--<p>国家三级咨询师</p>-->
-                    <!--</div>-->
-                <!--</label>-->
-
-                <!--<label class="weui-cell weui-check__label" for="s13">-->
-                    <!--<div class="weui-cell__hd">-->
-                        <!--<input type="radio" name="jobTitle"  value="注册系统咨询师" class="weui-check" id="s13" @click="jobTitleChange('注册系统咨询师')" />-->
-                        <!--<i class="weui-icon-checked"></i>-->
-                    <!--</div>-->
-                    <!--<div class="weui-cell__bd">-->
-                        <!--<p>注册系统咨询师</p>-->
-                    <!--</div>-->
-                <!--</label>-->
-                <!--<label class="weui-cell weui-check__label" for="s14">-->
-                    <!--<div class="weui-cell__hd">-->
-                        <!--<input type="radio" name="jobTitle"  value="注册系统督导师" class="weui-check" id="s14" @click="jobTitleChange('注册系统督导师')" />-->
-                        <!--<i class="weui-icon-checked"></i>-->
-                    <!--</div>-->
-                    <!--<div class="weui-cell__bd">-->
-                        <!--<p>注册系统督导师</p>-->
-                    <!--</div>-->
-                <!--</label>-->
-                <!--<label class="weui-cell weui-check__label" for="s15">-->
-                    <!--<div class="weui-cell__hd">-->
-                        <!--<input type="radio" name="jobTitle" value="其它" class="weui-check" id="s15" @click="jobTitleChange('其它')" />-->
-                        <!--<i class="weui-icon-checked"></i>-->
-                    <!--</div>-->
-                    <!--<div class="weui-cell__bd">-->
-                        <!--<p>其它</p>-->
-                    <!--</div>-->
-                <!--</label>-->
-
-                <!--<div class="clear"></div>-->
-            <!--</div>-->
             <div class="level_types">
                 <div class="item"  v-for="(item,index) in level" @click="getItemClass(index)"  :index="index" ><div class="level_item "></div><span >{{item.name}}</span></div>
                 <div class="clear"></div>
@@ -69,7 +19,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">证书编号 <span>*</span></label></div>
                 <div class="weui-cell__bd">
-                    <input style="color:#666" class="weui-input certificateNo" name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()" pattern="[0-9a-zA-Z]*" placeholder="证件号码"/>
+                    <input style="color:#666;font-size: 0.8235rem" class="weui-input certificateNo" name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()" pattern="[0-9a-zA-Z]*" placeholder="输入编号"/>
                 </div>
             </div>
         </div>
@@ -77,19 +27,19 @@
         <div class="photo">
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <div class="upload" @click="upload()"><font>上传证书</font></div>
-                </div>
+                <!--<div class="weui-cell__bd">-->
+                    <!--<div class="upload" @click="upload()"><font>上传证书</font></div>-->
+                <!--</div>-->
             </div>
         </div>
         <div class="photo_img">
-            <div class="img">
+            <div class="img" @click="upload()">
                 <div>
                     <b>+</b>
                 </div>
                 <p>上传证书头像页面</p>
             </div>
-            <div class="img">
+            <div class="img" @click="upload()">
                 <div>
                     <b>+</b>
                 </div>
@@ -98,6 +48,7 @@
             </div>
         </div>
         </div>
+        <v-answer-top-step step="4"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
 
     </div>
 </template>
@@ -121,7 +72,7 @@
                     {name:'国家三级咨询师'},
                     {name:'注册系统咨询师'},
                     {name:'注册系统督导师'},
-                    {name:'其他'}
+                    {name:'其它'}
                 ],
             }
         },
@@ -212,8 +163,13 @@
                 let v = _this.level[index].name
                 console.log(index)
                 console.log(v)
+                if(v=='其它'){
+                    _this.canGoNext = true
+                }else {
+                    this.check()
+                }
                 cookie.set("jobTitle",escape(v));
-                this.check()
+
             },
 //            jobTitleChange:function (v) {
 //                console.log(v)
@@ -238,6 +194,8 @@
     }
 </script>
 <style>
+    .answer_join_quali .answer_join_top_box{position: static;margin-bottom: 1.471rem;padding-top: 3rem;}
+    .answer_join_quali .sub_title{font-size: 0.70588235rem; color:#999;line-height: 1; text-align: center;}
     .answer_join_quali  .weui-cells:after, .weui-cells:before,.answer_join_quali  .weui-cell:before{ display: none}
     .answer_join_quali  .weui-check__label{ width: 42%; float:left; font-size: 0.823rem !important}
 
@@ -250,16 +208,16 @@
     }
 
     .weui-check__label:active{ background: none}
-    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:2rem;}
+    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:0.588235rem;}
     .answer_join_quali .photo_img .img{background:#f4f4f7;width:9.71rem;height:6.76471rem;position: relative}
     .answer_join_quali .photo_img .img img{ max-height: 100%; max-width: 100%}
     .img div{width:44px;height:44px;border-radius: 50%;background: #fff;text-align: center;line-height: 40px;position: absolute;top:25%;left:50%;margin-left:-22px;}
     .img div b{color:rgba(253,114,6,1);font-size: 1.6rem}
     .img p{color:#A9A7A7;font-size: 0.70588235rem;text-align: center;position: absolute;width:100%;top:75%;}
     .checks .level_types{padding:0 0.88235rem;padding-top: 4rem}
-    .checks .level_types .item{width:36%;float: left;margin:0 7%;margin-bottom: 0.88235rem;position: relative;font-size:0.70588235rem;color:#666}
+    .checks .level_types .item{width:38%;float: left;margin:0 6%;margin-bottom: 0.88235rem;position: relative;font-size:0.8235rem;color:#666}
     .checks .level_types .item span{margin-left: 1.470588235rem;}
-    .checks .level_item{margin:0;height:14px;width:14px;position: absolute;border-radius: 50%;border:1px solid #D2D2D2;top:0.07rem;left:0}
+    .checks .level_item{margin:0;height:14px;width:14px;position: absolute;border-radius: 50%;border:1px solid #D2D2D2;top:0.16rem;left:0}
     .checks .checked_item{border-color: rgba(253,114,6,1)}
     .checks .checked_item::after{  content: '';  width:10px;  height: 10px;  background: rgba(253,114,6,1);  border-radius: 50%;  position: absolute;  top:50%;  margin-top:-5px;  left: 50%;  margin-left:-5px;  }
     .photo,.number .weui-cell__hd{font-size: 0.8235rem;color:#666}

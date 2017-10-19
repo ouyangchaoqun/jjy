@@ -2,7 +2,8 @@
     <div style="height: 100%" class="answer_join_field_box wbg">
 
         <div v-title>入驻心理咨询师</div>
-
+        <div class="stepStyle">3/10</div>
+        <div class="joinStep_title">擅长领域</div>
         <v-answer-top-step step="3"  preUrl="./identity" nextUrl="./qualification" title="擅长领域" errorWord="请选择擅长领域" :canGoNext="canGoNext"></v-answer-top-step>
         <div class="sub_title">（最多可选3个）</div>
         <div class="types">
@@ -104,11 +105,11 @@
 </script>
 <style>
     .answer_join_field_box .sub_title{
-        font-size: 0.88235rem; color:#999;     line-height: 1; text-align: center;
+        font-size: 0.70588235rem; color:#999;     line-height: 1; text-align: center;
     }
 
     .answer_join_field_box .types{ margin:5rem  0.88235rem;}
     .answer_join_field_box .types .item{  width: 27%; margin: .8rem 3.166665% ; text-align: center ;    line-height:2.058823529411765rem; float:left;  }
-    .answer_join_field_box .types .item span{border: 0.0588235294117647rem solid #E5E5E5 ; display: block;border-radius:1.029411764705882rem; font-size:0.8235294117647059rem; }
+    .answer_join_field_box .types .item span{color:#666;border: 0.0588235294117647rem solid #E5E5E5 ; display: block;border-radius:1.029411764705882rem; font-size:0.8235294117647059rem; }
     .answer_join_field_box .types .item.on span{ color:rgba(254,115,1,1);border: 0.0588235294117647rem solid rgba(254,115,1,1); }
 </style>

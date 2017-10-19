@@ -2,7 +2,8 @@
     <div style="height: 100%" class="wbg">
 
         <div v-title>入驻心理咨询师</div>
-
+        <div class="stepStyle">6/10</div>
+        <div class="joinStep_title">专业培训经历</div>
         <v-answer-top-step step="6"  preUrl="./introduce" nextUrl="./good/at" title="专业培训经历"   errorWord="请填写专业培训经历" :canGoNext="canGoNext"></v-answer-top-step>
 
         <div class="text_area">
