@@ -152,7 +152,7 @@
     .answer_race_list .list .item{ background: #fff; padding:0.8823529411764706rem; margin-bottom:0.5882352941176471rem; }
     .answer_race_list  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem;margin-right: 0.588235rem }
     .answer_race_list  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
-    .answer_race_list  .list .info{line-height: 2.588235294117647rem;display: flex;position: relative}
+    .answer_race_list  .list .info{line-height: 2.588235294117647rem;display: flex;display:-webkit-flex;position: relative}
     .answer_race_list  .list .info .type{ font-size: 0.7058823529411765rem;   color:#999;position: absolute;right:0}
     .answer_race_list .item .content{ font-size: 0.823529411764706rem;color:#474747;margin-bottom: 0.4rem;padding-left: 3.176471rem}
     .answer_race_list .item .content>div:nth-of-type(1){margin-bottom:0.3rem;}
