@@ -1,11 +1,9 @@
 <template id="stealListen_index">
-    <div class="asker_listen_box" :class="{wbg:list.length==0 }">
+    <div class="asker_listen_box" :class="{wbg:navLists[typeIndex].list.length==0 }">
         <!--头部导航栏-->
         <div v-title>偷听</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                  :bottomHeight="50"
-                  :isShowMoreText="isShowMoreText">
+
         <div class="weui-tab__panel main">
             <nav>
                 <div class="swiper-container navSwiper">
@@ -15,10 +13,17 @@
                 </div>
             </nav>
             <div>
-                <div class="index_box">
-                    <div v-if="list.length>0" class="index_content_active">
+                <div class="swiper-container con_swiper_c">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide" v-for="navList in navLists">
+                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                                      :bottomHeight="50"
+                                      :isShowMoreText="isShowMoreText">
+                                  <div class="index_box">
+                    <div v-if="navList.list.length>0" class="index_content_active">
                         <ul>
-                            <li v-for="(item,index) in list">
+                            <li v-for="(item,index) in navList.list">
                                 <a @click="goDetail(item.questionId)">
                                     <div class="index_li_header">
                                         <img :src="item.expertFaceUrl" alt=""><div>{{item.expertName}} <span>回答了</span></div>
@@ -59,7 +64,7 @@
 
                         </ul>
                     </div>
-                    <div v-show="list.length==0&&!showLoad">
+                    <div v-show="navLists[typeIndex].list.length==0&&!showLoad">
                         <div class="index_nocontent">
                             <div>
                                 <img src="../../images/asker/newNoContent.png" alt="">
@@ -70,10 +75,14 @@
                     </div>
 
                 </div>
+                            </v-scroll>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
-        </v-scroll>
+
         <v-asker-bottom tabOnIndex="0"></v-asker-bottom>
 
 
@@ -92,13 +101,24 @@
     export default {
         data() {
             return {
-                navLists:[{title:'全部'},{title:'情感困惑'},{title:'性心理'},{title:'人际关系'},{title:'职场事业'},{title:'婚姻家庭'},{title:'个人成长'},{title:'情绪管理'},{title:'心理健康'},{title:'亲子教育'}],
+                navLists:[
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false},
+                    {title:'',list:[],page: 1,isPageEnd:false}
+                ],
+                typeIndex:0,
                 page: 1,
                 row: 10,
                 isPageEnd: false,
                 isShowMoreText:false,
                 showLoad:false,
-                list:[],
                 type:0
             }
         },
@@ -110,50 +130,69 @@
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-            let _this=this;
+            console.log("bbbb")
             this.getClassList()
-            var minHeight = $(window).height()-$('nav').height()-100
-            //$('.index_box').css('minHeight',minHeight)
-            $('.index_nocontent').css('minHeight',minHeight)
-            var navSwiper = new Swiper('.navSwiper', {
-                freeMode: true,
-                freeModeMomentumRatio: 0.5,
-                slidesPerView: 'auto',
-            });
-            $('.navSwiper .swiper-slide').eq(0).addClass('nav_active')
-            var swiperWidth = $('nav').width() //获取导航条宽度
-            var maxTranslate = navSwiper.maxTranslate();//移动位置
-            var maxWidth = -maxTranslate + swiperWidth / 2;
-            navSwiper.on('tap', function(swiper) {
-
-                //效果
-                $('.navSwiper .swiper-slide').removeClass('nav_active')
-                $('.navSwiper .swiper-slide').eq(swiper.clickedIndex).addClass('nav_active')
-                var slide = swiper.slides[swiper.clickedIndex]
-                var slideLeft = slide.offsetLeft
-                var slideWidth = slide.clientWidth
-                var slideCenter = slideLeft + slideWidth / 2
-                swiper.setWrapperTransition(300)
-                if (slideCenter < swiperWidth / 2) {
-                    swiper.setWrapperTranslate(0)
-                } else if (slideCenter > maxWidth) {
-                    swiper.setWrapperTranslate(maxTranslate)
-                } else {
-                    var nowTlanslate = slideCenter - swiperWidth / 2
-                    swiper.setWrapperTranslate(-nowTlanslate)
-                }
-                _this.type = $('.navSwiper .swiper-slide').eq(swiper.clickedIndex).attr("value");
-                //数据
-                _this.page=1;
-                _this.isPageEnd = false;
-                _this.isShowMoreText = false;
-                _this.getList();
-            });
-
             this.getList();
             xqzs.voice.audio=null;
         },
         methods:{
+            initView:function () {
+                let _this=this;
+                var minHeight = $(window).height()-$('nav').height()-100;
+                $(".con_swiper_c .swiper-slide ").height($(document).height()-92)
+                //$('.index_box').css('minHeight',minHeight)
+                $('.index_nocontent').css('minHeight',minHeight)
+                var navSwiper = new Swiper('.navSwiper', {
+                    freeMode: true,
+                    freeModeMomentumRatio: 0.5,
+                    slidesPerView: 'auto',
+                });
+                $('.navSwiper .swiper-slide').eq(0).addClass('nav_active');
+                var conSwiper;
+                navSwiper.on('tap', function(swiper) {
+                    //效果
+                    _this.initTopView(navSwiper,navSwiper.clickedIndex);
+                    conSwiper.slideTo(navSwiper.clickedIndex);
+
+                });
+
+                conSwiper = new Swiper('.con_swiper_c', {
+                    onSlideChangeStart: function(){
+                        _this.initTopView(navSwiper,conSwiper.activeIndex);
+
+                        _this.type = $('.navSwiper .swiper-slide').eq(conSwiper.activeIndex).attr("value");
+                        _this.typeIndex=conSwiper.activeIndex;
+                        //数据
+                        _this.navLists[ _this.typeIndex].isPageEnd = false;
+                        _this.isShowMoreText = false;
+                        _this.getList();
+
+                        console.log('触发.....')
+                    }
+
+                 });
+
+            },
+            initTopView:function (navSwiper,index) {
+                var swiperWidth = $('nav').width() //获取导航条宽度
+                var maxTranslate = navSwiper.maxTranslate();//移动位置
+                var maxWidth = -maxTranslate + swiperWidth / 2;
+                $('.navSwiper .swiper-slide').removeClass('nav_active')
+                $('.navSwiper .swiper-slide').eq(index).addClass('nav_active')
+                var slide = navSwiper.slides[index]
+                var slideLeft = slide.offsetLeft
+                var slideWidth = slide.clientWidth
+                var slideCenter = slideLeft + slideWidth / 2
+                navSwiper.setWrapperTransition(300)
+                if (slideCenter < swiperWidth / 2) {
+                    navSwiper.setWrapperTranslate(0)
+                } else if (slideCenter > maxWidth) {
+                    navSwiper.setWrapperTranslate(maxTranslate)
+                } else {
+                    var nowTlanslate = slideCenter - swiperWidth / 2
+                    navSwiper.setWrapperTranslate(-nowTlanslate)
+                }
+            },
             initActive:function () {
                 var obj =  $(".index_box li")
                 xqzs.weui.active(obj);
@@ -163,7 +202,7 @@
                 })
             },
             pay:function (index) {
-                let  item = this.list[index];
+                let  item = this.navLists[this.typeIndex].list[index];
                 let _this=this;
                 this.$http.get(web.API_PATH + "come/listen/create/order/_userId_/"+item.answerId)
                     .then(function (bt) {
@@ -203,9 +242,9 @@
             },
             //设置dom 已经支付
             setPayed:function (index) {
-                let item = this.list[index];
+                let item = this.navLists[this.typeIndex].list[index];
                 item.answerType=1;
-                this.$set(this.list,index,item);
+                this.$set(this.navLists[this.typeIndex].list,index,item);
                 this.$nextTick(function () {
                     this.initActive();
                 })
@@ -219,31 +258,31 @@
             play:function (index) {
                 this.initVoice();
                 let _this=this;
-                let list = _this.list;
+                let list = _this.navLists[_this.typeIndex].list;
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
-                    _this.$set(_this.list,index,list[index])
+                    _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
                 };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
                     if(index!=i&&(list[i].playing||list[i].paused)){
                         list[i].paused=false;
                         list[i].playing=false;
-                        _this.$set(_this.list,i,list[i]);
+                        _this.$set(_this.navLists[_this.typeIndex].list,i,list[i]);
                     }
                 }
                 let item= this.list[index];
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
                     list[index].paused=false;
                     list[index].playing=true;
-                    _this.$set(_this.list,index,list[index])
+                    _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
                     xqzs.voice.play();
                 }else{
                     if(item.playing){    //播放中去做暂停操作
                         list[index].paused=true;
                         list[index].playing=false;
-                        _this.$set(_this.list,index,list[index])
+                        _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
                         xqzs.voice.pause();
                     }else{     //重新打开播放
                         let answerId= item.answerId;
@@ -251,7 +290,7 @@
                             xqzs.voice.play(url);
                             list[index].playing=true;
                             list[index].paused=false;
-                            _this.$set(_this.list,index,list[index])
+                            _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
                         })
                     }
 
@@ -282,38 +321,47 @@
                 let _this=this;
                 _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
-                        let arr =[{"title":"全部",id:0}]
+                        let arr =[{"title":"全部",id:0,list:[]}]
                         _this.navLists= data.body.data
                         _this.navLists =arr.concat(_this.navLists);
+                        for(let i=0;i<_this.navLists.length;i++){
+                            _this.navLists[i].list = [];
+                            _this.navLists[i].page = 1;
+                            _this.navLists[i].isPageEnd=false;
+                            _this.navLists[i].isLoading=false;
+                        }
+                        _this.initView();
                     }
                 }, function (error) {
                 });
             },
             getList: function (done) {
+
                 let vm= this;
-                let url =web.API_PATH + 'come/listen/listen/list/_userId_/'+vm.type+'/'+vm.page+'/'+vm.row;
+                console.log(vm.navLists[ vm.typeIndex])
+                let url =web.API_PATH + 'come/listen/listen/list/_userId_/'+vm.type+'/'+vm.navLists[ vm.typeIndex].page+'/'+vm.row;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
-                if (vm.isLoading || vm.isPageEnd) {
+                if (vm.navLists[ vm.typeIndex].isLoading || vm.navLists[ vm.typeIndex].isPageEnd) {
                     return;
                 }
-                if (vm.page == 1) {
+                if (vm.navLists[ vm.typeIndex].page == 1) {
                     vm.showLoad = true;
                 }
-                vm.isLoading = true;
+                vm.navLists[ vm.typeIndex].isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
                     if(done&&typeof(done)==='function'){
                         done()
                     }
                     vm.showLoad = false;
-                    vm.isLoading = false;
+                    vm.navLists[ vm.typeIndex].isLoading = false;
 //                    console.log(response)
 
-                    if(response.data.status!=1&&vm.page==1){
-                        vm.list = [];
-                        vm.isPageEnd = true;
+                    if(response.data.status!=1&&vm.navLists[ vm.typeIndex].page==1){
+                        vm.navLists[vm.typeIndex].list = [];
+                        vm.navLists[ vm.typeIndex].isPageEnd = true;
                         vm.isShowMoreText = false;
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
@@ -321,7 +369,7 @@
                     let arr = response.data.data;
 //
                     if (arr.length < vm.row) {
-                        vm.isPageEnd = true;
+                        vm.navLists[ vm.typeIndex].isPageEnd = true;
                         vm.isShowMoreText = false
                     }else{
 
@@ -329,23 +377,20 @@
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
+                    if (vm.navLists[ vm.typeIndex].page == 1) {
+                        vm.navLists[vm.typeIndex].list = arr;
+                    } else {
+                        vm.navLists[vm.typeIndex].list =  vm.navLists[vm.typeIndex].list.concat(arr);
+                    }
+                     if (arr.length == 0) return;
+                    vm.navLists[ vm.typeIndex].page = vm.navLists[ vm.typeIndex].page + 1;
                     vm.$nextTick(function () {
                         vm.initActive()
                     });
 
 
-                    if (vm.page == 1) {
-                        vm.list = arr;
-                    } else {
-                        vm.list = vm.list.concat(arr);
-                    }
-                    console.log(vm.list.length)
-                    if (arr.length == 0) return;
-                    vm.page = vm.page + 1;
-
-
                 }, (response) => {
-                    vm.isLoading = false;
+                    vm.navLists[ vm.typeIndex].isLoading = false;
                     vm.showLoad = false;
                 });
 
@@ -363,6 +408,7 @@
 
 </script>
 <style>
+    .con_swiper_c .swiper-slide{ overflow-y: scroll}
    .asker_listen_box .audio .audio_btn{ width: 52%}
     .index_li_bottom .problem_answer_yy{width:100%}
     .index_li_bottom .problem_answer_play{margin-left:0;left:12%;}

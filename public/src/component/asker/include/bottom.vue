@@ -28,6 +28,7 @@
         display: flex;
         position: absolute; bottom: 0; left:0; line-height: 1; font-size: 0.9rem ; background: #fff;   color:#333;
     width: 100%;
+        z-index: 100;
     }
     .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#FE7301;}
     .asker_bottom_box a{color:#999;
