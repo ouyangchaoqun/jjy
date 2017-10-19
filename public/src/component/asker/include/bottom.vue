@@ -30,7 +30,7 @@
     width: 100%;
     }
     .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#FE7301;}
-    .asker_bottom_box a{color:#ccc;
+    .asker_bottom_box a{color:#999;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
