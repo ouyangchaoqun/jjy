@@ -159,7 +159,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div v-if="detail.answerCount==0">
+                    <div class="comment_btn">暂无回答</div>
+                </div>
             </div>
 
         </v-scroll>
@@ -741,6 +743,8 @@
     .answer_detail_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #C1C1C1 ; color:#C1C1C1 ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;margin-bottom: 0.6rem}
     .answer_detail_box .ask_answer{
         margin-top: 0.41176471rem;
+        background: white;
+        padding-bottom: 0.88rem;
     }
     .answer_detail_box .sj{
         width: 0;
