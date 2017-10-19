@@ -167,7 +167,7 @@
                 this.answerTime="00";
                 this.voiceLength=0;
 //                this.preAnswer=false;
-                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
+                if(this.playing)xqzs.wx.voice.pausePlay( this.localId);
                 this.playing=false;
                 this.isOver=false;
 
@@ -176,7 +176,7 @@
             },
             send:function () {
                 let _this=this;
-                if(this.playing)xqzs.wx.voice.stopPlay( this.localId);
+                if(this.playing)xqzs.wx.voice.pausePlay( this.localId);
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(this.localId,function (serverId) {
                     _this.serverId=serverId;
@@ -213,7 +213,7 @@
                 let _this=this;
                 xqzs.wx.voice.stopRecord();
                 console.log("stopRecord")
-                if(this.localId)xqzs.wx.voice.stopPlay( this.localId);
+                if(this.localId)xqzs.wx.voice.pausePlay( this.localId);
                 this.clearTimeOut()
                 xqzs.wx.voice.startRecord();
                 this.answering=true;
