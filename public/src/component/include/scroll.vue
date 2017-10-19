@@ -5,7 +5,7 @@
          @touchmove="touchMove($event)"
          @touchend="touchEnd($event)"
          @scroll="(onInfinite || infiniteLoading) ? onScroll($event) : undefined">
-        <section class="inner" :style="{ transform: 'translate3d(0, ' + top + 'px, 0)' }" :class="{not_ttttt:isNotRefresh}">
+        <section class="inner" :style="{ transform: 'translate3d(0, ' + top + 'px, 0)' }" >
             <header class="pull-refresh">
                 <slot name="pull-refresh">
                     <div v-show="!isNotRefresh">
@@ -204,9 +204,6 @@
         -webkit-overflow-scrolling: touch;
 
     }
-
-    .not_ttttt{ top: 0rem;}
-
     .yo-scroll .inner {
         position: absolute;
         top: -2rem;

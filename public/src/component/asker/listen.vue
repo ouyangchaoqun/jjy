@@ -18,7 +18,7 @@
 
                         <div class="swiper-slide" v-for="navList in navLists">
                             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                                      :bottomHeight="50"
+                                      :bottomHeight="92"
                                       :isShowMoreText="isShowMoreText">
                                   <div class="index_box">
                     <div v-if="navList.list.length>0" class="index_content_active">
