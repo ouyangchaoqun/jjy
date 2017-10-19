@@ -234,24 +234,27 @@
                 if(this.playing){  //在播放中则暂停
                     if(_this.localId!=null) {
                         _this.clearTimeOut();
-                        this.playing = false;
+                        _this.playing = false;
                         this.paused = true;
                         xqzs.wx.voice.pausePlay(_this.localId);
+                        xqzs.wx.voice.playing=_this.playing;
                         console.log("pausePlay")
 
                     }
                 }else{
                     if(_this.localId!=null){
                         this.clearTimeOut();
-                        this.playing=true;
+                        _this.playing=true;
                         this.timeout(true);
                         this.paused = false;
                         xqzs.wx.voice.startPlay(_this.localId);
+                        xqzs.wx.voice.playing=_this.playing;
                         xqzs.wx.voice.onPlayEnd(function () {
                             console.log("onPlayEnd")
                             if(_this.playing)_this.clearTimeOut();
                             _this.playing = false;
                             _this.paused = false;
+                            xqzs.wx.voice.playing=_this.playing;
                             if(_this.voiceLength<10){
                                 _this.answerTime = "0"+_this.voiceLength
                             }else{

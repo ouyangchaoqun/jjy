@@ -1424,7 +1424,8 @@ document.addEventListener("visibilitychange", function () {
         }
 
 
-        if (localId && localId != "") {
+        if (localId && localId != ""&&xqzs.wx.voice.playing===true) {
+            xqzs.wx.voice.visibilityHidden = true;
             wx.pauseVoice({
                 localId: localId // 需要暂停的音频的本地ID，由stopRecord接口获得
             });
@@ -1437,7 +1438,8 @@ document.addEventListener("visibilitychange", function () {
             xqzs.voice.play();
         }
 
-        if (localId && localId != "") {
+        if (localId && localId != ""&&xqzs.wx.voice.visibilityHidden===true) {
+            xqzs.wx.voice.visibilityHidden = false;
             xqzs.wx.voice.startPlay(localId)
         }
 
