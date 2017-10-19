@@ -125,5 +125,5 @@
     .ask_my_income_list  .list .item{ height: 3.52rem; line-height: 3.52rem; border-bottom: 0.0588235294117647rem solid #eee; position: relative;font-size: 0.88235rem;padding-left: 0.88235rem  }
     .ask_my_income_list  .list .item .time{padding-top: 0.6rem;font-size: 0.6471rem;color:#999;}
     .ask_my_income_list .list .item .type_txt{line-height: 1;color:#454B54;padding-top: 0.8rem}
-    .ask_my_income_list .list .item .price{ position: absolute; top:0; right:0.9705882352941176rem; color:#FF9900;}
+    .ask_my_income_list .list .item .price{ position: absolute; top:0; right:0.9705882352941176rem; color:rgba(253,114,6,1);}
 </style>
