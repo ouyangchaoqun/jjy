@@ -3,11 +3,12 @@
 
         <div v-title>入驻心理咨询师</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <v-answer-top-step step="1"  preUrl="" nextUrl="" title="填写基本信息"></v-answer-top-step>
+        <div class="stepStyle">1/10</div>
+        <div class="joinStep_title">填写基本信息</div>
 
         <div class="head">
         <div class="weui-cell ">
-            <div class="weui-cell__hd"><label class="weui-label">设置头像<span>*</span></label> </div>
+            <div class="weui-cell__hd"><label class="weui-label" style="color:#666">设置头像<span>*</span></label> </div>
             <div class="weui-cell__bd" @click="changeHeadpic()">
                 <div class="img" v-if="faceUrl==''">+</div>
                 <div class="img" v-if="faceUrl!=''"><img :src="faceUrl" style="height: 100%; width: 100%"></div>
@@ -472,7 +473,6 @@
     }
 </script>
 <style>
-    .answer_join_base_info_box .btn_box{position: absolute;bottom:1.471rem;width:100%;}
     .answer_join_base_info_box .submit{height:2.588235rem;line-height: 2.588235rem;color:#fff;background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4));text-align: center;
     border-radius: 1.176471rem;margin:0 0.88235rem}
 
@@ -505,5 +505,5 @@
     .lut.on{ float:left; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); color:#fff;}
     .showdL{ float:left; margin-left: 1rem;}
     .showdL span{ color:#333 !important}
-    .answer_join_base_info_box .subBox{position: static;margin-bottom: 1.471rem}
+    .answer_join_base_info_box .btn_box{margin-bottom: 1.471rem}
 </style>

@@ -2,6 +2,8 @@
     <div style="height: 100%" class="wbg">
 
         <div v-title>入驻心理咨询师</div>
+        <div class="stepStyle">5/10</div>
+        <div class="joinStep_title">自我介绍</div>
         <v-answer-top-step step="5"  preUrl="./qualification" nextUrl="./training" title="自我介绍"  errorWord="请填写自我介绍" :canGoNext="canGoNext"></v-answer-top-step>
         <div class="text_area">
             <textarea name=""  class="introduction" @keyup="changeIntroduction()" placeholder="请采用精简的语言介绍自己，以便用户快速地了解您！
