@@ -21,13 +21,14 @@
 </template>
 <style>
     .asker_bottom_box {
-        height:2.882352941176471rem;
+        height:2.782352941176471rem;
         border-top: 1px solid rgba(0,0,0,0.2);
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         position: absolute; bottom: 0; left:0; line-height: 1; font-size: 0.9rem ; background: #fff;   color:#333;
-    width: 100%;
+        width: 100%;
+        padding-top: 0.1rem;
     }
     .asker_bottom_box a:active,.asker_bottom_box a.on{ color:#FE7301;}
     .asker_bottom_box a{color:#999;

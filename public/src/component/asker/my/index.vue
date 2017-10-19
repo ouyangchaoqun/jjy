@@ -121,7 +121,7 @@
     .asker_my_index_box .top img{ display: block; float:left; width:3.176471rem; height: 3.176471rem; border-radius: 50%;  margin-right: 0.735rem;border: 1px solid #fff}
 
     .asker_my_index_box .main a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem; background: #fff;
-     color:#333; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; }
+     color:#4F5660; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; }
     .asker_my_index_box .main a:nth-child(2){margin-top: 0.41176471rem;}
     .asker_my_index_box .main a:after{ background: url(../../../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
         right:0.88235rem;top:1.25rem ; content: " "}
@@ -140,6 +140,6 @@
 
 
 
-   .asker_my_index_box .join{ background: #fff; line-height:3.470588235294118rem; margin: 0.41176471rem 0 ; text-align: center; font-size: 0.8823529411764706rem }
+   .asker_my_index_box .join{ background: #fff; line-height:3.470588235294118rem; margin: 0.41176471rem 0 ; text-align: center; font-size: 0.8823529411764706rem;color:#454B54; }
 
 </style>

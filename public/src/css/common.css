@@ -312,7 +312,7 @@ a{
 .answer_list .info .address{ font-size: 0.76471rem; margin-bottom: 0.7058823529411765rem;color:#666;}
 .answer_list .info .address span { display: inline-block; margin-right: 10px; color:#333;    }
 .answer_list .info .class_s { clear: both; margin-top: 0.3rem;}
-.answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#ccc; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
+.answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#999; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
 .answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#999; margin-top: 0.7058823529411765rem; }
 .answer_list .info .other .price{ color:#FE7301}
 .answer_list .info .other .ml{ margin-left:0.8rem; }
