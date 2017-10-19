@@ -206,7 +206,7 @@
     }
     .set_price{ width: 66%; margin: 0rem auto; margin-top: 48% }
     .set_price .til,  .set_price .select{ float:left; line-height: 2rem; text-align: center; color:#333; font-size: 0.88235rem;}
-    .set_price .select input{ width: 6rem;font-size: 1.2rem; line-height: 2rem;;color: #ffaa00; text-align: center}
+    .set_price .select input{ width: 6rem;font-size: 1.2rem; line-height: 2rem;;color: rgba(253,114,6,1); text-align: center}
     .set_price .select{ margin-left: 0.6rem; width:50%;color: #ffaa00; font-size: 1.2rem; line-height: 2rem;; border-radius: 0.3rem; border: 1px solid #B3B3B3
     }
     .set_price.mt_mb{ margin-top: 30px; margin-bottom: 30px;}

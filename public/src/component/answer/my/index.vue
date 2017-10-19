@@ -107,9 +107,10 @@
 </script>
 <style>
     .answer_my_index_box{background: #fff}
-    .answer_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); padding:0.8823529411764706rem;border-bottom: 0.41176471rem solid #f4f4f8;}
+    .answer_my_index_box .top{ height:  3.529411764705882rem; line-height:  1; font-size: 1.058823529411765rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); padding:0.8823529411764706rem;border-bottom: 0.41176471rem solid #f4f4f8;position: relative}
+    .answer_my_index_box .top:after{background: url(../../../images/arrow.png) ;width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem;position: absolute; right:0.88235rem;top:50%;margin-top:-0.4705882355rem; content: " "}
     .answer_my_index_box .top:active{background: linear-gradient(to right, rgb(238, 148, 25), rgb(226, 92, 6));}
-    .answer_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem;margin-right: 0.98rem;}
+    .answer_my_index_box .top img{ display: block; float:left; width:3.529411764705882rem; height: 3.529411764705882rem;margin-right: 0.98rem;border-radius: 0.2941rem;}
     .answer_my_index_box .top .name{color:rgba(255,255,255,1);padding-top: 0.8235rem;margin-bottom:0.52941rem}
     .answer_my_index_box .top .perfect{color:rgba(255,255,255,1);font-size: 0.76471rem;}
     .main_lists a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem;
@@ -117,7 +118,7 @@
     .main_lists a:after{ background: url(../../../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
         right:0.88235rem;top:1.25rem ; content: " "}
     .main_lists a:before{ content: " "; height: 0.0588235294117647rem; background: #eee; display: block; position: absolute; bottom:0;left: 0.9411764705882353rem; width: 100%}
-    .main_lists .income .price{position: absolute; right:2.2rem;top:0rem;color:#ff6600}
+    .main_lists .income .price{position: absolute; right:2.2rem;top:0rem;color:rgba(253,114,6,1)}
     .main_lists a i{ display: block;background: url(../../../images/answer/answer_my_left_icon1.png) no-repeat ; background-size: 1.705882352941176rem; width:1.705882352941176rem; height:1.705882352941176rem;  position: absolute; left: 0.75rem; top:50% ; margin-top: -0.852941176470588rem;}
     .main_lists a.income i{ background-position: 0 0 }
     .main_lists a.level i{ background-position: 0 -1.705882352941176rem; }
@@ -127,7 +128,7 @@
     .main_lists a.comment_list i{ background-position: 0 -8.52941176470588rem; }
     .main_lists a.message i{ background-position: 0 -10.23529411764706rem; }
     .main_lists a.qualification i{ background-position: 0 -11.94117647058823rem; }
-
+    .main_lists a:active{background: #eee}
 
 
 
