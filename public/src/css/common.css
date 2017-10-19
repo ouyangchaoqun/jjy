@@ -322,7 +322,7 @@ a{
 .audio .minute{ color:#999; font-size: 0.76rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
 
 
-.audio .audio_btn{   width:10.58823529411765rem; float:left; position: relative;  height:2.4rem; line-height: 2.4rem;  background:linear-gradient(to right, rgba(90,188,251,1), rgba(68,163,255,1));font-size: 0.88235rem;  border-radius: 1.2rem ; text-align: center; color:#fff;  }
+.audio .audio_btn{   width:10.58823529411765rem; float:left; position: relative;  height:2.4rem; line-height: 2.4rem;  background:linear-gradient(to right, rgba(90,188,251,1), rgba(68,163,255,1));font-size: 0.88235rem;  border-radius: 1.2rem ; text-align: center; color:#fff; margin-left:0.588235rem }
 .audio .audio_btn:active{ background:linear-gradient(to right, rgb(87, 180, 240), rgb(67, 149, 240));}
 .audio .audio_btn.pay{ background:linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));  }
 .audio .audio_btn.pay:active{ background:linear-gradient(to right, rgb(240, 144, 25), rgb(240, 114, 6));   }
