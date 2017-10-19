@@ -87,7 +87,7 @@
 </template>
 
 <script type="es6">
-    import showLoad from '../../include/showLoad.vue';
+    import showLoad from '../include/showLoad.vue';
     export default {
         data() {
             return {
