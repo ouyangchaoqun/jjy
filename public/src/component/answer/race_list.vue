@@ -9,12 +9,14 @@
 
             <div class="list">
                 <div class="item" v-for="item in list">
-                    <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">
+                        <div class="img"><img :src="item.faceUrl"></div>
                         <div class="price">赏金 <span>￥{{item.price}}</span></div>
                         <div class="type">在哪方面：{{item.questionClassName}}</div>
-                        <div class="clear"></div>
-                        <div class="content">{{item.content}}</div>
+                    </div>
+
+                    <div class="content">
+                        <div>{{item.content}}</div>
                         <div class="last_time">还{{formatDateText(item.endTime)}}</div>
                     </div>
                     <div class="clear"></div>
@@ -148,19 +150,18 @@
 </script>
 <style>
     .answer_race_list .list .item{ background: #fff; padding:0.8823529411764706rem; margin-bottom:0.5882352941176471rem; }
-    .answer_race_list  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
+    .answer_race_list  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem;margin-right: 0.588235rem }
     .answer_race_list  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
-    .answer_race_list  .list .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }
-    .answer_race_list  .list .info .type{ font-size: 0.7058823529411765rem;   color:#999; margin-bottom: 0.4rem; width: 8rem; float:right; text-align: right}
-    .answer_race_list  .list .info .content{ font-size: 0.8823529411764706rem;   color:#333;line-height:1.176470588235294rem; margin-bottom: 0.4rem}
-    .answer_race_list  .list .info .last_time{ float:left;font-size: 0.7647058823529412rem;color:#666; width: 6rem;
-    }
-    .answer_race_list  .list .info .price{ float:left;font-size: 0.7647058823529412rem;color:#666;   width: 7rem;}
-    .answer_race_list  .list .info .price span{ color:#FF9900; font-size: .8823529411764706rem;}
+    .answer_race_list  .list .info{line-height: 2.588235294117647rem;display: flex;position: relative}
+    .answer_race_list  .list .info .type{ font-size: 0.7058823529411765rem;   color:#999;position: absolute;right:0}
+    .answer_race_list .item .content{ font-size: 0.823529411764706rem;color:#474747;margin-bottom: 0.4rem;padding-left: 3.176471rem}
+    .answer_race_list .item .content>div:nth-of-type(1){margin-bottom:0.3rem;}
+    .answer_race_list .item .last_time{font-size: 0.70588235rem;color:#666;}
+    .answer_race_list  .list .info .price{ float:left;font-size: 0.88235rem;color:#FF9900;   width: 7rem;}
     .answer_race_list .list .btn_race:active{
         background: linear-gradient(to right, rgb(238, 146, 24), rgb(238, 109, 6));
     }
-    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 5.294rem; margin: 0 auto; line-height: 1.71rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); margin-top: 0.6rem;font-size: 0.88235rem}
+    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 5.295rem; margin: 0 auto; line-height: 1.76471rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); margin-top: 0.6rem;font-size: 0.88235rem}
 
 
 
