@@ -7,7 +7,7 @@
 
         <div class="set_price">
             <div class="til">设置提问酬金：</div>
-            <div class="select" ><input type="" class="priceInput"   @keyup="changePrice()" :value="'￥'+price"></div>
+            <div class="select" ><input type="" class="priceInput"   @input="changePrice()" :value="'￥'+price"></div>
             <div class="clear"></div>
         </div>
         <div class="set_price mt" @click="selectFreeTime()" >
@@ -69,51 +69,17 @@
             }
             let price = cookie.get("price");
             if(price)this.price= price;
+
             let _this =this;
             $('#subBtn').click(function () {
-                if(_this.isSubmitting){
-                    return;
-                }
-                _this.isSubmitting=true;
-                _this.showLoad=true;
-                console.log('sub');
-                let that=this;
-                let data={
-                    userId:"_userId_",
-                    price:_this.price,
-                    freeTime:cookie.get("freeTime"),
-                    sign:unescape(cookie.get("sign")),
-                    mediaId:cookie.get("mediaId"),
-                    voiceLength:cookie.get("voiceLength"),
-                    questionClassId:cookie.get("questionClassId").split(','),
-                    jobTitle:unescape(cookie.get("jobTitle")),
-                    certificateNo:unescape(cookie.get("certificateNo")),
-                    certificateFile:unescape(cookie.get("certificateFile")),
-                    introduction:unescape(cookie.get("introduction")),
-                    experience:unescape(cookie.get("experience")),
-                    goodat:unescape(cookie.get("goodAt")),
-                    identityNo:unescape(cookie.get("identityNo")),
-                    cardImage:[unescape(cookie.get("identityFile1")),unescape(cookie.get("identityFile2"))]
-
-                };
-                $.ajax({
-                    url: web.API_PATH + "come/expert/register",
-                    data:data,
-                    type: 'PUT',
-                    success: function( bt ) {
-                        _this.showLoad=false;
-                         _this.isSubmitting=false;
-                        _this.$router.replace("./reviewing")
-                    }
-                });
+                _this.submit();
             })
 
         } ,
         methods:  {
             changePrice:function () {
                 let price= $(".priceInput").val()
-                price=  price.replace(/[^\d\.￥]/g,'');
-                $(".priceInput").val(price)
+                price=  price.replace('￥','');
                 this.price=price;
 
             },
@@ -151,30 +117,68 @@
                 });
             },
             submit:function () {
-                let that=this;
+                let _this=this;
+                console.log(_this.isSubmitting)
+                if(_this.isSubmitting){
+                    return;
+                }
+
+                console.log('sub');
+
+                if(!xqzs.string.checkPrice(_this.price)){
+                    xqzs.weui.tip("请输入正确的金额！");
+                    return ;
+                }
+                if(parseFloat(_this.price)>xqzs.price.MAX_ANSWER_SET_PRICE||parseFloat(_this.price)<xqzs.price.MIN_ANSWER_SET_PRICE){
+                    xqzs.weui.tip("金额需在 "+xqzs.price.MIN_ANSWER_SET_PRICE+"-"+xqzs.price.MAX_ANSWER_SET_PRICE+" 之间！");
+                    return;
+                }
+
+                _this.isSubmitting=true;
+                _this.showLoad=true;
+                let questionClassId= cookie.get("questionClassId");
+                let  questionClassIds=[];
+                if(questionClassId&&questionClassId!=''){
+                    questionClassIds=questionClassId.split(',')
+                }
+                console.log("questionClassIds:"+questionClassIds)
                 let data={
                     userId:"_userId_",
-                    price:cookie.get("price"),
+                    price:_this.price,
                     freeTime:cookie.get("freeTime"),
                     sign:unescape(cookie.get("sign")),
                     mediaId:cookie.get("mediaId"),
                     voiceLength:cookie.get("voiceLength"),
-                    questionClassId:cookie.get("questionClassId").split(','),
+                    questionClassId:questionClassIds,
                     jobTitle:unescape(cookie.get("jobTitle")),
                     certificateNo:unescape(cookie.get("certificateNo")),
-                    certificateFile:cookie.get("certificateFile"),
+                    certificateFile:unescape(cookie.get("certificateFile")),
                     introduction:unescape(cookie.get("introduction")),
                     experience:unescape(cookie.get("experience")),
-                    goodat:unescape(cookie.get("goodAt"))
+                    goodat:unescape(cookie.get("goodAt")),
+                    identityNo:unescape(cookie.get("identityNo")),
+                    cardImage:[unescape(cookie.get("identityFile1")),unescape(cookie.get("identityFile2"))]
 
                 };
-                that.$http.put(web.API_PATH + "come/expert/register", data)
-                    .then(function (bt) {
-                        if (bt.data && bt.data.status == 1) {
-                            this.$router.push("./reviewing")
+                $.ajax({
+                    url: web.API_PATH + "come/expert/register",
+                    data:data,
+                    type: 'PUT',
+                    success: function( bt ) {
+                        _this.showLoad=false;
+                        _this.isSubmitting=false;
+                        let result = JSON.parse(bt)
+                        if(result.status==9000006){
+                            xqzs.weui.tip("您已经提交过审核",function () {
+                                window.history.go(-1);
+                            })
+                        }else if(result.status==1){
+                            _this.$router.replace("./reviewing")
                         }
-                    });
 
+
+                    }
+                });
 
             }
         },

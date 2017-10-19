@@ -181,10 +181,9 @@
                     return;
                 }
                 let _this = this;
-                _this.showLoad=true;
-
                 console.log(_this.questionClass)
                 if( this.expertId&& this.expertId!=''){
+                    _this.showLoad=true;
                     this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: _this.questionClass,expertId:this.expertId})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
@@ -227,6 +226,10 @@
                     }
                     if(!xqzs.string.checkPrice(price)){
                         xqzs.weui.tip("请输入正确的金额");
+                        return;
+                    }
+                    if(parseFloat(price)>xqzs.price.MAX_ASK_PRICE||parseFloat(price)<xqzs.price.MIN_ASK_PRICE){
+                        xqzs.weui.tip("金额需在 "+xqzs.price.MIN_ASK_PRICE+"-"+xqzs.price.MAX_ASK_PRICE+" 之间！");
                         return;
                     }
                     _this.showLoad=true;
@@ -411,10 +414,13 @@
     }
     .asker_ask_box .set_price .price {
         font-size: 1.058823529411765rem;
-        border-bottom: 1px solid #ccc;
+
         color: rgba(253,114,6,1);
         padding: 0 0.5rem;
         width: 4rem;
+        height: 26px;
+        border: none;
+        border-bottom: 1px solid #ccc;
     }
     ::-webkit-input-placeholder {
         color: #ff9900;}

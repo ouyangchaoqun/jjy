@@ -111,6 +111,16 @@
                 let _this=this;
                 let expertId = cookie.get('expertId');
 
+                if(!xqzs.string.checkPrice(_this.expert.price)){
+                    xqzs.weui.tip("请输入正确的金额！");
+                    return ;
+                }
+
+                if(parseFloat(_this.expert.price)>xqzs.price.MAX_ANSWER_SET_PRICE||parseFloat(_this.expert.price)<xqzs.price.MIN_ANSWER_SET_PRICE){
+                    xqzs.weui.tip("金额需在 "+xqzs.price.MIN_ANSWER_SET_PRICE+"-"+xqzs.price.MAX_ANSWER_SET_PRICE+" 之间！");
+                    return;
+                }
+
                 let msg = {
                     expertId:expertId,
                     userId:'',

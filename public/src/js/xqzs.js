@@ -5,6 +5,12 @@ document.addEventListener("touchstart", function () {
 }, false);
 
 var xqzs = {
+    price:{
+       MAX_ASK_PRICE:1000,
+       MIN_ASK_PRICE:10,
+       MAX_ANSWER_SET_PRICE:1000,
+       MIN_ANSWER_SET_PRICE:10
+    },
     constant: {
         PIC_SMALL: '?x-oss-process=image/resize,h_640,w_640/quality,q_100',
         PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100'
