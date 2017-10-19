@@ -15,8 +15,8 @@
                 <div class="item" v-for="item in list" @click="answer(item.id)">
                     <div class="img"><img :src="item.faceUrl"></div>
                     <div class="info">
-                        <div class="names"><span>{{item.nickName}}</span> 在哪方面：{{item.questionClassName}}</div>
-                        <div class="content">{{item.content}}</div>
+                        <div class="names"><span>{{item.nickName}}陈**</span> 在哪方面：{{item.questionClassName}}1234</div>
+                        <div class="content">{{item.content}}暂无待答问题暂无待答问题暂无待答问题暂无待答问题</div>
                         <div class="last_time">还{{formatDateText(item.endTime)}}</div>
                         <div class="price">酬金 <span>￥{{item.price}}</span></div>
 
@@ -137,11 +137,9 @@
     .answer_ask_list_box  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
     .answer_ask_list_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
     .answer_ask_list_box  .list .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }
-    .answer_ask_list_box  .list .info .names{ font-size: 0.7058823529411765rem; font-weight: bold; color:#666; margin-bottom: 0.4rem; width: 14.11764705882353rem;}
+    .answer_ask_list_box  .list .info .names{ font-size: 0.7058823529411765rem;color:#999;line-height:2.588235294117647rem }
     .answer_ask_list_box .list .info .names span{ color:#535353; font-size: 0.8823529411764706rem; margin-right: 0.4rem}
-    .answer_ask_list_box  .list .info .content{ font-size: 0.8823529411764706rem; color:#333; line-height:1.176470588235294rem; margin-bottom: 0.4rem }
-    .answer_ask_list_box  .list .info .last_time{ float:left;font-size: 0.7647058823529412rem;color:#666; width: 6rem;
-    }
-    .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.7647058823529412rem;color:#666; text-align: right; width: 7rem;}
-    .answer_ask_list_box .list .info .price span{ color:#FF9900}
+    .answer_ask_list_box  .list .info .content{ font-size: 0.823529411764706rem; color:#474747;margin-bottom: 0.3rem }
+    .answer_ask_list_box  .list .info .last_time{ float:left;font-size: 0.70588235rem;color:#999;}
+    .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.7647058823529412rem;color:#FF9900; text-align: right; width: 7rem;}
 </style>
