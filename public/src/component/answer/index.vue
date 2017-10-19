@@ -2,7 +2,7 @@
     <div style="height: 100%" class="answer_index">
         <div v-title>找专家</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="weui-tab__panel main" v-if="!showLoad">
+        <div class="weui-tab__panel main">
 
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :isShowMoreText="isShowMoreText" :bottomHeight="50">

@@ -272,7 +272,7 @@
                         _this.$set(_this.navLists[_this.typeIndex].list,i,list[i]);
                     }
                 }
-                let item= this.list[index];
+                let item= _this.navLists[_this.typeIndex].list[index];
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
                     list[index].paused=false;
                     list[index].playing=true;
