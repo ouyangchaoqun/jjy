@@ -13,7 +13,7 @@
 # 家庭关系：婚姻挽救、情感修复、外遇分离、家暴危机、婆媳关系、复婚帮助、离婚纠纷
 # 恋爱关系：失恋帮助、性格不合、沟通障碍、经常吵架、父母反对、异地恋问题
 # 性心理：同性恋、恋母情结、偷窥幻想女性、性取向问题" id="" cols="30" rows="10">{{goodAt}}</textarea>
-            <div class="count">1/200</div>
+            <div class="count" >{{inputLength}}/{{MAX_INPUT_LENGTH}}</div>
         </div>
 
     </div>
@@ -26,6 +26,8 @@
     export default {
         data() {
             return {
+                MAX_INPUT_LENGTH:200,
+                inputLength:0,
                 goodAt:'',
                 canGoNext:false
             }
@@ -37,12 +39,18 @@
             if(goodAt&&goodAt!=''){
                 this.goodAt=unescape(goodAt)
             }
+
+            this.inputLength = this.goodAt.length
             this.check();
 
         },
         methods: {
             changeGoodAt: function (v) {
                 let goodAt = $(".goodAt").val();
+                if (goodAt.length > this.MAX_INPUT_LENGTH) {
+                    goodAt = goodAt.substr(0, this.MAX_INPUT_LENGTH)
+                }
+                this.inputLength =goodAt.length;
                 cookie.set("goodAt",escape(goodAt));
                 this.check();
             },

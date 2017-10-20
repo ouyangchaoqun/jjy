@@ -14,39 +14,42 @@
 
         </div>
 
+            <div v-if="!otherType">
+                <div class="number">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">证书编号 <span>*</span></label></div>
+                        <div class="weui-cell__bd">
+                            <input style="color:#666;font-size: 0.8235rem" class="weui-input certificateNo"
+                                   name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()"
+                                   pattern="[0-9a-zA-Z]*" placeholder="输入编号"/>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="number">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">证书编号 <span>*</span></label></div>
-                <div class="weui-cell__bd">
-                    <input style="color:#666;font-size: 0.8235rem" class="weui-input certificateNo" name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()" pattern="[0-9a-zA-Z]*" placeholder="输入编号"/>
+                <div class="photo">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
+                        <!--<div class="weui-cell__bd">-->
+                        <!--<div class="upload" @click="upload()"><font>上传证书</font></div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="photo_img">
+                    <div class="img" @click="upload()">
+                        <div>
+                            <b>+</b>
+                        </div>
+                        <p>上传证书头像页面</p>
+                    </div>
+                    <div class="img" @click="upload()">
+                        <div>
+                            <b>+</b>
+                        </div>
+                        <p>上传证书信息页面</p>
+                        <img :src="certificateFile">
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="photo">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
-                <!--<div class="weui-cell__bd">-->
-                    <!--<div class="upload" @click="upload()"><font>上传证书</font></div>-->
-                <!--</div>-->
-            </div>
-        </div>
-        <div class="photo_img">
-            <div class="img" @click="upload()">
-                <div>
-                    <b>+</b>
-                </div>
-                <p>上传证书头像页面</p>
-            </div>
-            <div class="img" @click="upload()">
-                <div>
-                    <b>+</b>
-                </div>
-                <p>上传证书信息页面</p>
-                <img :src="certificateFile" >
-            </div>
-        </div>
         </div>
         <v-answer-top-step step="4"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
 
@@ -61,6 +64,7 @@
     export default {
         data() {
             return {
+                otherType:false,
                 certificateNo:'',
                 showLoad:false,
                 canGoNext:false,
@@ -164,8 +168,10 @@
                 console.log(index)
                 console.log(v)
                 if(v=='其它'){
+                    _this.otherType=true;
                     _this.canGoNext = true
                 }else {
+                    _this.otherType=false;
                     this.check()
                 }
                 cookie.set("jobTitle",escape(v));

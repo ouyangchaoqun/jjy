@@ -10,7 +10,7 @@
 方向1：可以写您对咨询的理解（价值观）。示例：有阴影的地方就有阳光。
 方向2：可以写您想对来访者说的话。示例：星洲易渡，心河难逾，与你共觅心河之舟。
 方向3：可以写您擅长的领域问题。示例：恋爱技巧，挽回情感，遭遇婚外情，告别前任。" id="" cols="30" rows="10">{{sign}}</textarea>
-            <div class="count">1/200</div>
+            <div class="count" >{{inputLength}}/{{MAX_INPUT_LENGTH}}</div>
         </div>
     </div>
 </template>
@@ -22,6 +22,8 @@
     export default {
         data() {
             return {
+                MAX_INPUT_LENGTH:200,
+                inputLength:0,
                 sign:'',
                 canGoNext:false
             }
@@ -34,11 +36,17 @@
             if(sign&&sign!=''){
                 this.sign=unescape(sign)
             }
+
+            this.inputLength = this.sign.length
             this.check();
         },
         methods: {
             changeSign: function (v) {
                 let sign = $(".sign").val();
+                if (sign.length > this.MAX_INPUT_LENGTH) {
+                    sign = sign.substr(0, this.MAX_INPUT_LENGTH)
+                }
+                this.inputLength =sign.length;
                 cookie.set("sign",escape(sign));
                 this.check();
             },

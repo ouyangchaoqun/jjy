@@ -13,7 +13,7 @@
 # 武汉大学心理咨询师培训
 # 丁建略婚恋咨询师升级路径
 # 中级绘画治疗师" id="" cols="30" rows="10">{{experience}}</textarea>
-            <div class="count">1/200</div>
+            <div class="count" >{{inputLength}}/{{MAX_INPUT_LENGTH}}</div>
         </div>
     </div>
 </template>
@@ -25,6 +25,8 @@
     export default {
         data() {
             return {
+                MAX_INPUT_LENGTH:200,
+                inputLength:0,
                 experience:'',
                 canGoNext:false
             }
@@ -37,12 +39,17 @@
             if(experience&&experience!=''){
                 this.experience=unescape(experience)
             }
+            this.inputLength = this.experience.length
             this.check();
 
         },
         methods: {
             changeExperience: function (v) {
                 let experience = $(".experience").val();
+                if (experience.length > this.MAX_INPUT_LENGTH) {
+                    experience = experience.substr(0, this.MAX_INPUT_LENGTH)
+                }
+                this.inputLength =experience.length;
                 cookie.set("experience",escape(experience));
                 this.check();
             },

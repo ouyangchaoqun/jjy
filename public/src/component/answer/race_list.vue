@@ -1,7 +1,13 @@
 <template >
-    <div style="height: 100%" class="answer_race_list">
+    <div style="height: 100%" class="answer_race_list" :class="{wbg:list.length==0&&!showLoad}">
         <div v-title>抢答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="nothing comment" v-if="list.length==0&&!showLoad">
+            <img src="../../images/asker/newNoContent.png" alt="">
+            <div class="nothing_bottom">
+                <p>暂无抢答问题</p>
+            </div>
+        </div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">

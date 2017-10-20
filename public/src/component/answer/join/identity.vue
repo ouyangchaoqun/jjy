@@ -15,8 +15,11 @@
                     身份证 <span>*</span><input type="text" class="identityNo"  @input="changeidentityNo()" :value="identityNo" pattern="[0-9a-zA-Z]*" >
                 </div>
                 <div class="content_list2">
-                    <img :src="identityFile1?identityFile1:'../../../images/positive.png'" alt="" @click="upload(1)">
-                    <img :src="identityFile2?identityFile2:'../../../images/negative.png'" alt="" @click="upload(2)">
+
+                    <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
+                    <img v-else="" src="../../../images/positive.png" alt="" @click="upload(1)">
+                    <img v-if="identityFile2!=''" :src="identityFile2" alt="" @click="upload(2)">
+                    <img v-else="" src="../../../images/negative.png" alt="" @click="upload(2)">
                 </div>
             </div>
 
