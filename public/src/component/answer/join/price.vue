@@ -147,7 +147,7 @@
                 let data={
                     userId:"_userId_",
                     price:_this.price,
-                    freeTime:cookie.get("freeTime"),
+//                    freeTime:cookie.get("freeTime"),
                     sign:unescape(cookie.get("sign")),
                     mediaId:cookie.get("mediaId"),
                     voiceLength:cookie.get("voiceLength"),
