@@ -1,5 +1,6 @@
 <template id="fans">
     <div class="fansBox">
+        <div v-title>我的粉丝</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
@@ -20,7 +21,7 @@
                 </ul>
             </div>
         </v-scroll>
-        <div class="noFansBox"  v-if="false">
+        <div class="noFansBox"  v-if="count==0&&!showLoad">
             <div>
                 还没有粉丝
             </div>

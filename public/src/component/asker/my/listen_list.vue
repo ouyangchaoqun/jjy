@@ -1,6 +1,5 @@
 <template>
     <div style="height: 100%" class="asker_my_listen_list_box wbg">
-
         <div v-title>我的偷听</div>
         <div class="nothing listen" v-if="list.length==0&&!showLoad">
             <img src="../../../images/asker/newNoContent.png" alt="">

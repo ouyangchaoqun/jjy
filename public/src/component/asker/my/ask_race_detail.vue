@@ -1,5 +1,6 @@
 <template id="rob_problem">
     <div class="rob_problem">
+        <div v-title>问题详情</div>
         <div class="my_problem_detail">
             <div class="problem_detail_header">
                 问题类型:  <div>{{detail.title}}</div>

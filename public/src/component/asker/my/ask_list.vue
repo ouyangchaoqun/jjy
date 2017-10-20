@@ -1,6 +1,7 @@
 <template>
     <div :class="{wbg:list.length==0&&!showLoad}">
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-title>我问</div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
                   :isShowMoreText="isShowMoreText">

@@ -1,7 +1,7 @@
 <template >
     <div style="height: 100%" class="answer_join_voice wbg message_box">
 
-        <div v-title>入驻心理咨询师</div>
+        <div v-title>60"语音寄语</div>
         <div class="tip">此{{voiceLength}}''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
 
 

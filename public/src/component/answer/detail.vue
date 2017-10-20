@@ -1,7 +1,5 @@
 <template >
     <div style="height: 100%" class="answer_detail_box">
-
-
         <div v-title>专家详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"

@@ -1,6 +1,7 @@
 <template >
     <div>
         <!--详情头部-->
+        <div v-title>问题详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="steal_detail_header" v-if="detail.title">
             <div class="steal_detail_top"><img :src="detail.faceUrl" alt=""><div>在<span>{{detail.title}}</span>方面</div></div>

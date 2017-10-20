@@ -1,6 +1,5 @@
 <template >
     <div style="height: 100%" class="asker_my_income_box wbg">
-
         <div v-title>我的收益</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="nothing income" v-if="income==0&&!showLoad">

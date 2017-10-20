@@ -1,6 +1,7 @@
 <template >
     <div style="height: 100%" class="answer_ask_list_box"  :class="{wbg:list.length==0&&!showLoad}">
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-title>待答</div>
         <div class="nothing comment" v-if="list.length==0&&!showLoad">
             <img src="../../images/asker/newNoContent.png" alt="">
             <div class="nothing_bottom">

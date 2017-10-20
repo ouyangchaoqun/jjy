@@ -1,7 +1,6 @@
-
-
-<template id="personal">
+<template >
     <div class="personal_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>完善资料</div>
 
         <div class="list0 perfect_header active_tab" @click="changeHeadpic()">
@@ -85,9 +84,8 @@
     </div>
 </template>
 <script type="text/javascript">
-    var personal = {
-        template: '#personal'
-    }
+
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
@@ -447,6 +445,9 @@
         beforeDestroy:function () {
             xqzs.image.hideClip()
         },
+        components: {
+            'v-showLoad': showLoad
+        }
     }
 </script>
 <style>

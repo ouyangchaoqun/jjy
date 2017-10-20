@@ -982,23 +982,7 @@ var xqzs = {
         }
     },
 
-    constellation: {
-        array: [{name: "魔羯座", id: 1, pic: web.IMG_PATH + "constellation/1.png", times: "12.22-1.19"},
-            {name: "水瓶座", id: 2, pic: web.IMG_PATH + "constellation/2.png", times: "1.20-2.18"},
-            {name: "双鱼座", id: 3, pic: web.IMG_PATH + "constellation/3.png", times: "2.19-3.20"},
-            {name: "白羊座", id: 4, pic: web.IMG_PATH + "constellation/4.png", times: "3.21-4.19"},
-            {name: "金牛座", id: 5, pic: web.IMG_PATH + "constellation/5.png", times: "4.20-5.20"},
-            {name: "双子座", id: 6, pic: web.IMG_PATH + "constellation/6.png", times: "5.21-6.21"},
-            {name: "巨蟹座", id: 7, pic: web.IMG_PATH + "constellation/7.png", times: "6.22-7.22"},
-            {name: "狮子座", id: 8, pic: web.IMG_PATH + "constellation/8.png", times: "7.23-8.22"},
-            {name: "处女座", id: 9, pic: web.IMG_PATH + "constellation/9.png", times: "8.23-9.22"},
-            {name: "天秤座", id: 10, pic: web.IMG_PATH + "constellation/10.png", times: "9.23-10.23"},
-            {name: "天蝎座", id: 11, pic: web.IMG_PATH + "constellation/11.png", times: "10.24-11.22"},
-            {name: "射手座", id: 12, pic: web.IMG_PATH + "constellation/12.png", times: "11.23-12.21"}],
-        getIndex: function (month, day) {
-            return (month - (day < "102123444543".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
-        }
-    },
+
     image: {
         convertCanvasToImage: function (canvas) {
             //新Image对象，可以理解为DOM

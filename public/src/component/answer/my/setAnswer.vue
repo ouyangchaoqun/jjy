@@ -1,6 +1,7 @@
 <template id="setAnswer">
     <div class="setAnswer_box">
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-title>设置解答</div>
         <div class="setItem">
             <div>
                 <div class="set_price">

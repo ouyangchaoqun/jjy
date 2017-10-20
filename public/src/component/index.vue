@@ -1,7 +1,7 @@
 <template >
     <div style="height: 100%">
 
-        <div v-title>心情指数</div>
+        <div v-title>加加油</div>
 
         <div style="height: 500px;" class="diididdid">
             <router-link to="/asker/listen">用户</router-link>

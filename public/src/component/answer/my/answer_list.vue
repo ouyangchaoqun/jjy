@@ -1,5 +1,6 @@
 <template id="my_problem_index">
     <div>
+        <div v-title>我的回答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"

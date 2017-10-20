@@ -1,10 +1,10 @@
 <template >
     <div style="height: 100%" class="ask_my_income_list wbg">
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-title>收益明细</div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
-            <div v-title>心情指数</div>
             <div>
                 <div class="top_tip">每份收入的90%为收益哦</div>
                 <div class="list">

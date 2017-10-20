@@ -1,6 +1,5 @@
 <template >
     <div style="height: 100%" class="asker_my_coment_list wbg">
-
         <div v-title>我的评价</div>
         <div class="nothing comment" v-if="list.length==0&&!showLoad">
             <img src="../../../images/asker/newNoContent.png" alt="">
