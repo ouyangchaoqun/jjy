@@ -32,7 +32,7 @@
         data() {
             return {
                 prices:["1.00","2.00","3.00","5.00","10.00","15.00","20.00","30.00","50.00"],
-                price:"1.00",
+                price:"10.00",
                 showLoad:false,
                 freeTime:null,
                 freeTimeText:'',
