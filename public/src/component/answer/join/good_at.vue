@@ -42,7 +42,7 @@
 
             this.inputLength = this.goodAt.length
             this.check();
-
+            xqzs.wx.setConfig(this);
         },
         methods: {
             changeGoodAt: function (v) {

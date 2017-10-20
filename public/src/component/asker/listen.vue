@@ -134,6 +134,7 @@
             this.getClassList()
             this.getList();
             xqzs.voice.audio=null;
+            xqzs.wx.setConfig(this);
         },
         methods:{
             initView:function () {

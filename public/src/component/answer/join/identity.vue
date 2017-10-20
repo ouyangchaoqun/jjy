@@ -76,8 +76,8 @@
             if(identityNo&&identityNo!=''){
                 this.identityNo= unescape(identityNo);
             }
-            this.check()
-
+            this.check();
+            xqzs.wx.setConfig(this);
         } ,
         methods:  {
             upload:function (v) {

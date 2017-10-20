@@ -48,6 +48,7 @@
             }, function (error) {
                 _this.showLoad=false;
             });
+            xqzs.wx.setConfig(this);
 
         },
         methods:{

@@ -37,6 +37,7 @@
             }
             this.inputLength = this.introduction.length
             this.check();
+            xqzs.wx.setConfig(this);
 
         },
         methods: {

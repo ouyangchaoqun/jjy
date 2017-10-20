@@ -76,6 +76,7 @@
             this.expertId = this.$route.query.expertId;
             this.getTags();
             this.getList();
+            xqzs.wx.setConfig(this);
         },
         methods: {
             changeType:function () {

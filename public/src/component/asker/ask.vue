@@ -143,7 +143,8 @@
 
 
                 })
-            })
+            });
+            xqzs.wx.setConfig(this);
 
 
         },

@@ -105,6 +105,7 @@
             this.getDetail();
             this.getTags();
             xqzs.voice.audio=null;
+            xqzs.wx.setConfig(this);
         },
         methods: {
 

@@ -228,6 +228,7 @@
             this.getComment();
             this.getAnswer();
             xqzs.voice.audio=null;
+            xqzs.wx.setConfig(this);
         },
         methods:{
             like:function (index) {

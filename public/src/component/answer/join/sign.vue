@@ -39,6 +39,7 @@
 
             this.inputLength = this.sign.length
             this.check();
+            xqzs.wx.setConfig(this);
         },
         methods: {
             changeSign: function (v) {

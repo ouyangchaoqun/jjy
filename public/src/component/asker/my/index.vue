@@ -110,6 +110,7 @@
             var obj = $(".asker_my_index_box .main a ,.join")
             xqzs.weui.active(obj);
             this.getIncome();
+            xqzs.wx.setConfig(this);
 
         }
 

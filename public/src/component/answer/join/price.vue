@@ -76,6 +76,7 @@
             $('#subBtn').click(function () {
                 _this.submit();
             })
+            xqzs.wx.setConfig(this);
 
         } ,
         methods:  {

@@ -43,7 +43,8 @@
 
 
         mounted: function () {
-            this.getList()
+            this.getList();
+            xqzs.wx.setConfig(this);
         },
         methods:{
             formatTime:function (v) {

@@ -23,7 +23,7 @@
 
         mounted: function () {
 
-
+            xqzs.wx.setConfig(this);
         }
 
 

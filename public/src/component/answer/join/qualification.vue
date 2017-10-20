@@ -94,7 +94,6 @@
         mounted: function () {
 
 
-            xqzs.wx.setConfig(this);
             this.initOss();
 
             let certificateNo= cookie.get("certificateNo")
@@ -116,7 +115,7 @@
                 this.certificateFile2= unescape(certificateFile2);
             }
             this.check()
-
+            xqzs.wx.setConfig(this);
 
         } ,
         components: {

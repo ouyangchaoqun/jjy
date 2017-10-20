@@ -41,6 +41,7 @@
             }
             this.inputLength = this.experience.length
             this.check();
+            xqzs.wx.setConfig(this);
 
         },
         methods: {

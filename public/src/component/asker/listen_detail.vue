@@ -84,6 +84,7 @@
             this.questionId=this.$route.query.questionId;
             this.getDetail();
             xqzs.voice.audio=null;
+            xqzs.wx.setConfig(this);
 
         },
         components: {

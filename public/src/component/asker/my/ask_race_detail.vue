@@ -111,7 +111,7 @@
 
             this.id= parseInt(this.$route.query.id);
             this.getDetail();
-
+            xqzs.wx.setConfig(this);
         },
         methods: {
             initVoice:function () {

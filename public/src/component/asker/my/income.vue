@@ -38,7 +38,7 @@
 
         mounted: function () {
             this.getIncome()
-
+            xqzs.wx.setConfig(this);
         },
         components: {
             'v-showLoad': showLoad

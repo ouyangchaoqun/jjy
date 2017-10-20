@@ -85,6 +85,7 @@
             $("#timePic").focus(function(){
                 document.activeElement.blur();
             });
+            xqzs.wx.setConfig(this);
         },
         methods:{
             formatPrice:function (v) {

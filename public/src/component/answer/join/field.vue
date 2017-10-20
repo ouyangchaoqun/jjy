@@ -94,6 +94,7 @@
 
         mounted: function () {
             this.getClassList();
+            xqzs.wx.setConfig(this);
 
         } ,
         components: {

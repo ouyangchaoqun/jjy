@@ -49,7 +49,7 @@
 
         mounted: function () {
             this.getList()
-            console.log(xqzs.dateTime.formatTime(1506477018))
+            xqzs.wx.setConfig(this);
         },
         methods:{
             getList: function (done) {

@@ -84,7 +84,7 @@
 
         mounted: function () {
             this.getList();
-
+            xqzs.wx.setConfig(this);
         },
         methods:{
 
