@@ -178,8 +178,8 @@
     }
     .answer_comment_box .nums .comment{ position: absolute; top:1rem; right:0.9rem; font-size:1.411764705882353rem;  }
     .answer_comment_box .title .txt{ font-size: 0.8823529411764706rem; color:#333; font-weight: bold}
-    .answer_comment_box .title .star span{ background: url(../../images/answer/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
-    .answer_comment_box  .title .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
+    .answer_comment_box .title .star span{ background: url(../../images/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
+    .answer_comment_box  .title .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
 
     .answer_comment_box .comment_selects{ padding:0.8823529411764706rem; background: #fff; padding-bottom: 0.3rem;}
     .answer_comment_box .comment_selects span{display: inline-block; float:left; height: 1.352941176470588rem; line-height: 1.352941176470588rem; border: 1px solid #999; border-radius:0.676470588235294rem ; font-size: 0.76471rem; padding: 0 0.5rem; margin-right: 0.5882352941176471rem; margin-bottom: 0.5882352941176471rem; color:#999 }
@@ -195,8 +195,8 @@
 
 
     .answer_comment_box  .list .item{ background: #fff; padding:0.8823529411764706rem; border-bottom: 1px solid #EDEDED }
-    .answer_comment_box .list .star span{ background: url(../../images/answer/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
-    .answer_comment_box  .list .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
+    .answer_comment_box .list .star span{ background: url(../../images/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
+    .answer_comment_box  .list .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
 
     .answer_comment_box  .list .item .img{ width: 2rem; height: 2rem; float:left; }
     .answer_comment_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #EEEAEA }

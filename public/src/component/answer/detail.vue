@@ -731,8 +731,8 @@
         padding-bottom: 0.88rem;
     }
    .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 0.6rem 0.8823529411764706rem;margin-bottom: 0.41176471rem;position: relative  }
-    .answer_detail_box .list .star span{ background: url(../../images/answer/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
-    .answer_detail_box  .list .star span.on{background: url(../../images/answer/star.png);background-size: 0.7647058823529412rem; }
+    .answer_detail_box .list .star span{ background: url(../../images/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
+    .answer_detail_box  .list .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
 
     .answer_detail_box  .list .item .img{ width: 2rem;height: 2rem; float:left; }
     .answer_detail_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #EEEAEA }
