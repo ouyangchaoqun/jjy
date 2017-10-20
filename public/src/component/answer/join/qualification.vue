@@ -36,17 +36,23 @@
                 </div>
                 <div class="photo_img">
                     <div class="img" @click="upload(1)">
-                        <div>
-                            <b>+</b>
-                        </div>
-                        <p>上传证书头像页面</p>
+                        <template  v-if="certificateFile1==''" >
+                            <div>
+                                <b>+</b>
+                            </div>
+                            <p>上传证书头像页面</p>
+                        </template>
+
                         <img v-if="certificateFile1!=''" :src="certificateFile1" />
                     </div>
                     <div class="img" @click="upload(2)">
-                        <div>
-                            <b>+</b>
-                        </div>
-                        <p>上传证书信息页面</p>
+                        <template  v-if="certificateFile2==''" >
+                            <div>
+                                <b>+</b>
+                            </div>
+                            <p>上传证书信息页面</p>
+                        </template>
+
                         <img  v-if="certificateFile2!=''" :src="certificateFile2" />
                     </div>
                 </div>
@@ -219,7 +225,7 @@
     .weui-check__label:active{ background: none}
     .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:0.588235rem;}
     .answer_join_quali .photo_img .img{background:#f4f4f7;width:9.71rem;height:6.76471rem;position: relative}
-    .answer_join_quali .photo_img .img img{ max-height: 100%; max-width: 100%}
+    .answer_join_quali .photo_img .img img{ max-height: 100%; max-width: 100%; position: absolute; top:0; left:0; z-index: 100}
     .img div{width:44px;height:44px;border-radius: 50%;background: #fff;text-align: center;line-height: 40px;position: absolute;top:25%;left:50%;margin-left:-22px;}
     .img div b{color:rgba(253,114,6,1);font-size: 1.6rem}
     .img p{color:#A9A7A7;font-size: 0.70588235rem;text-align: center;position: absolute;width:100%;top:75%;}

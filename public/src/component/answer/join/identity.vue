@@ -42,7 +42,8 @@
                 identityFile2:'',
                 alioss:null,
                 uploadpicinfo:null,
-                identityNo:''
+                identityNo:'',
+                showLoad:false
             }
         },
 
