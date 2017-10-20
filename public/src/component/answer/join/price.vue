@@ -154,7 +154,7 @@
                     questionClassId:questionClassIds,
                     jobTitle:unescape(cookie.get("jobTitle")),
                     certificateNo:unescape(cookie.get("certificateNo")),
-                    certificateFile:unescape(cookie.get("certificateFile")),
+                    certificateFile:[unescape(cookie.get("certificateFile1")),unescape(cookie.get("certificateFile2"))],
                     introduction:unescape(cookie.get("introduction")),
                     experience:unescape(cookie.get("experience")),
                     goodat:unescape(cookie.get("goodAt")),

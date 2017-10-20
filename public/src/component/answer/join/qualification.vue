@@ -8,7 +8,7 @@
         <div>
         <div class="checks">
             <div class="level_types">
-                <div class="item"  v-for="(item,index) in level" @click="getItemClass(index)"  :index="index" ><div class="level_item "></div><span >{{item.name}}</span></div>
+                <div class="item"  v-for="(item,index) in level" @click="getItemClass(index)"  :index="index" ><div class="level_item " :class="{checked_item:item.name==jobTitle}"></div><span >{{item.name}}</span></div>
                 <div class="clear"></div>
             </div>
 
@@ -35,18 +35,19 @@
                     </div>
                 </div>
                 <div class="photo_img">
-                    <div class="img" @click="upload()">
+                    <div class="img" @click="upload(1)">
                         <div>
                             <b>+</b>
                         </div>
                         <p>上传证书头像页面</p>
+                        <img v-if="certificateFile1!=''" :src="certificateFile1" />
                     </div>
-                    <div class="img" @click="upload()">
+                    <div class="img" @click="upload(2)">
                         <div>
                             <b>+</b>
                         </div>
                         <p>上传证书信息页面</p>
-                        <img :src="certificateFile">
+                        <img  v-if="certificateFile2!=''" :src="certificateFile2" />
                     </div>
                 </div>
             </div>
@@ -68,7 +69,8 @@
                 certificateNo:'',
                 showLoad:false,
                 canGoNext:false,
-                certificateFile:'',
+                certificateFile1:'',
+                certificateFile2:'',
                 alioss:null,
                 uploadpicinfo:null,
                 level:[
@@ -78,35 +80,16 @@
                     {name:'注册系统督导师'},
                     {name:'其它'}
                 ],
+                jobTitle:''
             }
         },
 
 
         mounted: function () {
-            $('.level_types .item').click(function () {
-                $('.level_types .item').find('.level_item').removeClass('checked_item')
-                $(this).find('.level_item').addClass('checked_item')
-                this.jobTitleTemp = $(this).find('span').html()
-            });
 
-            $(".level_types .item").each(function () {
-                if( this.jobTitle ==$(this).find("span").html()){
-                    $(this).find(".level_item ").addClass("checked_item");
-                }
-            });
+
             xqzs.wx.setConfig(this);
-            this.uploadpicinfo = {
-                token: xqzs.string.guid(),
-                smallpic: xqzs.constant.PIC_SMALL,
-                middlepic: xqzs.constant.PIC_MIDDLE,
-                removepicurl: web.BASE_PATH + 'api/removepicture',
-                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
-                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
-            };
-            this.alioss = new aliyunoss({
-                url:this.uploadpicinfo.aliossgeturl,
-                token:this.uploadpicinfo.token
-            });
+            this.initOss();
 
             let certificateNo= cookie.get("certificateNo")
             console.log(certificateNo)
@@ -114,19 +97,17 @@
                 this.certificateNo= unescape(certificateNo);
             }
             let jobTitle= cookie.get("jobTitle");
-
             if(jobTitle&&jobTitle!=''){
-                console.log(unescape(jobTitle));
-                $(".checks input ").each(function (i) {
-                    if(unescape(jobTitle)== $(this).val()){
-                        $(this).click();
-                    }
-                })
+                this.jobTitle=unescape(jobTitle);
             }
 
-            let certificateFile= cookie.get("certificateFile")
-            if(certificateFile&&certificateFile!=''){
-                this.certificateFile= unescape(certificateFile);
+            let certificateFile1= cookie.get("certificateFile1");
+            if(certificateFile1&&certificateFile1!=''){
+                this.certificateFile1= unescape(certificateFile1);
+            }
+            let certificateFile2= cookie.get("certificateFile2");
+            if(certificateFile2&&certificateFile2!=''){
+                this.certificateFile2= unescape(certificateFile2);
             }
             this.check()
 
@@ -137,15 +118,39 @@
             "v-answer-top-step": answerTopStep
         },
         methods:{
-            upload:function () {
+            initOss:function () {
+                this.uploadpicinfo = {
+                    token: xqzs.string.guid(),
+                    smallpic: xqzs.constant.PIC_SMALL,
+                    middlepic: xqzs.constant.PIC_MIDDLE,
+                    removepicurl: web.BASE_PATH + 'api/removepicture',
+                    uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                    aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+                };
+                this.alioss = new aliyunoss({
+                    url:this.uploadpicinfo.aliossgeturl,
+                    token:this.uploadpicinfo.token
+                });
+            },
+            upload:function (v) {
                 let _this=this;
                 xqzs.wx.takePhotos(['camera','album'],1,_this.uploadpicinfo,_this.alioss,function (filecount) {
                     _this.showLoad=true;
 
                 },function (json,ix) {
                     _this.showLoad=false;
-                    _this.certificateFile = json.data.path;
-                    cookie.set("certificateFile",escape(_this.certificateFile))
+
+
+                    if(v===1){
+                        _this.certificateFile1 = json.data.path;
+                        cookie.set("certificateFile1",escape(_this.certificateFile1))
+                    }else{
+                        _this.certificateFile2 = json.data.path;
+                        cookie.set("certificateFile2",escape(_this.certificateFile2))
+                    }
+
+                    this.check()
+
                     console.log(json.data)
                 },function (e) {
                     console.info(e);
@@ -167,6 +172,8 @@
                 let v = _this.level[index].name
                 console.log(index)
                 console.log(v)
+                this.jobTitle=v;
+                cookie.set("jobTitle",escape(v));
                 if(v=='其它'){
                     _this.otherType=true;
                     _this.canGoNext = true
@@ -174,20 +181,16 @@
                     _this.otherType=false;
                     this.check()
                 }
-                cookie.set("jobTitle",escape(v));
+
 
             },
-//            jobTitleChange:function (v) {
-//                console.log(v)
-//                cookie.set("jobTitle",escape(v));
-//                this.check()
-//            },
             check:function () {
                 let jobTitle= cookie.get("jobTitle");
                 let certificateNo =(cookie.get("certificateNo"));
-                let certificateFile =(cookie.get("certificateFile"));
+                let certificateFile1 =(cookie.get("certificateFile1"));
+                let certificateFile2 =(cookie.get("certificateFile2"));
 
-                if(jobTitle&&jobTitle!=''&&certificateNo&&certificateNo!=''&&certificateFile&&certificateFile!=''){
+                if(jobTitle&&jobTitle!=''&&certificateNo&&certificateNo!=''&&certificateFile1&&certificateFile1!=''&&certificateFile2&&certificateFile2!=''){
                     this.canGoNext=true;
                 }else{
                     this.canGoNext=false;
