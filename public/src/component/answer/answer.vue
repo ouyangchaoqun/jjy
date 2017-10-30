@@ -105,7 +105,8 @@
                 localId:null,
                 serviceId:null,
                 voiceLength:0,
-                isOver:false
+                isOver:false,
+                MIN_VOICE_LENGTH:45
             }
         },
         mounted: function () {
@@ -265,13 +266,19 @@
                 }
             },
             stop:function () { //停止录制
+
                 let _this = this;
-                _this.isOver = true;
-                xqzs.wx.voice.stopRecord(function (localId) {
-                    _this.localId=localId;
-                    xqzs.localdb.set("voice_localId",localId);
-                    _this._recordStop();
-                });
+                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
+                    xqzs.weui.tip("语音长度不小于 "+_this.MIN_VOICE_LENGTH+" 秒");
+                }else{
+                    _this.isOver = true;
+                    xqzs.wx.voice.stopRecord(function (localId) {
+                        _this.localId=localId;
+                        xqzs.localdb.set("voice_localId",localId);
+                        _this._recordStop();
+                    });
+                }
+
 
 
             },

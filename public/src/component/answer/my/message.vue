@@ -94,7 +94,8 @@
                 vPaused:false,
                 localId:null,
                 serviceId:null,
-                voiceLength:0
+                voiceLength:0,
+                MIN_VOICE_LENGTH:45
 
             }
         },
@@ -229,13 +230,16 @@
             },
             stop:function () { //停止录制
                 let _this = this;
-                console.log("stopstopRecord")
-                xqzs.wx.voice.stopRecord(function (localId) {
-                    _this.localId=localId;
-                    xqzs.localdb.set("voice_localId",localId);
-                    _this._recordStop();
-                });
 
+                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
+                    xqzs.weui.tip("语音长度不小于 "+_this.MIN_VOICE_LENGTH+" 秒");
+                }else {
+                    xqzs.wx.voice.stopRecord(function (localId) {
+                        _this.localId = localId;
+                        xqzs.localdb.set("voice_localId", localId);
+                        _this._recordStop();
+                    });
+                }
 
             },
             _recordStop:function () {
