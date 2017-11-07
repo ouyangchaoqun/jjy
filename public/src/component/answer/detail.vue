@@ -163,7 +163,6 @@
             </div>
 
         </v-scroll>
-        {{detail.expertUserId}}
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
                 <img v-if="detail.followed===0" src="../../images/asker/nofollowed.png" alt="">
