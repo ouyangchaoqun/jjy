@@ -5,7 +5,7 @@
         <div class="stepStyle">9/10</div>
         <div class="joinStep_title">对来访者的寄语</div>
         <v-answer-top-step step="9"  preUrl="./sign" nextUrl="./price" title="对来访者的寄语" canGoNext="true"></v-answer-top-step>
-        <div class="tip">此{{voiceLength}}”的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
+        <div class="tip">此至少10秒的语音寄语，将展示给来访者，请录制您对来访者的寄语！</div>
 
 
 
