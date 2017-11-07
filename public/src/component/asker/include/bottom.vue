@@ -7,7 +7,7 @@
         <router-link to='/answer/index' replace :class="{on:tabOnIndex==1}" >
             <span class="icon answer"></span>找专家
         </router-link>
-        <router-link to='/asker/ask' replace class="middle"  >
+        <router-link to='/asker/ask/' replace class="middle"  >
             <div class="big_btn">问</div>
         </router-link>
         <router-link to='/asker/my/ask/list' replace   :class="{on:tabOnIndex==3}" >

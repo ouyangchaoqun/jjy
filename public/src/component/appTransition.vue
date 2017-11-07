@@ -79,8 +79,8 @@
             isTabChange: function (from, to) {
                 let userTabs = [
                     '/answer/index',
-                    '/asker/listen',
-                    '/asker/ask',
+                    '/asker/listen/',
+                    '/asker/ask/',
                     '/asker/my/ask/list',
                     '/asker/my/index'
                 ];

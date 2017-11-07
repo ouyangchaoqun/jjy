@@ -186,7 +186,7 @@
                 this.$router.push("/asker/listen")
             },
             goDetail:function (questionId) {
-              this.$router.push("/asker/listen/detail?questionId="+questionId)
+              this.$router.push("/asker/listen/detail/?questionId="+questionId)
             },
             getList: function (done) {
 

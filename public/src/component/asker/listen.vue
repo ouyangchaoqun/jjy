@@ -300,7 +300,7 @@
                     });
             },
             goDetail:function (questionId) {
-              this.$router.push("/asker/listen/detail?questionId="+questionId)
+              this.$router.push("/asker/listen/detail/?questionId="+questionId)
             },
             getClassList:function () {
                 let _this=this;

@@ -79,7 +79,7 @@
                 return xqzs.dateTime.formatDateTime(time)
             },
             goDetail:function (id) {
-                this.$router.push("/answer/detail?id="+id)
+                this.$router.push("/answer/detail/?id="+id)
             },
             getList: function (done) {
 
