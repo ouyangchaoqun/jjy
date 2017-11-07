@@ -531,7 +531,10 @@
                 _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
                     _this.showLoad=false;
                     if (data.body.status == 1) {
-                        _this.detail= data.body.data
+                        _this.detail= data.body.data;
+                        _this.detail.introduction= xqzs.string.transferContentBr(_this.detail.introduction);
+                        _this.detail.experience= xqzs.string.transferContentBr(_this.detail.experience);
+                        _this.detail.goodat= xqzs.string.transferContentBr(_this.detail.goodat);
                         console.log( _this.detail)
                         if(_this.detail.expertUserId!=_this.user.id&&_this.detail.expertUserId!=null&&_this.user.id!=null){
                             _this.scrollHeightBottom=50;

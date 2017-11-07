@@ -979,7 +979,18 @@ var xqzs = {
                 return "0.00";
             }
 
-        }
+        },
+        transferContentBr:
+            function (content) {
+                var string = content;
+                try {
+                    string = string.replace(/\r\n/g, "<br>")
+                    string = string.replace(/\n/g, "<br>");
+                } catch (e) {
+                    alert(e.message);
+                }
+                return string;
+            }
     },
 
 
