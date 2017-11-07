@@ -210,26 +210,10 @@
                         if (bt.data && bt.data.status == 1) {
 
                             let result = bt.data.data;
-                            let config =result.config;
-                            console.log(config)
-
-                            //delete ToDo
-                            _this.$http.put(web.API_PATH + "pay/wxpay", {tradeNo:result.order.tradeNo})
-                                .then(function (bt) {
-                                    if (bt.data && bt.data.status == 1) {
-
-                                        xqzs.weui.tip("支付成功", function () {
-                                            _this.setPayed(index);
-                                        });
-
-                                    }
-                                });
-                            return;
-                            /// TOdO
 
 
 
-                            xqzs.wx.pay.pay(config, function () {
+                            xqzs.wx.pay.pay(result.order, function () {
                                 xqzs.weui.tip("正在跳转支付")
                             }, function () {//success
                                 xqzs.weui.tip("支付成功", function () {
