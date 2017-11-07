@@ -61,13 +61,13 @@
             <div class="answer_detail">
                 <div class="answer_title">详细介绍</div>
                 <div class="content">
-                    <p :class={friestP:Hflag}>{{detail.introduction}}</p>
+                    <p :class={friestP:Hflag} v-html="detail.introduction"></p>
                     <div :class={addopen:!Hflag,addstop:Hflag}>
                         <b>专业培训经历：</b>
-                        <p style="margin-bottom: 1.76rem">{{detail.experience}}</p>
+                        <p style="margin-bottom: 1.76rem" v-html="detail.experience"></p>
 
                         <b>擅长领域：</b>
-                        <p>{{detail.goodat}}</p>
+                        <p v-html="detail.goodat"></p>
                     </div>
                 </div>
                 <div class="btn_sq" @click="btn_sq()"><span v-if="!Hflag">收起</span><span v-if="Hflag">展开全部</span></div>
