@@ -160,7 +160,7 @@
 
             goDetail:function (extId) {
 
-                this.$router.push('./detail?id='+extId)
+                this.$router.push('./detail/?id='+extId)
             },
             goClass:function (item) {
                 this.$router.push('./list?id='+item.id+"&name="+item.title)

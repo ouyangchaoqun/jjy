@@ -158,7 +158,7 @@
             },
             goDetail:function (extId) {
 
-                this.$router.push('./detail?id='+extId)
+                this.$router.push('./detail/?id='+extId)
             },
             getList: function (done) {
 

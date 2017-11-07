@@ -463,7 +463,7 @@
                     return;
                 }
                 if(this.detail.expertUserId!=this.user.id){
-                    this.$router.push("/asker/ask?expertId="+this.id )
+                    this.$router.push("/asker/ask/?expertId="+this.id )
                 }else{
                     xqzs.weui.tip('不能向自己提问')
                 }

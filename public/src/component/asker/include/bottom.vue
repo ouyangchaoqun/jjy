@@ -1,7 +1,7 @@
 <template >
     <div class="asker_bottom_box">
 
-        <router-link to='/asker/listen' replace :class="{on:tabOnIndex==0}" >
+        <router-link to='/asker/listen/' replace :class="{on:tabOnIndex==0}" >
             <span class="icon listen"></span>偷听
         </router-link>
         <router-link to='/answer/index' replace :class="{on:tabOnIndex==1}" >
