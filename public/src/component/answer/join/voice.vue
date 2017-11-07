@@ -54,7 +54,7 @@
                         <div class="txt">重录</div>
                     </div>
                     <div class="item" @click="send()">
-                        <div class="audio_btn_in audio_send"></div>
+                        <div class="audio_btn_in audio_send" :class="{not:voiceLength<MIN_VOICE_LENGTH}"></div>
                         <div class="txt">完成</div>
                     </div>
                 </template>
@@ -94,7 +94,7 @@
                 localId:null,
                 serviceId:null,
                 voiceLength:0,
-                MIN_VOICE_LENGTH:45
+                MIN_VOICE_LENGTH:10
             }
         },
 
@@ -150,7 +150,9 @@
             },
             send:function () {
                 let _this=this;
-
+                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
+                    return ;
+                }
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(_this.localId,function (serverId) {
                     _this.finish=true;
@@ -213,16 +215,12 @@
             stop:function () { //停止录制
                 let _this = this;
 
-                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
-                    xqzs.weui.tip("语音长度不小于 "+_this.MIN_VOICE_LENGTH+" 秒");
-                }else {
+
                     xqzs.wx.voice.stopRecord(function (localId) {
                         _this.localId = localId;
                         xqzs.localdb.set("voice_localId", localId);
                         _this._recordStop();
                     });
-                }
-
 
             },
             _recordStop:function () {
@@ -355,6 +353,11 @@
         -webkit-box-shadow:0 0 8px #09bb07;box-shadow:0 0 8px #09bb07;  position: relative; margin: 0 auto}
     .answer_join_voice .audio_btn_in:active{ background: rgba(105,186,45,0.1)
     }
+
+    .answer_join_voice .audio_send.not { background: #b1b1b1;}
+    .answer_join_voice .audio_send.not:active{ background: #b1b1b1;}
+
+
     .answer_join_voice  .audio_btn_in:before{content: " " ; display: block ; position: absolute; top:50%; left:50% ;}
     .answer_join_voice   .audio_begin:before{ background:url(../../../images/audio_btn_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
     .answer_join_voice   .audio_end:before{ background:url(../../../images/audio_btn_end.png)  no-repeat; background-size:  1.235294117647059rem; width:1.235294117647059rem;; height: 1.235294117647059rem;  margin-left: -0.6176470588235294rem; margin-top: -0.6176470588235294rem;  ;   }
