@@ -604,18 +604,27 @@ var xqzs = {
                 );
             },
 
-            pay: function (config,beforePayFun,successFun,errorFun) {
+            pay: function (config,beforePayFun,successFun,errorFun,reurl,gourl) {
                 if(typeof(beforePayFun)==='function'){
                     beforePayFun()
                 }
                 console.log(config)
-                if (typeof window.WeixinJSBridge == "undefined") {
-                    $(document).on('WeixinJSBridgeReady', function () {
+                if(xqzs.isIos()){
+                    if(!reurl)reurl=window.location.href;
+                    if(!gourl)gourl=window.location.href;
+                    window.location.href = "http://wx.xqzs.cn/wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(reurl)+ "&gourl=" + encodeURIComponent(gourl);
+                }else{
+                    if (typeof window.WeixinJSBridge == "undefined") {
+                        $(document).on('WeixinJSBridgeReady', function () {
+                            xqzs.wx.pay.onBridgeReady(config,successFun,errorFun)
+                        });
+                    } else {
                         xqzs.wx.pay.onBridgeReady(config,successFun,errorFun)
-                    });
-                } else {
-                    xqzs.wx.pay.onBridgeReady(config,successFun,errorFun)
+                    }
                 }
+
+
+
 
 
             }
@@ -759,7 +768,7 @@ var xqzs = {
                 console.log(response.body)
                 wx.config(response.body);
                 wx.ready(function () {
-                    wx.hideAllNonBaseMenuItem();
+
                     if (callback && typeof (callback) == "function") {
                         callback()
                     }

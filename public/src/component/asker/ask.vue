@@ -20,7 +20,7 @@
             <div class="clear"></div>
             <div class="set_price" v-if="!isSelectAnswer">
                 <div class="txt">设置赏金：</div>
-                <input type="text" class="price" placeholder="10元起">
+                <input type="number" class="price" placeholder="10元起">
             </div>
             <div class="submit weui-btn weui-btn_primary weui-btn_disabled" v-if="!isSubFlag">提交</div>
             <div class="submit weui-btn weui-btn_primary" @click="submit()" v-if="isSubFlag">提交</div>
@@ -201,7 +201,7 @@
                                     });
                                 }, function () {//error
 
-                                })
+                                },web.BASE_PATH+"asker/my/ask/list")
                             }
                         });
                 }else{
@@ -237,7 +237,7 @@
                                     });
                                 }, function () {//error
 
-                                })
+                                },web.BASE_PATH+"asker/my/ask/list")
 
 
                             }
