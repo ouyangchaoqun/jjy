@@ -57,7 +57,6 @@ let routers =
     ];
 
 let router = new VueRouter({
-    base:"comeon",
     routes: routers
 });
 

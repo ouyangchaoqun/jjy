@@ -609,19 +609,21 @@ var xqzs = {
                     beforePayFun()
                 }
                 console.log(config)
-                if(xqzs.isIos()){
-                    if(!reurl)reurl=window.location.href;
-                    if(!gourl)gourl=window.location.href;
-                    window.location.href = "http://wx.xqzs.cn/wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(reurl)+ "&gourl=" + encodeURIComponent(gourl);
-                }else{
-                    if (typeof window.WeixinJSBridge == "undefined") {
-                        $(document).on('WeixinJSBridgeReady', function () {
-                            xqzs.wx.pay.onBridgeReady(config,successFun,errorFun)
-                        });
-                    } else {
+
+                if (typeof window.WeixinJSBridge == "undefined") {
+                    $(document).on('WeixinJSBridgeReady', function () {
                         xqzs.wx.pay.onBridgeReady(config,successFun,errorFun)
-                    }
+                    });
+                } else {
+                    xqzs.wx.pay.onBridgeReady(config,successFun,errorFun)
                 }
+                // if(xqzs.isIos()){
+                //     if(!reurl)reurl=window.location.href;
+                //     if(!gourl)gourl=window.location.href;
+                //     window.location.href = "http://wx.xqzs.cn/wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(reurl)+ "&gourl=" + encodeURIComponent(gourl);
+                // }else{
+                //
+                // }
 
 
 
@@ -755,7 +757,7 @@ var xqzs = {
 
         setConfig: function (vm, callback) {
 
-            var url = window.location.href.split('#')[0];
+            var url = window.location.href;
             var guest = "";
             if (web.guest) {
                 guest = "true"
@@ -763,10 +765,7 @@ var xqzs = {
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url, guest: guest}}).then(function (response) {
                 response.body.debug = true;
-                response.body.jsApiList=['pauseVoice','startRecord','stopRecord','translateVoice','playVoice','uploadVoice'];
-
-
-
+                response.body.jsApiList=['pauseVoice','startRecord','stopRecord','playVoice','uploadVoice','chooseImage'];
 
                 console.log(response.body)
                 wx.config(response.body);
