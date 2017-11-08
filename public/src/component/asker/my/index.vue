@@ -53,13 +53,17 @@
                         console.log(data)
                         if(data.data.data!=null){
                             let status = data.data.data.status;
+//                            const NOT_AUTHENTICATED=0;//未认证
+//                            const AUTHENTICATED = 1 ;//已认证
+//                            const AUTHENTICATING = 2;//认证中
                             if(status==0){
-                                _this.$router.push("/answer/join/reviewing");
+                                _this.goJoin()
+
                             }else{
                                 if(status==1){
                                     xqzs.weui.tip("您已成功入驻咨询师，请从公众号移步到咨询师。")
                                 }else{
-                                    _this.goJoin()
+                                    _this.$router.push("/answer/join/reviewing");
                                 }
                             }
                         }else{

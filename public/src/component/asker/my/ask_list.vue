@@ -8,10 +8,10 @@
 
             <div class="my_problem_tabs">
                 <div>
-                    <div class="my_problem_active">一对一咨询</div>
+                    <div :class="{my_problem_active:type==2}" @click="changeType(2)">一对一咨询</div>
                 </div>
                 <div>
-                    <div>抢答模式</div>
+                    <div  :class="{my_problem_active:type==1}"  @click="changeType(1)">抢答模式</div>
                 </div>
             </div>
 
@@ -109,19 +109,7 @@
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-            let _this = this;
-            $('.my_problem_tabs>div div').click(function () {
-                $('.my_problem_tabs>div div').removeClass('my_problem_active')
-                $('.my_problem_box>div').removeClass('problem_box_active')
-                $(this).addClass('my_problem_active')
-                $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active');
-                if ($(this).index() == 0) {
-                    _this.changeType(2);
-                } else {
-                    _this.changeType(1);
-                }
 
-            });
             this.getList();
             xqzs.wx.setConfig(this);
         },
@@ -268,14 +256,6 @@
         height: auto;
     }
 
-    .my_problem_box > div {
-        display: none;
-        width: 100%;
-    }
-
-    .my_problem_box .problem_box_active {
-        display: block;
-    }
 
     .my_problem_list1 {
         padding: 0.70588235rem 0.88235rem 0.9rem 0.88235rem;
