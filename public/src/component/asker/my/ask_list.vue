@@ -7,8 +7,12 @@
                   :isShowMoreText="isShowMoreText">
 
             <div class="my_problem_tabs">
-                <div class="my_problem_active">一对一咨询</div>
-                <div>抢答模式</div>
+                <div>
+                    <div class="my_problem_active">一对一咨询</div>
+                </div>
+                <div>
+                    <div>抢答模式</div>
+                </div>
             </div>
 
             <div class="nothing answer" v-if="list.length==0&&!showLoad" >
@@ -39,8 +43,7 @@
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
                                     <div>听过 {{item.listenCount}}</div>
-                                    <div>收入分成￥{{formatPrice(item.inCome)}}</div>
-                                    <div class="my_problem_money">￥{{formatPrice(item.price)}}</div>
+                                    <div class="my_problem_money">收入分成￥{{formatPrice(item.inCome)}}</div>
                                 </div>
                             </a>
                         </li>
@@ -107,8 +110,8 @@
         },
         mounted: function () {
             let _this = this;
-            $('.my_problem_tabs>div').click(function () {
-                $('.my_problem_tabs>div').removeClass('my_problem_active')
+            $('.my_problem_tabs>div div').click(function () {
+                $('.my_problem_tabs>div div').removeClass('my_problem_active')
                 $('.my_problem_box>div').removeClass('problem_box_active')
                 $(this).addClass('my_problem_active')
                 $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active');
@@ -224,7 +227,7 @@
 </script>
 <style>
     .my_problem_tabs {
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size: 0.88235rem;
         text-align: center;
         display: -webkit-box;
@@ -251,7 +254,10 @@
         top: 50%;
         margin-top: -0.5588rem;
     }
-
+    .my_problem_tabs > div div{
+        width:50%;
+        margin:0 auto;
+    }
     .my_problem_active {
         border-bottom: 2px solid rgba(253,114,6,1);
     }
@@ -283,7 +289,7 @@
         display: -webkit-flex;
         display: flex;
         position: relative;
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size: 0.70588rem;
         margin-bottom: 0.588235rem;
     }
@@ -301,7 +307,7 @@
     }
 
     .my_problem_content {
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size: 0.8235rem;
         line-height: 1.4rem;
         overflow: hidden;
@@ -309,7 +315,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.88235rem;
     }
 
     .my_problem_bottom {
@@ -317,7 +323,7 @@
         display: -webkit-flex;
         display: flex;
         position: relative;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.701588235rem;
         line-height: 1;
     }
@@ -332,8 +338,8 @@
         color: #FE7301;
         margin: 0;
     }
-    .wait_style{color:rgba(51,141,255,1)}
-    .nop_style{color:rgba(51,51,51,1)}
-    .over_style{color:rgba(153,153,153,1)}
+    .wait_style{color:rgba(36,37,61,1)}
+    .nop_style{color:rgba(36,37,61,0.5)}
+    .over_style{color:rgba(36,37,61,0.5)}
     .headerStyle{margin-bottom: 0}
 </style>
