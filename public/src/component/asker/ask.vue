@@ -3,14 +3,20 @@
         <div v-title>提问</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="change_height">
-            <div class="ask_type">
+            <div class="ask_type_new" v-if="isSelectAnswer">
+                <div class="tab">问题类型 <span>点击选择</span></div>
+                <div class="select_box">
+                    <div v-for="item in types">{{item.title}}</div>
+                </div>
+            </div>
+            <div class="ask_type" v-if="!isSelectAnswer">
                 <div class="tab">选择问题类型：</div>
                 <div class="select_box" @click="selectType()">{{type}}</div>
                 <div class="clear"></div>
             </div>
             <div class="text_area">
-                <textarea v-if="isSelectAnswer" class="content"
-                          placeholder="你匿名提问的回答每被偷听一次，你分成¥0.5"></textarea>
+                <p v-if="isSelectAnswer">你匿名提问的回答每被偷听一次，你分成¥0.5</p>
+                <textarea v-if="isSelectAnswer" class="content"></textarea>
                 <textarea v-if="!isSelectAnswer" class="content"
                           placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
                 <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
@@ -165,7 +171,7 @@
             submit:function () {
 
                 if(this.questionClass==0){
-                    xqzs.weui.tip("请选择类型")
+                    xqzs.weui.tip("请选择问题类型")
                     return;
                 }
                 let content= $(".content").val();
@@ -294,6 +300,19 @@
                 xqzs.weui.dialogClose()
             }
 
+        },
+        updated:function () {
+            let _this = this;
+            $('.select_box div').on('click',function () {
+                $('.select_box div').removeClass('on_new')
+                $(this).addClass('on_new')
+                let index=  $(this).index();
+                _this.typeSelectIndex=index;
+                _this.questionClass=_this.types[_this.typeSelectIndex].id;
+                if( _this.questionClass==undefined){
+                    _this.questionClass=_this.types[_this.typeSelectIndex].classId;
+                }
+            })
         }
 
 
@@ -310,7 +329,7 @@
     .asker_ask_box .ask_type .tab {
         line-height: 1.705882352941176rem;
         font-size: 0.8823529411764706rem;
-        color: #333;
+        color: rgba(36,37,61,1);
         margin-right: 0.3rem;
         float: left;
     }
@@ -330,11 +349,18 @@
         border-radius: 6px;
         font-size: 0.7647058823529412rem;
         padding: 1rem;
-        height: 8rem;
+        height: 8.45rem;
         margin-top: 0.8823529411764706rem;
+        padding-top: 0.588235rem;
+    }
+    .asker_ask_box .text_area p{
+        font-size: 0.8235rem;
+        line-height: 1;
+        color:rgba(36,37,61,0.5);
+        margin-bottom: 5px;
     }
     .asker_ask_box .text_area .price{
-        color: #666;
+        color: rgba(253,114,6,1);
         position: absolute;
         left: 0.6rem;
         bottom: 0.6rem;
@@ -347,7 +373,7 @@
         resize: none;
     }
     .asker_ask_box .text_area .last_word_count {
-        color: #999;
+        color: rgba(36,37,61,0.5);
         position: absolute;
         right: 0.6rem;
         bottom: 0.6rem;
@@ -363,6 +389,7 @@
         font-size: 0.7058823529411765rem;
         margin-right: 0.8823529411764706rem;
         margin-top: 0.8rem;
+        color:rgba(36,37,61,0.5);
     }
     .asker_ask_box .set_price {
         margin-top: 2rem;
@@ -370,6 +397,7 @@
         line-height: 2rem;
     }
     .asker_ask_box .set_price .txt {
+        color:rgba(36,37,61,1);
     }
     .asker_ask_box .set_price div {
         display: inline-block
@@ -394,11 +422,6 @@
     .asker_ask_box .submit:active {
         background: linear-gradient(to right, rgb(239, 143, 25), rgb(211, 105, 6));
     }
-
-
-
-
-
      .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:19rem; position: fixed;
         top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;}
      .dialog_select_type .title{ text-align: center; line-height: 3rem; font-size: 1.058823529411765rem;  font-weight: bold;}
@@ -408,4 +431,11 @@
     .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
     .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 12rem; overflow: auto}
     .dialog_select_type .tip_content p{ margin-bottom: 0.6rem;}
+    .asker_ask_box .ask_type_new{padding:1.176471rem 0.88235rem;padding-bottom: 0.2941rem}
+    .asker_ask_box .ask_type_new .tab{color:rgba(36,37,61,1);font-size: 1rem;line-height: 1;margin-bottom: 1.176471rem;}
+    .asker_ask_box .ask_type_new .tab span{color:rgba(36,37,61,0.5);font-size: 0.70588rem;}
+    .asker_ask_box .ask_type_new .select_box{display: flex;text-align: center;height:2.1176471rem;line-height: 2.1176471rem;}
+    .asker_ask_box .ask_type_new .select_box div{flex:1;color:rgba(36,37,61,0.7);font-size: 0.88235rem;background: rgba(245,245,245,1);border-radius: 5px;}
+    .asker_ask_box .ask_type_new .select_box div:nth-of-type(2){margin:0 0.88235rem;}
+    .asker_ask_box .ask_type_new .select_box .on_new{background: rgba(253,114,6,1);color:#fff;}
 </style>

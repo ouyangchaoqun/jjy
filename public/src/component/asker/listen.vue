@@ -403,7 +403,7 @@
         height:2.471rem;
         line-height: 2.471rem;
         font-size: 0.8235rem;
-        color: #3E4042;
+        color: rgba(36,37,61,1);
         text-align: center;
         border-bottom: 1px solid #eee;
     }
@@ -452,7 +452,7 @@
         margin-bottom: 0.588235rem;
     }
     .index_li_header span{
-        color: #999;}
+        color: rgba(36,37,61,0.5);}
     .index_li_header img{
         height:2rem;
         width:2rem;
@@ -462,7 +462,7 @@
     }
     .index_li_content{
         font-size:0.88235rem;
-        color: #474747;
+        color: rgba(36,37,61,1);
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -503,7 +503,7 @@
         position: absolute;
         right:0;
         font-size: 0.76471rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         bottom:0.588235rem;
     }
     .index_nocontent{

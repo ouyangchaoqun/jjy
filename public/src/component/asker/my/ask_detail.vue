@@ -61,7 +61,7 @@
 
         <!--匿名评价-->
         <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null">
-            <h4>匿名评价此回答</h4>
+            <h4>匿名评价</h4>
             <div class="star">
 
                 <span v-for="item in 5" :class="{on:item<=point}" @click="clickStar(item)" ></span>
@@ -355,7 +355,7 @@
         padding-bottom: 2.35rem;
     }
     .problem_assess h4{
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size: 0.88235rem;
         font-weight: normal;
     }

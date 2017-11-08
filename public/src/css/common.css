@@ -61,7 +61,7 @@ img[src=""],img:not([src]){opacity:0;}
 .active:active{ background: #eee !important}
 /*input textarea 提示颜色*/
 input,textarea::-webkit-input-placeholder{color:#999;}
-input,textarea{-webkit-appearance:none;outline: 0;resize: none;color:#666}
+input,textarea{-webkit-appearance:none;outline: 0;resize: none;color:rgba(36,37,61,1)}
 .heartUp {
     -webkit-animation: heart 0.1s linear;
     -moz-animation: heart 0.1s linear;
@@ -305,17 +305,8 @@ a{
 
 /*专家列表*/
 .answer_list .item{ background: #fff; padding:0.8823529411764706rem; margin-top:0.41176471rem; }
-.answer_list .item .img{ width: 3.52941rem; height: 3.52941rem; float:left; }
-.answer_list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
-.answer_list .info{ float:left; margin-left:0.8823529411764706rem;line-height: 1; }
-.answer_list .info .title{ font-size: 0.8823529411764706rem;color:#333; margin-bottom: 0.7058823529411765rem;; width: 14.11764705882353rem; ;line-height: 1.5}
-.answer_list .info .address{ font-size: 0.76471rem; margin-bottom: 0.7058823529411765rem;color:#666;}
-.answer_list .info .address span { display: inline-block; margin-right: 10px; color:#333;    }
-.answer_list .info .class_s { clear: both; margin-top: 0.3rem;}
-.answer_list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #EAE9E9; color:#999; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
-.answer_list .info .other{ font-size: 0.7058823529411765rem;;color:#999; margin-top: 0.7058823529411765rem; }
-.answer_list .info .other .price{ color:#FE7301}
-.answer_list .info .other .ml{ margin-left:0.8rem; }
+.answer_list .item .img{ width: 5.88235rem; height: 5.88235rem;display: inline-block}
+.answer_list .item .img img{ width: 100%; height: 100%;}
 
  .audio{ margin-bottom: 0.3rem;}
 
@@ -395,19 +386,19 @@ a{
     margin-top:-15px;
 }
 .steal_expert_name{
-    color: #333;
+    color:rgba(36,37,61,1);
     font-size: 18px;
     margin-right: 12px;
     float: left;
 }
 .steal_expert_fans{
-    color: #999;
+    color: rgba(36,37,61,0.5);
     font-size: 13px;
     float: left;
 }
 .steal_expert_des{
     width:85%;
-    color: #767474;
+    color: rgba(36,37,61,0.8);
     font-size: 14px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -420,7 +411,7 @@ a{
     background: #fff;
 }
 .problem_detail_header{
-    padding:1.176rem 0.88235rem 0 0.88235rem;
+    padding:1.1176rem 0.88235rem 0 0.88235rem;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -430,23 +421,23 @@ a{
     margin-bottom: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(1){
-    color: #333;
+    color: rgba(36,37,61,1);
     margin-left: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(2){
-    color: #FE7301;
+    color: rgba(36,37,61,0.5);
     position: absolute;
     right:0.88235rem;
 }
 .problem_detail_content{
     padding:0 0.88235rem;
-    color: #333;
+    color: rgba(36,37,61,1);
     font-size: 0.8235rem;
     line-height: 1.4rem;
 }
 /*底部 信息展示 听过 点赞*/
 .problem_answer_bottom{
-    color: #999;
+    color: rgba(36,37,61,0.5);
     font-size: 0.70588rem;
     height: 0.941176rem;
     line-height: 0.941176rem;

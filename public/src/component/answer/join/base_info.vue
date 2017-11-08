@@ -488,7 +488,7 @@
     .checked_item{border-color: rgba(254,115,1,1)}
     .checked_item::after{  content: '';  width:12px;  height: 12px;  background: rgba(254,115,1,1);  border-radius: 50%;  position: absolute;top:50%;margin-top:-6px;left:50%;margin-left:-6px;}
     .infos li{height:40px;line-height: 40px;color:#666;font-size: 0.8235rem;display: flex;margin-bottom: 0.88235rem;position: relative}
-    .infos li input{height:100%;width:70%;background: #F4F4F7;border-radius: 5px;position: absolute;right:0;padding-left: 0.588235rem;color:#333;}
+    .infos li input{height:100%;width:70%;background: #F4F4F7;border-radius: 5px;position: absolute;right:0;padding-left: 0.588235rem;color:#333;font-size: 0.88235rem;}
     .info_right{height:100%;text-align: center;padding-left: 4rem;display: flex}
     .info_left{width:20%;text-align: right;}
     .infos ul{padding:0.88235rem}

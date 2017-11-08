@@ -16,18 +16,33 @@
                 <div class="answer_list">
                     <div class="item" v-for="(item,index) in list">
                         <div @click="goDetail(item.expertId)">
-                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemHeader">
+                                <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                                <div class="header_addRightStyle">
+                                    <div class="headerImg" @click.stop="play(index)" :class="{playing:item.playing,paused:item.paused}">
+                                        <div></div>
+                                    </div>
+                                    {{item.length}}''
+                                </div>
+
+                            </div>
+                            <div class="itemDetail">
+                                <div class="img"><img :src="item.faceUrl"></div>
+                                <div class="itemDetail_right">
+                                    <div class="title">{{item.sign}}</div>
+                                    <div class="class_s">
+                                        <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i v-if="goodIndex<2">、</i></span>
+                                    </div>
+                                    <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span class="ml"
+                                                                                                           v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                            class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item" v-for="(item,index) in list">
+                        <div @click="goDetail(item.expertId)">
                             <div class="info">
-                                <div class="title">{{item.sign}}</div>
-                                <div class="address"><span>{{item.nickName}}</span> {{item.province}}-{{item.city}}
-                                </div>
-                                <div class="class_s">
-                                    <span v-for="good in item.goodAt">{{good.title}}</span>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="other">问价 <span class="price">¥{{item.price}}</span> <span class="ml"
-                                                                                                       v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
-                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
                                 <div class="problem_answer_yy">
                                     <div class="audio" :class="{playing:item.playing,paused:item.paused}">
                                         <div class="audio_btn" @click.stop="play(index)">
@@ -257,10 +272,23 @@
     }
 </script>
 <style>
+    .answer_list .itemHeader{height:1.471rem;line-height: 1.471rem;color:rgba(36,37,61,1);font-size: 1.0588235rem;position: relative;margin-bottom: 0.588235rem;font-weight: bold}
+    .answer_list .itemHeader span{color:rgba(36,37,61,0.5);font-size: 0.70588235rem;font-weight: normal}
+    .header_addRightStyle{position: absolute;right:0;top:-1px;display: flex;color:rgba(36,37,61,0.5);font-size: 0.70588rem;font-weight:normal}
+    .answer_list .headerImg{width:1.471rem;height:1.471rem;border-radius: 50%;border:1px solid rgba(253,87,57,1);position: relative;margin-right: 0.35rem;}
+    .answer_list .headerImg div{background: url("../../images/playNew.png") no-repeat;content: '';width:0.88235rem;height:0.76471rem;position: absolute;left:5px;top:6px;background-size:100%;}
+    .answer_list .headerImg img{width:0.88235rem;height:0.76471rem;display: inline-block;margin-left: 0.3rem;}
+    .answer_list .itemDetail{display: flex}
+    .answer_list .itemDetail_right{width:65%;margin-left: 0.588235rem;color:rgba(36,37,61,1)}
+    .answer_list .itemDetail_right .title{font-size: 0.8235rem;font-weight: bold;margin-bottom: 0.588235rem;}
+    .answer_list .class_s{color:rgba(36,37,61,0.5);font-size: 0.70588rem;line-height: 1;margin-bottom: 0.76471rem;}
+    .answer_list .class_s .price{color:rgba(253,87,57,1)}
+    .answer_list .other{display: flex;display: -webkit-flex;}
+    .answer_list .other span{flex:1}
    .answer_index  .class_list{  padding:0.47rem 0.88235rem;background: #fff;}
    .answer_index  .class_list .class_item:active{ background:#f1f1f1}
    .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;padding: 6px 0 ; }
-   .answer_index  .class_list .class_item span{}
+
    .answer_list .info .other{margin-bottom: 0.88235rem}
     .addClassImg{height:2.4941176471rem; width:2.4941176471rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/asker/newClass_icon.png") no-repeat;background-size: 19.6471rem;}
    .class_list>div:nth-of-type(2) div{background-position:-4.2941176471rem 0 }
