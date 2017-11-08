@@ -66,7 +66,8 @@
                     <div class="audio_btn_in audio_send">
                         <img src="../../images/audio_btn_send1.png" alt="">
                     </div>
-                    <div class="txt">发布</div>
+                    <div class="txt" v-if="voiceLength>MIN_VOICE_LENGTH">发布</div>
+                    <div class="txt" v-else="">大于45秒才可发布</div>
                 </div>
 
                 <div class="item" v-if="isOver">
@@ -179,6 +180,9 @@
             },
             send:function () {
                 let _this=this;
+                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
+                    return ;
+                }
                 if(this.playing)xqzs.wx.voice.pausePlay( this.localId);
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(this.localId,function (serverId) {
@@ -268,16 +272,14 @@
             stop:function () { //停止录制
 
                 let _this = this;
-                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
-                    xqzs.weui.tip("语音长度不小于 "+_this.MIN_VOICE_LENGTH+" 秒");
-                }else{
-                    _this.isOver = true;
-                    xqzs.wx.voice.stopRecord(function (localId) {
-                        _this.localId=localId;
-                        xqzs.localdb.set("voice_localId",localId);
-                        _this._recordStop();
-                    });
-                }
+
+                _this.isOver = true;
+                xqzs.wx.voice.stopRecord(function (localId) {
+                    _this.localId = localId;
+                    xqzs.localdb.set("voice_localId", localId);
+                    _this._recordStop();
+                });
+
 
 
 
