@@ -4,7 +4,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
-                  :isShowMoreText="isShowMoreText">
+                  :isShowMoreText="isShowMoreText" v-if="htmlOver">
             <div class="answer_info">
                 <div class="answer_banner">
                     <div class="answer_face"><img :src="detail.faceUrl"></div>
@@ -40,24 +40,24 @@
 
                 </div>
             </div>
-            <div class="answer_voice">
-                <div class="ts">{{detail.sign}}</div>
-                <div class="voice">
-                    <span class="hello">您好：</span>
-                    <div class="problem_answer_yy">
-                        <div class="audio" :class="{playing:playing2,paused:paused2}">
-                            <div class="audio_btn" @click.stop="play()">
-                                <span v-if="!playing2&&!paused2">点击播放</span>
-                                <span v-if="playing2">正在播放..</span>
-                                <span v-if="paused2">播放暂停</span>
-                                <div class="second">{{detail.length}}”</div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
+            <!--<div class="answer_voice">-->
+                <!--<div class="ts">{{detail.sign}}</div>-->
+                <!--<div class="voice">-->
+                    <!--<span class="hello">您好：</span>-->
+                    <!--<div class="problem_answer_yy">-->
+                        <!--<div class="audio" :class="{playing:playing2,paused:paused2}">-->
+                            <!--<div class="audio_btn" @click.stop="play()">-->
+                                <!--<span v-if="!playing2&&!paused2">点击播放</span>-->
+                                <!--<span v-if="playing2">正在播放..</span>-->
+                                <!--<span v-if="paused2">播放暂停</span>-->
+                                <!--<div class="second">{{detail.length}}”</div>-->
+                            <!--</div>-->
+                            <!--<div class="clear"></div>-->
+                        <!--</div>-->
 
-                    </div>
-                </div>
-            </div>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="answer_detail">
                 <div class="answer_title">详细介绍</div>
                 <div class="content">
@@ -73,30 +73,32 @@
                 <div class="btn_sq" @click="btn_sq()"><span v-if="!Hflag">收起</span><span v-if="Hflag">展开全部</span></div>
             </div>
             <div class="answer_comments">
-                    <div class="answer_title">最新评价({{detail.evaluateCount}})</div>
+                    <div class="answer_title">最新评价({{detail.evaluateCount}})
+                        <i @click="moreComment()">查看更多></i>
+                    </div>
                 <div v-if="detail.evaluateCount>0">
                     <div class="list">
-                        <div class="item" v-for="item in commentList">
+                        <div class="item" v-for="(item,index) in commentList" :class="{addBorder_bottom:commentList.length>1}">
                             <div class="img"><img
                                     :src="item.faceUrl">
                             </div>
                             <div class="info">
                                 <div class="name">{{item.nickName}}</div> <!--该名字-->
                                 <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span>
+                                    <div class="time timeRight">{{formatTime(item.addTime)}}</div>
                                 </div>
-                                <div class="word">{{item.content}}
+                                <div class="word" >{{item.content}}
                                 </div>
                                 <div class="class_s">
                                     <span v-for="tag in item.tag">{{tag.title}}</span>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="time">{{formatTime(item.addTime)}}</div>
+
                             </div>
                             <div class="clear"></div>
                         </div>
 
                     </div>
-                    <div class="btn_sq" @click="moreComment()">查看更多评价</div>
                 </div>
                 <div v-if="detail.evaluateCount==0">
                     <div class="comment_btn">暂无评价</div>
@@ -105,11 +107,15 @@
             </div>
             <div class="ask_answer">
                 <div class="answer_title">问答({{detail.answerCount}})
-                    <div class="new" @click="answerTypeChange()">{{answerTypeTxt}}<span class="sj"></span></div>
+                    <div class="new" style="position: relative" @click="showPicker()">{{answerTypeTxt}}<span class="sj" :class="{bj:showPic}"></span>
+                        <ul v-if="showPic">
+                            <li v-for="item in answerTypes" :val="item.value">{{item.label}}</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="list">
-                    <div class="item" v-for="(item,index) in answerList">
+                    <div class="item" v-for="(item,index) in answerList" :class="{addBorder_bottom:answerList.length>1}">
                         <div class="question">
                             <div class="img"><img :src="item.faceUrl">
                             </div>
@@ -163,6 +169,8 @@
             </div>
 
         </v-scroll>
+        <!--{{detail.expertUserId}}-->
+        <div class="ask_bottom" v-if="htmlOver">
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
                 <img v-if="detail.followed===0" src="../../images/asker/nofollowed.png" alt="">
@@ -173,7 +181,7 @@
             <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>
         </div>
         </div>
-
+    </div>
 </template>
 
 <script type="es6">
@@ -190,7 +198,8 @@
                     answerCount:0,
                     evaluate:0,
                     listenCount:0,
-                    followCount:0
+                    followCount:0,
+                    htmlOver:false
 
 
                 },
@@ -204,6 +213,7 @@
                 answerList:[],
                 answerType:1,
                 answerTypeTxt:"最新",
+                answerTypes:[{label:"最新",value:1},{label:"热门",value:2}],
                 page: 1,
                 row: 5  ,
                 isPageEnd: false,
@@ -211,7 +221,8 @@
                 showLoad:false,
                 Hflag:true,
                 user:{id:null},
-                scrollHeightBottom:0
+                scrollHeightBottom:0,
+                showPic:false
             }
         },
         components: {
@@ -219,6 +230,7 @@
             'v-scroll': scroll
         },
         mounted: function () {
+
             this.id = this.$route.query.id;
             this.getDetail();
             this.getUser();
@@ -226,8 +238,23 @@
             this.getAnswer();
             xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
+
+        },
+        updated:function () {
+            let _this = this;
+            $('.new li').on('click',function () {
+                _this.answerTypeTxt = $(this).html();
+                _this.answerType = $(this).attr('val');
+                _this.page=1;
+                _this.getAnswer();
+            })
         },
         methods:{
+            showPicker:function () {
+                let _this = this;
+                _this.showPic = !_this.showPic;
+
+            },
             like:function (index) {
                 let  item = this.answerList[index];
                 if(item.isCared){
@@ -438,21 +465,21 @@
                         }
                     });
             },
-            answerTypeChange:function () {
-                let _this=this;
-                let　answerTypes=[{label:"最新",value:1},{label:"热门",value:2}]
-                weui.picker(answerTypes, {
-                    defaultValue: _this.answerType,
-                    onConfirm: function (result) {
-                        console.log(result);
-                        _this.answerTypeTxt = result[0].label;
-                        _this.answerType = result[0].value;
-                        _this.page=1;
-                        _this.getAnswer();
-
-                    }
-                });
-            },
+//            answerTypeChange:function () {
+//                let _this=this;
+//                let　answerTypes=[{label:"最新",value:1},{label:"热门",value:2}]
+//                weui.picker(answerTypes, {
+//                    defaultValue: _this.answerType,
+//                    onConfirm: function (result) {
+//                        console.log(result);
+//                        _this.answerTypeTxt = result[0].label;
+//                        _this.answerType = result[0].value;
+//                        _this.page=1;
+//                        _this.getAnswer();
+//
+//                    }
+//                });
+//            },
             moreComment:function () {
                this.$router.push("comment?expertId="+this.id );
             },
@@ -530,6 +557,7 @@
                 _this.showLoad=true;
                 _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
                     _this.showLoad=false;
+                    _this.htmlOver=true;
                     if (data.body.status == 1) {
                         _this.detail= data.body.data;
                         _this.detail.introduction= xqzs.string.transferContentBr(_this.detail.introduction);
@@ -568,6 +596,9 @@
     }
     .answer_detail_box .answer_info{
         width: 100%;
+        box-shadow: 0 0.294rem 0 #f5f5f5;
+        -webkit-box-shadow:0 0.294rem 0 #f5f5f5;
+        margin-bottom: 0.294rem;
     }
     .answer_detail_box .answer_banner{
         background: url("../../images/answer/banner.jpg") top center  no-repeat;
@@ -580,7 +611,8 @@
         height: 5.29rem;
         border-radius: 50%;
         margin: 0 auto;
-        margin-bottom: 16px;
+        margin-bottom: 0.88235rem;
+        border:0.294rem solid rgba(255,255,255,0.5);
     }
     .answer_detail_box  .answer_face img{
         width: 100%;
@@ -595,7 +627,7 @@
         text-align: center;
     }
     .answer_detail_box .answer_cs{
-        margin-top: 14px;
+        margin-top: 0.76471rem;
         text-align: center;
     }
     .answer_detail_box  .answer_ability{
@@ -605,21 +637,21 @@
         display: block;
         float:left;
         text-align: center;
-        border-radius:0.6176470588235294rem;
+        border-radius:0.294rem;
         height: 1.235294117647059rem;
         line-height: 1.235294117647059rem;
-        border: 1px solid rgba(211,213,215,1);
-        color:rgba(211,213,215,1);
+        border: 1px solid rgba(255,255,255,0.5);
+        color:rgba(255,255,255,1);
         font-size: 0.7058823529411765rem;
-        padding: 0 0.7rem;
         margin-right:0.55rem;
+        width:3.76471rem;
     }
     .answer_detail_box .answer_address{
         margin-top: 4px;
         text-align: center;
-        color: rgba(211,213,215,1);
+        color: rgba(255,255,255,1);
         line-height: 1;
-        font-size: 0.76471rem;
+        font-size: 0.70588rem;
     }
     .answer_detail_box .answer_count{
         display: flex;
@@ -629,28 +661,27 @@
         width: 100%;
         text-align: center;
         position: relative;
+        padding-top: 0.471rem;
+        padding-bottom: 0.9rem;
     }
     .answer_detail_box .counts{
         font-size:1.05rem;
-
-        color:rgba(102,102,102,1);
+        line-height: 1;
+        color:rgba(36,37,61,0.8);
+        margin-bottom: 0.5rem;
     }
     .answer_detail_box .nr{
         font-size:0.705rem;
-
-        color:rgba(149,149,149,1);
+        color:rgba(36,37,61,0.5);
         line-height: 1;
-        margin-top: 0.1rem;
-        margin-bottom: 0.64rem;
     }
     .answer_detail_box .line_1{
         width: 1px;
-        height: 1rem;
+        height: 2.1rem;
         background:rgba(219,219,219,1);
         position: absolute;
         right: 0;
-        top:50%;
-        margin-top: -0.5rem;
+        top:0.88235rem;
     }
     .answer_detail_box .answer_voice{
         margin-top: 0.41176471rem;
@@ -676,31 +707,40 @@
 
     .answer_detail_box .answer_detail{
         background: white;
-        margin-top: 0.41176471rem;
         padding-bottom: 1.2rem;
+        color:rgba(36,37,61,1)
     }
     .answer_detail_box .answer_title{
         height: 2.59rem;
         line-height: 2.59rem;
-        font-size: 0.88rem;
+        font-size: 1rem;
         padding-left: 0.88rem;
-        border-bottom: 1px solid #EEEEEE;
+        border-bottom: 1px solid rgba(224,224,225,1);
         background: white;
+        font-family: PingFangSC-Medium;
+    }
+    .answer_detail_box .answer_title i{
+        font-style: normal;
+        font-size:0.76471rem;
+        color:rgba(36,37,61,0.5);
+        float: right;
+        padding-right: 0.88235rem;
     }
     .answer_detail_box .content{
         font-size: 13px;
         padding:0.88rem ;
-        color:#999
+        color:rgba(36,37,61,0.7)
+
     }
     .answer_detail_box .content b{
-        color:#333;
+        color:rgba(36,37,61,1);
         font-weight: normal;
     }
     .answer_detail_box .btn_sq{
-        width:6rem;
+        width:5.294rem;
         height:1.3235rem;
         line-height: 1.3235rem;
-        border-radius: 0.7rem ;
+        border-radius: 0.29rem ;
         border: 1px solid rgba(254,115,1,1);
         margin:0 auto;
         margin-top: 0.6rem;
@@ -711,20 +751,22 @@
     .answer_detail_box .answer_comments{
         background: white;
         margin-top: 0.41176471rem;
-        padding-bottom: 0.88rem;
     }
-   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0.8823529411764706rem 0.6rem 0.8823529411764706rem;margin-bottom: 0.41176471rem;position: relative  }
+   .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0;margin:0 0.88235rem;margin-bottom: 0.41176471rem;position: relative ; }
+    .answer_detail_box  .list .addBorder_bottom{border-bottom: 1px solid #E0E0E1;}
     .answer_detail_box .list .star span{ background: url(../../images/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
     .answer_detail_box  .list .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
 
     .answer_detail_box  .list .item .img{ width: 2rem;height: 2rem; float:left; }
     .answer_detail_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #EEEAEA }
     .answer_detail_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%}
-    .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:#999; margin-bottom: 0.2rem; width: 14.11764705882353rem;}
-    .answer_detail_box  .list .word{ font-size:0.7647058823529412rem;  color:#333; margin-bottom: 0.2rem;;}
-    .answer_detail_box  .list .time{ font-size:0.7058823529411765rem; color:#C1C1C1; margin-top: 0.6rem;margin-bottom: 0.6rem;}
-    .answer_detail_box  .list .info .class_s { clear: both; margin-top: 0.3rem;}
-    .answer_detail_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #C1C1C1 ; color:#C1C1C1 ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;margin-bottom: 0.6rem}
+    .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:#999; margin-bottom: 0.2rem; width: 14.11764705882353rem;line-height: 1}
+    .answer_detail_box  .list .info .star{line-height: 1;margin-bottom: 0.35rem}
+    .answer_detail_box  .list .word{ font-size:0.8235rem;  color:rgba(36,37,61,1); margin-bottom: 0.4rem;}
+    .answer_detail_box  .list .time{ font-size:0.7058823529411765rem; color:rgba(36,37,61,0.5);}
+    .answer_detail_box .timeRight{float: right}
+    .answer_detail_box  .list .info .class_s { clear: both; padding-top: 0.3rem;}
+    .answer_detail_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #E0E0E1 ; color:rgba(36,37,61,0.5) ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;margin-bottom: 0.6rem}
     .answer_detail_box .ask_answer{
         margin-top: 0.41176471rem;
         background: white;
@@ -733,14 +775,15 @@
     .answer_detail_box .sj{
         width: 0;
         height: 0;
-        border-top: 5px solid #999999 ;
+        border-top: 6px solid #999999 ;
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
         position: absolute;
         top:1.17rem;
         margin-left: 0.294rem;
     }
-    .answer_detail_box .new{float: right;margin-right: 0.58rem; position: relative; padding-right: 1.17rem; color: #999999 ;}
+    .answer_detail_box .bj{ border-bottom: 6px solid #999999 ;border-top:0}
+    .answer_detail_box .new{float: right;margin-right: 0.58rem; position: relative; padding-right: 1.35rem; color: rgba(36,37,61,0.5);font-size: 0.76471rem;}
     .answer_detail_box .price{font-size: 0.74rem;color:#FE7301}
     .answer_detail_box .reply{height: 50px;}
     .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.88235rem }
@@ -776,21 +819,32 @@
        padding-left: 0.8rem;
        background-position: 0.9rem 0.294rem;
    }
-
     .answer_detail_box .care_img_{
         float: right;
         padding-left:1.1rem;
         margin-left: 0.6rem;
-
     }
-
     .answer_detail_box .pay_ask{width: 75%;float: right; background: linear-gradient(to right, rgba(255,158,25,1), rgba(254,115,1,1));color: white;line-height: 2.588rem;height: 2.588rem}
     .friestP{overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;line-height:1.176rem;-webkit-box-orient: vertical;}
     .addopen{margin-top:1.76rem;height:auto;}
     .addstop{margin-top:0;height:0;overflow: hidden;}
-
      .item .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding-left: 2.88235rem;}
      .item .others .listen_count{ float: left;margin-right: 0.588235rem}
-
     .item .others_right{position: absolute;right:0;top:0}
+    .ask_answer .new ul{
+        position: absolute;
+        width: 3.5rem;
+        background: rgb(255, 255, 255);
+        box-shadow: rgb(204, 204, 204) 2px 2px 5px 0px;
+        top: 2.5rem;
+        left: -0.588235rem;
+        z-index: 100;
+        text-align: center;
+    }
+    .ask_answer .new ul li{
+        height: 2rem;
+        line-height: 2rem;
+        border-bottom: 1px solid rgb(229, 229, 229);
+    }
+    .ask_answer .new ul li:active{background:rgb(229, 229, 229) }
 </style>
