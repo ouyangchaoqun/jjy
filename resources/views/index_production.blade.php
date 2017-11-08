@@ -51,6 +51,8 @@
 <script src="https://cdn.staticfile.org/hammer.js/2.0.8/hammer.min.js"></script>
 <script src="<?=env("BASE_PATH")?>src/js/clip/jquery.photoClip.js"></script>
 <script src="<?=env("BASE_PATH")?>src/js/clip/exif.js"></script>
+<script src="<?=env("BASE_PATH")?>src/js/vconsole.min.js"></script>
+
 
 </body>
 </html>
