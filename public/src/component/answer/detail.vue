@@ -4,7 +4,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"
-                  :isShowMoreText="isShowMoreText" v-if="htmlOver">
+                  :isShowMoreText="isShowMoreText" >
             <div class="answer_info">
                 <div class="answer_banner">
                     <div class="answer_face"><img :src="detail.faceUrl"></div>
@@ -170,7 +170,7 @@
 
         </v-scroll>
         <!--{{detail.expertUserId}}-->
-        <div class="ask_bottom" v-if="htmlOver">
+        <div class="ask_bottom">
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
                 <img v-if="detail.followed===0" src="../../images/asker/nofollowed.png" alt="">
@@ -199,7 +199,6 @@
                     evaluate:0,
                     listenCount:0,
                     followCount:0,
-                    htmlOver:false
 
 
                 },
@@ -557,7 +556,6 @@
                 _this.showLoad=true;
                 _this.$http.get(web.API_PATH + 'come/expert/show/to/user/'+id+'/_userId_' ).then(function (data) {//es5写法
                     _this.showLoad=false;
-                    _this.htmlOver=true;
                     if (data.body.status == 1) {
                         _this.detail= data.body.data;
                         _this.detail.introduction= xqzs.string.transferContentBr(_this.detail.introduction);
