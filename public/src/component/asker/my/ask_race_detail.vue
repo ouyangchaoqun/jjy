@@ -30,7 +30,7 @@
             </div>
             <div class="rob_status_box" v-if="detail.questionStatus==1">
                 <div>已解答</div>
-                <div>共有{{detail.answerCount}}人抢答，{{bestAnswer.expertNickName}}的回答被选为最佳回答。。</div>
+                <div>共有{{detail.answerCount}}人抢答，{{bestAnswer.expertNickName}}的回答被选为最佳回答。</div>
             </div>
             <ul class="rob_lists">
                 <li v-for="(item,index) in detail.answers">
@@ -198,15 +198,18 @@
                     });
             },
             setBestAnswerId:function () {
-                //post /api/v1/come/user/set/question/best/answer
-
+                let _this=this;
                 this.$http.post(web.API_PATH + "come/user/set/question/best/answer", {userId:"_userId_",answerId:this.selBestAnswerId, questionId: this.id})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
+
+                            _this.detail.bestAnswerId=_this.selBestAnswerId;
+                            _this.detail.questionStatus=1
+
                              xqzs.weui.dialogCustom($(".success_set_best_answer_dialog").html());
                              $(".best_dialog_fb").click(function () {
                                  xqzs.weui.dialogClose();
-                                 window.location.href=window.location.href
+
                              })
                              
                         }
