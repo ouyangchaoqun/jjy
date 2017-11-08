@@ -335,7 +335,7 @@
     .my_problem_bottom .my_problem_money {
         position: absolute;
         right: 0;
-        color: #FE7301;
+        color: rgba(253,114,6,1);
         margin: 0;
     }
     .wait_style{color:rgba(36,37,61,1)}
