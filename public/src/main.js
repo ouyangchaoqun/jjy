@@ -57,6 +57,7 @@ let routers =
     ];
 
 let router = new VueRouter({
+    mode: 'history',
     base:"comeon",
     routes: routers
 });

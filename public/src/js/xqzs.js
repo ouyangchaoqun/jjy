@@ -763,7 +763,11 @@ var xqzs = {
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url, guest: guest}}).then(function (response) {
                 response.body.debug = true;
-                response.body.jsApiList=['showAllNonBaseMenuItem', 'chooseImage', 'previewImage','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone'];
+                response.body.jsApiList=['pauseVoice','startRecord','stopRecord','translateVoice','playVoice','uploadVoice'];
+
+
+
+
                 console.log(response.body)
                 wx.config(response.body);
                 wx.ready(function () {
