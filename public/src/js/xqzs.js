@@ -1422,7 +1422,7 @@ setTimeout(function () {
 
 
 document.addEventListener("visibilitychange", function () {
-    let localId = xqzs.localdb.get("voice_localId");
+    var localId = xqzs.localdb.get("voice_localId");
     if (document.visibilityState == 'hidden') {
         if (xqzs.voice.audio && !xqzs.voice.audio.paused && !xqzs.voice.audio.ended) {
             xqzs.voice.visibilityHidden = true;
