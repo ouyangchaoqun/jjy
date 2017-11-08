@@ -481,7 +481,7 @@
 //            },
             moreComment:function () {
                 if( this.detail.evaluateCount>0)
-                this.$router.push("comment?expertId="+this.id );
+                this.$router.push("/answer/comment?expertId="+this.id );
             },
             ask:function () {
                 if(this.detail.expertUserId==null||this.user.id==null){
