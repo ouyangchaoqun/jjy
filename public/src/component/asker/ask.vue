@@ -337,7 +337,7 @@
     .asker_ask_box .ask_type .tab {
         line-height: 1.705882352941176rem;
         font-size: 0.8823529411764706rem;
-        color: #333;
+        color: rgba(36,37,61,1);
         margin-right: 0.3rem;
         float: left;
     }
@@ -405,6 +405,7 @@
         line-height: 2rem;
     }
     .asker_ask_box .set_price .txt {
+        color:rgba(36,37,61,1);
     }
     .asker_ask_box .set_price div {
         display: inline-block
