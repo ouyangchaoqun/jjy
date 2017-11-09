@@ -236,6 +236,7 @@
 
             },
             initVoice:function () {
+                console.log("xqzs.voice.audio"+xqzs.voice.audio);
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
                 }

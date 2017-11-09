@@ -562,7 +562,7 @@ var xqzs = {
 
         },
         play: function (url) {
-
+            console.log("xqzs.voice.audio play"+xqzs.voice.audio);
             if(xqzs.voice.audio!=null){
                 if (url && url != '') {
                     if (!xqzs.voice.audio.paused) xqzs.voice.audio.pause();

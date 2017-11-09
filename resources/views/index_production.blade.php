@@ -22,6 +22,7 @@
 <div id="app">
 
 </div>
+<script src="<?=env("BASE_PATH")?>src/js/vconsole.min.js"></script>
 
 <script>
 
