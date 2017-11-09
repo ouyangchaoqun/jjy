@@ -562,13 +562,19 @@ var xqzs = {
 
         },
         play: function (url) {
-            console.log("xqzs.voice.audio play"+xqzs.voice.audio);
+            console.log("xqzs.voice.2121 play"+xqzs.voice.audio);
             if(xqzs.voice.audio!=null){
                 if (url && url != '') {
-                    if (!xqzs.voice.audio.paused) xqzs.voice.audio.pause();
+                    // if (!xqzs.voice.audio.paused) xqzs.voice.audio.pause();
                     xqzs.voice.audio.src = url;//路径
+                    console.log("url"+url);
                     xqzs.voice.audio.autobuffer = true;
                     xqzs.voice.audio.play();
+                    setTimeout(function () {
+                        xqzs.voice.audio.pause();
+                        xqzs.voice.audio.play();
+                    },200)
+                    console.log("xqzs.voice.audio.paused"+xqzs.voice.audio.paused)
                 } else {
                     if (xqzs.voice.audio && xqzs.voice.audio.paused)
                         xqzs.voice.audio.play()

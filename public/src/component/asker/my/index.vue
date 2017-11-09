@@ -56,7 +56,8 @@
 //                            const NOT_AUTHENTICATED=0;//未认证
 //                            const AUTHENTICATED = 1 ;//已认证
 //                            const AUTHENTICATING = 2;//认证中
-                            if(status==0){
+//                            const AUTHENTICATING = -1;//提交中
+                            if(status==0||status==-1){
                                 _this.goJoin()
 
                             }else{
