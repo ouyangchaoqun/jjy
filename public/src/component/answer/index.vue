@@ -7,7 +7,7 @@
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :isShowMoreText="isShowMoreText" :bottomHeight="50">
                 <div class="class_list">
-                    <div class="class_item" v-for="(item,index) in classList" @click="goClass(item)">
+                    <div class="class_item"  v-for="(item,index) in classList" @click="goClass(item.id)" :class="'aaa_'+item.code">
                         <div class="addClassImg"></div>
                         <span>{{item.title}}</span>
                     </div>
@@ -59,7 +59,10 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-
+                    <div class="noContent_icon" v-if="noContent">
+                        <img src="../../images/asker/newNoContent.png" alt="">
+                        <div>暂无该方面问题</div>
+                    </div>
                 </div>
             </v-scroll>
         </div>
@@ -83,6 +86,8 @@
                 isPageEnd: false,
                 isShowMoreText:false,
                 showLoad:false,
+                classId:0,
+                noContent:false
 
             }
         },
@@ -177,14 +182,21 @@
 
                 this.$router.push('./detail/?id='+extId)
             },
-            goClass:function (item) {
-                this.$router.push('./list?id='+item.id+"&name="+item.title)
+            goClass:function (classId) {
+//                this.$router.push('./list?id='+item.id+"&name="+item.title)
+                let _this = this;
+                _this.classId  = classId;
+                console.log(_this.classId)
+                _this.page = 1;
+                _this.isPageEnd = false;
+                _this.getList()
             },
             getClassList:function () {
                 let _this=this;
                 _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         _this.classList= data.body.data
+                        _this.classList.splice(0,0,{id:0,title:'全部',code:'qb'})
                     }
                 }, function (error) {
                 });
@@ -192,12 +204,12 @@
             getList: function (done) {
 
                 let vm= this;
-                let url = web.API_PATH + "come/expert/get/by/class/0/"+vm.page+"/"+vm.row+"";
+                let url = web.API_PATH + "come/expert/get/by/class/"+vm.classId+"/"+vm.page+"/"+vm.row+"";
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
-
+                console.log(vm.isLoading,vm.isPageEnd)
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -239,6 +251,9 @@
                     } else {
                         vm.list = vm.list.concat(arr);
                     }
+                    if(vm.list.length==0){
+                        vm.noContent = true
+                    }
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;
 
@@ -258,7 +273,7 @@
             xqzs.wx.setConfig(this);
             $(".weui-tab__panel").height($(window).height()-100);
             this.getClassList();
-            this.getList();
+            this.getList(0);
             xqzs.voice.audio=null;
 
         },
@@ -267,6 +282,8 @@
         },
         updated:function () {
             this.initActive()
+            let h = $(window).height() - $('.class_list').outerHeight(true)-$('.asker_bottom_box').outerHeight(true)
+            $('.noContent_icon').height(h)
         }
 
     }
@@ -285,18 +302,22 @@
     .answer_list .class_s .price{color:rgba(253,87,57,1)}
     .answer_list .other{display: flex;display: -webkit-flex;}
     .answer_list .other span{flex:1}
-   .answer_index  .class_list{  padding:0.47rem 0.88235rem;background: #fff;}
+   .answer_index  .class_list{  padding:0.47rem 0;background: #fff;}
    .answer_index  .class_list .class_item:active{ background:#f1f1f1}
    .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;padding: 6px 0 ; }
 
    .answer_list .info .other{margin-bottom: 0.88235rem}
-    .addClassImg{height:2.4941176471rem; width:2.4941176471rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/asker/newClass_icon.png") no-repeat;background-size: 19.6471rem;}
-   .class_list>div:nth-of-type(2) div{background-position:-4.2941176471rem 0 }
-   .class_list>div:nth-of-type(3) div{background-position:-8.588235rem 0 }
-   .class_list>div:nth-of-type(4) div{background-position:-12.88235rem 0 }
-   .class_list>div:nth-of-type(5) div{background-position:-17.176471rem 0 }
-   .class_list>div:nth-of-type(6) div{background-position:0 -4.235294rem }
-   .class_list>div:nth-of-type(7) div{background-position:-8.588235rem -4.235294rem }
-   .class_list>div:nth-of-type(8) div{background-position:-4.2941176471rem -4.235294rem }
-   .class_list>div:nth-of-type(9) div{background-position:-12.88235rem -4.235294rem }
+    .addClassImg{height:2.59rem; width:2.59rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/answer/index_class_nor.png") no-repeat;background-size: 22.0588235rem;}
+   .class_list>div:nth-of-type(1) div{background-position:-1.02941rem -0.941176471rem}
+   .class_list>div:nth-of-type(2) div{background-position:-5.26471rem -0.941176471rem }
+   .class_list>div:nth-of-type(3) div{background-position:-9.70588235rem -0.941176471rem }
+   .class_list>div:nth-of-type(4) div{background-position:-14.1471rem -0.941176471rem }
+   .class_list>div:nth-of-type(5) div{background-position:-18.5588235rem -0.941176471rem }
+   .class_list>div:nth-of-type(6) div{background-position:-1.02941rem -5.76471rem }
+   .class_list>div:nth-of-type(7) div{background-position:-5.26471rem -5.76471rem }
+   .class_list>div:nth-of-type(8) div{background-position:-9.70588235rem -5.76471rem }
+   .class_list>div:nth-of-type(9) div{background-position:-14.1471rem -5.76471rem }
+    .class_list>div:nth-of-type(10) div{background-position:-18.5588235rem -5.76471rem }
+    .answer_index .noContent_icon{background: #fff;color:rgba(36,37,61,0.5);font-size: 0.76471rem;text-align: center;}
+    .answer_index .noContent_icon div{margin-top: -3.8rem;}
 </style>
