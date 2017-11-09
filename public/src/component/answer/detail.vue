@@ -601,8 +601,8 @@
     }
     .answer_detail_box .answer_banner{
         background: url("../../images/answer/banner.jpg") top center  no-repeat;
-        background-size: 100%;
-        height: 12.03rem;
+        background-size: cover;
+        padding-bottom:0.588235rem;
         padding-top: 0.88rem;
     }
     .answer_detail_box .answer_face{
