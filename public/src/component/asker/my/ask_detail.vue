@@ -63,17 +63,20 @@
         <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null">
             <h4>匿名评价</h4>
             <div class="star">
-
-                <span v-for="item in 5" :class="{on:item<=point}" @click="clickStar(item)" ></span>
+                <div v-for="(item,index) in comText">
+                    <span :class="{on:item.click<=point}" @click="clickStar(item.click)" >
+                    </span>
+                    <div :class="{color_on:item.click==point}">{{item.text}}</div>
+                </div>
 
             </div>
             <div class="problem_assess_item">
-                <div class="problem_assess_class">
-                    <span v-for="(item,index) in tags" @click="selectTag(index)" :class="{on:item.selected==true}">{{item.title}}</span>
+                <!--<div class="problem_assess_class">-->
+                    <!--<span v-for="(item,index) in tags" @click="selectTag(index)" :class="{on:item.selected==true}">{{item.title}}</span>-->
 
-                </div>
+                <!--</div>-->
                 <div class="problem_assess_input">
-                    <textarea placeholder="您的反馈将影响咨询师" id="content"></textarea>
+                    <textarea placeholder="您的反馈将影响咨询师" @input="contentChange()" id="content"></textarea>
                 </div>
             </div>
             <div class="problem_assess_btn">
@@ -97,14 +100,15 @@
                 },
                 point:0,
                 tags:[],
-                MAX_TAG_COUNT:5
+                MAX_TAG_COUNT:5,
+                comText:[{click:1,text:'极差'},{click:2,text:'不满意'},{click:3,text:'一般'},{click:4,text:'满意'},{click:5,text:'非常满意'}]
             }
         },
         mounted: function () {
 
             this.id= parseInt(this.$route.query.id);
             this.getDetail();
-            this.getTags();
+//            this.getTags();
             xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
         },
@@ -198,40 +202,40 @@
                     });
             },
 
-            selectTag:function (index) {
-
-                let count= 0;
-                let tags=this.tags;
-                if(tags[index].selected==true){
-                    tags[index].selected=false;
-                }else{
-                    for(let i=0;i<tags.length;i++){
-                        if(tags[i].selected==true){
-                            count++;
-                        }
-                    }
-                    if(count>=this.MAX_TAG_COUNT){
-
-                    }else{
-                        tags[index].selected=true;
-                    }
-                }
-
-                this.$set(this.tags,index,tags[index])
-
-            },
-            getTags:function () {
-
-                let _this= this;
-                _this.$http.get(web.API_PATH + 'come/expert/evaluate/tag').then(function (data) {//es5写法
-                    if (data.body.status == 1) {
-
-                        _this.tags= data.body.data
-                    }
-                }, function (error) {
-                });
-
-            },
+//            selectTag:function (index) {
+//
+//                let count= 0;
+//                let tags=this.tags;
+//                if(tags[index].selected==true){
+//                    tags[index].selected=false;
+//                }else{
+//                    for(let i=0;i<tags.length;i++){
+//                        if(tags[i].selected==true){
+//                            count++;
+//                        }
+//                    }
+//                    if(count>=this.MAX_TAG_COUNT){
+//
+//                    }else{
+//                        tags[index].selected=true;
+//                    }
+//                }
+//
+//                this.$set(this.tags,index,tags[index])
+//
+//            },
+//            getTags:function () {
+//
+//                let _this= this;
+//                _this.$http.get(web.API_PATH + 'come/expert/evaluate/tag').then(function (data) {//es5写法
+//                    if (data.body.status == 1) {
+//
+//                        _this.tags= data.body.data
+//                    }
+//                }, function (error) {
+//                });
+//
+//            },
             clickStar:function (v) {
                 console.log(v)
                 this.point=v;
@@ -242,10 +246,17 @@
             formatTimeLastText:function (time) {
                return xqzs.dateTime.getTimeFormatLastText(time)
             },
+            contentChange:function(){
+                let content = $("#content").val();
+                if(content.length>0){
+                    $('.problem_assess_btn .weui-btn').removeClass('weui-btn_disabled')
+                }else{
+                    $('.problem_assess_btn .weui-btn').addClass('weui-btn_disabled')
+                }
+            },
             comment:function () {
                 let that=this;
                 let content = $("#content").val();
-                let tags=[];
                 if(this.point==0){
                     xqzs.weui.toast('fail',"请选择分数",function () {
 
@@ -253,17 +264,17 @@
                     return;
                 }
 
-                for(let i=0;i<this.tags.length;i++){
-                    if(this.tags[i].selected==true){
-                        tags .push(this.tags[i].id);
-                    }
-                }
-                if(tags.length==0){
-                    xqzs.weui.toast('fail',"请至少选择一个标签",function () {
-
-                    })
-                    return;
-                }
+//                for(let i=0;i<this.tags.length;i++){
+//                    if(this.tags[i].selected==true){
+//                        tags .push(this.tags[i].id);
+//                    }
+//                }
+//                if(tags.length==0){
+//                    xqzs.weui.toast('fail',"请至少选择一个标签",function () {
+//
+//                    })
+//                    return;
+//                }
                 if(content.length==0){
                     xqzs.weui.toast('fail',"请输入评论内容",function () {
 
@@ -275,7 +286,7 @@
 
 
 
-                that.$http.put(web.API_PATH + "come/user/evaluate/answer", {userId:"_userId_",answerId:this.detail.bestAnswerId, point:this.point,content:content,"tags":tags})
+                that.$http.put(web.API_PATH + "come/user/evaluate/answer", {userId:"_userId_",answerId:this.detail.bestAnswerId, point:this.point,content:content})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
                             xqzs.weui.toast("success","评论成功",function () {
@@ -325,9 +336,10 @@
 </script>
 <style>
     .problem_assess_btn .weui-btn{border-radius: 50px;}
-
-    .problem_assess .star span{ display: inline-block;  height:0.9411764705882353rem; width: 0.9411764705882353rem; background: url(../../../images/star_no.png) no-repeat; background-size: 0.9411764705882353rem; margin: 0.9rem  0.4rem;  }
-    .problem_assess .star span.on{ background: url(../../../images/star.png) no-repeat; background-size: 0.9411764705882353rem;}
+    .problem_assess .star>div{display: inline-block;line-height: 1;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-bottom: 1.852rem}
+    .problem_assess .star span{ position:relative;display: inline-block;  height:1.6470588235rem; width: 1.735294rem; background: url(../../../images/starNew_no.png) no-repeat; background-size: 1.735294rem; margin: 1.176471rem  0.70588235rem 0.67647rem 0.70588235rem;  }
+    .problem_assess .star span.on{ background: url(../../../images/starNew.png) no-repeat; background-size: 1.735294rem;}
+    .problem_assess .star>div .color_on{color:rgba(253,198,10,1)}
     .problem_answer_info{
         padding:0 0.88235rem;
         display: -webkit-box;
@@ -358,6 +370,7 @@
         color: rgba(36,37,61,1);
         font-size: 0.88235rem;
         font-weight: normal;
+        line-height: 1;
     }
     .problem_assess img{
         display: inline-block;
@@ -394,7 +407,7 @@
         outline: none;
         width:94%;
         font-size: 0.70588rem;
-        color: #999;
+        color: rgba(36,37,61,1);
         border-radius: 5px;
         padding:3%;
         line-height: 1.6;
