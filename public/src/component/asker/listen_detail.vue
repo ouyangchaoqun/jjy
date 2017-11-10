@@ -268,7 +268,7 @@
         display: flex;
         display: -webkit-flex;
         display: -webkit-box;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         line-height: 29px;
     }
@@ -281,10 +281,10 @@
         margin-bottom: 0.70588rem;
     }
     .steal_detail_top span{
-        color: #333;
+        color: rgba(36,37,61,1);
     }
     .steal_detail_content{
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size:0.88235rem;
         line-height: 1.235294rem;
     }
@@ -299,7 +299,7 @@
         display: -webkit-box;
         height:2.8235rem;
         line-height: 2.8235rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.8235rem;
         margin-bottom: 0.471rem;
         padding:0 0.88235rem;
@@ -324,7 +324,7 @@
          border-radius: 0;
     }
     .steal_answer_zan{
-        color: #999;
+        color:rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         height:0.941176471rem;
         line-height: 0.941176471rem;
