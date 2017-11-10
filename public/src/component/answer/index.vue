@@ -7,7 +7,7 @@
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :isShowMoreText="isShowMoreText" :bottomHeight="50">
                 <div class="class_list">
-                    <div class="class_item"  v-for="(item,index) in classList" @click="goClass(item.id,$event)" :class="'aaa_'+item.code">
+                    <div class="class_item"  v-for="(item,index) in classList" @click="goClass(item.id)" :class="'aaa_'+item.code">
                         <div class="addClassImg" :class="{clickImg:index==0}"></div>
                         <span>{{item.title}}</span>
                     </div>
@@ -182,12 +182,10 @@
 
                 this.$router.push('./detail/?id='+extId)
             },
-            goClass:function (classId,event) {
+            goClass:function (classId) {
 //                this.$router.push('./list?id='+item.id+"&name="+item.title)
-                console.log(event)
                 let _this = this;
                 _this.classId  = classId;
-                //console.log(_this.classId)
                 _this.page = 1;
                 _this.isPageEnd = false;
                 _this.getList()
