@@ -367,14 +367,14 @@ a{
 
 /*专家头像及个人描述*/
 .steal_expert_info{
-    border-top: 1px solid #eee;
+    border-top: 1px solid #E0E0E1;
     background: #fff;
     position: relative;
-    padding:15px;
+    padding:0.88235rem;
 }
 .steal_expert_info div:nth-of-type(1){
-    height:20px;
-    line-height: 20px;
+    height:1.176471rem;
+    line-height: 1.176471rem;
 }
 .steal_expert_info img{
     height:30px;
@@ -387,24 +387,24 @@ a{
 }
 .steal_expert_name{
     color:rgba(36,37,61,1);
-    font-size: 18px;
-    margin-right: 12px;
+    font-size: 1.0588235rem;
+    margin-right: 0.70588235rem;
     float: left;
 }
 .steal_expert_fans{
     color: rgba(36,37,61,0.5);
-    font-size: 13px;
+    font-size: 0.76471rem;
     float: left;
 }
 .steal_expert_des{
     width:85%;
     color: rgba(36,37,61,0.8);
-    font-size: 14px;
+    font-size: 0.8235rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     line-height: 1;
-    padding-top: 8px;
+    padding-top: 0.470588235rem;
 }
 /*一对一、抢答问题描述详情*/
 .my_problem_detail{
