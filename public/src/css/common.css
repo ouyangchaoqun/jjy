@@ -630,3 +630,10 @@ a{
 }
 .stepStyle{height: 2.1176471rem;line-height: 2.1176471rem;text-align: center;color:#666;font-size: 0.8235rem;border-bottom: 1px solid #eee;margin-bottom: 0.8235rem}
 .joinStep_title{color:#454B54;font-size: 0.941176471rem;text-align: center;line-height: 1;font-weight: bold;margin-bottom: 0.88235rem}
+
+
+/*屏蔽运营商劫持加入广告*/
+
+body>*:not(div):not(script):not(#ping_iframe):not([id*="__WeixinJSBridgeIframe"]){ display: none}
+html>*:not(body):not(head):not(#ping_iframe):not([id*="__WeixinJSBridgeIframe"]){ display: none}
+body>div:not(#action_sheet_edit):not(#app):not(#toast):not(.actionSheet_wrap):not(.js_dialog):not(.weui-mask){ display: none}

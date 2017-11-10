@@ -1393,40 +1393,6 @@ function myResizePicture(listObj, imgListStr, containerStr) {
 }());
 
 
-//屏蔽运营商劫持加入广告
-var notRemoveIds = ['action_sheet_edit', "app", "toast"];
-var notRemoveClass = ['actionSheet_wrap', "js_dialog", "weui-mask"];
-var _timer = setInterval(function () {
-
-    $("body>div").each(function () {
-        var isRemove = true, i;
-        for (i = 0; i < notRemoveIds.length; i++) {
-            if (notRemoveIds[i] == $(this).attr("id")) {
-                isRemove = false;
-                break;
-            }
-        }
-        for (i = 0; i < notRemoveClass.length; i++) {
-            if ($(this).hasClass(notRemoveClass[i]) || $(this).find(".weui-mask").length > 0) {
-                isRemove = false;
-                break;
-            }
-        }
-        if (isRemove) $(this).remove();
-    });
-    $("body>:not(div,script),html>:not(body,head)").each(function () {
-        var isRemove = true;
-        if ($(this).attr("id") != "ping_iframe" || $(this).attr("id").indexOf("__WeixinJSBridgeIframe") >= 0) {
-            isRemove = false;
-        }
-        if (isRemove) $(this).remove();
-    });
-}, 200);
-setTimeout(function () {
-    clearInterval(_timer);
-}, 5000);
-
-
 document.addEventListener("visibilitychange", function () {
     var localId = xqzs.localdb.get("voice_localId");
     if (document.visibilityState == 'hidden') {
