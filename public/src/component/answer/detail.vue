@@ -173,10 +173,11 @@
         <div class="ask_bottom">
         <div class="ask_bottom" >
             <div class="listen"  @click="follow()">
-                <img v-if="detail.followed===0" src="../../images/asker/nofollowed.png" alt="">
-                <img v-if="detail.followed===1" src="../../images/asker/isfollowed.png" alt="">
-                <span v-if="detail.followed===1">已收听</span>
-                <span v-if="detail.followed===0">收听</span>
+
+                <span v-if="detail.followed===1">
+                    <img v-if="detail.followed===1" src="../../images/followed_new.png" alt="">已收听
+                </span>
+                <span v-if="detail.followed===0" class="followedColor">+收听</span>
             </div>
             <div class="pay_ask" @click="ask()">￥{{detail.price}} 提问</div>
         </div>
@@ -808,10 +809,10 @@
         background: white;
         box-shadow: #eee 0 -5px 5px -5px;
         height: 2.588rem;
-        position: relative;
+        text-align: center;
     }
-    .listen img{display: block;position: absolute;left:0.88235rem;width:1.4rem;height:1.4rem;top:50%;margin-top: -0.7rem;}
-    .answer_detail_box .listen span{color: rgba(36,37,61,0.5);position: absolute;left:2.68235rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
+    .listen img{display: inline-block;width:0.5294rem;margin-right: 0.294rem;}
+    .answer_detail_box .listen span{color: rgba(36,37,61,0.5);font-size: 0.8235rem;display: block;height:100%;line-height: 2.588rem;}
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
        background: url("../../images/asker/listenin1.png") no-repeat;
@@ -847,4 +848,5 @@
         border-bottom: 1px solid rgb(229, 229, 229);
     }
     .ask_answer .new ul li:active{background:rgb(229, 229, 229) }
+    .answer_detail_box .listen .followedColor{color:rgba(254,115,1,1)}
 </style>
