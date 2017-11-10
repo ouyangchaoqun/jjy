@@ -590,7 +590,7 @@
         margin: 0 auto;
         margin-top: 0.88rem;
         text-align: center;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.70588235rem;
     }
     .answer_detail_box .answer_info{
@@ -694,12 +694,12 @@
     }
     .answer_detail_box .hello{
         padding-left: 0.88rem;
-        color:#999; font-size: 0.88235rem;
+        color:rgba(36,37,61,0.5); font-size: 0.88235rem;
         float: left;
         margin-top: 0.88rem;
         margin-right: 0.588235rem;
     }
-    .answer_detail_box .minute{ color:#999; font-size: 0.76rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
+    .answer_detail_box .minute{ color:rgba(36,37,61,0.5); font-size: 0.76rem; margin-left: 0.8rem; float:left; line-height: 2.4rem;}
 
 
 
@@ -750,6 +750,7 @@
     .answer_detail_box .answer_comments{
         background: white;
         margin-top: 0.41176471rem;
+        padding-bottom: 0.88rem;
     }
    .answer_detail_box  .list .item{ background: #fff; padding: 0.8823529411764706rem 0;margin:0 0.88235rem;margin-bottom: 0.41176471rem;position: relative ; }
     .answer_detail_box  .list .addBorder_bottom{border-bottom: 1px solid #E0E0E1;}
@@ -759,7 +760,7 @@
     .answer_detail_box  .list .item .img{ width: 2rem;height: 2rem; float:left; }
     .answer_detail_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #EEEAEA }
     .answer_detail_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%}
-    .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:#999; margin-bottom: 0.2rem; width: 14.11764705882353rem;line-height: 1}
+    .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:rgba(36,37,61,0.5); margin-bottom: 0.2rem; width: 14.11764705882353rem;line-height: 1}
     .answer_detail_box  .list .info .star{line-height: 1;margin-bottom: 0.35rem}
     .answer_detail_box  .list .word{ font-size:0.8235rem;  color:rgba(36,37,61,1); margin-bottom: 0.4rem;}
     .answer_detail_box  .list .time{ font-size:0.7058823529411765rem; color:rgba(36,37,61,0.5);}
@@ -774,18 +775,18 @@
     .answer_detail_box .sj{
         width: 0;
         height: 0;
-        border-top: 6px solid #999999 ;
+        border-top: 6px solid rgba(36,37,61,0.5) ;
         border-right: 5px solid transparent;
         border-left: 5px solid transparent;
         position: absolute;
         top:1.17rem;
         margin-left: 0.294rem;
     }
-    .answer_detail_box .bj{ border-bottom: 6px solid #999999 ;border-top:0}
+    .answer_detail_box .bj{ border-bottom: 6px solid rgba(36,37,61,0.5) ;border-top:0}
     .answer_detail_box .new{float: right;margin-right: 0.58rem; position: relative; padding-right: 1.35rem; color: rgba(36,37,61,0.5);font-size: 0.76471rem;}
     .answer_detail_box .price{font-size: 0.74rem;color:#FE7301}
     .answer_detail_box .reply{height: 50px;}
-    .answer_detail_box .status{color: #999999; font-size:0.70rem;margin-top: 0.88235rem }
+    .answer_detail_box .status{color: rgba(36,37,61,0.5); font-size:0.70rem;margin-top: 0.88235rem }
     .answer_detail_box .ask_time{float: left;}
     .answer_detail_box .answer{margin-top: 0.88rem}
     .answer_detail_box .ask_status{float: right;position: absolute;right:0.3rem;}
@@ -810,7 +811,7 @@
         position: relative;
     }
     .listen img{display: block;position: absolute;left:0.88235rem;width:1.4rem;height:1.4rem;top:50%;margin-top: -0.7rem;}
-    .answer_detail_box .listen span{color: #999;position: absolute;left:2.68235rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
+    .answer_detail_box .listen span{color: rgba(36,37,61,0.5);position: absolute;left:2.68235rem;font-size: 0.76471rem;display: block;height:100%;line-height: 2.588rem;}
    .answer_detail_box .icon1{
        margin-top: 0.588rem;
        background: url("../../images/asker/listenin1.png") no-repeat;
@@ -827,7 +828,7 @@
     .friestP{overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;line-height:1.176rem;-webkit-box-orient: vertical;}
     .addopen{margin-top:1.76rem;height:auto;}
     .addstop{margin-top:0;height:0;overflow: hidden;}
-     .item .others{ color:#999; position: relative; font-size: 0.7058823529411765rem; padding-left: 2.88235rem;}
+     .item .others{ color:rgba(36,37,61,0.5); position: relative; font-size: 0.7058823529411765rem; padding-left: 2.88235rem;}
      .item .others .listen_count{ float: left;margin-right: 0.588235rem}
     .item .others_right{position: absolute;right:0;top:0}
     .ask_answer .new ul{
