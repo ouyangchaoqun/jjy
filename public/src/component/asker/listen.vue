@@ -512,7 +512,7 @@
         margin-top: 1px;
         text-align: center;
         font-size: 0.76471rem;
-        color: #B3B3B3;
+        color:rgba(36,37,61,0.5);
         position: relative;
     }
     .index_nocontent img{
