@@ -415,7 +415,7 @@ a{
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-    color: #666;
+    color: rgba(36,37,61,0.7);
     font-size: 0.7647rem;
     position: relative;
     margin-bottom: 0.588235rem;
@@ -425,7 +425,7 @@ a{
     margin-left: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(2){
-    color: rgba(36,37,61,0.5);
+    color: rgba(253,87,57,1);
     position: absolute;
     right:0.88235rem;
 }

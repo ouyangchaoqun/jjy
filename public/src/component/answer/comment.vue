@@ -1,22 +1,27 @@
 <template >
-    <div style="height: 100%" class="answer_comment_box">
+    <div style="height: 100%" class="answer_comment_box"> 
         <div v-title>专家点评</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
             <div class="nums">
-                <div class="title">
-                    <div class="txt">总体印象</div>
-                    <div class="star"><span class="on" v-for="i in point"></span><span v-for="i in 5-point"></span>
+                   总体印象
+            </div>
+            <div class="pointDetail">
+                <div class="point">{{point.toFixed(1)}}</div>
+                <div class="point_right">
+                    <div v-for="item in tags">
+                        <div class="starBox"> <span v-for="i in item.point"></span></div>
+                        <div class="point_pre">
+                            <div class="point_pre_inner" :style="'width:'+ item.count/allCount*100 +'%;'"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="comment">{{point}}</div>
             </div>
-            <div class="comment_selects">
-                <span class="first">全部 {{commentCount}}</span><span
-                    v-for="item in tags">{{item.title}} {{item.count}}</span>
-                <div class="clear"></div>
+            <div class="pointDetail_bottom">
+                <span>满分5分</span>
+                <span>{{allCount}}个评价</span>
             </div>
             <div class="list_top"  @click="changeType()" >
                 <span class="img" :class="{not_on:viewType==0}"></span><span>只看有内容的评价</span>
@@ -27,16 +32,13 @@
                             :src="item.faceUrl">
                     </div>
                     <div class="info">
-                        <div class="name">{{item.nickName}}</div> <!--该名字-->
+                        <div class="name">{{item.nickName}}
+                            <span class="time">{{formatTime(item.addTime)}}</span>
+                        </div> <!--该名字-->
                         <div class="star"><span class="on" v-for="i in item.point"></span><span   v-for="i in 5-item.point"></span>
                         </div>
-                        <div class="word">{{item.content}}
-                        </div>
-                        <div class="class_s">
-                            <span v-for="tag in item.tag">{{tag.title}}</span>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="time">{{formatTime(item.addTime)}}</div>
+                        <div class="word">{{item.content}}</div>
+                        <div class="reply" v-if="item.replyContent">{{item.replyContent}}</div>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -58,7 +60,7 @@
             return {
                 expertId:0,
                 tags:[],
-                point:5,
+                point:0,
                 commentCount:0,
                 viewType:0,
                 page: 1,
@@ -66,7 +68,8 @@
                 isPageEnd: false,
                 isShowMoreText:false,
                 showLoad:false,
-                list:[]
+                list:[],
+                allCount:0
             }
         }, components: {
             'v-showLoad': showLoad,
@@ -96,7 +99,9 @@
                 let _this=this;
                 _this.$http.get(web.API_PATH + 'come/expert/get/tag/'+this.expertId ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
-                        _this.tags= data.body.data.tag;
+                        console.log(data)
+                        _this.tags= data.body.data.pointGroup;
+                        _this.allCount = data.body.data.count
                         _this.point=data.body.data.point;
                         for(let i=0;i<_this.tags.length;i++){
                             _this.commentCount += _this.tags[i].count;
@@ -173,11 +178,10 @@
     }
 </script>
 <style>
-    .answer_comment_box .nums{
-        position: relative; background: #fff; border-bottom: 1px solid #EDEDED; padding:0.8823529411764706rem; ;
-    }
+    .answer_comment_box{background: #fff;}
+    .answer_comment_box .nums{background: #fff; padding:0.8823529411764706rem;color:rgba(36,37,61,1);font-size: 1.0588235rem;font-weight: bold;line-height: 1;padding-bottom: 1.088235rem;}
     .answer_comment_box .nums .comment{ position: absolute; top:1rem; right:0.9rem; font-size:1.411764705882353rem;  }
-    .answer_comment_box .title .txt{ font-size: 0.8823529411764706rem; color:#333; font-weight: bold}
+    .answer_comment_box .title .txt{ font-size: 0.8823529411764706rem; color:rgba(36,37,61,1); font-weight: bold;line-height: 1;margin-bottom: 1.088235rem;}
     .answer_comment_box .title .star span{ background: url(../../images/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
     .answer_comment_box  .title .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
 
@@ -185,31 +189,37 @@
     .answer_comment_box .comment_selects span{display: inline-block; float:left; height: 1.352941176470588rem; line-height: 1.352941176470588rem; border: 1px solid #999; border-radius:0.676470588235294rem ; font-size: 0.76471rem; padding: 0 0.5rem; margin-right: 0.5882352941176471rem; margin-bottom: 0.5882352941176471rem; color:#999 }
     .answer_comment_box  .comment_selects span:first-child{border: 1px solid #D1D1D1; color:#D1D1D1 }
 
-    .answer_comment_box .list_top{ margin-top:0.8823529411764706rem; background: #fff;border-bottom: 1px solid #EDEDED; font-size: 0.8823529411764706rem; height: 2.588235294117647rem; line-height: 2.588235294117647rem; padding: 0  0.8823529411764706rem }
+    .answer_comment_box .list_top{ border-top:0.471rem solid rgba(245,245,245,1); background: #fff;border-bottom: 1px solid #E0E0E1; font-size: 0.8823529411764706rem; height: 2.588235294117647rem; line-height: 2.588235294117647rem; padding: 0  0.8823529411764706rem }
     .answer_comment_box  .list_top span{ float:left; display: block}
     .answer_comment_box  .list_top .img{  background:url("../../images/asker/comment_per.png") no-repeat; width: 1.176470588235294rem; height: 1.176470588235294rem;border-radius: 50%; margin-top: 0.7058823529411765rem; margin-right:0.5rem;background-size: 1.176470588235294rem; border:1px solid #fff; }
     .answer_comment_box  .list_top .img.not_on{
         background: #fff; border:1px solid #ccc;
     }
-
-
-
-    .answer_comment_box  .list .item{ background: #fff; padding:0.8823529411764706rem; border-bottom: 1px solid #EDEDED }
-    .answer_comment_box .list .star span{ background: url(../../images/star_no.png); width: 0.7647058823529412rem; height: 0.7647058823529412rem;  background-size: 0.7647058823529412rem; display: inline-block; margin-right: 0.3rem; }
-    .answer_comment_box  .list .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
+    .pointDetail{position: relative;background: #fff;padding-bottom: 0.588235rem;}
+    .pointDetail .point{color:rgba(255,89,2,1);font-size: 3.52941rem;line-height: 1;margin-left: 0.88235rem;width:5rem;text-align: center;}
+    .pointDetail .point_right{line-height: 1;position: absolute;top:0;left:35%;width:60%;}
+    .pointDetail .point_right>div{height: 0.5rem;margin-bottom: 0.1471rem;position: relative}
+    .starBox{width:25%;text-align: right;}
+    .pointDetail .point_right .point_pre{overflow:hidden;width:75%;background: rgba(245,245,245,1);border-radius: 2.5px;height:0.176471rem;position: absolute;right:-0.2rem;top:0.5rem;}
+    .pointDetail .point_right span{width: 0.5rem; height: 0.5rem;background: url('../../images/point-star.png')no-repeat;margin-right: 0.1176rem;display: inline-block;background-size:100%}
+    .point_pre_inner{background: rgba(255,89,2,1);border-radius: 3px;height:100%;}
+    .pointDetail_bottom{color:rgba(36,37,61,0.6);padding:0 0.88235rem;font-size: 0.88235rem;line-height: 1;background: #fff;padding-bottom: 0.735294rem;}
+    .pointDetail_bottom span:nth-of-type(1){width:5rem;text-align: center;display: inline-block}
+    .pointDetail_bottom span:nth-of-type(2){float: right;font-size: 0.76471rem;}
+    .answer_comment_box  .list .item{ background: #fff; padding:0.8823529411764706rem; border-bottom: 1px solid #E0E0E1 }
+    .answer_comment_box .list .star span{ background: url(../../images/starNew_no.png)no-repeat; width: 0.91176471rem; height: 0.85294117647rem;  background-size: 100% 100%; display: inline-block; margin-right: 0.3rem; }
+    .answer_comment_box  .list .star span.on{background: url(../../images/starNew.png)no-repeat;background-size: 100% 100%; }
 
     .answer_comment_box  .list .item .img{ width: 2rem; height: 2rem; float:left; }
-    .answer_comment_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #EEEAEA }
+    .answer_comment_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #E0E0E1 }
     .answer_comment_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%}
-    .answer_comment_box  .list .info .name{ font-size: 0.7058823529411765rem; color:#999; margin-bottom: 0.2rem; width: 14.11764705882353rem;}
-    .answer_comment_box  .list .word{ font-size:0.7647058823529412rem; font-weight: bold;  color:#333; margin-bottom: 0.2rem;;}
-    .answer_comment_box  .list .reply{ font-size: 0.8823529411764706rem;  color:#333; margin-bottom: 0.2rem;}
-    .answer_comment_box  .list .time{ font-size:0.7058823529411765rem; color:#C1C1C1; margin-top: 0.6rem;margin-bottom: 0.6rem;}
+    .answer_comment_box  .list .info .name{ font-size: 0.7058823529411765rem; color:rgba(36,37,61,0.5); margin-bottom: 0.2rem;}
+    .answer_comment_box  .list .word{ font-size:0.8235rem; font-weight: bold;  color:rgba(36,37,61,1);}
+    .answer_comment_box  .list .reply{ font-size: 0.76471rem;  color:rgba(36,37,61,1);background: rgba(245,245,245,1);border-radius: 0.294rem;padding:0.35294rem 0.588235rem;position: relative;margin-top: 0.88235rem;}
+    .answer_comment_box  .list .reply:after{content: '';width:0.88235rem;height:0.88235rem;background:rgba(245,245,245,1);position: absolute;top:-0.471rem;left:1.76471rem ;transform:rotate(45deg);}
+    .answer_comment_box  .list .time{ font-size:0.7058823529411765rem; color:rgba(36,37,61,0.5); float: right}
     .answer_comment_box  .list .info .class_s { clear: both; margin-top: 0.3rem;}
     .answer_comment_box  .list .info .class_s span{ display: block; float:left; text-align: center; border-radius:0.6176470588235294rem;  height: 1.235294117647059rem; line-height: 1.235294117647059rem;  border: 1px solid #C1C1C1 ; color:#C1C1C1 ; font-size: 0.7058823529411765rem; padding: 0 0.7rem; margin-right:0.55rem;}
-    .answer_comment_box  .list .reply{
-        background:rgba(241,241,245,1);
-        border-radius: 10px ; padding:0.6470588235294118rem; color:#666; font-size:0.7058823529411765rem;  }
     .answer_comment_box  .list .reply span{color:#999}
 
 </style>
