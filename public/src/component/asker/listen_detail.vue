@@ -59,8 +59,14 @@
                         <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{item.sign}}</div>
-                    <img src="../../images/asker/isfollowed.png" v-if="item.isFollowed==1" alt="" @click="follow(item.expertId)">
-                    <img src="../../images/asker/nofollowed.png" v-if="item.isFollowed==0" alt="" @click="follow(item.expertId)">
+                    <div class="img" :class="isFollow_style:detail.expert.isFollow">
+                        <template v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">+收听</template>
+                        <template v-if="detail.expert.isFollow" @click="follow(detail.expertId)">
+                            <img src="../../../images/followed_new.png" alt="">已收听
+                        </template>
+                    </div>
+                    <!--<img src="../../images/asker/isfollowed.png" v-if="item.isFollowed==1" alt="" @click="follow(item.expertId)">-->
+                    <!--<img src="../../images/asker/nofollowed.png" v-if="item.isFollowed==0" alt="" @click="follow(item.expertId)">-->
                 </div>
             </li>
 
@@ -286,7 +292,7 @@
     .steal_detail_content{
         color: rgba(36,37,61,1);
         font-size:0.88235rem;
-        line-height: 1.235294rem;
+        line-height: 1.35294rem;
     }
     .steal_detail_answer{
         background: #fff;
@@ -354,4 +360,8 @@
         top:50%;
         left:0.88235rem;
     }
+    .steal_expert_info .img{color:rgba(254,115,1,1);padding:0 0.588235rem;border:1px solid rgba(253,87,57,1);border-radius: 2.5px;height:1.235rem;line-height: 1.235rem;position: absolute;
+        right:0.88235rem;top:50%;margin-top: -0.6176471rem}
+    .steal_expert_info .isFollow_style{color:rgba(36,37,61,0.5)}
+    .steal_expert_info .img img{display: inline-block;width: 0.5294rem;height:auto;margin-right: 0.294rem;}
 </style>
