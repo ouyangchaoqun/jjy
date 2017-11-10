@@ -7,8 +7,8 @@
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :isShowMoreText="isShowMoreText" :bottomHeight="50">
                 <div class="class_list">
-                    <div class="class_item"  v-for="(item,index) in classList" @click="goClass(item.id)" :class="'aaa_'+item.code">
-                        <div class="addClassImg"></div>
+                    <div class="class_item"  v-for="(item,index) in classList" @click="goClass(item.id,$event)" :class="'aaa_'+item.code">
+                        <div class="addClassImg" :class="{clickImg:index==0}"></div>
                         <span>{{item.title}}</span>
                     </div>
                     <div class="clear"></div>
@@ -182,11 +182,12 @@
 
                 this.$router.push('./detail/?id='+extId)
             },
-            goClass:function (classId) {
+            goClass:function (classId,event) {
 //                this.$router.push('./list?id='+item.id+"&name="+item.title)
+                console.log(event)
                 let _this = this;
                 _this.classId  = classId;
-                console.log(_this.classId)
+                //console.log(_this.classId)
                 _this.page = 1;
                 _this.isPageEnd = false;
                 _this.getList()
@@ -209,7 +210,6 @@
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
-                console.log(vm.isLoading,vm.isPageEnd)
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -283,7 +283,11 @@
         updated:function () {
             this.initActive()
             let h = $(window).height() - $('.class_list').outerHeight(true)-$('.asker_bottom_box').outerHeight(true)
-            $('.noContent_icon').height(h)
+            $('.noContent_icon').height(h);
+            $('.class_item').click(function () {
+                $('.class_item div').removeClass('clickImg');
+                $(this).find('div').addClass('clickImg');
+            })
         }
 
     }
@@ -308,7 +312,8 @@
 
    .answer_list .info .other{margin-bottom: 0.88235rem}
     .addClassImg{height:2.59rem; width:2.59rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/answer/index_class_nor.png") no-repeat;background-size: 22.0588235rem;}
-   .class_list>div:nth-of-type(1) div{background-position:-1.02941rem -0.941176471rem}
+   .clickImg{background: url("../../images/answer/index_class_per.png") no-repeat;background-size: 22.0588235rem;}
+    .class_list>div:nth-of-type(1) div{background-position:-1.02941rem -0.941176471rem}
    .class_list>div:nth-of-type(2) div{background-position:-5.26471rem -0.941176471rem }
    .class_list>div:nth-of-type(3) div{background-position:-9.70588235rem -0.941176471rem }
    .class_list>div:nth-of-type(4) div{background-position:-14.1471rem -0.941176471rem }
