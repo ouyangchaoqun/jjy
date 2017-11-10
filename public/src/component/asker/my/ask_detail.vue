@@ -53,6 +53,12 @@
                         class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
                 </div>
                 <div class="steal_expert_des">{{detail.expert.sign}}</div>
+                <!--<div class="img" :class="isFollow_style:detail.expert.isFollow">-->
+                    <!--<template v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">+收听</template>-->
+                    <!--<template v-if="detail.expert.isFollow" @click="follow(detail.expertId)">-->
+                        <!--<img src="../../../images/followed_new.png" alt="">已收听-->
+                    <!--</template>-->
+                <!--</div>-->
                 <img src="../../../images/asker/isfollowed.png" v-if="detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
                 <img src="../../../images/asker/nofollowed.png" v-if="!detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
             </div>
@@ -347,7 +353,7 @@
         display: flex;
         line-height: 2.8235rem;
         font-size: 0.8235rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         margin-bottom: 0.88235rem;
     }
     .problem_answer_info img{
@@ -361,7 +367,7 @@
         background: #fff;
         padding-top:1.176471rem;
         font-size: 0.70588rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         text-align: center;
         border-top: 0.41176rem solid #f4f4f8;
         padding-bottom: 2.35rem;
@@ -381,7 +387,7 @@
         padding:0 0.50588rem;
         height:1.35294rem;
         line-height: 1.35294rem;
-        border:1px solid #999;
+        border:1px solid rgba(36,37,61,0.5);
         border-radius: 1rem;
         display: inline-block;
         margin-bottom:0.70588rem;
@@ -422,7 +428,7 @@
         margin-right: 1.235294rem;;
     }
     .problem_wait_style>span:nth-of-type(2){
-        color: #999 ;
+        color: rgba(36,37,61,0.5) ;
         font-size: 0.76471rem;
     }
     .problem_box_background{
@@ -430,4 +436,8 @@
     }
     .problem_answer_info .problem_answer_yy{margin-top: 3px}
     .addContentStyle{margin-bottom: 0}
+    /*.steal_expert_info .img{color:rgba(254,115,1,1);padding:0 0.588235rem;border:1px solid rgba(253,87,57,1);border-radius: 2.5px;height:1.235rem;line-height: 1.235rem;position: absolute;*/
+    /*right:0.88235rem;top:50%;margin-top: -0.6176471rem}*/
+    /*.steal_expert_info .isFollow_style{color:rgba(36,37,61,0.5)}*/
+    /*.steal_expert_info .img img{display: inline-block;width: 0.5294rem;height:auto;margin-right: 0.294rem;}*/
 </style>
