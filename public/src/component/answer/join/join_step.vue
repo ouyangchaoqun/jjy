@@ -107,7 +107,8 @@
 
 
         mounted: function () {
-
+            this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
+            this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
         },
         methods: {
             getSexPicker:function () {
