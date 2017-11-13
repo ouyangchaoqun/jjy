@@ -291,19 +291,11 @@
     }
 </script>
 <style>
-    .answer_list .itemHeader{height:1.471rem;line-height: 1.471rem;color:rgba(36,37,61,1);font-size: 1.0588235rem;position: relative;margin-bottom: 0.588235rem;font-weight: bold}
-    .answer_list .itemHeader span{color:rgba(36,37,61,0.5);font-size: 0.70588235rem;font-weight: normal}
     .header_addRightStyle{position: absolute;right:0;top:-1px;display: flex;color:rgba(36,37,61,0.5);font-size: 0.70588rem;font-weight:normal}
     .answer_list .headerImg{width:1.471rem;height:1.471rem;border-radius: 50%;border:1px solid rgba(253,87,57,1);position: relative;margin-right: 0.35rem;}
     .answer_list .headerImg div{background: url("../../images/playNew.png") no-repeat;content: '';width:0.88235rem;height:0.76471rem;position: absolute;left:5px;top:6px;background-size:100%;}
     .answer_list .headerImg img{width:0.88235rem;height:0.76471rem;display: inline-block;margin-left: 0.3rem;}
-    .answer_list .itemDetail{display: flex}
-    .answer_list .itemDetail_right{width:65%;margin-left: 0.588235rem;color:rgba(36,37,61,1)}
-    .answer_list .itemDetail_right .title{font-size: 0.8235rem;font-weight: bold;margin-bottom: 0.588235rem;}
-    .answer_list .class_s{color:rgba(36,37,61,0.5);font-size: 0.70588rem;line-height: 1;margin-bottom: 0.76471rem;}
     .answer_list .class_s .price{color:rgba(253,87,57,1)}
-    .answer_list .other{display: flex;display: -webkit-flex;}
-    .answer_list .other span{flex:1}
    .answer_index  .class_list{  padding:0.47rem 0;background: #fff;}
    .answer_index  .class_list .class_item:active{ background:#f1f1f1}
    .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;padding: 6px 0 ; }
