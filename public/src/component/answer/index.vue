@@ -2,70 +2,74 @@
     <div style="height: 100%" class="answer_index">
         <div v-title>找专家</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="weui-tab__panel main">
 
-            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                      :isShowMoreText="isShowMoreText" :bottomHeight="50">
-                <div class="class_list">
-                    <div class="class_item"  v-for="(item,index) in classList" @click="goClass(item.id)" :class="'aaa_'+item.code">
-                        <div class="addClassImg" :class="{clickImg:index==0}"></div>
-                        <span>{{item.title}}</span>
-                    </div>
-                    <div class="clear"></div>
+
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                  :isShowMoreText="isShowMoreText" :bottomHeight="50">
+            <div class="class_list">
+                <div class="class_item" v-for="(item,index) in classList" @click="goClass(item.id)"
+                     :class="'aaa_'+item.code">
+                    <div class="addClassImg" :class="{clickImg:index==0}"></div>
+                    <span>{{item.title}}</span>
                 </div>
-                <div class="answer_list">
-                    <div class="item" v-for="(item,index) in list">
-                        <div @click="goDetail(item.expertId)">
-                            <div class="itemHeader">
-                                <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
-                                <div class="header_addRightStyle">
-                                    <div class="headerImg" @click.stop="play(index)" :class="{playing:item.playing,paused:item.paused}">
-                                        <div></div>
-                                    </div>
-                                    {{item.length}}''
+                <div class="clear"></div>
+            </div>
+            <div class="answer_list">
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div class="header_addRightStyle">
+                                <div class="headerImg" @click.stop="play(index)"
+                                     :class="{playing:item.playing,paused:item.paused}">
+                                    <div></div>
                                 </div>
-
+                                {{item.length}}''
                             </div>
-                            <div class="itemDetail">
-                                <div class="img"><img :src="item.faceUrl"></div>
-                                <div class="itemDetail_right">
-                                    <div class="title">{{item.sign}}</div>
-                                    <div class="class_s">
-                                        <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i v-if="goodIndex<2">、</i></span>
-                                    </div>
-                                    <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span class="ml"
-                                                                                                           v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
-                                            class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+
+                        </div>
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
+                                            v-if="goodIndex<2">、</i></span>
                                 </div>
+                                <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span
+                                        class="ml"
+                                        v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="item" v-for="(item,index) in list">
-                        <div @click="goDetail(item.expertId)">
-                            <div class="info">
-                                <div class="problem_answer_yy">
-                                    <div class="audio" :class="{playing:item.playing,paused:item.paused}">
-                                        <div class="audio_btn" @click.stop="play(index)">
-                                            <template v-if="!item.playing&&!item.paused">点击播放</template>
-                                            <template v-if="item.playing">正在播放..</template>
-                                            <template v-if="item.paused">播放暂停</template>
-                                            <div class="second">{{item.length}}”</div>
-                                        </div>
-                                        <div class="clear"></div>
+                </div>
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="info">
+                            <div class="problem_answer_yy">
+                                <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                    <div class="audio_btn" @click.stop="play(index)">
+                                        <template v-if="!item.playing&&!item.paused">点击播放</template>
+                                        <template v-if="item.playing">正在播放..</template>
+                                        <template v-if="item.paused">播放暂停</template>
+                                        <div class="second">{{item.length}}”</div>
                                     </div>
-
+                                    <div class="clear"></div>
                                 </div>
+
                             </div>
-                            <div class="clear"></div>
                         </div>
-                    </div>
-                    <div class="noContent_icon" v-if="noContent">
-                        <img src="../../images/asker/newNoContent.png" alt="">
-                        <div>暂无该方面问题</div>
+                        <div class="clear"></div>
                     </div>
                 </div>
-            </v-scroll>
-        </div>
+                <div class="noContent_icon" v-if="noContent">
+                    <img src="../../images/asker/newNoContent.png" alt="">
+                    <div>暂无该方面问题</div>
+                </div>
+            </div>
+        </v-scroll>
+
         <v-asker-bottom  tabOnIndex="1"></v-asker-bottom>
     </div>
 </template>
