@@ -183,8 +183,7 @@
 
 
             goDetail:function (extId) {
-
-                this.$router.push('./detail/?id='+extId)
+                this.$router.push('/answer/detail/?id='+extId)
             },
             goClass:function (classId) {
 //                this.$router.push('./list?id='+item.id+"&name="+item.title)
