@@ -7,7 +7,7 @@
                 <li>
                     <span class="li_left">*</span>真实姓名
                     <div class="li_right">
-                        <input type="text">
+                        <input type="text" class="realName" @keyup="changeRealName()" placeholder="还未填写（如张三）" :value="user.realName">
                         <i></i>
                     </div>
                 </li>
@@ -86,7 +86,7 @@
     export default {
         data() {
             return {
-                sex:null,
+                sex:'',
                 defaultCity: '[330000, 330100, 330102]',
                 provinceName: '',
                 cityName: '',
@@ -101,23 +101,107 @@
                 lunarDateData:[],
                 solarDateDate:[],
                 isLeapMonth:false,
-                birthday:''
+                birthday:'',
+                user:''
             }
         },
 
 
         mounted: function () {
+            let _this = this;
+            this.getExpertByUserId();
+            xqzs.wx.setConfig(_this);
+            this.getUserInfo();
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
             this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
         },
         methods: {
+            //能否进入下一项
+            checkNext:function (isTip) {
+                let _this=this;
+                let realName = $('.realName').val();
+                if( !(_this.faceUrl&&_this.faceUrl!='')){
+                    if(isTip)  xqzs.weui.tip("请上传头像");
+                    return false;
+                }else if(!(realName&&realName!='')){
+                    if(isTip)   xqzs.weui.tip("请输入您的姓名");
+                    return false;
+                }else if(!(_this.birthday&&_this.birthday!='')){
+                    if(isTip)   xqzs.weui.tip("请选择你的生日");
+                    return false;
+                }else if(!(_this.areaId&&_this.areaId!='')){
+                    if(isTip)  xqzs.weui.tip("请选择所在城市");
+                    return false;
+                }
+                return true;
+
+            },
+            getUserInfo:function () {
+                let _this = this;
+                //用户信息
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+
+                        _this.user = eval(data.data.data);
+                        console.log(_this.user)
+                        _this.sex=_this.user.sex;
+                        _this.cardType=_this.user.cardType;
+
+                        _this.birthday = _this.user.birthday;
+                        if (_this.birthday) {
+                            let date = _this.birthday.split(',');
+                            _this.year = date[0];
+                            _this.month = date[1];
+                            _this.day = date[2];
+                            if( _this.user.isLunar==1||_this.user.isLunar==2){
+                                _this.isLunar=true;
+                                _this.yearN = date[0]+'年';
+                                _this.monthN =  calendar.toChinaMonth(date[1]);
+                                if(_this.user.isLunar==2) {
+                                    _this.isLeapMonth=true;
+                                    _this.monthN= "闰"+ _this.monthN;
+                                }
+                                _this.dayN = calendar.toChinaDay(date[2]);
+                            }
+
+                        }
+                        _this.provinceName = _this.user.provinceName;
+                        _this.cityName = _this.user.cityName;
+                        _this.areaName = _this.user.areaName;
+                        _this.provinceId = _this.user.provinceId;
+                        _this.cityId = _this.user.cityId;
+                        _this.areaId = _this.user.areaId;
+                        _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                        _this.canGoNext=_this.checkNext();
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1&&data.body.data!=null) {
+
+                        _this.faceUrl = data.data.data.faceUrl;
+                    }
+                }, function (error) {
+                });
+            },
+            changeRealName:function () {
+                this.canGoNext=this.checkNext();
+            },
             getSexPicker:function () {
                 let _this = this;
                 weui.picker([{
-                    label: '男',
+                    label: '女',
                     value: 0
                 }, {
-                    label: '女',
+                    label: '男',
                     value: 1
                 }], {
                     onChange: function (result) {
