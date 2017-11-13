@@ -380,6 +380,7 @@ a{
     position: relative;
     padding:0.88235rem;
 }
+
 .steal_expert_info div:nth-of-type(1){
     height:1.176471rem;
     line-height: 1.176471rem;
@@ -405,7 +406,7 @@ a{
     float: left;
 }
 .steal_expert_des{
-    width:85%;
+    width:75%;
     color: rgba(36,37,61,0.8);
     font-size: 0.8235rem;
     overflow: hidden;
@@ -413,6 +414,32 @@ a{
     white-space: nowrap;
     line-height: 1;
     padding-top: 0.470588235rem;
+}
+.followed_box{
+    line-height: 1.70588235rem;
+    border:1px solid rgba(253,87,57,1);
+    display: inline-block;
+    padding:0 0.3rem;
+    text-align: center;
+    color:rgba(253,87,57,1);
+    border-radius: 0.294rem;
+    position: absolute;
+    right: 0.88235rem;
+    top: 50%;
+    margin-top: -0.85294rem;
+    font-size: 0.8235rem;
+}
+.followed_box img{
+    display: inline-block;
+    width: 0.5294rem;
+    margin-right: 0.294rem;
+    margin-top: 0;
+    position: static;
+    height:auto;
+}
+.isfollow_style{
+    color:rgba(36,37,61,0.5);
+    border-color:rgba(36,37,61,0.5)
 }
 /*一对一、抢答问题描述详情*/
 .my_problem_detail{
