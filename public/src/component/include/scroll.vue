@@ -111,7 +111,7 @@
                 }
             },
             touchEnd(e) {
-
+                console.log("innerHeight"+$(".inner").height());
                 if (!this.enableRefresh) return
                 this.touching = false
                 if (this.state === 2) { // in refreshing
