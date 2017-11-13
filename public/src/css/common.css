@@ -305,6 +305,14 @@ a{
 
 /*专家列表*/
 .answer_list .item{ background: #fff; padding:0.8823529411764706rem; margin-top:0.41176471rem; }
+.answer_list .itemHeader{height:1.471rem;line-height: 1.471rem;color:rgba(36,37,61,1);font-size: 1.0588235rem;position: relative;margin-bottom: 0.588235rem;font-weight: bold}
+.answer_list .itemHeader span{color:rgba(36,37,61,0.5);font-size: 0.70588235rem;font-weight: normal}
+.answer_list .itemDetail{display: flex}
+.answer_list .itemDetail_right{width:65%;margin-left: 0.588235rem;color:rgba(36,37,61,1);position: relative}
+.answer_list .itemDetail_right .title{font-size: 0.8235rem;font-weight: bold;margin-bottom: 0.588235rem;}
+.answer_list .class_s{color:rgba(36,37,61,0.5);font-size: 0.70588rem;line-height: 1;margin-bottom: 0.76471rem;}
+.answer_list .other{display: flex;display: -webkit-flex;margin-bottom: 0.294rem;position: absolute;bottom: 0;width: 100%;}
+.answer_list .other span{flex:1}
 .answer_list .item .img{ width: 5.88235rem; height: 5.88235rem;display: inline-block}
 .answer_list .item .img img{ width: 100%; height: 100%;}
 
