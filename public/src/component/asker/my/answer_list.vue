@@ -10,34 +10,34 @@
                 <div @click="goAnswerIndex()">去收听</div>
             </div>
         </div>
+        <div class="top_tip">共{{total}}位咨询师</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText"  v-if="list.length>0">
 
 
-            <div class="top_tip">共{{total}}位咨询师</div>
-            <div class="answer_list" >
-                <div class="item arrow" v-for="item in list">
-                    <a @click="goDetail(item.expertId)">
-                    <div class="img"><img
-                            :src="item.faceUrl">
-                    </div>
-                    <div class="info">
-                        <div class="address"><span>{{item.nickName}}</span> {{item.provinceName}}-{{item.cityName}}</div>
-                        <div class="title">{{item.sign}}</div>
-                        <div class="class_s">
-                            <span v-for="tag in item.domains">{{tag.title}}</span>
 
-                            <div class="clear"></div>
+            <div class="answer_list">
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.cityName}}</span></div>
                         </div>
-                            <div class="other">{{item.answerCount}}个回答，{{item.followCount}}人收听</div>
-
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(tag,tagIndex) in item.domains">{{tag.title}} <i v-if="tagIndex<2">、</i></span>
+                                </div>
+                                <div class="class_s other"><span class="ml"
+                                                                 v-if="item.answerCount!=null">{{item.answerCount||0}}个回答</span><span
+                                        class="ml">{{item.followCount||0}}人收听</span></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="clear"></div>
-                    </a>
                 </div>
-
             </div>
         </v-scroll>
     </div>
@@ -150,12 +150,8 @@
     }
 </script>
 <style>
-    .asker_my_answer_list_box  .answer_list .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; }
-    .asker_my_answer_list_box  .answer_list .title{ color:rgba(36,37,61,0.7); font-size: 0.7647058823529412rem;}
-    .asker_my_answer_list_box .answer_list .address{ color:rgba(36,37,61,0.5)}
-    .asker_my_answer_list_box .answer_list .address span{ font-size: 0.88235rem; color:rgba(36,37,61,1)}
-    .asker_my_answer_list_box .answer_list .class_s span{ color:#999; border: 1px solid #A8A8A8 }
-    .asker_my_answer_list_box  .answer_list .item{ margin-top: 0; border-bottom: 1px solid #eee; position: relative}
-    .asker_my_answer_list_box  .answer_list .item:active{background:#f1f1f1}
-
+    .asker_my_answer_list_box .item{border-bottom: 1px solid #E0E0E1;}
+    .asker_my_answer_list_box .item:active{background: #f5f5f5}
+    .asker_my_answer_list_box .answer_list .item{margin-top: 0}
+    .asker_my_answer_list_box .answer_list{padding-top:2.588235294117647rem}
 </style>
