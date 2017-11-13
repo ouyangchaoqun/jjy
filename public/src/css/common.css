@@ -370,7 +370,7 @@ a{
     border:1px solid #FE7301;color:#fff; background: #FE7301;
 }
 .wbg{ background: #fff !important}
-.top_tip{ background: #F4F4F7;text-align: center; line-height:2.588235294117647rem; font-size:0.8823529411764706rem;  color:#999  }
+.top_tip{ background: #F4F4F7;text-align: center; line-height:2.588235294117647rem; font-size:0.8823529411764706rem;  color:rgba(36,37,61,0.5)  }
 
 
 /*专家头像及个人描述*/
