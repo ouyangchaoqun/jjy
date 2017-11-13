@@ -10,13 +10,13 @@
                 <div @click="goAnswerIndex()">去收听</div>
             </div>
         </div>
-        <div class="top_tip">共{{total}}位咨询师</div>
+
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText"  v-if="list.length>0">
 
-
+            <div class="top_tip">共{{total}}位咨询师</div>
 
             <div class="answer_list">
                 <div class="item" v-for="(item,index) in list">
@@ -153,5 +153,4 @@
     .asker_my_answer_list_box .item{border-bottom: 1px solid #E0E0E1;}
     .asker_my_answer_list_box .item:active{background: #f5f5f5}
     .asker_my_answer_list_box .answer_list .item{margin-top: 0}
-    .asker_my_answer_list_box .answer_list{padding-top:2.588235294117647rem}
 </style>
