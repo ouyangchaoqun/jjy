@@ -671,4 +671,5 @@ a{
 /*屏蔽运营商劫持加入广告*/
 body>*:not(div):not(script):not(#ping_iframe):not([id*="__WeixinJSBridgeIframe"]){ display: none}
 html>*:not(body):not(head):not(#ping_iframe):not([id*="__WeixinJSBridgeIframe"]):not(#__vconsole){ display: none}
-body>div:not(#action_sheet_edit):not(#app):not(#toast):not(.actionSheet_wrap):not(.js_dialog):not(.weui-mask){ display: none}
+body>div:not(#action_sheet_edit):not(#app):not(#toast):not(.actionSheet_wrap):not(.js_dialog):not(.weui-mask):not([class='']){ display: none}
+body>div[class='']>*:not(.weui-mask):not(.weui-picker){ display: none}
