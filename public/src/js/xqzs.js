@@ -3,21 +3,6 @@
  */
 document.addEventListener("touchstart", function () {
 }, false);
-var overscroll = function(el) {
-    el.addEventListener('touchstart', function(evt) {
-        evt._isScroller = true;
-    });
-    el.addEventListener('touchmove', function(evt) {
-        evt._isScroller = true;
-    });
-}
-document.body.addEventListener('touchmove', function(evt) {
-    //In this case, the default behavior is scrolling the body, which
-    //would result in an overflow.  Since we don't want that, we preventDefault.
-    if(!evt._isScroller) {
-        evt.preventDefault();
-    }
-});
 var xqzs = {
     price:{
        MAX_ASK_PRICE:1000,
