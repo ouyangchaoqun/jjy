@@ -82,6 +82,7 @@
             this.name= this.$route.query.name;
             this.getList();
             xqzs.voice.audio=null;
+            this.initVoice();
             xqzs.wx.setConfig(this);
         },
         methods:{
