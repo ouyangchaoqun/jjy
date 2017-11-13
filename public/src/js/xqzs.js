@@ -569,12 +569,21 @@ var xqzs = {
                     xqzs.voice.audio.src = url;//路径
                     console.log("url"+url);
                     xqzs.voice.audio.autobuffer = true;
+                    xqzs.voice.audio.preload="auto";
+                    // xqzs.voice.audio.play();
+
+
+                    xqzs.voice.audio.load();
                     xqzs.voice.audio.play();
-                    setTimeout(function () {
-                        xqzs.voice.audio.pause();
-                        xqzs.voice.audio.play();
-                    },200)
-                    console.log("xqzs.voice.audio.paused"+xqzs.voice.audio.paused)
+                    document.addEventListener("WeixinJSBridgeReady", function () {
+                        WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
+                            console.log(e.err_msg.split(":")[1]);
+                            xqzs.voice.audio.play();
+                        });
+                    }, false);
+
+
+                    console.log("xqzs.voice.audio.pa222used" + xqzs.voice.audio.paused)
                 } else {
                     if (xqzs.voice.audio && xqzs.voice.audio.paused)
                         xqzs.voice.audio.play()
@@ -582,6 +591,7 @@ var xqzs = {
                 xqzs.voice.listenEnded()
             }
         },
+
         pause: function () {
             if (xqzs.voice.audio && xqzs.voice.audio != null) {
                 xqzs.voice.audio.pause()

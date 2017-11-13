@@ -269,7 +269,7 @@
         },
         mounted: function () {
             xqzs.wx.setConfig(this);
-            $(".weui-tab__panel").height($(window).height()-100);
+            $(".weui-tab__panel").height($(window).height()-50)
             this.getClassList();
             this.getList(0);
             xqzs.voice.audio=null;
