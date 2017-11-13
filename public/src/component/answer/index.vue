@@ -252,8 +252,10 @@
                     } else {
                         vm.list = vm.list.concat(arr);
                     }
-                    if(vm.list.length==0){
+                    if(vm.list.length==0&&vm.page==1){
                         vm.noContent = true
+                    }else{
+                        vm.noContent = false
                     }
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;
