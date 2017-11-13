@@ -130,7 +130,7 @@
             this.$nextTick(function () {
                 setTimeout(function () {
                     next()
-                }, 10)
+                }, 1)
             })
         }
     }
