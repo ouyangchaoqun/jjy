@@ -53,14 +53,10 @@
                         class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
                 </div>
                 <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                <!--<div class="img" :class="isFollow_style:detail.expert.isFollow">-->
-                    <!--<template v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">+收听</template>-->
-                    <!--<template v-if="detail.expert.isFollow" @click="follow(detail.expertId)">-->
-                        <!--<img src="../../../images/followed_new.png" alt="">已收听-->
-                    <!--</template>-->
-                <!--</div>-->
-                <img src="../../../images/asker/isfollowed.png" v-if="detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
-                <img src="../../../images/asker/nofollowed.png" v-if="!detail.expert.isFollow" alt="" @click="follow(detail.expertId)">
+                <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">+ 收听</div>
+                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" ><img src="../../../images/followed_new.png" alt="">已收听</div>
+                <!--<img src="../../../images/asker/isfollowed.png" v-if="detail.expert.isFollow" alt="" @click="follow(detail.expertId)">-->
+                <!--<img src="../../../images/asker/nofollowed.png" v-if="!detail.expert.isFollow" alt="" @click="follow(detail.expertId)">-->
             </div>
         </div>
 
