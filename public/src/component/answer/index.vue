@@ -46,6 +46,151 @@
                 </div>
                 <div class="item" v-for="(item,index) in list">
                     <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div class="header_addRightStyle">
+                                <div class="headerImg" @click.stop="play(index)"
+                                     :class="{playing:item.playing,paused:item.paused}">
+                                    <div></div>
+                                </div>
+                                {{item.length}}''
+                            </div>
+
+                        </div>
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
+                                            v-if="goodIndex<2">、</i></span>
+                                </div>
+                                <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span
+                                        class="ml"
+                                        v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div class="header_addRightStyle">
+                                <div class="headerImg" @click.stop="play(index)"
+                                     :class="{playing:item.playing,paused:item.paused}">
+                                    <div></div>
+                                </div>
+                                {{item.length}}''
+                            </div>
+
+                        </div>
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
+                                            v-if="goodIndex<2">、</i></span>
+                                </div>
+                                <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span
+                                        class="ml"
+                                        v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div class="header_addRightStyle">
+                                <div class="headerImg" @click.stop="play(index)"
+                                     :class="{playing:item.playing,paused:item.paused}">
+                                    <div></div>
+                                </div>
+                                {{item.length}}''
+                            </div>
+
+                        </div>
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
+                                            v-if="goodIndex<2">、</i></span>
+                                </div>
+                                <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span
+                                        class="ml"
+                                        v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div class="header_addRightStyle">
+                                <div class="headerImg" @click.stop="play(index)"
+                                     :class="{playing:item.playing,paused:item.paused}">
+                                    <div></div>
+                                </div>
+                                {{item.length}}''
+                            </div>
+
+                        </div>
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
+                                            v-if="goodIndex<2">、</i></span>
+                                </div>
+                                <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span
+                                        class="ml"
+                                        v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" v-for="(item,index) in list">
+                    <div @click="goDetail(item.expertId)">
+                        <div class="itemHeader">
+                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div class="header_addRightStyle">
+                                <div class="headerImg" @click.stop="play(index)"
+                                     :class="{playing:item.playing,paused:item.paused}">
+                                    <div></div>
+                                </div>
+                                {{item.length}}''
+                            </div>
+
+                        </div>
+                        <div class="itemDetail">
+                            <div class="img"><img :src="item.faceUrl"></div>
+                            <div class="itemDetail_right">
+                                <div class="title">{{item.sign}}</div>
+                                <div class="class_s">
+                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
+                                            v-if="goodIndex<2">、</i></span>
+                                </div>
+                                <div class="class_s other">问价 <span class="price">¥{{item.price}}</span> <span
+                                        class="ml"
+                                        v-if="item.answerCount!=null">{{item.answerCount}}个回答</span><span
+                                        class="ml" v-if="item.listenCount!=null">{{item.listenCount}}次被偷听</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" v-for="(item,index) in list" v-if="false">
+                    <div @click="goDetail(item.expertId)">
                         <div class="info">
                             <div class="problem_answer_yy">
                                 <div class="audio" :class="{playing:item.playing,paused:item.paused}">
