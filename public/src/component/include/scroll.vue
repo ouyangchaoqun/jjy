@@ -84,6 +84,10 @@
                 _this.isShowMoreText=isShowMoreText;
                 _this.loadMoreText();
             });
+            this.$nextTick(function () {
+                overscroll(document.querySelector('.yo-scroll'));
+
+            })
 //
         },
         methods: {
