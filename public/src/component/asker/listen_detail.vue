@@ -59,9 +59,10 @@
                         <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{item.sign}}</div>
-
-                    <img src="../../images/asker/isfollowed.png" v-if="item.isFollowed==1" alt="" @click="follow(item.expertId)">
-                    <img src="../../images/asker/nofollowed.png" v-if="item.isFollowed==0" alt="" @click="follow(item.expertId)">
+                    <div class="followed_box" v-if="item.isFollowed==0" @click="follow(item.expertId)">+ 收听</div>
+                    <div class="followed_box isfollow_style"  v-if="item.isFollowed==1" ><img src="../../images/followed_new.png" alt="">已收听</div>
+                    <!--<img src="../../images/asker/isfollowed.png" v-if="item.isFollowed==1" alt="" @click="follow(item.expertId)">-->
+                    <!--<img src="../../images/asker/nofollowed.png" v-if="item.isFollowed==0" alt="" @click="follow(item.expertId)">-->
                 </div>
             </li>
 
@@ -355,4 +356,5 @@
         top:50%;
         left:0.88235rem;
     }
+
 </style>
