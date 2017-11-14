@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="over_nor_btn">保存</div>
+        <!--<div class="over_nor_btn">保存</div>-->
         <div class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
     </div>
 </template>
