@@ -497,6 +497,6 @@
     .join_stepBox .lut.on{float: left;background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));color: #fff;}
     .join_subBtn{width:100%;color:#fff;background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1));line-height: 2.588235rem;text-align: center;position: absolute;bottom:0;font-size: 1.0588235rem;}
     .imgBox{padding-right: 0.88235rem;padding-top:2.35rem;}
-    .imgBox img{display: block;width: 9.4rem;float: left;}
+    .imgBox img{display: block;width: 9.4rem;float: left;height:6.0294rem}
     .imgBox img:nth-of-type(2){float: right}
 </style>

@@ -289,7 +289,7 @@
     .title i{font-style: normal;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-left: 0.6471rem;}
     .title_bottom{line-height:1;border-bottom: 0.471rem solid rgba(245,245,245,1);padding:1.176471rem 0.88235rem 1.176471rem 1.6rem;}
     .title_bottom .set_box{background: rgba(245,245,245,1);line-height: 2.35rem;color:rgba(36,37,61,0.5);font-size: 0.76471rem;padding-left: 0.588235rem;}
-    .title_bottom .set_box input{margin-left:1rem;line-height:2.35rem;color:rgba(253,115,1,1);border:0;outline: none;background: none}
+    .title_bottom .set_box input{margin-left:1rem;line-height:2.35rem;color:rgba(253,115,1,1);border:0;outline: none;background: none;font-size: 0.76471rem;width:50%;}
     .title_bottom .setPrice_box{margin-bottom: 0.941rem;}
     .addClass{width:5.294rem;height:2.1176471rem;background: rgba(245,245,245,1);border-radius: 0.1471rem;color:rgba(224,224,225,1);text-align: center;font-size: 2rem;line-height:1.85rem;}
     .bottom_left{font-size: 0.76471rem;color:rgba(36,37,61,0.5)}
