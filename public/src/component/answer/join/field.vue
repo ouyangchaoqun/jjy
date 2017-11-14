@@ -87,8 +87,6 @@
                     this.canGoNext=false;
                 }
                 cookie.set("questionClassId",ids);
-
-
             }
         },
 

@@ -70,6 +70,7 @@
                 }
             }
             let price = cookie.get("price");
+            console.log(price)
             if(price)this.price= price;
 
             let _this =this;

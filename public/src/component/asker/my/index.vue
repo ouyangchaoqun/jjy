@@ -78,7 +78,7 @@
             },
             goJoin:function () {
                 if( this.user.mobile&& this.user.mobile.length==11){
-                    this.$router.push("/answer/join/base/info");
+                    this.$router.push("/answer/join/joinstep");
                 }else{
                     this.$router.push("/answer/join/mobile");
                 }

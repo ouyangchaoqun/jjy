@@ -14,7 +14,7 @@
                 <li @click="getSexPicker()">
                     <span class="li_left">*</span>性别
                     <div class="li_right">
-                        <div>{{sex}}</div>
+                        <div>{{sex[sexIndex]}}</div>
                         <i></i>
                     </div>
                 </li>
@@ -71,12 +71,19 @@
                 <li>
                     <span class="li_left">*</span>身份证号
                     <div class="li_right">
-                        <input type="text">
+                        <input type="text" class="identityNo"  @input="changeidentityNo()" :value="identityNo" pattern="[0-9a-zA-Z]*">
                         <i></i>
                     </div>
                 </li>
             </ul>
+            <div class="imgBox">
+                <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
+                <img v-else="" src="../../../images/positive.png" alt="" @click="upload(1)">
+                <img v-if="identityFile2!=''" :src="identityFile2" alt="" @click="upload(2)">
+                <img v-else="" src="../../../images/negative.png" alt="" @click="upload(2)">
+            </div>
         </div>
+        <div class="join_subBtn" @click="msgSubmit()">下一步</div>
     </div>
 </template>
 
@@ -86,7 +93,8 @@
     export default {
         data() {
             return {
-                sex:'',
+                sex:['女','男'],
+                sexIndex:'',
                 defaultCity: '[330000, 330100, 330102]',
                 provinceName: '',
                 cityName: '',
@@ -102,12 +110,41 @@
                 solarDateDate:[],
                 isLeapMonth:false,
                 birthday:'',
-                user:''
+                user:'',
+                alioss:null,
+                uploadpicinfo:null,
+                identityNo:'',
+                identityFile1:'',
+                identityFile2:'',
             }
         },
 
 
         mounted: function () {
+            xqzs.wx.setConfig(this);
+            this.uploadpicinfo = {
+                token: xqzs.string.guid(),
+                smallpic: xqzs.constant.PIC_SMALL,
+                middlepic: xqzs.constant.PIC_MIDDLE,
+                removepicurl: web.BASE_PATH + 'api/removepicture',
+                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+            };
+            this.alioss = new aliyunoss({
+                url:this.uploadpicinfo.aliossgeturl,
+                token:this.uploadpicinfo.token
+            });
+            let identityFile1= cookie.get("identityFile1")
+            if(identityFile1&&identityFile1!=''){
+                this.identityFile1= unescape(identityFile1);
+            }
+
+            let identityFile2= cookie.get("identityFile2")
+            if(identityFile2&&identityFile2!=''){
+                this.identityFile2= unescape(identityFile2);
+            }
+            this.check();
+            xqzs.wx.setConfig(this);
             let _this = this;
             this.getExpertByUserId();
             xqzs.wx.setConfig(_this);
@@ -120,17 +157,17 @@
             checkNext:function (isTip) {
                 let _this=this;
                 let realName = $('.realName').val();
-                if( !(_this.faceUrl&&_this.faceUrl!='')){
-                    if(isTip)  xqzs.weui.tip("请上传头像");
+                if( !(_this.sexIndex&&_this.sexIndex!='')){
+                    if(isTip)  xqzs.weui.tip("请选择性别");
                     return false;
                 }else if(!(realName&&realName!='')){
-                    if(isTip)   xqzs.weui.tip("请输入您的姓名");
+                    if(isTip)   xqzs.weui.tip("请填写您的姓名");
                     return false;
                 }else if(!(_this.birthday&&_this.birthday!='')){
                     if(isTip)   xqzs.weui.tip("请选择你的生日");
                     return false;
                 }else if(!(_this.areaId&&_this.areaId!='')){
-                    if(isTip)  xqzs.weui.tip("请选择所在城市");
+                    if(isTip)  xqzs.weui.tip("请选择常驻城市");
                     return false;
                 }
                 return true;
@@ -148,7 +185,7 @@
 
                         _this.user = eval(data.data.data);
                         console.log(_this.user)
-                        _this.sex=_this.user.sex;
+                        _this.sexIndex=_this.user.sex;
                         _this.cardType=_this.user.cardType;
 
                         _this.birthday = _this.user.birthday;
@@ -208,7 +245,7 @@
 
                     },
                     onConfirm: function (result) {
-                       _this.sex=result[0].label
+                       _this.sexIndex=result[0].value
 
                     }
                 });
@@ -358,6 +395,82 @@
 
                 }
             },
+            upload:function (v) {
+                let _this=this;
+                xqzs.wx.takePhotos(['camera','album'],1,_this.uploadpicinfo,_this.alioss,function (filecount) {
+                    _this.showLoad=true;
+
+                },function (json,ix) {
+                    _this.showLoad=false;
+                    if(v==1){
+                        _this.identityFile1 = json.data.path;
+                        cookie.set("identityFile1",escape(_this.identityFile1))
+                    }else{
+                        _this.identityFile2 = json.data.path;
+                        cookie.set("identityFile2",escape(_this.identityFile2))
+                    }
+                    _this.check();
+
+                },function (e) {
+                    console.info(e);
+                })
+            },
+            changeidentityNo:function (v) {
+                let identityNo = $(".identityNo").val();
+
+                if(identityNo!=''){
+                    cookie.set("identityNo",escape(identityNo))
+                }else{
+                    cookie.set("identityNo",'')
+                }
+                this.identityNo=identityNo;
+                this.check()
+            },
+            check:function () {
+                let identityNo= cookie.get("identityNo");
+                let identityFile1 =(cookie.get("identityFile1"));
+                let identityFile2 =(cookie.get("identityFile2"));
+
+                console.log("identityNo:"+identityNo)
+                console.log("identityFile1:"+identityFile1)
+                console.log("identityFile2:"+identityFile2)
+
+                if(identityFile1&&identityFile1!=''&&identityFile2&&identityFile2!=''&&identityNo&&identityNo!=''){
+                    this.canGoNext=true;
+                }else{
+                    this.canGoNext=false;
+                }
+            },
+            msgSubmit: function () {
+                if( !this.checkNext(true)){
+                    return;
+                }
+                let _this = this;
+                let realName = $('.realName').val();
+                let msg = {
+                    "id": _this.user.id,
+                    "realName": realName,
+                    "sex": _this.sexIndex,
+                    "birthday": _this.birthday,
+                    "countryId": 0,
+                    'identityNo':unescape(cookie.get("identityNo")),
+                    'cardImage':[unescape(cookie.get("identityFile1")),unescape(cookie.get("identityFile2"))],
+                    "provinceId": _this.provinceId,
+                    "cityId": _this.cityId,
+                    "areaId": _this.areaId,
+                    "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0
+                };
+                console.log(msg);
+                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
+                    .then(
+                        (response) => {
+                            _this.$router.push("/answer/join/joinmore")
+
+                        }
+                    );
+
+
+            },
 
         },
         components: {
@@ -381,8 +494,9 @@
     .join_stepBox .step_detailBox li .li_right i{background: url('../../../images/arrow.png');width: 0.9411764705882353rem;  height: 0.9411764705882353rem;  background-size: 0.9411764705882353rem;  position: absolute;  right: 0.88235rem;  top: 50%;margin-top: -0.5rem;  }
     .join_stepBox .lut_box{position: absolute;top:0;left:5rem}
     .join_stepBox .lut{float: left;background: #ececec;color: rgba(36,37,61,1);height: 1.76471rem;line-height: 1.76471rem;padding: 0 0.588235rem;margin-top: 0.35294rem;font-size: 0.8235rem;}
-    .join_stepBox .lut.on{float: left;
-        background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
-        color: #fff;}
-
+    .join_stepBox .lut.on{float: left;background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));color: #fff;}
+    .join_subBtn{width:100%;color:#fff;background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1));line-height: 2.588235rem;text-align: center;position: absolute;bottom:0;font-size: 1.0588235rem;}
+    .imgBox{padding-right: 0.88235rem;padding-top:2.35rem;}
+    .imgBox img{display: block;width: 9.4rem;float: left;}
+    .imgBox img:nth-of-type(2){float: right}
 </style>

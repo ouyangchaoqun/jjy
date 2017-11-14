@@ -2,9 +2,6 @@
     <div style="height: 100%" class="wbg answer_join_quali">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>入驻心理咨询师</div>
-        <div class="stepStyle">4/10</div>
-        <div class="joinStep_title">从业资质</div>
-        <div class="sub_title">（如果没有资质证书请选择其它）</div>
         <div>
         <div class="checks">
             <div class="level_types">
@@ -16,22 +13,13 @@
 
             <div v-if="!otherType">
                 <div class="number">
-                    <div class="weui-cell">
-                        <div class="weui-cell__hd"><label class="weui-label">证书编号 <span>*</span></label></div>
-                        <div class="weui-cell__bd">
-                            <input style="color:#666;font-size: 0.8235rem" class="weui-input certificateNo"
+                    <div>
+                        <span>证书编号</span>
+                        <div class="input_box">
+                            <input class="certificateNo"
                                    name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()"
-                                   pattern="[0-9a-zA-Z]*" placeholder="输入编号"/>
+                                   pattern="[0-9a-zA-Z]*"/>
                         </div>
-                    </div>
-                </div>
-
-                <div class="photo">
-                    <div class="weui-cell">
-                        <div class="weui-cell__hd"><label class="weui-label">资质证书 <span>*</span></label></div>
-                        <!--<div class="weui-cell__bd">-->
-                        <!--<div class="upload" @click="upload()"><font>上传证书</font></div>-->
-                        <!--</div>-->
                     </div>
                 </div>
                 <div class="photo_img">
@@ -58,8 +46,8 @@
                 </div>
             </div>
         </div>
-        <v-answer-top-step step="4"  preUrl="./field" nextUrl="./introduce" title="从业资质" errorWord="请填写正确的证书" :canGoNext="canGoNext"></v-answer-top-step>
-
+        <div class="over_nor_btn">保存</div>
+        <div class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
     </div>
 </template>
 
@@ -118,10 +106,6 @@
             xqzs.wx.setConfig(this);
 
         } ,
-        components: {
-            'v-showLoad': showLoad,
-            "v-answer-top-step": answerTopStep
-        },
         methods:{
             initOss:function () {
                 this.uploadpicinfo = {
@@ -200,6 +184,9 @@
                 }else{
                     this.canGoNext=false;
                 }
+            },
+            qua_sure:function () {
+                this.$router.push('joinmore')
             }
             
         }
@@ -212,27 +199,27 @@
     .answer_join_quali .sub_title{font-size: 0.70588235rem; color:#999;line-height: 1; text-align: center;}
     .answer_join_quali  .weui-cells:after, .weui-cells:before,.answer_join_quali  .weui-cell:before{ display: none}
     .answer_join_quali  .weui-check__label{ width: 42%; float:left; font-size: 0.823rem !important}
-
-    .answer_join_quali  .weui-label span{ color:red;}
-    .answer_join_quali .number{ margin-top: 0.8rem;}
-    .answer_join_quali .number,.answer_join_quali .photo{ margin-left: 0.4rem;}
-    .answer_join_quali .number input[type='number'], .upload{ background: #F4F4F7;  height: 2.352941176470588rem;line-height: 2.352941176470588rem; padding:0 0.6rem;font-size: 0.88235rem; border-radius: 0.3rem; width: 80%}
     .answer_join_quali  .upload { text-align: center; color:#A9A7A7}
     .answer_join_quali .upload span{ color:#09bb07; font-size: 1.4rem;line-height: 2.352941176470588rem; vertical-align: bottom
     }
-
+    .number{line-height:2.35rem }
+    .number>div{display: flex;padding-left:1.76471rem;position: relative}
+    .number .input_box{width:65%;position: absolute;right:0.88235rem;}
+    .number span{color:rgba(36,37,61,1);font-size: 0.8235rem;}
     .weui-check__label:active{ background: none}
-    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:0.588235rem;}
+    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:1.176471rem;}
     .answer_join_quali .photo_img .img{background:#f4f4f7;width:9.71rem;height:6.76471rem;position: relative}
     .answer_join_quali .photo_img .img img{ max-height: 100%; max-width: 100%; position: absolute; top:0; left:0; z-index: 100}
     .img div{width:44px;height:44px;border-radius: 50%;background: #fff;text-align: center;line-height: 40px;position: absolute;top:25%;left:50%;margin-left:-22px;}
     .img div b{color:rgba(253,114,6,1);font-size: 1.6rem}
     .img p{color:#A9A7A7;font-size: 0.70588235rem;text-align: center;position: absolute;width:100%;top:75%;}
-    .checks .level_types{padding:0 0.88235rem;padding-top: 4rem}
+    .checks .level_types{padding:0 0.88235rem;padding-top: 1.176471rem}
     .checks .level_types .item{width:38%;float: left;margin:0 6%;margin-bottom: 0.88235rem;position: relative;font-size:0.8235rem;color:#666}
     .checks .level_types .item span{margin-left: 1.470588235rem;}
     .checks .level_item{margin:0;height:14px;width:14px;position: absolute;border-radius: 50%;border:1px solid #D2D2D2;top:0.16rem;left:0}
     .checks .checked_item{border-color: rgba(253,114,6,1)}
     .checks .checked_item::after{  content: '';  width:10px;  height: 10px;  background: rgba(253,114,6,1);  border-radius: 50%;  position: absolute;  top:50%;  margin-top:-5px;  left: 50%;  margin-left:-5px;  }
     .photo,.number .weui-cell__hd{font-size: 0.8235rem;color:#666}
+    .certificateNo{background: rgba(245,245,245,1);height:2.35rem;width: 100%;border-radius: 0.294rem;font-size: 0.76471rem;padding-left:0.588235rem;}
+    .quaBtn{line-height: 2.5294rem;background:linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5));text-align: center;color:rgba(255,255,255,1);font-size: 1.0588235rem;position: absolute;bottom:0;width:100%; }
  </style>

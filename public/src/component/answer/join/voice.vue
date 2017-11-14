@@ -2,9 +2,6 @@
     <div style="height: 100%" class="answer_join_voice wbg">
 
         <div v-title>入驻心理咨询师</div>
-        <div class="stepStyle">9/10</div>
-        <div class="joinStep_title">对来访者的寄语</div>
-        <v-answer-top-step step="9"  preUrl="./sign" nextUrl="./price" title="对来访者的寄语" canGoNext="true"></v-answer-top-step>
         <div class="tip">此至少10秒的语音寄语，将展示给来访者，请录制您对来访者的寄语！</div>
 
 
@@ -70,7 +67,8 @@
 
 
 
-
+        <div class="over_nor_btn" v-if="!localId">保存</div>
+        <div class="over_nor_btn over_per_btn" v-if="localId" @click="goJoinmore()">保存</div>
 
     </div>
 </template>
@@ -271,7 +269,7 @@
     }
 </script>
 <style>
-    .answer_join_voice .tip{  margin:1rem    1.176470588235294rem; font-size: 0.7647058823529412rem; line-height: 1.5; color:#666}
+    .answer_join_voice .tip{  margin:1.76471rem    1.176470588235294rem; font-size: 0.7647058823529412rem; line-height: 1.5; color:rgba(36,37,61,0.5)}
     .answer_join_voice .audio{ margin-left:  15%  !important ; margin-top: 8rem;}
 .pt3{ padding-top: 9rem !important}
 

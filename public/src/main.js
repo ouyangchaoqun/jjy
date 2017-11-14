@@ -42,6 +42,8 @@ let routers =
                 require('./routes/answer/my/set_qualification'),
                 require('./routes/answer/join/mobile'),
                 require('./routes/answer/join/join_step'),
+                require('./routes/answer/join/joinmore'),
+                require('./routes/answer/join/personal'),
                 require('./routes/answer/join/base_info'),
                 require('./routes/answer/join/field'),
                 require('./routes/answer/join/qualification'),
