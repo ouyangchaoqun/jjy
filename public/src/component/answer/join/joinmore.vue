@@ -1,10 +1,13 @@
 <template >
     <div class="joinmore_box">
         <div v-title>入驻心理咨询师</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <header>
             <div class="headerImg_box">
-                <div class="headerImg"></div>
-                <img src="../../../images/joinAddImg.png" alt="">
+                <div class="headerImg" @click="changeHeadpic()">
+                    <img v-if="faceUrl!=''" :src="faceUrl" style="height: 100%; width: 100%">
+                </div>
+                <img class="smallImg" src="../../../images/joinAddImg.png" alt="">
             </div>
             <p><span>*</span>(设置头像，请选择一个清晰，辨识度高的个人照片作为头像，以便在用户心中建立您的个人品牌。）</p>
         </header>
@@ -76,9 +79,12 @@
 </template>
 
 <script type="es6">
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
+                showLoad:false,
+                faceUrl:'',
                 types:[],
                 MAX_COUNT:3,
                 showTypes:false,
@@ -106,11 +112,13 @@
                 }],
                 freeTime:null,
                 freeTimeText:'',
+                canGoNext:false
             }
         },
 
         mounted: function () {
             this.getClassList()
+            this.getExpertByUserId();
             let sign= (cookie.get("sign"));
             let price = cookie.get("price");
             if(price)this.price= price;
@@ -121,6 +129,40 @@
 
         } ,
         methods:  {
+            getExpertByUserId:function () {
+                let _this=this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1&&data.body.data!=null) {
+
+                        _this.faceUrl = data.data.data.faceUrl;
+                    }
+                }, function (error) {
+                });
+            },
+            changeHeadpic:function () {
+                let _this=this;
+                xqzs.image.showClip(this.uploadpicinfo,this.alioss,function(){
+                    _this.showLoad=true;
+                },function (json,ix) {
+                    _this.showLoad=false;
+                    _this.faceUrl=json.data.path;
+                    _this.canGoNext=_this.checkNext();
+//
+//                    let data ={
+//
+//                        faceUrl: _this.faceUrl,
+//                        expertId:cookie.get("expertId"),
+//                        userId:"_userId_"
+//                    }
+//                    _this.$http.post(web.API_PATH + "come/expert/modify", data)
+//                        .then(function (bt) {
+//                            if (bt.data && bt.data.status == 1) {
+//
+//                            }
+//                        });
+                    xqzs.image.hideClip()
+                });
+            },
             selectType: function () {
                 let _this=this;
                 _this.showTypes=true;
@@ -222,9 +264,15 @@
             },
             goVoice:function () {
                 this.$router.push('voice')
-            }
+            },
+            beforeDestroy:function () {
+                xqzs.image.hideClip()
+            },
 
         },
+        components: {
+            'v-showLoad': showLoad,
+        }
 
     }
 </script>
@@ -235,7 +283,7 @@
     .joinmore_box header p{position: absolute;bottom:1.176471rem;}
     .joinmore_box header .headerImg_box{width:5.1471rem;height:5.1471rem;background: #fff;margin:0 auto;position: relative;top:1.471rem;}
     .joinmore_box header .headerImg{width:5.1471rem;height:5.1471rem;background: url("../../../images/joinHeaderImg.png") no-repeat;background-size: 100% 100%;}
-    .joinmore_box header .headerImg_box img{position: absolute;right:-1rem;bottom:-0.5rem;width:2rem;height:2rem;}
+    .joinmore_box header .headerImg_box .smallImg{position: absolute;right:-1rem;bottom:-0.5rem;width:2rem;height:2rem;}
     .joinmore_box .title{border-bottom:1px solid rgba(224,224,225,1);color:rgba(36,37,61,1);font-size: 0.8235rem;line-height: 2.529rem;padding-left:1.8235rem;padding-right:0.88235rem;position: relative}
     .title span{color:rgba(255,0,0,1);font-size: 0.76471rem;position: absolute;left:0.88235rem;height:2rem;top:50%;margin-top:-1rem;line-height: 2.2rem;}
     .title i{font-style: normal;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-left: 0.6471rem;}
