@@ -112,13 +112,16 @@
                 }],
                 freeTime:null,
                 freeTimeText:'',
-                canGoNext:false
+                canGoNext:false,
+                alioss:null,
+                uploadpicinfo:null,
             }
         },
 
         mounted: function () {
             this.getClassList()
             this.getExpertByUserId();
+            this.initOss();
             let sign= (cookie.get("sign"));
             let price = cookie.get("price");
             if(price)this.price= price;
@@ -129,6 +132,20 @@
 
         } ,
         methods:  {
+            initOss:function () {
+                this.uploadpicinfo = {
+                    token: xqzs.string.guid(),
+                    smallpic: xqzs.constant.PIC_SMALL,
+                    middlepic: xqzs.constant.PIC_MIDDLE,
+                    removepicurl: web.BASE_PATH + 'api/removepicture',
+                    uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                    aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
+                };
+                this.alioss = new aliyunoss({
+                    url:this.uploadpicinfo.aliossgeturl,
+                    token:this.uploadpicinfo.token
+                });
+            },
             getExpertByUserId:function () {
                 let _this=this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
