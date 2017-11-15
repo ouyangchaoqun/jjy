@@ -455,7 +455,6 @@
                     .then(
                         (response) => {
                             _this.$router.push("/answer/join/joinmore")
-
                         }
                     );
 
