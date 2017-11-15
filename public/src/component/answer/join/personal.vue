@@ -100,8 +100,22 @@
                 cookie.set("field",escape(field));
             },
             personalOver:function () {
+                let _this = this;
+                let data={
+                    userId:"_userId_",
+                    expertId:cookie.get("expertId"),
+                    introduction:unescape(cookie.get("introduction")),
+                    experience:unescape(cookie.get("experience")),
+                    goodat:unescape(cookie.get("goodAt")),
+                };
+                _this.$http.post(web.API_PATH + 'come/expert/modify', data)
+                    .then(
+                        (response) => {
+                            _this.$router.push('joinmore')
 
-                this.$router.push('joinmore')
+                        }
+                    );
+
             }
 
         }

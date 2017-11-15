@@ -186,7 +186,23 @@
                 }
             },
             qua_sure:function () {
-                this.$router.push('joinmore')
+                let _this = this;
+                let data={
+                    userId:"_userId_",
+                    expertId:cookie.get("expertId"),
+                    jobTitle:unescape(cookie.get("jobTitle")),
+                    certificateNo:unescape(cookie.get("certificateNo")),
+                    certificateFile:[unescape(cookie.get("certificateFile1")),unescape(cookie.get("certificateFile2"))]
+
+                };
+                _this.$http.post(web.API_PATH + 'come/expert/modify/certificate', data)
+                    .then(
+                        (response) => {
+                           console.log(1111)
+
+                        }
+                    );
+
             }
             
         }

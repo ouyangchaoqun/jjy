@@ -15,15 +15,16 @@
             <span>*</span>
             擅长领域 <i>(最多可选三个)</i>
         </div>
-        <div class="title_bottom">
-            <div class="addClass" @click="selectType()">+</div>
+        <div class="title_bottom" @click="selectType()">
+            <div v-if="classType.length==0" class="addClass" @click="selectType()">+</div>
+            <span class="class_style" v-if="classType" v-for="item in classType">{{item.title}}</span>
         </div>
         <div class="title">
             <span>*</span>
             从业资质 <i>（如果没有资质证书请选择其他）</i>
         </div>
         <div class="title_bottom">
-            <span class="bottom_left">必填</span>
+            <span class="bottom_left">{{jobTitle}}</span>
             <span class="bottom_right" @click="goQualification()">编辑</span>
         </div>
         <div class="title">
@@ -31,7 +32,7 @@
             自我介绍
         </div>
         <div class="title_bottom">
-            <span class="bottom_left">必填</span>
+            <span class="bottom_left">{{introduction}}</span>
             <span class="bottom_right" @click="goPersonal()">编辑</span>
         </div>
         <div class="title">
@@ -47,7 +48,18 @@
             60秒语音寄语
         </div>
         <div class="title_bottom">
-            <span class="bottom_left">必填</span>
+            <span class="bottom_left">
+                 <div class="audio">
+                    <div class="audio_btn" @click.stop="play(index)">
+                        <template >点击播放</template><!--v-if="!item.playing&&!item.paused"-->
+                        <!--<template v-if="item.playing">正在播放..</template>-->
+                        <!--<template v-if="item.paused">播放暂停</template>-->
+                        <div class="second"></div><!--{{item.voiceLength}}”-->
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </span>
             <span class="bottom_right" @click="goVoice()">编辑</span>
         </div>
         <div class="title">
@@ -62,6 +74,8 @@
                 <input type="" readonly  :value="freeTimeText">
             </div>
         </div>
+        <div class="subBtn_nor">提交</div>
+        <div class="subBtn_nor subBtn_per">提交</div>
 
         <div id="select_type" class="select_type" v-show="showTypes" @click="select_typeFlag()">
             <div class="dialog_select_type">
@@ -71,7 +85,7 @@
                 </div>
                 <div class="yes">
                     <div>取消</div>
-                    <div>确定</div>
+                    <div @click="sureClass()">确定</div>
                 </div>
             </div>
         </div>
@@ -83,12 +97,13 @@
     export default {
         data() {
             return {
+                classType:[],
                 showLoad:false,
                 faceUrl:'',
                 types:[],
                 MAX_COUNT:3,
                 showTypes:false,
-                sign:'必填',
+                sign:'',
                 price:'10',
                 times:[{
                     label: '不免费',
@@ -115,21 +130,25 @@
                 canGoNext:false,
                 alioss:null,
                 uploadpicinfo:null,
+                introduction:'',
+                jobTitle:'',
+
             }
         },
 
         mounted: function () {
+            this.getGoodAt()
             this.getClassList()
             this.getExpertByUserId();
             this.initOss();
             let sign= (cookie.get("sign"));
+            console.log(sign)
             let price = cookie.get("price");
             if(price)this.price= price;
             if(sign&&sign!=''){
                 this.sign=unescape(sign)
             }
             xqzs.wx.setConfig(this);
-
         } ,
         methods:  {
             initOss:function () {
@@ -148,9 +167,14 @@
             },
             getExpertByUserId:function () {
                 let _this=this;
-                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                let expertId=cookie.get("expertId");
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+expertId+'/_userId_' ).then(function (data) {//es5写法
+                    console.log(data.data.data)
                     if (data.body.status == 1&&data.body.data!=null) {
-
+                        _this.jobTitle = data.data.data.jobTitle||'必填';
+                        _this.sign = data.data.data.sign||'必填';
+                        _this.introduction = data.data.data.introduction||'必填';
+                        _this.freeTimeText=data.data.data.freeTime;
                         _this.faceUrl = data.data.data.faceUrl;
                     }
                 }, function (error) {
@@ -182,28 +206,33 @@
             },
             selectType: function () {
                 let _this=this;
+                for (let i = 0,l=_this.types.length; i < l; i++) {
+                    for (let j = 0, jl = _this.classType.length; j < jl; j++) {
+                        if(_this.types[i].id == _this.classType[j].classId){
+                            _this.types[i].isSelect = true;
+                            _this.$set(_this.types, i, _this.types[i]);
+                        }
+                    }
+                }
                 _this.showTypes=true;
 
+            },
+            getGoodAt:function () {
+                let _this = this;
+                let expertId=cookie.get("expertId");
+                _this.$http.get(web.API_PATH + 'come/expert/good/at/'+expertId ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        console.log(data.data.data)
+                        _this.classType = data.data.data;
+                    }
+                }, function (error) {
+                });
             },
             getClassList:function () {
                 let _this=this;
                 _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         _this.types= data.body.data;
-                        let questionClassId = cookie.get("questionClassId")
-                        if(questionClassId&&questionClassId!=''){
-                            _this.canGoNext=true;
-                            let ids=  questionClassId.split(",")
-                            for(let i=0;i<_this.types.length;i++){
-                                for(let j =0;j<ids.length;j++){
-                                    if(_this.types[i].id==ids[j]){
-                                        _this.types[i].isSelect=true;
-                                    }
-                                }
-                            }
-                        }else{
-                            _this.canGoNext=false;
-                        }
                     }
                 }, function (error) {
                 });
@@ -213,40 +242,37 @@
               _this.showTypes = false
             },
             select:function (index) {
-                let count=0;
-                let types=this.types;
-                console.log(index)
-                if(types[index].isSelect){
-                    types[index].isSelect=false
-                }else{
-                    for(let i=0;i<types.length;i++){
-                        if(types[i].isSelect){
+                let count = 0;
+                let types = this.types;
+                //
+                if (types[index].isSelect) {
+                    types[index].isSelect = false
+                } else {
+                    for (let i = 0; i < types.length; i++) {
+                        if (types[i].isSelect) {
                             count++
                         }
                     }
 
-                    if( count>=this.MAX_COUNT){
+                    if (count >= this.MAX_COUNT) {
 
-                    }else{
-                        types[index].isSelect=true
+                    } else {
+                        types[index].isSelect = true
                     }
                 }
-                this.$set(this.types,index,types[index]);
-                //存入cookie
-                let ids= '';
-                for(let i=0;i<types.length;i++){
-                    if(types[i].isSelect){
-                        ids+=types[i].id+",";
+                this.$set(this.types, index, types[index]);
+                //
+                console.log(this.classType)
+            },
+            sureClass:function () {
+                var selectClassTypes = [];
+                for (let i = 0,l=this.types.length,_ci =0; i < l; i++) {
+                    if (this.types[i].isSelect) {
+                        selectClassTypes.push(this.types[i]);
                     }
                 }
-
-                if(ids.length>0){
-                    ids=ids.substr(0,ids.length-1);
-                    this.canGoNext=true;
-                }else{
-                    this.canGoNext=false;
-                }
-                cookie.set("questionClassId",ids);
+                console.info(selectClassTypes)
+                this.classType = selectClassTypes;
             },
             changePrice:function () {
                 let price= $(".priceInput").val()
@@ -285,6 +311,71 @@
             beforeDestroy:function () {
                 xqzs.image.hideClip()
             },
+            initVoice:function () {
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
+            play:function (index) {
+                this.initVoice();
+                let _this=this;
+                console.log(_this.detail.answers)
+                let list = _this.detail.answers;
+                xqzs.voice.onEnded=function () {
+                    list[index].paused=false;
+                    list[index].playing=false;
+                    _this.$set(_this.detail.answers,index,list[index])
+                };
+                //重置其他列表内容
+                for(let i = 0;i<list.length;i++){
+                    if(index!=i&&(list[i].playing||list[i].paused)){
+                        list[i].paused=false;
+                        list[i].playing=false;
+                        _this.$set(_this.detail.answers,i,list[i]);
+                    }
+                }
+                let item= this.detail.answers[index];
+                if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    list[index].paused=false;
+                    list[index].playing=true;
+                    _this.$set(_this.list,index,list[index])
+                    xqzs.voice.play();
+                }else{
+                    if(item.playing){    //播放中去做暂停操作
+                        list[index].paused=true;
+                        list[index].playing=false;
+                        _this.$set(_this.detail.answers,index,list[index])
+                        xqzs.voice.pause();
+                    }else{     //重新打开播放
+                        let answerId= item.answerId;
+                        this.getVoiceUrl(answerId,function (url) {
+                            xqzs.voice.play(url);
+                            list[index].playing=true;
+                            list[index].paused=false;
+                            _this.$set(_this.detail.answers,index,list[index])
+                        })
+                    }
+
+                }
+
+            },
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
 
         },
         components: {
@@ -304,13 +395,17 @@
     .joinmore_box .title{border-bottom:1px solid rgba(224,224,225,1);color:rgba(36,37,61,1);font-size: 0.8235rem;line-height: 2.529rem;padding-left:1.8235rem;padding-right:0.88235rem;position: relative}
     .title span{color:rgba(255,0,0,1);font-size: 0.76471rem;position: absolute;left:0.88235rem;height:2rem;top:50%;margin-top:-1rem;line-height: 2.2rem;}
     .title i{font-style: normal;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-left: 0.6471rem;}
-    .title_bottom{line-height:1;border-bottom: 0.471rem solid rgba(245,245,245,1);padding:1.176471rem 0.88235rem 1.176471rem 1.6rem;}
+    .title_bottom{border-bottom: 0.471rem solid rgba(245,245,245,1);padding:0.588235rem 0.88235rem 0.588235rem 1.6rem;position: relative}
     .title_bottom .set_box{background: rgba(245,245,245,1);line-height: 2.35rem;color:rgba(36,37,61,0.5);font-size: 0.76471rem;padding-left: 0.588235rem;}
     .title_bottom .set_box input{margin-left:1rem;line-height:2.35rem;color:rgba(253,115,1,1);border:0;outline: none;background: none;font-size: 0.76471rem;width:50%;}
     .title_bottom .setPrice_box{margin-bottom: 0.941rem;}
     .addClass{width:5.294rem;height:2.1176471rem;background: rgba(245,245,245,1);border-radius: 0.1471rem;color:rgba(224,224,225,1);text-align: center;font-size: 2rem;line-height:1.85rem;}
-    .bottom_left{font-size: 0.76471rem;color:rgba(36,37,61,0.5)}
-    .bottom_right{font-size: 0.70588235rem;color:rgba(253,115,1,1);float: right;margin-top: 0.176471rem;}
+    .bottom_left{font-size: 0.76471rem;color:rgba(36,37,61,0.5);display: inline-block;width:85%;overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;}
+    .bottom_right{font-size: 0.70588235rem;color:rgba(253,115,1,1);float: right;position: absolute;right:0.88235rem;top:0.588235rem;}
     .select_type{width:100%;height:100%;background: rgba(36,37,61,0.7);position: absolute;top:0;}
     .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:16rem; position: fixed;
         top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;overflow: hidden}
@@ -324,4 +419,7 @@
     .yes div{flex: 1}
     .yes div:active{background: #eee}
     .yes div:nth-of-type(1){border-right:1px solid rgba(224,224,225,1)}
+    .title_bottom .class_style{font-size: 0.7058823529411765rem;background: rgba(253,115,1,1);color:#fff;margin-right: 0.588235rem;padding: 0.294rem 0.588235rem;border-radius: 0.294rem;}
+    .joinmore_box .subBtn_nor{background: linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5)); line-height: 2.588235rem;color:rgba(255,255,255,1);font-size: 1.0588235rem;text-align: center;margin-top: 1.4rem;}
+    .joinmore_box .subBtn_per{background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1)); }
 </style>
