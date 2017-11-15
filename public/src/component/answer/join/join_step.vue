@@ -77,15 +77,6 @@
                         <i></i>
                     </div>
                 </li>
-                <span>{{realName}}</span>---
-                <span>{{birthday}}</span>---
-                <span>{{provinceName}}</span>---
-                <span>{{cityName}}</span>---
-                <span>{{areaName}}</span>---
-                <span>{{identityNo}}</span>---
-                <span>{{identityFile1}}</span>---
-                <span>{{identityFile2}}</span>---
-                <span>{{mobileVal}}</span>
             </ul>
             <div class="imgBox">
                 <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
@@ -95,8 +86,8 @@
             </div>
         </div>
 
-        <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
-        <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
+        <div class="joinStep_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
+        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
 
     </div>
 </template>
@@ -494,7 +485,9 @@
     .join_stepBox .lut_box{position: absolute;top:0;left:5rem}
     .join_stepBox .lut{float: left;background: #ececec;color: rgba(36,37,61,1);height: 1.76471rem;line-height: 1.76471rem;padding: 0 0.588235rem;margin-top: 0.35294rem;font-size: 0.8235rem;}
     .join_stepBox .lut.on{float: left;background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));color: #fff;}
-    .imgBox{padding-right: 0.88235rem;padding-top:2.35rem;}
+    .imgBox{padding-right: 0.88235rem;padding-top:2.35rem;height:6.0294rem;margin-bottom: 4rem}
     .imgBox img{display: block;width: 9.4rem;float: left;height:6.0294rem}
     .imgBox img:nth-of-type(2){float: right}
+    .join_stepBox .joinStep_nor_btn{width:100%;background: linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5));    font-size: 1.0588235rem;text-align: center;line-height: 2.5294rem;color:rgba(255,255,255,1)}
+    .join_stepBox .joinStep_per_btn{background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1)); }
 </style>
