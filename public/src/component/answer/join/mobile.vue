@@ -25,7 +25,7 @@
             </div>
             <div>
                 <button id="sublim" href="javascript:;" class="weui-btn  weui-btn_primary"
-                        :class="{'weui-btn_disabled':!isAllInput}" @click="submit()">确定
+                        :class="{'weui-btn_disabled':!isAllInput}" @click.stop="submit()">确定
                 </button>
             </div>
         </div>
@@ -33,9 +33,6 @@
 </template>
 
 <script>
-    var validate = {
-        template: '#validate'
-    }
     export default {
         data() {
             return {
@@ -58,9 +55,13 @@
         },
         mounted: function () {
             let _this = this;
-
+            $('.answer_join_mobile_box').click(function () {
+                $('.answer_join_mobile_box').hide()
+            })
+            $('.input_phone,.input_code,#_phonebtn').click(function (e) {
+                e.stopPropagation();
+            });
             $('.input_phone').keyup(function () {
-
                 var length = _this.mobile.length;
                 if (length == 11) {
                     if (xqzs.string.checkUserPhoneReg(_this.mobile)) {
@@ -77,9 +78,9 @@
                     _this.isAllInput =false;
                 }
                 console.log(_this.isMobileRight)
-            });
+            })
             $('.input_code').keyup(function () {
-
+                event.stopPropagation();
                 var len = $(".input_code").val().length;
                 if (len == 4) {
                     _this.isErrorCode = false;
@@ -95,22 +96,20 @@
 
             //获得焦点
             $('.input_phone').focus(function () {
+                event.stopPropagation();
                 _this.isShowErrorMobileMsg = false;
             });
             xqzs.wx.setConfig(_this);
         },
         methods: {
             submit:function () {
-
-
-
                 let _this = this;
-
                 if(_this.isAllInput==true){
                     _this.$http.post(web.API_PATH + 'user/update/mobile/by/code/mobile/_userId_', {mobile: _this.mobile,code:_this.code}).then(response => {
                         if (response.data.status === 1) {
                             xqzs.weui.toast("success","验证成功",function () {
-                                _this.$router.push('./base/info');
+                                $('.mobile_box').hide()
+                                $('.li_right .mobile').text(_this.mobile)
                             })
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){
@@ -192,29 +191,36 @@
     }
 </script>
 <style type="text/css">
-    .validate_box {
+    .answer_join_mobile_box{
+        height:100%;
+        width:100%;
+        position: absolute;
+        top:0;
+        z-index: 100;
+    }
+    .answer_join_mobile_box .validate_box {
         padding: 20px 15px;
         background: #fff;
         height: 100%;
     }
 
-    .validate_top {
+    .answer_join_mobile_box .validate_top {
         margin-bottom: 32px;
     }
 
-    .validate_top h1 {
+    .answer_join_mobile_box .validate_top h1 {
         font-size: 18px;
         color: #333; text-align: center;
         margin-bottom: 18px;
     }
 
-    .validate_top p {
+    .answer_join_mobile_box .validate_top p {
         font-size: 15px;
         color: #878686;
         text-align: center;
     }
 
-    input {
+    .answer_join_mobile_box input {
         height: 20px;
         outline: none;
         line-height: 20px;
@@ -230,25 +236,25 @@
         text-align: center;
     }
 
-    .input_phone {
+    .answer_join_mobile_box .input_phone {
         font-size: 15px;
         color: #333333;
 
     }
 
-    .input_code {
+    .answer_join_mobile_box .input_code {
         font-size: 15px;
         width: 100%;
         color: #333333;
     }
 
-    .validate_div {
+    .answer_join_mobile_box .validate_div {
         height: 44px;
         margin-bottom: 26px;
         position: relative;
     }
 
-    .validate_phone {
+    .answer_join_mobile_box .validate_phone {
         border: 1px solid #D2D2D2;
         height: 44px;
         border-radius: 5px;
@@ -265,7 +271,7 @@
         font-size: 14px;
     }
 
-    .validate_code {
+    .answer_join_mobile_box .validate_code {
         height: 44px;
         border: 1px solid #d2d2d2;
         border-radius: 5px;
@@ -293,19 +299,19 @@
 
 
 
-    input:-ms-input-placeholder {
+    .answer_join_mobile_box  input:-ms-input-placeholder {
         color: rgba(0, 0, 0, 0.2);
     }
 
-    input::-webkit-input-placeholder {
+    .answer_join_mobile_box input::-webkit-input-placeholder {
         color: rgba(0, 0, 0, 0.2);
     }
 
-    input::-moz-placeholder {
+    .answer_join_mobile_box  input::-moz-placeholder {
         color: rgba(0, 0, 0, 0.2)
     }
 
-    input:-moz-placeholder {
+    .answer_join_mobile_box input:-moz-placeholder {
         color: rgba(0, 0, 0, 0.2);
     }
 </style>
