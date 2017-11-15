@@ -31,14 +31,14 @@
             <!--操作按钮-->
             <div class="action_btn" v-if="preAnswer">
 
-                <div class="item" v-if="finish">
+                <div class="item" >
                     <div class="re_start" @click="reStart()">重录</div>
                 </div>
                 <div class="item" style="flex: 2" >
                 </div>
 
 
-                <div class="item" v-if="finish">
+                <div class="item">
                     <div class="send" :class="{cant_send:voiceLength<MIN_VOICE_LENGTH}" @click="send()">完成</div>
                 </div>
 
