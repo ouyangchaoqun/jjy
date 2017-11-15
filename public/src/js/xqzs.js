@@ -1496,11 +1496,12 @@ document.addEventListener("visibilitychange", function () {
             that.timer = setInterval( function(){
                 num += that.speed;
                 that.maxNum = num;
-                $('.move').css('transform', "rotate(" + num + "deg)")
+                $('.record_voice_box .move').css('transform', "rotate(" + num + "deg)")
                 if(num<=180){
-                    $('.right').css('transform', "rotate(" + num + "deg)");
+                    $('.record_voice_box .left').css('transform', "rotate(" + 0 + "deg)");
+                    $('.record_voice_box .right').css('transform', "rotate(" + num + "deg)");
                 }else{
-                    $('.left').css('transform', "rotate(" + (num-180) + "deg)");
+                    $('.record_voice_box .left').css('transform', "rotate(" + (num-180) + "deg)");
                 }
                 if(num>=360){
                     clearInterval (that.timer)
@@ -1523,6 +1524,7 @@ document.addEventListener("visibilitychange", function () {
                 callbackPlay()
             }
             that.clearTimer();
+
             var num = that.currentnum ;
             //  console.log(num+'  kaishi');
             var isEnd = false;
@@ -1538,11 +1540,12 @@ document.addEventListener("visibilitychange", function () {
                     return;
                 }
                 that.currentnum = num;
-                $('.move').css('transform', "rotate(" + num + "deg)")
+                $('.record_voice_box .move').css('transform', "rotate(" + num + "deg)")
                 if(num<=180){
-                    $('.right').css('transform', "rotate(" + num + "deg)");
+                    $('.record_voice_box .left').css('transform', "rotate(" + 0 + "deg)");
+                    $('.record_voice_box .right').css('transform', "rotate(" + num + "deg)");
                 }else{
-                    $('.left').css('transform', "rotate(" + (num-180) + "deg)");
+                    $('.record_voice_box  .left').css('transform', "rotate(" + (num-180) + "deg)");
                 }
             },100)
             if(!isEnd){

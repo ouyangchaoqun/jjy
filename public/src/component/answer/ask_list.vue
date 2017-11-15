@@ -117,7 +117,7 @@
 
             },
             answer:function (askId) {
-                this.$router.push("../answer?askId="+askId)
+                this.$router.push("/answer/answer?askId="+askId)
             },
             formatDateText:function (time) {
                 return xqzs.dateTime.getTimeFormatLastText(time)

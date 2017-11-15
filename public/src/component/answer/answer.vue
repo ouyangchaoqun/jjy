@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="record_voice_box" v-if="!isAnswered">
+        <div class="record_voice_box" v-if="!isAnswered&&!outTime">
             <div class="time_in">
                 <div>{{answerTime}}"</div>
 
