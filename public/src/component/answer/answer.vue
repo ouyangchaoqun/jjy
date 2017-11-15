@@ -34,6 +34,23 @@
 
 
 
+        <div class="circle" style="left:50px">
+            <div class="pie_left">
+                <div class="left"></div>
+            </div>
+            <div class="pie_right">
+                <div class="right"></div>
+            </div>
+
+            <div class="gg"></div>
+            <div class="move">
+                <div class="qq"></div>
+            </div>
+
+            <div class="mask">开始录音</div>
+        </div>
+
+
         <!--播放状态-->
         <div class="addPlayBox">
             <div class="time_go"  v-if="!isAnswered" :class="{play_go:answering||playing}">
@@ -88,6 +105,133 @@
 </template>
 
 <script type="es6">
+
+
+    (function(){
+        var myVedio = function(obj){
+            this.obj = obj||undefined;
+            this.speed = 0.6;
+            this.timer = null;
+            this.currentnum = 0;
+            this.maxnum = 360;
+            this.callbackStart=undefined;
+            this.callbackEnd=undefined;
+            this.callbackPlay=undefined;
+            this.callbackPause=undefined;
+
+        }
+        myVedio.prototype = {
+            init:function(callbackStart,callbackEnd,callbackPlay,callbackPause){
+                var that = this;
+                that.callbackStart=callbackStart;
+                that.callbackEnd=callbackEnd;
+                that.callbackPlay=callbackPlay;
+                that.callbackPause=callbackPause;
+                that.obj.bind('click',function(){
+                    that.start(that.callbackStart);
+                })
+            },
+            config:function(config){
+                // zidingyi canshu
+                //
+                this.obj = config.obj;
+                this.bth = this.obj.find('.mask');
+                return this;
+            },
+            initStart:function(){
+                // chongzhi
+                this.currentnum = 0;
+                this.maxnum = 360;
+                $('.right').css('transform', "rotate(0)");
+                $('.move').css('transform', "rotate(0)")
+                $('.left').css('transform', "rotate(0)");
+            },
+            clearTimer:function(){
+                if(this.timer){
+                    clearInterval (this.timer)
+                }
+            },
+            start:function(callbackStart){
+                var that = this;
+                if(callbackStart&&typeof(callbackStart)=='function'){
+                    callbackStart()
+                }
+                that.initStart();
+                that.bth.html('结束录音')
+                that.obj.unbind('click').bind('click',function(){that.end(that.callbackEnd)})
+                var num=0 ;
+                that.timer = setInterval( function(){
+                    num += that.speed;
+                    that.maxNum = num;
+                    $('.move').css('transform', "rotate(" + num + "deg)")
+                    if(num<=180){
+                        $('.right').css('transform', "rotate(" + num + "deg)");
+                    }else{
+                        $('.left').css('transform', "rotate(" + (num-180) + "deg)");
+                    }
+                    if(num>=360){
+                        clearInterval (that.timer)
+                    }
+                },100)
+            },
+            end:function(callbackEnd){
+                var that = this;
+                if(callbackEnd&&typeof(callbackEnd)=='function'){
+                    callbackEnd()
+                }
+                that.bth.html('试听');
+                that.obj.unbind('click').bind('click',function(){that.play(that.callbackPlay)})
+                that.clearTimer();
+            },
+            play:function(callbackPlay){
+                var that = this;
+                if(callbackPlay&&typeof(callbackPlay)=='function'){
+                    callbackPlay()
+                }
+                that.clearTimer();
+                var num = that.currentnum ;
+              //  console.log(num+'  kaishi');
+                var isEnd = false;
+                that.timer = setInterval( function(){
+                    num = (num || 0)+that.speed;
+                    console.log(num+'  kaishi');
+                    if(num>=that.maxNum){
+                        that.clearTimer();
+                        that.bth.html('播放完毕')
+                        isEnd = true;
+                        that.obj.unbind('click');
+                        return;
+                    }
+                    that.currentnum = num;
+                    $('.move').css('transform', "rotate(" + num + "deg)")
+                    if(num<=180){
+                        $('.right').css('transform', "rotate(" + num + "deg)");
+                    }else{
+                        $('.left').css('transform', "rotate(" + (num-180) + "deg)");
+                    }
+                },100)
+                if(!isEnd){
+                    that.obj.unbind('click').bind('click',function(){that.pause(that.callbackPause)})
+                }
+                that.bth.html('播放中..')
+            },
+            pause:function(callbackPause){
+                if(callbackPause&&typeof(callbackPause)=='function'){
+                    callbackPause()
+                }
+                var that = this;
+                that.clearTimer();
+                that.obj.unbind('click').bind('click',function(){
+                    that.play(that.callbackPlay);
+                })
+                $('.mask').html('继续试听')
+            },
+        }
+        window['myVideo'] = new myVedio();
+    }())
+
+
+
     import showLoad from '../include/showLoad.vue';
     export default {
         data() {
@@ -122,9 +266,7 @@
 
             });
             xqzs.wx.setConfig(_this);
-
-
-
+            myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play(),_this.play());
 
         },
         methods: {
@@ -162,6 +304,8 @@
 
             clearTimeOut:function () {
                 let _this=this;
+                console.log("_this.timeOut_this.timeOut_this.timeOut_this.timeOut")
+                console.log(_this.timeOut)
                 if(_this.timeOut!==null){
                     clearTimeout(_this.timeOut);
                 }
@@ -271,6 +415,7 @@
             },
             stop:function () { //停止录制
 
+                console.log("stopstopstopstopstop")
                 let _this = this;
 
                 _this.isOver = true;
@@ -391,4 +536,60 @@
     .answer_answer_box .overStyle{background: #00B9E8;}
     .answer_answer_box .outTimeStyle{background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4))}
     .answer_answer_box .addPlayBox{position: absolute;bottom:2rem;width:100%;}
+
+
+
+    .gg{width:100px;height:100px;position: absolute;background: #E4E4E5;border-radius: 50%;top:50%;left:50%;margin-left:-50px;margin-top:-50px;}
+    .move{position: relative;}
+    .qq{width:12px;height:12px;border-radius: 50%;background:#4493FF;top:-4px;left:50%;margin-left: -6px;position: absolute;}
+    .circle {
+        width: 108px;
+        height: 108px;
+        position: relative;
+        border-radius: 50%;
+        background: #4493FF;
+        top:50px;
+    }
+    .move{
+        width: 108px;
+        height: 108px;
+        position: absolute;
+        border-radius: 50%;
+    }
+    .pie_left, .pie_right {
+        width:108px;
+        height:108px;
+        position: absolute;
+        top: 0;left: 0;
+    }
+    .left, .right {
+        width:108px;
+        height:108px;
+        background:#E4E4E5;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .pie_right, .right {
+        clip:rect(0,auto,auto,54px);
+
+    }
+    .pie_left, .left {
+        clip:rect(0,54px,auto,0);
+    }
+    .mask {
+        width:90px;
+        height: 90px;
+        border-radius: 50%;
+        background:#FE7301 100%;
+        position: absolute;
+        top:50%;
+        left:50%;
+        margin-top:-45px;
+        margin-left:-45px;
+        text-align: center;
+        line-height: 80px;
+        color:#fff;
+    }
 </style>

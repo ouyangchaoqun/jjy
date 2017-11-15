@@ -16,7 +16,7 @@
             </div>
             <div class="text_area">
                 <p v-if="isSelectAnswer">你匿名提问的回答每被偷听一次，你分成¥0.5</p>
-                <textarea v-if="isSelectAnswer" class="content"></textarea>
+                <textarea v-if="isSelectAnswer" class="content answer_select"></textarea>
                 <textarea v-if="!isSelectAnswer" class="content"
                           placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
                 <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
@@ -357,7 +357,7 @@
         font-size: 0.8235rem;
         line-height: 1;
         color:rgba(36,37,61,0.5);
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
     .asker_ask_box .text_area .price{
         color: rgba(253,114,6,1);
@@ -438,4 +438,6 @@
     .asker_ask_box .ask_type_new .select_box div{flex:1;color:rgba(36,37,61,0.7);font-size: 0.88235rem;background: rgba(245,245,245,1);border-radius: 5px;}
     .asker_ask_box .ask_type_new .select_box div:nth-of-type(2){margin:0 0.88235rem;}
     .asker_ask_box .ask_type_new .select_box .on_new{background: rgba(253,114,6,1);color:#fff;}
+    .asker_ask_box  .text_area .content{ font-size: 0.88235rem; color:#333; height: 90%; line-height: 1.5}
+    .asker_ask_box  .text_area  .answer_select{ height: 70%}
 </style>
