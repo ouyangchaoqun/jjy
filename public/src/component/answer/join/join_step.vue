@@ -48,7 +48,7 @@
                 <li>
                     <span class="li_left">*</span>手机号码
                     <div class="li_right" @click="goMobile()">
-                        <div class="mobile">{{mobile}}</div>
+                        <div class="mobile">{{mobileVal}}</div>
                         <i></i>
                     </div>
                 </li>
@@ -121,7 +121,7 @@
                 identityFile1:'',
                 identityFile2:'',
                 email:'',
-                mobile:'',
+                mobileVal:'',
                 realName:'',
                 mobileBox:false
 
@@ -176,7 +176,7 @@
                         _this.sexIndex=_this.user.sex;
                         _this.cardType=_this.user.cardType;
                         _this.email = _this.user.email;
-                        _this.mobile = _this.user.mobile;
+                        _this.mobileVal = _this.user.mobile;
                         _this.birthday = _this.user.birthday;
                         _this.idcard = _this.user.idcard;
 
@@ -406,6 +406,7 @@
             },
             msgSubmit: function () {
                 let _this = this;
+                let mobileVal = $('.li_right .mobile').text();
                 let msg = {
                     "id": _this.user.id,
                     "realName": _this.realName,
@@ -418,7 +419,7 @@
                     "cityId": _this.cityId,
                     "areaId": _this.areaId,
                     "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0,
-                    'mobile':_this.mobile,
+                    'mobile':mobileVal,
                     'email':_this.email
                 };
                 console.log(msg);

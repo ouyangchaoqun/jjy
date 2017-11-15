@@ -25,7 +25,7 @@
             </div>
             <div>
                 <button id="sublim" href="javascript:;" class="weui-btn  weui-btn_primary"
-                        :class="{'weui-btn_disabled':!isAllInput}" @click="submit()">确定
+                        :class="{'weui-btn_disabled':!isAllInput}" @click.stop="submit()">确定
                 </button>
             </div>
         </div>
@@ -55,9 +55,13 @@
         },
         mounted: function () {
             let _this = this;
-
+            $('.answer_join_mobile_box').click(function () {
+                $('.answer_join_mobile_box').hide()
+            })
+            $('.input_phone,.input_code,#_phonebtn').click(function (e) {
+                e.stopPropagation();
+            });
             $('.input_phone').keyup(function () {
-
                 var length = _this.mobile.length;
                 if (length == 11) {
                     if (xqzs.string.checkUserPhoneReg(_this.mobile)) {
@@ -74,9 +78,9 @@
                     _this.isAllInput =false;
                 }
                 console.log(_this.isMobileRight)
-            });
+            })
             $('.input_code').keyup(function () {
-
+                event.stopPropagation();
                 var len = $(".input_code").val().length;
                 if (len == 4) {
                     _this.isErrorCode = false;
@@ -92,6 +96,7 @@
 
             //获得焦点
             $('.input_phone').focus(function () {
+                event.stopPropagation();
                 _this.isShowErrorMobileMsg = false;
             });
             xqzs.wx.setConfig(_this);
