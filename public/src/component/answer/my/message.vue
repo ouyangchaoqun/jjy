@@ -6,7 +6,7 @@
 
 
 
-        <div class="audio" :class="{playing:vPlaying,paused:vPaused}"  v-if="!answering">
+        <div class="audio" :class="{playing:vPlaying,paused:vPaused}"  v-if="!answering&&!finish">
             <div class="audio_btn" @click.stop="playV()" >
                 <template v-if="!vPlaying&&!vPaused">点击播放</template>
                 <template v-if="vPlaying">正在播放..</template>
