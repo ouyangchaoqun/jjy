@@ -198,8 +198,7 @@
                 _this.$http.post(web.API_PATH + 'come/expert/modify/certificate', data)
                     .then(
                         (response) => {
-                           console.log(1111)
-
+                            _this.$router.push('joinmore')
                         }
                     );
 
