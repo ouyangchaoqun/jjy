@@ -77,6 +77,7 @@
                         <i></i>
                     </div>
                 </li>
+                <div>{{birthday}}--{{provinceName}}--{{cityName}}--{{areaName}}--{{idcard}}--{{'identityFile1'+identityFile1}}--{{'identityFile2'+identityFile2}}--{{mobileVal}}</div>
             </ul>
             <div class="imgBox">
                 <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
@@ -88,6 +89,7 @@
 
         <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
         <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
+
     </div>
 </template>
 
@@ -219,17 +221,17 @@
 //                        _this.identityFile1 = 'aaaaaaaaaaa'
 //                        _this.identityFile2 = 'aaaaaaaaaaa'
 //
-//                        console.log(
-//                            _this.realName+','
-//                            ,_this.sexIndex+','
-//                            ,_this.birthday+','
-//                            ,_this.provinceName+','
-//                            ,_this.cityName+','
-//                            ,_this.areaName+','
-//                            ,_this.idcard+','
-//                            ,_this.identityFile1+','
-//                            ,_this.identityFile2+','
-//                            ,_this.mobileVal)
+                        console.log(
+                            _this.realName+','
+                            ,_this.sexIndex+','
+                            ,_this.birthday+','
+                            ,_this.provinceName+','
+                            ,_this.cityName+','
+                            ,_this.areaName+','
+                            ,_this.idcard+','
+                            ,_this.identityFile1+','
+                            ,_this.identityFile2+','
+                            ,_this.mobileVal)
                     }
                 }, function (error) {
                     //error
