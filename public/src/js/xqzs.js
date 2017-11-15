@@ -104,7 +104,7 @@ var xqzs = {
             html += '   <div class="weui-dialog__bd">' + msg + '</div>';
             html += ' <div class="weui-dialog__ft">';
             html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">取消</a>';
-            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">确定</a>';
+            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit" style="color:#FE7301">确定</a>';
             html += '   </div>';
             html += '   </div>';
             html += '   </div>';

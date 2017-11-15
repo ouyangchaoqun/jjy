@@ -175,53 +175,61 @@
                 }
             },
             reStart:function () {
-                //重新开始录制
-                this.answerTime="00";
-                this.voiceLength=0;
+                let _this=this;
+                xqzs.weui.dialog("重新录制将会删除此条录音","确定要重新录制嘛",function () {
+                    
+                },function () {
+                    //重新开始录制
+                    _this.answerTime="00";
+                    _this.voiceLength=0;
 //                this.preAnswer=false;
-                if(this.playing)xqzs.wx.voice.pausePlay( this.localId);
-                this.playing=false;
-                this.isOver=false;
+                    if(_this.playing)xqzs.wx.voice.pausePlay( _this.localId);
+                    _this.playing=false;
+                    _this.isOver=false;
+                    _this.localId=null;
+                    myVideo.start(_this.start);
+                })
 
-                this.localId=null;
-                myVideo.start(this.start);
             },
             send:function () {
                 let _this=this;
                 if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
                     return ;
                 }
-                if(this.playing)xqzs.wx.voice.pausePlay( this.localId);
-                //发送到微信服务器并获取serverId
-                xqzs.wx.voice.upload(this.localId,function (serverId) {
-                    _this.serverId=serverId;
 
-                    let data ={
-                        mediaId:serverId,
-                        voiceLength:_this.voiceLength,
-                        expertId:cookie.get("expertId"),
-                        userId:"_userId_"
-                    };
-                    _this.showLoad=true;
-                    _this.$http.put(web.API_PATH + "come/expert/answer/"+_this.questionId, data)
-                        .then(function (bt) {
-                            _this.showLoad=false
-                            if (bt.data && bt.data.status == 1) {
-                                this.isAnswered=true;
-                                this.answerId= bt.data.data.answerId;
-                            }else if(bt.data.status==910003){
-                                window.history.go(-1);
+                xqzs.weui.dialog("心情加油站温馨提醒","为防止误点，请确认录音满意后再发送",function () {
 
-                            }
-                        });
+                },function () {
+                    if(_this.playing)xqzs.wx.voice.pausePlay( _this.localId);
+                    //发送到微信服务器并获取serverId
+                    xqzs.wx.voice.upload(_this.localId,function (serverId) {
+                        _this.serverId=serverId;
 
+                        let data ={
+                            mediaId:serverId,
+                            voiceLength:_this.voiceLength,
+                            expertId:cookie.get("expertId"),
+                            userId:"_userId_"
+                        };
+                        _this.showLoad=true;
+                        _this.$http.put(web.API_PATH + "come/expert/answer/"+_this.questionId, data)
+                            .then(function (bt) {
+                                _this.showLoad=false
+                                if (bt.data && bt.data.status == 1) {
+                                    _this.isAnswered=true;
+                                    _this.answerId= bt.data.data.answerId;
+                                }else if(bt.data.status==910003){
+                                    window.history.go(-1);
 
+                                }
+                            });
+                    });
 
-
-
+                    _this.clearTimeOut();
                 });
 
-                this.clearTimeOut();
+
+
 
             },
             start:function () {
