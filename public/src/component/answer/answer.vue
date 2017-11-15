@@ -194,7 +194,7 @@
                 var isEnd = false;
                 that.timer = setInterval( function(){
                     num = (num || 0)+that.speed;
-                    console.log(num+'  kaishi');
+//                    console.log(num+'  kaishi');
                     if(num>=that.maxNum){
                         that.clearTimer();
                         that.bth.html('播放完毕')
@@ -304,7 +304,6 @@
 
             clearTimeOut:function () {
                 let _this=this;
-                console.log("_this.timeOut_this.timeOut_this.timeOut_this.timeOut")
                 console.log(_this.timeOut)
                 if(_this.timeOut!==null){
                     clearTimeout(_this.timeOut);
