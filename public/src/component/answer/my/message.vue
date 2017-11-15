@@ -351,7 +351,7 @@
         display: inline-block;
         float: none;
     }
-    .answer_join_voice .tipc{padding:4.41176471rem  1.41176471rem 5.588235rem 1.41176471rem; font-size: 1.058823529411765rem; line-height: 1.5; color:#666}
+    .answer_join_voice .tipc{padding:4.41176471rem  1.41176471rem 2.588235rem 1.41176471rem; font-size: 1.058823529411765rem; line-height: 1.5; color:#666}
     .answer_join_voice .audio{ margin-left:  1.352941176470588rem !important;text-align: center}
 
 
