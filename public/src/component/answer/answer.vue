@@ -266,7 +266,7 @@
 
             });
             xqzs.wx.setConfig(_this);
-            myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play(),_this.play());
+            myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
 
         },
         methods: {
@@ -390,6 +390,8 @@
 
                     }
                 }else{
+                    console.log("PlayPlayPlayPlay")
+                    console.log("_this.localId:"+_this.localId)
                     if(_this.localId!=null){
                         this.clearTimeOut();
                         _this.playing=true;
