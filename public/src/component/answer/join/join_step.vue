@@ -16,7 +16,7 @@
                 <li @click="getSexPicker()">
                     <span class="li_left">*</span>性别
                     <div class="li_right">
-                        <div>{{sex[sexIndex]}}</div>
+                        <div>{{sex}}</div>
                         <i></i>
                     </div>
                 </li>
@@ -86,8 +86,8 @@
             </div>
         </div>
 
-        <div class="over_nor_btn" v-if="!realName||!sexIndex||!birthday||!provinceName||!cityName||!areaName||!identityFile1||!identityFile2" >下一步</div>
-        <div class="over_per_btn" v-if="realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
+        <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
+        <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
     </div>
 </template>
 
@@ -97,7 +97,7 @@
     export default {
         data() {
             return {
-                sex:['女','男'],
+                sex:'',
                 sexIndex:'',
                 defaultCity: '[330000, 330100, 330102]',
                 provinceName: '',
@@ -121,9 +121,10 @@
                 identityFile1:'',
                 identityFile2:'',
                 email:'',
-                mobileVal:'',
+                mobileVal:'123',
                 realName:'',
-                mobileBox:false
+                mobileBox:false,
+                idcard:''
 
             }
         },
@@ -152,6 +153,9 @@
             if(identityFile2&&identityFile2!=''){
                 this.identityFile2= unescape(identityFile2);
             }
+
+
+
             xqzs.wx.setConfig(this);
             let _this = this;
             this.getExpertByUserId();
@@ -159,6 +163,11 @@
             this.getUserInfo();
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
             this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
+
+
+
+
+
         },
         methods: {
             getUserInfo:function () {
@@ -173,7 +182,7 @@
                         _this.user = eval(data.data.data);
                         _this.realName =  _this.user.realName
                         _this.identityNo = _this.user.identityNo
-                        _this.sexIndex=_this.user.sex;
+                        _this.sex=_this.user.sex==1?'男':'女';
                         _this.cardType=_this.user.cardType;
                         _this.email = _this.user.email;
                         _this.mobileVal = _this.user.mobile;
@@ -205,6 +214,22 @@
                         _this.areaId = _this.user.areaId;
                         _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
 
+
+
+//                        _this.identityFile1 = 'aaaaaaaaaaa'
+//                        _this.identityFile2 = 'aaaaaaaaaaa'
+//
+//                        console.log(
+//                            _this.realName+','
+//                            ,_this.sexIndex+','
+//                            ,_this.birthday+','
+//                            ,_this.provinceName+','
+//                            ,_this.cityName+','
+//                            ,_this.areaName+','
+//                            ,_this.idcard+','
+//                            ,_this.identityFile1+','
+//                            ,_this.identityFile2+','
+//                            ,_this.mobileVal)
                     }
                 }, function (error) {
                     //error
@@ -237,7 +262,9 @@
 
                     },
                     onConfirm: function (result) {
-                       _this.sexIndex=result[0].value
+                        console.log(result)
+                       _this.sex=result[0].label
+                        console.log(_this.sex)
                     }
                 });
             },
