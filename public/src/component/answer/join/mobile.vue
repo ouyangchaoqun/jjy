@@ -33,9 +33,6 @@
 </template>
 
 <script>
-    var validate = {
-        template: '#validate'
-    }
     export default {
         data() {
             return {
@@ -101,16 +98,13 @@
         },
         methods: {
             submit:function () {
-
-
-
                 let _this = this;
-
                 if(_this.isAllInput==true){
                     _this.$http.post(web.API_PATH + 'user/update/mobile/by/code/mobile/_userId_', {mobile: _this.mobile,code:_this.code}).then(response => {
                         if (response.data.status === 1) {
                             xqzs.weui.toast("success","验证成功",function () {
-                                _this.$router.push('joinstep');
+                                $('.mobile_box').hide()
+                                $('.li_right .mobile').text(_this.mobile)
                             })
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){
@@ -192,6 +186,13 @@
     }
 </script>
 <style type="text/css">
+    .answer_join_mobile_box{
+        height:100%;
+        width:100%;
+        position: absolute;
+        top:0;
+        z-index: 100;
+    }
     .answer_join_mobile_box .validate_box {
         padding: 20px 15px;
         background: #fff;

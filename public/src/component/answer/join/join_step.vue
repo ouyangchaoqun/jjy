@@ -1,5 +1,7 @@
 <template >
     <div class="join_stepBox">
+        <v-mobile class="mobile_box" style="display: none"></v-mobile>
+
         <div v-title>入驻心理咨询师</div>
         <header>填写基本信息</header>
         <div class="step_detailBox">
@@ -46,7 +48,7 @@
                 <li>
                     <span class="li_left">*</span>手机号码
                     <div class="li_right" @click="goMobile()">
-                        <div>{{mobile}}</div>
+                        <div class="mobile">{{mobile}}</div>
                         <i></i>
                     </div>
                 </li>
@@ -83,13 +85,14 @@
                 <img v-else="" src="../../../images/negative.png" alt="" @click="upload(2)">
             </div>
         </div>
+
         <div class="over_nor_btn" v-if="!realName||!sexIndex||!birthday||!provinceName||!cityName||!areaName||!identityFile1||!identityFile2" >下一步</div>
         <div class="over_per_btn" v-if="realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
     </div>
 </template>
 
 <script type="es6">
-
+    import mobile from './mobile.vue';
 
     export default {
         data() {
@@ -119,12 +122,11 @@
                 identityFile2:'',
                 email:'',
                 mobile:'',
-                realName:''
+                realName:'',
+                mobileBox:false
 
             }
         },
-
-
         mounted: function () {
             xqzs.wx.setConfig(this);
             let realNameVal = $('.realName').val()
@@ -400,7 +402,7 @@
                 _this.email = emailVal
             },
             goMobile:function () {
-                this.$router.push("mobile");
+                $('.mobile_box').show()
             },
             msgSubmit: function () {
                 let _this = this;
@@ -432,9 +434,9 @@
             },
 
         },
-        components: {
-
-        }
+        components:{
+            'v-mobile':mobile
+        },
 
 
     }
