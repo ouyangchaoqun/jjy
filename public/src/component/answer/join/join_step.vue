@@ -73,10 +73,19 @@
                 <li>
                     <span class="li_left">*</span>身份证号
                     <div class="li_right">
-                        <input type="text" class="identityNo"  @input="idcardChange()" :value="idcard" pattern="[0-9a-zA-Z]*">
+                        <input type="text" class="identityNo"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*">
                         <i></i>
                     </div>
                 </li>
+                <span>{{realName}}</span>---
+                <span>{{birthday}}</span>---
+                <span>{{provinceName}}</span>---
+                <span>{{cityName}}</span>---
+                <span>{{areaName}}</span>---
+                <span>{{identityNo}}</span>---
+                <span>{{identityFile1}}</span>---
+                <span>{{identityFile2}}</span>---
+                <span>{{mobileVal}}</span>
             </ul>
             <div class="imgBox">
                 <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
@@ -86,8 +95,9 @@
             </div>
         </div>
 
-        <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
-        <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
+        <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
+        <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
+
     </div>
 </template>
 
@@ -181,13 +191,12 @@
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
                         _this.realName =  _this.user.realName
-                        _this.identityNo = _this.user.identityNo
+                        _this.identityNo = _this.user.idcard
                         _this.sex=_this.user.sex==1?'男':'女';
                         _this.cardType=_this.user.cardType;
                         _this.email = _this.user.email;
                         _this.mobileVal = _this.user.mobile;
                         _this.birthday = _this.user.birthday;
-                        _this.idcard = _this.user.idcard;
 
                         if (_this.birthday) {
                             let date = _this.birthday.split(',');
@@ -219,17 +228,17 @@
 //                        _this.identityFile1 = 'aaaaaaaaaaa'
 //                        _this.identityFile2 = 'aaaaaaaaaaa'
 //
-//                        console.log(
-//                            _this.realName+','
-//                            ,_this.sexIndex+','
-//                            ,_this.birthday+','
-//                            ,_this.provinceName+','
-//                            ,_this.cityName+','
-//                            ,_this.areaName+','
-//                            ,_this.idcard+','
-//                            ,_this.identityFile1+','
-//                            ,_this.identityFile2+','
-//                            ,_this.mobileVal)
+                        console.log(
+                            _this.realName+','
+                            ,_this.sexIndex+','
+                            ,_this.birthday+','
+                            ,_this.provinceName+','
+                            ,_this.cityName+','
+                            ,_this.areaName+','
+                            ,_this.idcard+','
+                            ,_this.identityFile1+','
+                            ,_this.identityFile2+','
+                            ,_this.mobileVal)
                     }
                 }, function (error) {
                     //error
@@ -422,6 +431,7 @@
                 let _this = this;
                 let identityNo = $(".identityNo").val();
                 _this.identityNo = identityNo
+                console.log( _this.identityNo )
             },
             emailChange:function () {
                 let _this = this;
