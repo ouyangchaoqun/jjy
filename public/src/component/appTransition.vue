@@ -343,6 +343,30 @@
     }
 
 
+    .record_voice_box .mask i.start{ background: url(../images/answer/record_voice_start.png) no-repeat;
+        background-size: 1.6235294117647056rem;
+        width: 1.6235294117647056rem;
+        height: 2.2588235294117652rem;
+        margin-left: -0.8117647058823528rem;
+        margin-top: -1.1294117647058826rem;}
+    .record_voice_box .mask i.end{     background: url(../images/answer/record_voice_stop.png) no-repeat;
+        background-size: 1.6rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-left: -0.8rem;
+        margin-top: -0.8rem; }
+    .record_voice_box .mask i.playing{    background: url(../images/answer/record_voice_play.png) no-repeat;
+        background-size: 1.6rem;
+        width: 1.6rem;
+        height: 1.9rem;
+        margin-left: -0.6rem;
+        margin-top: -0.95rem; }
+    .record_voice_box .mask i.pause{    background: url(../images/answer/record_voice_pause.png) no-repeat;
+        background-size: 1.6rem;
+        width: 1.6rem;
+        height: 1.8rem;
+        margin-left: -0.8rem;
+        margin-top: -0.9rem; }
 
 
 </style>

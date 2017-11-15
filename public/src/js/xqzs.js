@@ -1435,3 +1435,133 @@ document.addEventListener("visibilitychange", function () {
 
     }
 });
+
+
+(function(){
+    var myVedio = function(obj){
+        this.obj = obj||undefined;
+        this.speed = 0.6;
+        this.timer = null;
+        this.currentnum = 0;
+        this.maxnum = 360;
+        this.callbackStart=undefined;
+        this.callbackEnd=undefined;
+        this.callbackPlay=undefined;
+        this.callbackPause=undefined;
+
+    }
+    myVedio.prototype = {
+        init:function(callbackStart,callbackEnd,callbackPlay,callbackPause){
+            var that = this;
+            that.callbackStart=callbackStart;
+            that.callbackEnd=callbackEnd;
+            that.callbackPlay=callbackPlay;
+            that.callbackPause=callbackPause;
+            that.obj.bind('click',function(){
+                that.start(that.callbackStart);
+            })
+        },
+        config:function(config){
+            // zidingyi canshu
+            //
+            this.obj = config.obj;
+            this.bth = $('.record_voice_box .tip');
+            this.maski= $('.record_voice_box .mask i');
+            return this;
+        },
+        initStart:function(){
+            // chongzhi
+            this.currentnum = 0;
+            this.maxnum = 360;
+            $('.right').css('transform', "rotate(0)");
+            $('.move').css('transform', "rotate(0)")
+            $('.left').css('transform', "rotate(0)");
+        },
+        clearTimer:function(){
+            if(this.timer){
+                clearInterval (this.timer)
+            }
+        },
+        start:function(callbackStart){
+            var that = this;
+            if(callbackStart&&typeof(callbackStart)=='function'){
+                callbackStart()
+            }
+            that.initStart();
+            that.maski.attr("class","end")
+            that.bth.html('录音中，点击停止录音')
+            that.obj.unbind('click').bind('click',function(){that.end(that.callbackEnd)})
+            var num=0 ;
+            that.timer = setInterval( function(){
+                num += that.speed;
+                that.maxNum = num;
+                $('.move').css('transform', "rotate(" + num + "deg)")
+                if(num<=180){
+                    $('.right').css('transform', "rotate(" + num + "deg)");
+                }else{
+                    $('.left').css('transform', "rotate(" + (num-180) + "deg)");
+                }
+                if(num>=360){
+                    clearInterval (that.timer)
+                }
+            },100)
+        },
+        end:function(callbackEnd){
+            var that = this;
+            if(callbackEnd&&typeof(callbackEnd)=='function'){
+                callbackEnd()
+            }
+            that.bth.html('试听');
+            that.maski.attr("class","playing")
+            that.obj.unbind('click').bind('click',function(){that.play(that.callbackPlay)})
+            that.clearTimer();
+        },
+        play:function(callbackPlay){
+            var that = this;
+            if(callbackPlay&&typeof(callbackPlay)=='function'){
+                callbackPlay()
+            }
+            that.clearTimer();
+            var num = that.currentnum ;
+            //  console.log(num+'  kaishi');
+            var isEnd = false;
+            that.timer = setInterval( function(){
+                num = (num || 0)+that.speed;
+//                    console.log(num+'  kaishi');
+                if(num>=that.maxNum){
+                    that.clearTimer();
+                    that.maski.attr("class","playing");
+                    that.bth.html('重新播放');
+                    isEnd = true;
+                    that.obj.unbind('click').bind('click',function(){that.currentnum=0;that.play(that.callbackPlay)})
+                    return;
+                }
+                that.currentnum = num;
+                $('.move').css('transform', "rotate(" + num + "deg)")
+                if(num<=180){
+                    $('.right').css('transform', "rotate(" + num + "deg)");
+                }else{
+                    $('.left').css('transform', "rotate(" + (num-180) + "deg)");
+                }
+            },100)
+            if(!isEnd){
+                that.maski.attr("class","pause")
+                that.obj.unbind('click').bind('click',function(){that.pause(that.callbackPause)})
+            }
+            that.bth.html('播放中..')
+        },
+        pause:function(callbackPause){
+            if(callbackPause&&typeof(callbackPause)=='function'){
+                callbackPause()
+            }
+            var that = this;
+            that.clearTimer();
+            that.maski.attr("class","playing")
+            that.obj.unbind('click').bind('click',function(){
+                that.play(that.callbackPlay);
+            })
+            that.bth.html('继续试听')
+        },
+    }
+    window['myVideo'] = new myVedio();
+}())

@@ -678,3 +678,21 @@ body>article:not([class='htmleaf-container']){ display: none}
 /*入驻步骤按钮*/
 .over_nor_btn{position: absolute;bottom:0;width:100%;background: linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5));    font-size: 1.0588235rem;text-align: center;line-height: 2.5294rem;color:rgba(255,255,255,1)}
 .over_per_btn{background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1)); }
+
+
+
+/*录音*/
+.record_voice_box{ position: absolute; bottom:0; width: 100%}
+.record_voice_box .gg{width:100px;height:100px;position: absolute;background: #E4E4E5;border-radius: 50%;top:50%;left:50%;margin-left:-50px;margin-top:-50px;}
+.record_voice_box .move{position: relative;}
+.record_voice_box .qq{width:12px;height:12px;border-radius: 50%;background:#4493FF;top:-4px;left:50%;margin-left: -6px;position: absolute;}
+.record_voice_box .circle {  width: 108px;  height: 108px;  position: relative;  border-radius: 50%;  background: #4493FF;  bottom:4rem; left:50%; margin-left: -54px;  }
+.record_voice_box .move{  width: 108px;  height: 108px;  position: absolute;  border-radius: 50%;  }
+.record_voice_box  .pie_left,  .record_voice_box .pie_right {  width:108px;  height:108px;  position: absolute;  top: 0;left: 0;  }
+.record_voice_box .left,.record_voice_box .right {  width:108px;  height:108px;  background:#E4E4E5;  border-radius: 50%;  position: absolute;  top: 0;  left: 0;  }
+.record_voice_box .pie_right, .record_voice_box .right {  clip:rect(0,auto,auto,54px);  }
+.record_voice_box .pie_left, .record_voice_box .left {  clip:rect(0,54px,auto,0);  }
+.record_voice_box .mask {  width:90px;  height: 90px;  border-radius: 50%;  background:#FE7301 100%;  position: absolute;  top:50%;  left:50%;  margin-top:-45px;  margin-left:-45px;  text-align: center;  line-height: 80px; color:#fff;  }
+.record_voice_box .mask i{ display: block; position: absolute;
+    left: 50%; top:50% }
+.record_voice_box  .tip{ position: absolute; top:55px; text-align: center; width: 100%; color:#666 ; font-size: 0.8235rem;}

@@ -34,66 +34,27 @@
 
 
 
-        <div class="circle" style="left:50px">
-            <div class="pie_left">
-                <div class="left"></div>
-            </div>
-            <div class="pie_right">
-                <div class="right"></div>
-            </div>
 
-            <div class="gg"></div>
-            <div class="move">
-                <div class="qq"></div>
-            </div>
-
-            <div class="mask">开始录音</div>
-        </div>
 
 
         <!--播放状态-->
-        <div class="addPlayBox">
-            <div class="time_go"  v-if="!isAnswered" :class="{play_go:answering||playing}">
-                <template v-if="!outTime">
-                    <div class="playing play"></div>
-                    <div class="playing play2"></div>
-                    <div class="playing play3"></div>
-                    <div class="playing">{{answerTime}}</div>
-                </template>
-            </div>
+
+        <div class="addPlayBox" >
+
             <!--操作按钮-->
             <div class="action_btn" v-if="!isAnswered">
 
                 <div class="item" v-if="isOver">
-                    <div class="audio_play overStyle" @click="reStart()">重录</div>
+                    <div class="re_start" @click="reStart()">重录</div>
+                </div>
+                <div class="item" style="flex: 2" >
                 </div>
 
-                <div class="item" v-if="!isOver" >
-                    <div class="audio_send">重录</div>
-                </div>
-                <div class="item" style="flex: 2" v-if="!outTime&&!answering&&!isOver" @click="start()">
-                    <div class="audio_btn_in audio_begin"></div>
-                    <div class="txt">点击开始录制</div>
-                </div>
-                <div class="item" style="flex:2" v-if="answering&&!isOver" @click="stop()">
-                    <div class="audio_btn_in audio_end"></div>
-                    <div class="txt">录音中，再次点击结束录音</div>
-                </div>
-                <div class="item" style="flex: 2" v-if="isOver" @click="send()">
-                    <div class="audio_btn_in audio_send">
-                        <img src="../../images/audio_btn_send1.png" alt="">
-                    </div>
-                    <div class="txt" v-if="voiceLength>MIN_VOICE_LENGTH">发布</div>
-                    <div class="txt" v-else="">大于45秒才可发布</div>
-                </div>
 
                 <div class="item" v-if="isOver">
-                    <div class="audio_send overStyle" @click="play()">试听</div>
+                    <div class="send" :class="{cant_send:voiceLength<MIN_VOICE_LENGTH}" @click="send()">发送</div>
                 </div>
 
-                <div class="item" v-if="!isOver">
-                    <div class="audio_play">试听</div>
-                </div>
 
                 <div class="item" v-if="outTime">
                     <div class="audio_btn_in audio_cant_begin outTimeStyle"></div>
@@ -101,134 +62,38 @@
                 </div>
             </div>
         </div>
+        <div class="record_voice_box">
+            <div class="time_in">
+                <div>{{answerTime}}"</div>
+
+            </div>
+            <div class="time_in_tip">至少录制45秒</div>
+            <div class="circle">
+                <div class="pie_left">
+                    <div class="left"></div>
+                </div>
+                <div class="pie_right">
+                    <div class="right"></div>
+                </div>
+
+                <div class="gg"></div>
+                <div class="move">
+                    <div class="qq"></div>
+                </div>
+                <div class="mask"><i class="start"></i></div>
+
+            </div>
+            <div class="tip">点击开始录音</div>
+        </div>
+
+
     </div>
 </template>
 
 <script type="es6">
 
 
-    (function(){
-        var myVedio = function(obj){
-            this.obj = obj||undefined;
-            this.speed = 0.6;
-            this.timer = null;
-            this.currentnum = 0;
-            this.maxnum = 360;
-            this.callbackStart=undefined;
-            this.callbackEnd=undefined;
-            this.callbackPlay=undefined;
-            this.callbackPause=undefined;
 
-        }
-        myVedio.prototype = {
-            init:function(callbackStart,callbackEnd,callbackPlay,callbackPause){
-                var that = this;
-                that.callbackStart=callbackStart;
-                that.callbackEnd=callbackEnd;
-                that.callbackPlay=callbackPlay;
-                that.callbackPause=callbackPause;
-                that.obj.bind('click',function(){
-                    that.start(that.callbackStart);
-                })
-            },
-            config:function(config){
-                // zidingyi canshu
-                //
-                this.obj = config.obj;
-                this.bth = this.obj.find('.mask');
-                return this;
-            },
-            initStart:function(){
-                // chongzhi
-                this.currentnum = 0;
-                this.maxnum = 360;
-                $('.right').css('transform', "rotate(0)");
-                $('.move').css('transform', "rotate(0)")
-                $('.left').css('transform', "rotate(0)");
-            },
-            clearTimer:function(){
-                if(this.timer){
-                    clearInterval (this.timer)
-                }
-            },
-            start:function(callbackStart){
-                var that = this;
-                if(callbackStart&&typeof(callbackStart)=='function'){
-                    callbackStart()
-                }
-                that.initStart();
-                that.bth.html('结束录音')
-                that.obj.unbind('click').bind('click',function(){that.end(that.callbackEnd)})
-                var num=0 ;
-                that.timer = setInterval( function(){
-                    num += that.speed;
-                    that.maxNum = num;
-                    $('.move').css('transform', "rotate(" + num + "deg)")
-                    if(num<=180){
-                        $('.right').css('transform', "rotate(" + num + "deg)");
-                    }else{
-                        $('.left').css('transform', "rotate(" + (num-180) + "deg)");
-                    }
-                    if(num>=360){
-                        clearInterval (that.timer)
-                    }
-                },100)
-            },
-            end:function(callbackEnd){
-                var that = this;
-                if(callbackEnd&&typeof(callbackEnd)=='function'){
-                    callbackEnd()
-                }
-                that.bth.html('试听');
-                that.obj.unbind('click').bind('click',function(){that.play(that.callbackPlay)})
-                that.clearTimer();
-            },
-            play:function(callbackPlay){
-                var that = this;
-                if(callbackPlay&&typeof(callbackPlay)=='function'){
-                    callbackPlay()
-                }
-                that.clearTimer();
-                var num = that.currentnum ;
-              //  console.log(num+'  kaishi');
-                var isEnd = false;
-                that.timer = setInterval( function(){
-                    num = (num || 0)+that.speed;
-//                    console.log(num+'  kaishi');
-                    if(num>=that.maxNum){
-                        that.clearTimer();
-                        that.bth.html('播放完毕')
-                        isEnd = true;
-                        that.obj.unbind('click');
-                        return;
-                    }
-                    that.currentnum = num;
-                    $('.move').css('transform', "rotate(" + num + "deg)")
-                    if(num<=180){
-                        $('.right').css('transform', "rotate(" + num + "deg)");
-                    }else{
-                        $('.left').css('transform', "rotate(" + (num-180) + "deg)");
-                    }
-                },100)
-                if(!isEnd){
-                    that.obj.unbind('click').bind('click',function(){that.pause(that.callbackPause)})
-                }
-                that.bth.html('播放中..')
-            },
-            pause:function(callbackPause){
-                if(callbackPause&&typeof(callbackPause)=='function'){
-                    callbackPause()
-                }
-                var that = this;
-                that.clearTimer();
-                that.obj.unbind('click').bind('click',function(){
-                    that.play(that.callbackPlay);
-                })
-                $('.mask').html('继续试听')
-            },
-        }
-        window['myVideo'] = new myVedio();
-    }())
 
 
 
@@ -251,7 +116,7 @@
                 serviceId:null,
                 voiceLength:0,
                 isOver:false,
-                MIN_VOICE_LENGTH:3
+                MIN_VOICE_LENGTH:15
             }
         },
         mounted: function () {
@@ -320,6 +185,7 @@
 
                 this.localId=null;
                 this.start();
+                myVideo.start();
             },
             send:function () {
                 let _this=this;
@@ -450,6 +316,7 @@
     }
 </script>
 <style>
+    .answer_answer_box{ width: 100%; overflow: hidden}
     .answer_answer_box .answer{ background: #fff; padding:0.8823529411764706rem;  position: relative }
    .answer_answer_box .answer .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
    .answer_answer_box .answer .img img{ width: 100%; height: 100%; border-radius: 50%}
@@ -536,61 +403,16 @@
     .answer_answer_box   .audio_cant_begin:before{ background:url(../../images/audio_btn_begin1.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
     .answer_answer_box .overStyle{background: #00B9E8;}
     .answer_answer_box .outTimeStyle{background: linear-gradient(to right, rgba(255,158,25,0.4), rgba(253,114,6,0.4))}
-    .answer_answer_box .addPlayBox{position: absolute;bottom:2rem;width:100%;}
+    .answer_answer_box .addPlayBox{position: absolute;bottom:4.5rem;width:100%;}
+    .time_in{ color:#FE7301 ; font-size:3.5rem; text-align: center ; position: absolute  ; top:-14rem; width: 100%; padding-left: 0.8rem;}
+    .time_in_tip{ color:#999;font-size: 0.8235rem;text-align: center;position: absolute  ; top:-7rem;width: 100%;}
+    .re_start:before{content: ' '; display: block; width: 1.6rem; height: 1.6rem; background: url(../../images/answer/record_voice_restart.png) no-repeat; background-size: 1.6rem; margin: 0 auto; margin-top: 0.8rem; margin-bottom: 0.5rem;}
+    .re_start{ text-align: center}
+
+    .send.cant_send:before{ content: ' '; display: block; width: 1.6rem; height: 1.6rem; background: url(../../images/answer/record_voice_send_no.png) no-repeat; background-size: 1.6rem; margin: 0 auto; margin-top: 0.8rem; margin-bottom: 0.5rem;}
+    .send:before{ content: ' '; display: block; width: 1.6rem; height: 1.6rem; background: url(../../images/answer/record_voice_send.png) no-repeat; background-size: 1.6rem; margin: 0 auto; margin-top: 0.8rem; margin-bottom: 0.5rem;}
+    .send.cant_send{ color:#999}
+    .send{  color:#FE7301 }
 
 
-
-    .gg{width:100px;height:100px;position: absolute;background: #E4E4E5;border-radius: 50%;top:50%;left:50%;margin-left:-50px;margin-top:-50px;}
-    .move{position: relative;}
-    .qq{width:12px;height:12px;border-radius: 50%;background:#4493FF;top:-4px;left:50%;margin-left: -6px;position: absolute;}
-    .circle {
-        width: 108px;
-        height: 108px;
-        position: relative;
-        border-radius: 50%;
-        background: #4493FF;
-        top:50px;
-    }
-    .move{
-        width: 108px;
-        height: 108px;
-        position: absolute;
-        border-radius: 50%;
-    }
-    .pie_left, .pie_right {
-        width:108px;
-        height:108px;
-        position: absolute;
-        top: 0;left: 0;
-    }
-    .left, .right {
-        width:108px;
-        height:108px;
-        background:#E4E4E5;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    .pie_right, .right {
-        clip:rect(0,auto,auto,54px);
-
-    }
-    .pie_left, .left {
-        clip:rect(0,54px,auto,0);
-    }
-    .mask {
-        width:90px;
-        height: 90px;
-        border-radius: 50%;
-        background:#FE7301 100%;
-        position: absolute;
-        top:50%;
-        left:50%;
-        margin-top:-45px;
-        margin-left:-45px;
-        text-align: center;
-        line-height: 80px;
-        color:#fff;
-    }
 </style>
