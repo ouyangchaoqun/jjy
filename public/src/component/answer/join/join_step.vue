@@ -77,6 +77,15 @@
                         <i></i>
                     </div>
                 </li>
+                <span>{{realName}}</span>---
+                <span>{{birthday}}</span>---
+                <span>{{provinceName}}</span>---
+                <span>{{cityName}}</span>---
+                <span>{{areaName}}</span>---
+                <span>{{identityNo}}</span>---
+                <span>{{identityFile1}}</span>---
+                <span>{{identityFile2}}</span>---
+                <span>{{mobileVal}}</span>
             </ul>
             <div class="imgBox">
                 <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
@@ -86,8 +95,8 @@
             </div>
         </div>
 
-        <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
-        <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&idcard&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
+        <div class="over_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
+        <div class="over_nor_btn over_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
 
     </div>
 </template>
