@@ -62,7 +62,7 @@
                 </div>
             </div>
         </div>
-        <div class="record_voice_box">
+        <div class="record_voice_box" v-if="!isAnswered">
             <div class="time_in">
                 <div>{{answerTime}}"</div>
 
@@ -116,7 +116,7 @@
                 serviceId:null,
                 voiceLength:0,
                 isOver:false,
-                MIN_VOICE_LENGTH:15
+                MIN_VOICE_LENGTH:45
             }
         },
         mounted: function () {
@@ -316,7 +316,7 @@
 </script>
 <style>
     .answer_answer_box{ width: 100%; overflow: hidden}
-    .answer_answer_box .answer{ background: #fff; padding:0.8823529411764706rem;  position: relative }
+    .answer_answer_box .answer{ background: #fff; padding:0.8823529411764706rem;  position: relative; border-bottom: 0.92rem solid #F4F4F7 }
    .answer_answer_box .answer .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
    .answer_answer_box .answer .img img{ width: 100%; height: 100%; border-radius: 50%}
    .answer_answer_box .answer .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }
