@@ -26,7 +26,7 @@
 
 
 
-        <div class="addPlayBox" v-if="preAnswer" >
+        <div class="addPlayBox" v-if="preAnswer&&!finish" >
 
             <!--操作按钮-->
 
@@ -46,7 +46,7 @@
 
             </div>
         </div>
-        <div class="record_voice_box" v-if="detail&&detail.voiceMessageIdStatus!=0">
+        <div class="record_voice_box" v-if="!finish">
             <div class="time_in">
                 <div>{{answerTime}}"</div>
 
