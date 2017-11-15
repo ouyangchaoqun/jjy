@@ -808,20 +808,6 @@ var xqzs = {
     },
     oss: {
 
-        config:{
-            uploadpicinfo:{
-                token: xqzs.string.guid(),
-                smallpic: xqzs.constant.PIC_SMALL,
-                middlepic: xqzs.constant.PIC_MIDDLE,
-                removepicurl: web.BASE_PATH + 'api/removepicture',
-                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
-                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
-            },
-            alioss:new aliyunoss({
-                url:xqzs.oss.config.uploadpicinfo.aliossgeturl,
-                token:xqzs.oss.config.uploadpicinfo.token
-            })
-        },
 
         Size: {
             fill: function (width, height) {
