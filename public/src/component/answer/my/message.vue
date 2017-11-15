@@ -26,10 +26,11 @@
 
 
 
-        <div class="addPlayBox" >
+        <div class="addPlayBox" v-if="preAnswer" >
 
             <!--操作按钮-->
-            <div class="action_btn" v-if="preAnswer">
+
+            <div class="action_btn" >
 
                 <div class="item" >
                     <div class="re_start" @click="reStart()">重录</div>
@@ -441,5 +442,5 @@
     .applying{ text-align: center; color:#09bb07; margin-top: 50px}
     .message_box{ width: 100%;
         overflow: hidden;}
-
+    .message_box .addPlayBox{position: absolute;bottom:1.5rem;width:100%;}
 </style>
