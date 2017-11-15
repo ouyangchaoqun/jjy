@@ -50,9 +50,12 @@
                 let _this=this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
-                        let  expertId = data.data.data.id;
-                        _this.expert= data.data.data;
-                        cookie.set('expertId',expertId,300);
+                      if(data.data.data&&data.data.data.id){
+                          let  expertId = data.data.data.id;
+                          _this.expert= data.data.data;
+                          cookie.set('expertId',expertId,300);
+                      }
+
 
                     }
                 }, function (error) {
