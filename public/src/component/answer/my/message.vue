@@ -1,12 +1,12 @@
 <template >
     <div style="height: 100%" class="answer_join_voice wbg message_box">
 
-        <div v-title>60"语音寄语</div>
-        <div class="tip">此{{voiceLength}}''的语音寄语，将会出现在用户端的咨询师列表里，为了吸引用户向您咨询，请说出您对来访者的寄语！</div>
+        <div v-title>访者语音寄语</div>
+        <div class="tipc">此至少10秒的语音寄语，将展示给来访者，请录制您对来访者的寄语！</div>
 
 
 
-        <div class="audio" :class="{playing:vPlaying,paused:vPaused}" >
+        <div class="audio" :class="{playing:vPlaying,paused:vPaused}"  v-if="!answering">
             <div class="audio_btn" @click.stop="playV()" >
                 <template v-if="!vPlaying&&!vPaused">点击播放</template>
                 <template v-if="vPlaying">正在播放..</template>
@@ -17,62 +17,57 @@
         </div>
 
 
-        <div class="action_btn" v-if="detail&&detail.voiceMessageIdStatus!=0" >
-            <div class="item"  @click="start()">
-                <div class="audio_btn_in audio_begin"></div>
-                <div class="txt" style=" color:#666">重录</div>
-            </div>
-        </div>
+
 
         <div class="applying" v-if="detail&&detail.voiceMessageIdStatus==0" >
              审核中..
         </div>
 
-        <div class="voice_box" v-show="(answering||preAnswer)&&!finish">
-            <div class="bg"></div>
-            <!--播放状态-->
-            <div class="time_go "  v-if="!finish" :class="{play_go:answering||playing}">
-                <template v-if="!outTime">
-                    <div class="playing play"></div>
-                    <div class="playing play2"></div>
-                    <div class="playing play3"></div>
-                    <div class="playing">{{answerTime}}</div>
-                </template>
-            </div>
+
+
+
+        <div class="addPlayBox" >
 
             <!--操作按钮-->
-            <div class="action_btn" >
+            <div class="action_btn" v-if="preAnswer">
 
-                <template v-if="preAnswer">
-                    <div class="item" @click="play()">
-                        <div class="audio_btn_in audio_play"></div>
-                        <div class="txt">试听</div>
-                    </div>
-                    <div class="item" @click="reStart()">
-                        <div class="audio_btn_in audio_begin"></div>
-                        <div class="txt">重录</div>
-                    </div>
-                    <div class="item" @click="send()">
-                        <div class="audio_btn_in audio_send"></div>
-                        <div class="txt">完成</div>
-                    </div>
-                </template>
-                <div class="item" v-if="answering" @click="stop()">
-                    <div class="audio_btn_in audio_end"></div>
-                    <div class="txt">停止</div>
+                <div class="item" v-if="finish">
+                    <div class="re_start" @click="reStart()">重录</div>
                 </div>
-                <div class="item" v-if="outTime">
-                    <div class="audio_btn_in audio_cant_begin"></div>
-                    <div class="txt">超时</div>
+                <div class="item" style="flex: 2" >
                 </div>
+
+
+                <div class="item" v-if="finish">
+                    <div class="send" :class="{cant_send:voiceLength<MIN_VOICE_LENGTH}" @click="send()">完成</div>
+                </div>
+
+
             </div>
-
-
         </div>
+        <div class="record_voice_box" v-if="detail&&detail.voiceMessageIdStatus!=0">
+            <div class="time_in">
+                <div>{{answerTime}}"</div>
 
+            </div>
+            <div class="time_in_tip">至少录制10秒</div>
+            <div class="circle">
+                <div class="pie_left">
+                    <div class="left"></div>
+                </div>
+                <div class="pie_right">
+                    <div class="right"></div>
+                </div>
 
+                <div class="gg"></div>
+                <div class="move">
+                    <div class="qq"></div>
+                </div>
+                <div class="mask"><i class="start"></i></div>
 
-
+            </div>
+            <div class="tip">重录</div>
+        </div>
 
     </div>
 </template>
@@ -95,7 +90,7 @@
                 localId:null,
                 serviceId:null,
                 voiceLength:0,
-                MIN_VOICE_LENGTH:45
+                MIN_VOICE_LENGTH:10
 
             }
         },
@@ -149,10 +144,14 @@
                 this.playing=false;
 
                 this.localId=null;
-                this.start();
+                myVideo.start(this.start);
             },
             send:function () {
                 let _this=this;
+
+                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
+                    return ;
+                }
 
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(this.localId,function (serverId) {
@@ -171,10 +170,6 @@
                                 _this.detail.voiceMessageIdStatus=0
                             }
                         });
-
-
-
-
 
                 });
 
@@ -231,15 +226,12 @@
             stop:function () { //停止录制
                 let _this = this;
 
-                if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
-                    xqzs.weui.tip("语音长度不小于 "+_this.MIN_VOICE_LENGTH+" 秒");
-                }else {
-                    xqzs.wx.voice.stopRecord(function (localId) {
-                        _this.localId = localId;
-                        xqzs.localdb.set("voice_localId", localId);
-                        _this._recordStop();
-                    });
-                }
+
+                xqzs.wx.voice.stopRecord(function (localId) {
+                    _this.localId = localId;
+                    xqzs.localdb.set("voice_localId", localId);
+                    _this._recordStop();
+                });
 
             },
             _recordStop:function () {
@@ -340,7 +332,7 @@
             xqzs.wx.setConfig(_this);
             xqzs.voice.audio=null;
             this.getExpertByUserId();
-
+            myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
         },
         beforeDestroy:function () {
             this.clearTimeOut()
@@ -358,7 +350,7 @@
         display: inline-block;
         float: none;
     }
-    .answer_join_voice .tip{padding:4.41176471rem  1.41176471rem 5.588235rem 1.41176471rem; font-size: 1.058823529411765rem; line-height: 1.5; color:#666}
+    .answer_join_voice .tipc{padding:4.41176471rem  1.41176471rem 5.588235rem 1.41176471rem; font-size: 1.058823529411765rem; line-height: 1.5; color:#666}
     .answer_join_voice .audio{ margin-left:  1.352941176470588rem !important;text-align: center}
 
 
@@ -447,4 +439,7 @@
     .answer_join_voice   .audio_send:before{ background:url(../../../images/audio_btn_send.png)  no-repeat; background-size:  1.352941176470588rem; width:1.470588235294118rem;; height:1.411764705882353rem;  margin-left: -0.7352941176470588rem; margin-top: -0.7058823529411765rem;   }
     .answer_join_voice   .audio_cant_begin:before{ background:url(../../../images/audio_btn_cant_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
     .applying{ text-align: center; color:#09bb07; margin-top: 50px}
+    .message_box{ width: 100%;
+        overflow: hidden;}
+
 </style>
