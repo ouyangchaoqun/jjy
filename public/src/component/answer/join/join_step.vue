@@ -111,8 +111,6 @@
                 isLeapMonth:false,
                 birthday:'',
                 user:'',
-                alioss:null,
-                uploadpicinfo:null,
                 identityNo:'',
                 identityFile1:'',
                 identityFile2:'',
@@ -122,18 +120,7 @@
 
         mounted: function () {
             xqzs.wx.setConfig(this);
-            this.uploadpicinfo = {
-                token: xqzs.string.guid(),
-                smallpic: xqzs.constant.PIC_SMALL,
-                middlepic: xqzs.constant.PIC_MIDDLE,
-                removepicurl: web.BASE_PATH + 'api/removepicture',
-                uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
-                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
-            };
-            this.alioss = new aliyunoss({
-                url:this.uploadpicinfo.aliossgeturl,
-                token:this.uploadpicinfo.token
-            });
+
             let identityFile1= cookie.get("identityFile1")
             if(identityFile1&&identityFile1!=''){
                 this.identityFile1= unescape(identityFile1);
@@ -397,7 +384,7 @@
             },
             upload:function (v) {
                 let _this=this;
-                xqzs.wx.takePhotos(['camera','album'],1,_this.uploadpicinfo,_this.alioss,function (filecount) {
+                xqzs.wx.takePhotos(['camera','album'],1,xqzs.oss.config.uploadpicinfo,xqzs.oss.config.alioss,function (filecount) {
                     _this.showLoad=true;
 
                 },function (json,ix) {
