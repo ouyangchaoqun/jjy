@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="subBtn_nor">提交</div>
-        <div class="subBtn_nor subBtn_per">提交</div>
+        <div class="subBtn_nor subBtn_per" @click="sub_more()">提交</div>
 
         <div id="select_type" class="select_type" v-show="showTypes" @click="select_typeFlag()">
             <div class="dialog_select_type">
@@ -123,7 +123,7 @@
                     value: 4
                 },{
                     label: '4小时',
-                    value: 4
+                    value: 5
                 }],
                 freeTime:null,
                 freeTimeText:'',
@@ -145,6 +145,14 @@
             console.log(sign)
             let price = cookie.get("price");
             if(price)this.price= price;
+            let freeTime = cookie.get("freeTime");
+            if(freeTime&&freeTime!=''){
+                for(let i =0;i<this.times.length;i++){
+                    if(this.times[i].value== parseInt(freeTime)){
+                        this.freeTimeText= this.times[i].label;
+                    }
+                }
+            }
             if(sign&&sign!=''){
                 this.sign=unescape(sign)
             }
@@ -290,7 +298,7 @@
                     },
                     onConfirm: function (result) {
                         _this.freeTime = result[0].value;
-                        //cookie.set("freeTime", _this.freeTime );
+                        cookie.set("freeTime", _this.freeTime );
                         _this.freeTimeText= result[0].label;
                         console.log(_this.freeTime)
                     },
@@ -376,6 +384,33 @@
                         }
                     });
             },
+            sub_more:function () {
+                console.log('提交')
+                let _this = this;
+                let msg = {
+                    'userId':"_userId_",
+                    "faceUrl":_this.faceUrl,
+                    'price':_this.price,
+                    'freeTime':cookie.get("freeTime"),
+                };
+
+                console.log(msg);
+                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
+                    .then(
+                        (response) => {
+                            console.log(response)
+                            if(response.data.status==9000006){
+                                xqzs.weui.tip("您已经提交过审核",function () {
+                                    window.history.go(-1);
+                                })
+                            }else if(response.data.status==1){
+                                _this.$router.replace("./reviewing")
+                            }
+
+                        }
+                    );
+
+            }
 
         },
         components: {

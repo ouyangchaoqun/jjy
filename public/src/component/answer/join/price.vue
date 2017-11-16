@@ -55,7 +55,7 @@
                     value: 4
                 },{
                     label: '4小时',
-                    value: 4
+                    value: 5
                 }]
             }
         },
