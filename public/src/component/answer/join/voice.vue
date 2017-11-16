@@ -2,7 +2,7 @@
     <div style="height: 100%" class="answer_join_voice wbg">
 
         <div v-title>入驻心理咨询师</div>
-        <div class="tip">此至少10秒的语音寄语，将展示给来访者，请录制您对来访者的寄语！</div>
+        <div class="tipc">此至少10秒的语音寄语，将展示给来访者，请录制您对来访者的寄语！</div>
 
 
 
@@ -18,14 +18,59 @@
         </div>
 
 
-        <div class="action_btn pt3" v-show="!finish" >
+        <div class="action_btn pt3" v-show="!finish&&false" >
             <div class="item"  @click="start()">
                 <div class="audio_btn_in audio_begin"></div>
                 <div class="txt" style=" color:#666">开始</div>
             </div>
         </div>
 
-        <div class="voice_box" v-show="(answering||preAnswer)&&!finish">
+
+        <div class="addPlayBox" v-if="(!answering&&preAnswer)&&!finish" >
+
+            <!--操作按钮-->
+
+            <div class="action_btn" >
+
+                <div class="item" >
+                    <div class="re_start" @click="reStart()">重录</div>
+                </div>
+                <div class="item" style="flex: 2" >
+                </div>
+
+
+                <div class="item">
+                    <div class="send" :class="{cant_send:voiceLength<MIN_VOICE_LENGTH}" @click="send()">完成</div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="record_voice_box" v-if="!finish">
+            <div class="time_in">
+                <div>{{answerTime}}"</div>
+
+            </div>
+            <div class="time_in_tip">至少录制10秒</div>
+            <div class="circle">
+                <div class="pie_left">
+                    <div class="left"></div>
+                </div>
+                <div class="pie_right">
+                    <div class="right"></div>
+                </div>
+
+                <div class="gg"></div>
+                <div class="move">
+                    <div class="qq"></div>
+                </div>
+                <div class="mask"><i class="start"></i></div>
+
+            </div>
+            <div class="tip">重录</div>
+        </div>
+
+        <div class="voice_box" v-show="false">
             <div class="bg"></div>
             <!--播放状态-->
             <div class="time_go "  v-if="!finish" :class="{play_go:answering||playing}">
@@ -38,7 +83,7 @@
             </div>
 
             <!--操作按钮-->
-            <div class="action_btn" >
+            <div class="action_btn"  v-if="false">
 
 
                 <template v-if="preAnswer">
@@ -257,6 +302,8 @@
         mounted: function () {
 
             xqzs.wx.setConfig(this);
+            let _this= this;
+            myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
         },
         components: {
             "v-answer-top-step": answerTopStep
@@ -269,7 +316,8 @@
     }
 </script>
 <style>
-    .answer_join_voice .tip{  margin:1.76471rem    1.176470588235294rem; font-size: 0.7647058823529412rem; line-height: 1.5; color:rgba(36,37,61,0.5)}
+    .answer_join_voice{ width: 100%; overflow: hidden}
+    .answer_join_voice .tipc{  margin:1.76471rem    1.176470588235294rem; font-size: 0.7647058823529412rem; line-height: 1.5; color:rgba(36,37,61,0.5)}
     .answer_join_voice .audio{ margin-left:  15%  !important ; margin-top: 8rem;}
 .pt3{ padding-top: 9rem !important}
 
@@ -362,4 +410,6 @@
     .answer_join_voice   .audio_play:before{ background:url(../../../images/audio_btn_play.png)  no-repeat; background-size: 1.323529411764706rem; width:1.323529411764706rem;; height: 1.529411764705882rem;  margin-left: -0.517647058823529rem; margin-top: -0.7647058823529412rem;  }
     .answer_join_voice   .audio_send:before{ background:url(../../../images/audio_btn_send.png)  no-repeat; background-size:  1.352941176470588rem; width:1.470588235294118rem;; height:1.411764705882353rem;  margin-left: -0.7352941176470588rem; margin-top: -0.7058823529411765rem;   }
     .answer_join_voice   .audio_cant_begin:before{ background:url(../../../images/audio_btn_cant_begin.png)  no-repeat; background-size:  1.352941176470588rem; width:1.352941176470588rem;; height: 1.882352941176471rem;  margin-left: -0.676470588235294rem; margin-top: -0.9411764705882355rem;  }
+    .answer_join_voice .addPlayBox{position: absolute;bottom:1.5rem;width:100%;}
+    .answer_join_voice  .record_voice_box{ bottom:2.5rem;}
 </style>
