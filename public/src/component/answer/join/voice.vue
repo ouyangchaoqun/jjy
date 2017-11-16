@@ -20,7 +20,7 @@
 
 
 
-        <div class="addPlayBox" v-if="(!answering2&&preAnswer)&&!finish" >
+        <div class="addPlayBox" v-if="preAnswer&&!finish" >
 
             <!--操作按钮-->
 
