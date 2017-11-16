@@ -16,7 +16,7 @@
             擅长领域 <i>(最多可选三个)</i>
         </div>
         <div class="title_bottom" @click="selectType()">
-            <div v-if="classType.length==0" class="addClass" @click="selectType()">+</div>
+            <img v-if="classType.length<=0" class="addClass" src="../../../images/addClassTypeBg.png" alt="" @click="selectType()">
             <span class="class_style" v-if="classType" v-for="item in classType">{{item.title}}</span>
         </div>
         <div class="title">
@@ -65,6 +65,10 @@
         <div class="title">
             <span>*</span>
             解答设置
+            <div class="need_know_box" @click="showMask()">
+                <img src="../../../images/asker/need_know.png" alt="">
+                解答须知
+            </div>
         </div>
         <div class="title_bottom">
             <div class="set_box setPrice_box">设置提问酬金
@@ -89,6 +93,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
+            <div class="myask_class myask_know_box" @click.stop>
+                <h3>解答须知</h3>
+                <ul style="overflow: auto;height: 12.35294rem;">
+                    <li><b>1.</b>提交问题，设置赏金支付后，心情指数将为您匹配专业咨询师开始抢答。<br/>（1）设置的赏金越高，匹配的咨询师等级越高，抢答的咨询师越多。<br/>（2）问题描述越清楚，咨询师的回答将精准。</li>
+                    <li><b>2.</b>你可以选择做佳答案：<br/>（1）该回答将产生偷偷听收入；<br/>（2）其咨询师将获得全部赏金；</li>
+                    <li><b>3.</b>48小时内无人抢答，则全额退款。</li>
+
+
+                </ul>
+                <div class="myask_class_true" @click="hide_myask_mask()">知道了</div>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
 
@@ -133,7 +152,8 @@
                 introduction:'',
                 jobTitle:'',
                 ids:[],
-                expertId:''
+                expertId:'',
+                myask_mask_flag:false,
 
             }
         },
@@ -186,11 +206,11 @@
                         _this.freeTime=data.data.data.freeTime;
                             for(let i =0;i<_this.times.length;i++){
                                 if(_this.times[i].value== _this.freeTime){
-                                    _this.freeTimeText= _this.times[i].label;
+                                    _this.freeTimeText=cookie.get('freeTimeTextChange')==null? _this.times[i].label:cookie.get('freeTimeTextChange');
                                 }
                             }
 
-                        _this.price =parseInt (data.data.data.price);
+                        _this.price =cookie.get('priceChange')==null?parseInt (data.data.data.price):cookie.get('priceChange');
                         _this.faceUrl = data.data.data.faceUrl;
                     }
                 }, function (error) {
@@ -218,6 +238,12 @@
                 }
                 _this.showTypes=true;
 
+            },
+            showMask:function () {
+                this.myask_mask_flag = true
+            },
+            hide_myask_mask:function () {
+                this.myask_mask_flag = false
             },
             getGoodAt:function () {
                 let _this = this;
@@ -284,14 +310,23 @@
                     console.log(this.classType[j].id)
                     this.ids.push(this.classType[j].id)
                 }
-                console.log(this.ids)
+                let _this = this;
+                let msg = {
+                    'userId':"_userId_",
+                    'questionClassId':_this.ids,
+                };
+                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
+                    .then(
+                        (response) => {
+                        }
+                    );
             },
             changePrice:function () {
                 let _this = this;
                 let price= $(".priceInput").val()
                 price=  price.replace('￥','');
                 _this.price=price;
-                console.log(_this.price)
+                cookie.set("priceChange",escape(price))
             },
             selectFreeTime:function () {
                 let  data= this.times;
@@ -304,6 +339,7 @@
                     onConfirm: function (result) {
                         _this.freeTime = result[0].value;
                         _this.freeTimeText= result[0].label;
+                        cookie.set('freeTimeTextChange',_this.freeTimeText)
                     },
                 });
             },
@@ -451,33 +487,36 @@
     .joinmore_box header .headerImg{width:5.1471rem;height:5.1471rem;background: url("../../../images/joinHeaderImg.png") no-repeat;background-size: 100% 100%;}
     .joinmore_box header .headerImg_box .smallImg{position: absolute;right:-1rem;bottom:-0.5rem;width:2rem;height:2rem;}
     .joinmore_box .title{border-bottom:1px solid rgba(224,224,225,1);color:rgba(36,37,61,1);font-size: 0.8235rem;line-height: 2.529rem;padding-left:1.8235rem;padding-right:0.88235rem;position: relative}
-    .title span{color:rgba(255,0,0,1);font-size: 0.76471rem;position: absolute;left:0.88235rem;height:2rem;top:50%;margin-top:-1rem;line-height: 2.2rem;}
-    .title i{font-style: normal;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-left: 0.6471rem;}
-    .title_bottom{border-bottom: 0.471rem solid rgba(245,245,245,1);padding:0.588235rem 0.88235rem 0.588235rem 1.6rem;position: relative}
-    .title_bottom .set_box{background: rgba(245,245,245,1);line-height: 2.35rem;color:rgba(36,37,61,0.5);font-size: 0.76471rem;padding-left: 0.588235rem;}
-    .title_bottom .set_box input{margin-left:1rem;line-height:2.35rem;color:rgba(253,115,1,1);border:0;outline: none;background: none;font-size: 0.76471rem;width:50%;}
-    .title_bottom .setPrice_box{margin-bottom: 0.941rem;}
-    .addClass{width:5.294rem;height:2.1176471rem;background: rgba(245,245,245,1);border-radius: 0.1471rem;color:rgba(224,224,225,1);text-align: center;font-size: 2rem;line-height:1.85rem;}
-    .bottom_left{font-size: 0.76471rem;color:rgba(36,37,61,0.5);display: inline-block;width:85%;overflow: hidden;
+    .joinmore_box .title span{color:rgba(255,0,0,1);font-size: 0.76471rem;position: absolute;left:0.88235rem;height:2rem;top:50%;margin-top:-1rem;line-height: 2.2rem;}
+    .joinmore_box .title i{font-style: normal;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-left: 0.6471rem;}
+    .joinmore_box .title_bottom{border-bottom: 0.471rem solid rgba(245,245,245,1);padding:0.588235rem 0.88235rem 0.588235rem 1.6rem;position: relative}
+    .joinmore_box .title_bottom .set_box{background: rgba(245,245,245,1);line-height: 2.35rem;color:rgba(36,37,61,0.5);font-size: 0.76471rem;padding-left: 0.588235rem;}
+    .joinmore_box .title_bottom .set_box input{margin-left:1rem;line-height:2.35rem;color:rgba(253,115,1,1);border:0;outline: none;background: none;font-size: 0.76471rem;width:50%;}
+    .joinmore_box .title_bottom .setPrice_box{margin-bottom: 0.941rem;}
+    .joinmore_box .addClass{width:5.294rem;height:2.1176471rem;display: block}
+    .joinmore_box .bottom_left{font-size: 0.76471rem;color:rgba(36,37,61,0.5);display: inline-block;width:85%;overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;}
-    .bottom_right{font-size: 0.70588235rem;color:rgba(253,115,1,1);float: right;position: absolute;right:0.88235rem;top:0.588235rem;}
-    .select_type{width:100%;height:100%;background: rgba(36,37,61,0.7);position: absolute;top:0;}
-    .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:16rem; position: fixed;
+    .joinmore_box .bottom_right{font-size: 0.70588235rem;color:rgba(253,115,1,1);float: right;position: absolute;right:0.88235rem;top:0.588235rem;}
+    .joinmore_box .select_type{width:100%;height:100%;background: rgba(0,0,0,0.6);position: fixed;top:0;right:0;left: 0;
+        bottom:0;z-index: 1000}
+    .joinmore_box .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:16rem; position: fixed;
         top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;overflow: hidden}
     .joinmore_box .dialog_select_type .title{ text-align: center; line-height: 3rem; font-size: 1rem;  font-weight: bold;}
-    .dialog_select_type .types{ margin:  1rem 0;}
-    .dialog_select_type .types .item{margin: 0 auto; width: 27%; float:left;text-align: center; line-height: 1.8235rem; border-radius:0.294rem; margin: 0 3%; margin-bottom: 0.88235rem; font-size: 0.7058823529411765rem;color:rgba(36,37,61,0.8);
+    .joinmore_box .dialog_select_type .types{ margin:  1rem 0;}
+    .joinmore_box .dialog_select_type .types .item{margin: 0 auto; width: 27%; float:left;text-align: center; line-height: 1.8235rem; border-radius:0.294rem; margin: 0 3%; margin-bottom: 0.88235rem; font-size: 0.7058823529411765rem;color:rgba(36,37,61,0.8);
         background: rgba(245,245,245,1);
     }
-    .dialog_select_type .types .item.on{ color:rgba(255,81,2,1);background: rgba(253,115,1,1) ;color:#fff;}
-    .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% ;display: flex}
-    .yes div{flex: 1}
-    .yes div:active{background: #eee}
-    .yes div:nth-of-type(1){border-right:1px solid rgba(224,224,225,1)}
-    .title_bottom .class_style{font-size: 0.7058823529411765rem;background: rgba(253,115,1,1);color:#fff;margin-right: 0.588235rem;padding: 0.294rem 0.588235rem;border-radius: 0.294rem;}
+    .joinmore_box .dialog_select_type .types .item.on{ color:rgba(255,81,2,1);background: rgba(253,115,1,1) ;color:#fff;}
+    .joinmore_box .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% ;display: flex}
+    .joinmore_box .yes div{flex: 1}
+    .joinmore_box .yes div:active{background: #eee}
+    .joinmore_box .yes div:nth-of-type(1){border-right:1px solid rgba(224,224,225,1)}
+    .joinmore_box .title_bottom .class_style{font-size: 0.7058823529411765rem;background: rgba(253,115,1,1);color:#fff;margin-right: 0.588235rem;padding: 0.294rem 0.588235rem;border-radius: 0.294rem;}
     .joinmore_box .subBtn_nor{background: linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5)); line-height: 2.588235rem;color:rgba(255,255,255,1);font-size: 1.0588235rem;text-align: center;margin-top: 1.4rem;}
     .joinmore_box .subBtn_per{background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1)); }
+    .joinmore_box .need_know_box{color:rgba(36,37,61,0.5);display: inline-block;float: right;font-size: 0.70588235rem;position: relative;}
+    .joinmore_box .need_know_box img{width:0.8235rem;height:0.8235rem;position: absolute;left:-1.176471rem;top:50%;margin-top: -0.41176471rem;}
 </style>
