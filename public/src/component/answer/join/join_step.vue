@@ -86,8 +86,8 @@
             </div>
         </div>
 
-        <div class="joinStep_nor_btn" v-show="!(realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&mobileVal&&identityFile1&&identityFile2)" >下一步</div>
-        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
+        <div class="joinStep_nor_btn" v-show="!(realName&&birthday&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2)"  @click="check_step()">下一步</div>
+        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
 
     </div>
 </template>
@@ -414,6 +414,25 @@
             },
             goMobile:function () {
                 $('.mobile_box').show()
+            },
+            check_step:function () {
+                let _this = this;
+                console.log('check-------------')
+                if(_this.realName==''){
+                    xqzs.weui.tip("请填写真实姓名")
+                }else if(_this.birthday==false){
+                    xqzs.weui.tip("请选择出生日期")
+                }else if(_this.mobileVal==''){
+                    xqzs.weui.tip("请填写手机号码")
+                }else if(_this.provinceName==''){
+                    xqzs.weui.tip("请选择常驻城市")
+                }else if(_this.identityNo==''){
+                    xqzs.weui.tip("请填写身份证号")
+                }else if(_this.identityFile1==''){
+                    xqzs.weui.tip("请上传身份证正面照")
+                }else if(_this.identityFile2==''){
+                    xqzs.weui.tip("请上传身份证反面照")
+                }
             },
             msgSubmit: function () {
                 let _this = this;

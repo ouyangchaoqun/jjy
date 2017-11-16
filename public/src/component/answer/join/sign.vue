@@ -13,7 +13,7 @@
 方向3：可以写您擅长的领域问题。
 示例：恋爱技巧、挽回情感、遭遇婚外情、告别前任。" id="" cols="30" rows="10">{{sign}}</textarea>
         </div>
-        <div class="over_nor_btn" v-if="!sign">保存</div>
+        <div class="over_nor_btn" v-if="!sign" @click="check_step()">保存</div>
         <div class="over_nor_btn over_per_btn" v-if="sign" @click="goJoinmore()">保存</div>
     </div>
 </template>
@@ -75,7 +75,14 @@
                         }
                     );
 
-            }
+            },
+            check_step:function () {
+                let _this = this;
+                console.log('check-------------')
+                if(_this.sign==''){
+                    xqzs.weui.tip("请填写个人签名")
+                }
+            },
         }
 
     }

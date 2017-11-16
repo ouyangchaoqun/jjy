@@ -55,8 +55,6 @@
                           _this.expert= data.data.data;
                           cookie.set('expertId',expertId,300);
                       }
-
-
                     }
                 }, function (error) {
                 });

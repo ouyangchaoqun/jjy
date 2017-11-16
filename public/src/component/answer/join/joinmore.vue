@@ -74,8 +74,8 @@
                 <input type="" readonly  :value="freeTimeText">
             </div>
         </div>
-        <div class="subBtn_nor">提交</div>
-        <div class="subBtn_nor subBtn_per" @click="sub_more()">提交</div>
+        <div v-show="!(jobTitle&&freeTimeText&&price>=10&&classType&&sign&&introduction&&faceUrl)" class="subBtn_nor" @click="check_step()">提交</div>
+        <div v-show="(jobTitle&&freeTimeText&&price>=10&&classType&&sign&&introduction&&faceUrl)" class="subBtn_nor subBtn_per" @click="sub_more()">提交</div>
 
         <div id="select_type" class="select_type" v-show="showTypes" @click="select_typeFlag()">
             <div class="dialog_select_type">
@@ -104,26 +104,26 @@
                 MAX_COUNT:3,
                 showTypes:false,
                 sign:'',
-                price:'10',
+                price:'',
                 times:[{
                     label: '不免费',
                     value: 0
                 }, {
                     label: '30分钟',
-                    value: 1
+                    value: 30
                 }, {
                     label: '1小时',
-                    value: 2
+                    value: 60
                 },{
                     label: '2小时',
                     disabled: true,
-                    value: 3
+                    value: 120
                 }, {
                     label: '3小时',
-                    value: 4
+                    value: 180
                 },{
                     label: '4小时',
-                    value: 5
+                    value: 240
                 }],
                 freeTime:null,
                 freeTimeText:'',
@@ -132,30 +132,32 @@
                 uploadpicinfo:null,
                 introduction:'',
                 jobTitle:'',
+                ids:[],
+                expertId:''
 
             }
         },
 
         mounted: function () {
-            this.getGoodAt()
-            this.getClassList()
-            this.getExpertByUserId();
+            this.showLoad = true
+            this.$http.get(web.API_PATH+'come/expert/query/detail/by/userId/_userId_').then(function (data) {
+                if(data.data.status==1&&data.data.data !=null){
+                    this.showLoad = false;
+                    let  expertId = data.data.data.id;
+                    this.expertId = expertId;
+                    cookie.set('expertId',expertId,300);
+                    this.getGoodAt()
+                    this.getClassList()
+                    this.getExpertByUserId();
+                }
+            })
+
             this.initOss();
             let sign= (cookie.get("sign"));
-            console.log(sign)
-            let price = cookie.get("price");
-            if(price)this.price= price;
-            let freeTime = cookie.get("freeTime");
-            if(freeTime&&freeTime!=''){
-                for(let i =0;i<this.times.length;i++){
-                    if(this.times[i].value== parseInt(freeTime)){
-                        this.freeTimeText= this.times[i].label;
-                    }
-                }
-            }
             if(sign&&sign!=''){
                 this.sign=unescape(sign)
             }
+
             xqzs.wx.setConfig(this);
         } ,
         methods:  {
@@ -175,14 +177,20 @@
             },
             getExpertByUserId:function () {
                 let _this=this;
-                let expertId=cookie.get("expertId");
-                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+expertId+'/_userId_' ).then(function (data) {//es5写法
-                    console.log(data.data.data)
+                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
+                    console.log(data.data.data+'******************')
                     if (data.body.status == 1&&data.body.data!=null) {
                         _this.jobTitle = data.data.data.jobTitle||'必填';
                         _this.sign = data.data.data.sign||'必填';
                         _this.introduction = data.data.data.introduction||'必填';
-                        _this.freeTimeText=data.data.data.freeTime;
+                        _this.freeTime=data.data.data.freeTime;
+                            for(let i =0;i<_this.times.length;i++){
+                                if(_this.times[i].value== _this.freeTime){
+                                    _this.freeTimeText= _this.times[i].label;
+                                }
+                            }
+
+                        _this.price =parseInt (data.data.data.price);
                         _this.faceUrl = data.data.data.faceUrl;
                     }
                 }, function (error) {
@@ -195,20 +203,6 @@
                 },function (json,ix) {
                     _this.showLoad=false;
                     _this.faceUrl=json.data.path;
-                    _this.canGoNext=_this.checkNext();
-//
-//                    let data ={
-//
-//                        faceUrl: _this.faceUrl,
-//                        expertId:cookie.get("expertId"),
-//                        userId:"_userId_"
-//                    }
-//                    _this.$http.post(web.API_PATH + "come/expert/modify", data)
-//                        .then(function (bt) {
-//                            if (bt.data && bt.data.status == 1) {
-//
-//                            }
-//                        });
                     xqzs.image.hideClip()
                 });
             },
@@ -227,11 +221,15 @@
             },
             getGoodAt:function () {
                 let _this = this;
-                let expertId=cookie.get("expertId");
-                _this.$http.get(web.API_PATH + 'come/expert/good/at/'+expertId ).then(function (data) {//es5写法
+                _this.$http.get(web.API_PATH + 'come/expert/good/at/'+ _this.expertId ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
-                        console.log(data.data.data)
                         _this.classType = data.data.data;
+                        console.log( _this.classType)
+                        for(let i = 0;i<_this.classType.length;i++){
+                             _this.ids.push(_this.classType[i].classId)
+
+                        }
+                        console.log(_this.ids)
                     }
                 }, function (error) {
                 });
@@ -274,19 +272,26 @@
             },
             sureClass:function () {
                 var selectClassTypes = [];
+                this.ids=[];
                 for (let i = 0,l=this.types.length,_ci =0; i < l; i++) {
                     if (this.types[i].isSelect) {
                         selectClassTypes.push(this.types[i]);
                     }
                 }
-                console.info(selectClassTypes)
                 this.classType = selectClassTypes;
+                console.log( this.classType)
+                for(let j=0;j<this.classType.length;j++){
+                    console.log(this.classType[j].id)
+                    this.ids.push(this.classType[j].id)
+                }
+                console.log(this.ids)
             },
             changePrice:function () {
+                let _this = this;
                 let price= $(".priceInput").val()
                 price=  price.replace('￥','');
-                this.price=price;
-                console.log(this.price)
+                _this.price=price;
+                console.log(_this.price)
             },
             selectFreeTime:function () {
                 let  data= this.times;
@@ -298,9 +303,7 @@
                     },
                     onConfirm: function (result) {
                         _this.freeTime = result[0].value;
-                        cookie.set("freeTime", _this.freeTime );
                         _this.freeTimeText= result[0].label;
-                        console.log(_this.freeTime)
                     },
                 });
             },
@@ -384,6 +387,24 @@
                         }
                     });
             },
+            check_step:function () {
+                let _this = this;
+                if(_this.classType.length==0){
+                      xqzs.weui.tip("请选择擅长领域")
+                }else if(_this.freeTimeText==''){
+                    xqzs.weui.tip("请设置免费时间")
+                }else if(_this.price<10){
+                    xqzs.weui.tip("请设置提问酬金(大于10)")
+                }else if(_this.jobTitle==''){
+                    xqzs.weui.tip("请编辑从业资质")
+                }else if(_this.introduction==''){
+                    xqzs.weui.tip("请编辑自我介绍")
+                }else if(_this.sign==''){
+                    xqzs.weui.tip("请编辑个性签名")
+                }else if(_this.faceUrl==''){
+                    xqzs.weui.tip("请上传个人头像")
+                }
+            },
             sub_more:function () {
                 console.log('提交')
                 let _this = this;
@@ -391,7 +412,9 @@
                     'userId':"_userId_",
                     "faceUrl":_this.faceUrl,
                     'price':_this.price,
-                    'freeTime':cookie.get("freeTime"),
+                    'freeTime':_this.freeTime,
+                    'questionClassId':_this.ids,
+                    'finish':'yes'
                 };
 
                 console.log(msg);
