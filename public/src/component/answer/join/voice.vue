@@ -70,45 +70,6 @@
             <div class="tip">录制</div>
         </div>
 
-        <div class="voice_box" v-show="false">
-            <div class="bg"></div>
-            <!--播放状态-->
-            <div class="time_go "  v-if="!finish" :class="{play_go:answering||playing}">
-                <template v-if="!outTime">
-                    <div class="playing play"></div>
-                    <div class="playing play2"></div>
-                    <div class="playing play3"></div>
-                    <div class="playing">{{answerTime}}</div>
-                </template>
-            </div>
-
-            <!--操作按钮-->
-            <div class="action_btn"  v-if="false">
-
-
-                <template v-if="preAnswer">
-                    <div class="item" @click="play()">
-                        <div class="audio_btn_in audio_play"></div>
-                        <div class="txt">试听</div>
-                    </div>
-                    <div class="item" @click="reStart()">
-                        <div class="audio_btn_in audio_begin"></div>
-                        <div class="txt">重录</div>
-                    </div>
-                    <div class="item" @click="send()">
-                        <div class="audio_btn_in audio_send" :class="{not:voiceLength<MIN_VOICE_LENGTH}"></div>
-                        <div class="txt">完成</div>
-                    </div>
-                </template>
-                <div class="item" v-if="answering" @click="stop()">
-                    <div class="audio_btn_in audio_end"></div>
-                    <div class="txt">停止</div>
-                </div>
-
-            </div>
-
-
-        </div>
 
 
 
@@ -142,6 +103,9 @@
         },
 
         methods: {
+            goJoinmore:function () {
+
+            },
             timeout:function (play) {
                 let _this=this;
                 _this.timeOut =    setTimeout(function () {
@@ -259,11 +223,11 @@
                 let _this = this;
 
 
-                    xqzs.wx.voice.stopRecord(function (localId) {
-                        _this.localId = localId;
-                        xqzs.localdb.set("voice_localId", localId);
-                        _this._recordStop();
-                    });
+                xqzs.wx.voice.stopRecord(function (localId) {
+                    _this.localId = localId;
+                    xqzs.localdb.set("voice_localId", localId);
+                    _this._recordStop();
+                });
 
             },
             _recordStop:function () {
