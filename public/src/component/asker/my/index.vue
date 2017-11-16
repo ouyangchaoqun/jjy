@@ -50,7 +50,6 @@
                 let _this= this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
-                        console.log(data)
                         if(data.data.data!=null){
                             let status = data.data.data.status;
 //                            const NOT_AUTHENTICATED=0;//未认证
@@ -77,11 +76,8 @@
 
             },
             goJoin:function () {
-                if( this.user.mobile&& this.user.mobile.length==11){
-                    this.$router.push("/answer/join/joinstep");
-                }else{
-                    this.$router.push("/answer/join/mobile");
-                }
+                this.$router.push("/answer/join/joinstep");
+
             },
             getIncome:function () {
 
