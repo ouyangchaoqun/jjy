@@ -1504,7 +1504,8 @@ document.addEventListener("visibilitychange", function () {
                     $('.record_voice_box .left').css('transform', "rotate(" + (num-180) + "deg)");
                 }
                 if(num>=360){
-                    clearInterval (that.timer)
+                    clearInterval (that.timer);
+                    that.end(that.callbackEnd)
                 }
             },100)
         },
