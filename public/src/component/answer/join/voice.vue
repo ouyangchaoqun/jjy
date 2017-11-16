@@ -18,12 +18,6 @@
         </div>
 
 
-        <div class="action_btn pt3" v-show="!finish&&false" >
-            <div class="item"  @click="start()">
-                <div class="audio_btn_in audio_begin"></div>
-                <div class="txt" style=" color:#666">开始</div>
-            </div>
-        </div>
 
 
         <div class="addPlayBox" v-if="(!answering&&preAnswer)&&!finish" >
