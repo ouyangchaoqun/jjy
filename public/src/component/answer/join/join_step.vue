@@ -86,8 +86,8 @@
             </div>
         </div>
 
-        <div class="joinStep_nor_btn" v-show="!(realName&&sexIndex&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal)" >下一步</div>
-        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&identityFile1&&identityFile2&&mobileVal" @click="msgSubmit()">下一步</div>
+        <div class="joinStep_nor_btn" v-show="!(realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&mobileVal&&identityFile1&&identityFile2)" >下一步</div>
+        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&cityName&&areaName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
 
     </div>
 </template>
@@ -213,23 +213,6 @@
                         _this.cityId = _this.user.cityId;
                         _this.areaId = _this.user.areaId;
                         _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
-
-
-
-//                        _this.identityFile1 = 'aaaaaaaaaaa'
-//                        _this.identityFile2 = 'aaaaaaaaaaa'
-//
-                        console.log(
-                            _this.realName+','
-                            ,_this.sexIndex+','
-                            ,_this.birthday+','
-                            ,_this.provinceName+','
-                            ,_this.cityName+','
-                            ,_this.areaName+','
-                            ,_this.idcard+','
-                            ,_this.identityFile1+','
-                            ,_this.identityFile2+','
-                            ,_this.mobileVal)
                     }
                 }, function (error) {
                     //error
@@ -239,7 +222,6 @@
                 let _this=this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1&&data.body.data!=null) {
-
                         _this.faceUrl = data.data.data.faceUrl;
                     }
                 }, function (error) {
@@ -253,7 +235,7 @@
                 let _this = this;
                 weui.picker([{
                     label: '女',
-                    value: 0
+                    value: 2
                 }, {
                     label: '男',
                     value: 1
@@ -264,6 +246,7 @@
                     onConfirm: function (result) {
                         console.log(result)
                        _this.sex=result[0].label
+                        _this.sexIndex = result[0].value
                         console.log(_this.sex)
                     }
                 });
@@ -454,11 +437,10 @@
                 _this.$http.post(web.API_PATH + 'come/expert/register', msg)
                     .then(
                         (response) => {
+                            console.log(response)
                             _this.$router.push("/answer/join/joinmore")
                         }
                     );
-
-
             },
 
         },
