@@ -132,15 +132,26 @@
                 uploadpicinfo:null,
                 introduction:'',
                 jobTitle:'',
-                ids:[]
+                ids:[],
+                expertId:''
 
             }
         },
 
         mounted: function () {
-            this.getGoodAt()
-            this.getClassList()
-            this.getExpertByUserId();
+            this.showLoad = true
+            this.$http.get(web.API_PATH+'come/expert/query/detail/by/userId/_userId_').then(function (data) {
+                if(data.data.status==1&&data.data.data !=null){
+                    this.showLoad = false;
+                    let  expertId = data.data.data.id;
+                    this.expertId = expertId;
+                    cookie.set('expertId',expertId,300);
+                    this.getGoodAt()
+                    this.getClassList()
+                    this.getExpertByUserId();
+                }
+            })
+
             this.initOss();
             let sign= (cookie.get("sign"));
             if(sign&&sign!=''){
@@ -166,9 +177,8 @@
             },
             getExpertByUserId:function () {
                 let _this=this;
-                let expertId=cookie.get("expertId");
-                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+expertId+'/_userId_' ).then(function (data) {//es5写法
-                    console.log(data.data.data)
+                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
+                    console.log(data.data.data+'******************')
                     if (data.body.status == 1&&data.body.data!=null) {
                         _this.jobTitle = data.data.data.jobTitle||'必填';
                         _this.sign = data.data.data.sign||'必填';
@@ -211,8 +221,7 @@
             },
             getGoodAt:function () {
                 let _this = this;
-                let expertId=cookie.get("expertId");
-                _this.$http.get(web.API_PATH + 'come/expert/good/at/'+expertId ).then(function (data) {//es5写法
+                _this.$http.get(web.API_PATH + 'come/expert/good/at/'+ _this.expertId ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         _this.classType = data.data.data;
                         console.log( _this.classType)
