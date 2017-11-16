@@ -17,7 +17,7 @@
                         <span>证书编号</span>
                         <div class="input_box">
                             <input class="certificateNo"
-                                   name="certificateNo" :value="certificateNo" @keyup="changeCertificateNo()"
+                                   name="certificateNo" :value="certificateNo" @input="changeCertificateNo()"
                                    pattern="[0-9a-zA-Z]*"/>
                         </div>
                     </div>
@@ -46,8 +46,8 @@
                 </div>
             </div>
         </div>
-        <!--<div class="over_nor_btn">保存</div>-->
-        <div class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
+        <div v-show="!(jobTitle&&otherType)||!(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn" @click="check_step()">保存</div>
+        <div v-show="(jobTitle&&otherType)||(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
     </div>
 </template>
 
@@ -147,14 +147,12 @@
             },
             changeCertificateNo:function (v) {
                 let certificateNo = $(".certificateNo").val();
-
+                this.certificateNo = certificateNo
                 if(certificateNo!=''){
                     cookie.set("certificateNo",escape(certificateNo))
                 }else{
                     cookie.set("certificateNo",'')
                 }
-
-                this.check()
             },
             getItemClass:function (index) {
                 let _this = this;
@@ -165,13 +163,21 @@
                 cookie.set("jobTitle",escape(v));
                 if(v=='其它'){
                     _this.otherType=true;
-                    _this.canGoNext = true
                 }else {
                     _this.otherType=false;
-                    this.check()
                 }
 
 
+            },
+            check_step:function () {
+                let _this = this;
+                console.log('check-------------')
+                console.log(_this.otherType)
+                if(_this.jobTitle==''){
+                    xqzs.weui.tip("请选择资质")
+                }else if(!_this.otherType&&_this.certificateNo==''){
+                    xqzs.weui.tip("请填写证件编号")
+                }
             },
             check:function () {
                 let jobTitle= cookie.get("jobTitle");
