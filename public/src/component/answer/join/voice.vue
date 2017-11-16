@@ -20,7 +20,7 @@
 
 
 
-        <div class="addPlayBox" v-if="(!answering&&preAnswer)&&!finish" >
+        <div class="addPlayBox" v-if="(!answering2&&preAnswer)&&!finish" >
 
             <!--操作按钮-->
 
@@ -80,7 +80,7 @@
     export default {
         data() {
             return {
-                answering:false,
+                answering2:false,
                 preAnswer:false,
                 playing:false,
                 answerTime:"00",
@@ -173,7 +173,7 @@
                 _this.vPlaying=false;
                 xqzs.voice.pause();
                 this.clearTimeOut();
-                this.answering=true;
+                this.answering2=true;
                 this.timeout()
                 console.log("startRecordtimeout")
                 xqzs.wx.voice.startRecord();
@@ -227,7 +227,7 @@
             _recordStop:function () {
                 let _this = this;
                 _this.clearTimeOut();
-//                _this.answering=false;
+                _this.answering2=false;
                 _this.preAnswer=true;
             },
             getTime:function (time) {
