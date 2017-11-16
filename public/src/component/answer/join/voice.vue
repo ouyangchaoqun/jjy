@@ -226,8 +226,8 @@
             },
             _recordStop:function () {
                 let _this = this;
-//                _this.clearTimeOut();
-                _this.answering=false;
+                _this.clearTimeOut();
+//                _this.answering=false;
                 _this.preAnswer=true;
             },
             getTime:function (time) {
