@@ -344,16 +344,16 @@
                 });
             },
             goQualification:function () {
-                this.$router.push('qualification')
+                this.$router.replace('qualification')
             },
             goPersonal:function () {
-                this.$router.push('personal')
+                this.$router.replace('personal')
             },
             goSign:function () {
-                this.$router.push('sign')
+                this.$router.replace('sign')
             },
             goVoice:function () {
-                this.$router.push('voice')
+                this.$router.replace('voice')
             },
             beforeDestroy:function () {
                 xqzs.image.hideClip()

@@ -112,7 +112,7 @@
                 _this.$http.post(web.API_PATH + 'come/expert/modify', data)
                     .then(
                         (response) => {
-                            _this.$router.push('joinmore')
+                            _this.$router.replace('joinmore')
 
                         }
                     );

@@ -457,7 +457,7 @@
                     .then(
                         (response) => {
                             console.log(response)
-                            _this.$router.push("/answer/join/joinmore")
+                            _this.$router.replace("/answer/join/joinmore")
                         }
                     );
             },
