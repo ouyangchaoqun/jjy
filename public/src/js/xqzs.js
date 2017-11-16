@@ -1505,7 +1505,6 @@ document.addEventListener("visibilitychange", function () {
                 }
                 if(num>=360){
                     clearInterval (that.timer);
-                    that.end(that.callbackEnd)
                 }
             },100)
         },

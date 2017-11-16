@@ -196,6 +196,7 @@
                     _this.localId=localId
                     xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
+                    myVideo.end()
                 });
 
             },
