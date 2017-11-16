@@ -46,7 +46,7 @@
 
             </div>
         </div>
-        <div class="record_voice_box" v-if="!finish">
+        <div class="record_voice_box" v-if="!finish&&detail&&detail.voiceMessageIdStatus!=0">
             <div class="time_in">
                 <div>{{answerTime}}"</div>
 
