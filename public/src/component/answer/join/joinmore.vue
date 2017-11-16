@@ -413,7 +413,8 @@
                     "faceUrl":_this.faceUrl,
                     'price':_this.price,
                     'freeTime':_this.freeTime,
-                    'questionClassId':_this.ids
+                    'questionClassId':_this.ids,
+                    'finish':'yes'
                 };
 
                 console.log(msg);
