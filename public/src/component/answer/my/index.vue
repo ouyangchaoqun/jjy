@@ -3,7 +3,7 @@
         <div v-title>我的</div>
         <div class="weui-tab__panel main">
             <div class="main">
-                <div class="top" @click="goPerfect()">
+                <div class="top" @click="join()">
                         <img class="img" :src="resizeImg(expert.faceUrl)">
                         <div class="name">
                             {{expert.nickName}}
@@ -16,12 +16,12 @@
                         <div class="price" v-if="income!=0">￥{{formatPrice(income)}}</div>
                     </router-link>
                     <!--<router-link to = "/answer/my/level" class="level" ><i></i>我的等级</router-link>-->
-                    <router-link to = "/answer/my/setanswer" class="setanswer" ><i></i>解答设置</router-link>
+                    <!--<router-link to = "/answer/my/setanswer" class="setanswer" ><i></i>解答设置</router-link>-->
                     <router-link to = "/answer/my/answer/list" class="answer_list" ><i></i>我的回答</router-link>
                     <router-link to = "/answer/my/fans" class="fans" ><i></i>我的粉丝</router-link>
                     <router-link to = "/answer/my/comment/list" class="comment_list" ><i></i>收到的评价</router-link>
-                    <router-link to = "/answer/my/message" class="message" ><i></i>60”语音寄语</router-link>
-                    <router-link to = "/answer/my/set/qualification" class="qualification" ><i></i>入驻资质</router-link>
+                    <!--<router-link to = "/answer/my/message" class="message" ><i></i>60”语音寄语</router-link>-->
+                    <!--<router-link to = "/answer/my/set/qualification" class="qualification" ><i></i>入驻资质</router-link>-->
                 </div>
             </div>
         </div>
@@ -71,6 +71,39 @@
             },
             goPerfect:function () {
                 this.$router.push("./perfect")
+            },
+            join: function () {
+                let _this= this;
+                this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
+                    if (data.body.status == 1) {
+                        if(data.data.data!=null){
+                            let status = data.data.data.status;
+//                            const NOT_AUTHENTICATED=0;//未认证
+//                            const AUTHENTICATED = 1 ;//已认证
+//                            const AUTHENTICATING = 2;//认证中
+//                            const AUTHENTICATING = -1;//提交中
+                            if(status==0||status==-1){
+                                _this.goJoin()
+
+                            }else{
+                                if(status==1){
+                                    xqzs.weui.tip("您已成功入驻咨询师，请从公众号移步到咨询师。")
+                                }else{
+                                    _this.$router.push("/answer/join/reviewing");
+                                }
+                            }
+                        }else{
+                            _this.goJoin()
+                        }
+                    }
+                }, function (error) {
+                });
+
+
+            },
+            goJoin:function () {
+                this.$router.push("/answer/join/joinstep");
+
             },
             getIncome:function () {
 
