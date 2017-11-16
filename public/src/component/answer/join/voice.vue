@@ -189,7 +189,7 @@
                 this.playing=false;
 
                 this.localId=null;
-                this.start();
+                myVideo.start(this.start);
             },
             send:function () {
                 let _this=this;
