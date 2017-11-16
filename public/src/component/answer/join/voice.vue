@@ -67,8 +67,8 @@
 
 
 
-        <div class="over_nor_btn" v-if="!localId">保存</div>
-        <div class="over_nor_btn over_per_btn" v-if="localId" @click="goJoinmore()">保存</div>
+        <div class="over_nor_btn" v-if="!finish">保存</div>
+        <div class="over_nor_btn over_per_btn" v-if="finish" @click="goJoinmore()">保存</div>
 
     </div>
 </template>
