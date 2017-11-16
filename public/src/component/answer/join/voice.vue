@@ -98,6 +98,20 @@
 
         methods: {
             goJoinmore:function () {
+                let _this=this;
+                let data={
+                    userId:"_userId_",
+                    expertId:cookie.get("expertId"),
+                    mediaId:_this.serviceId,
+                    voiceLength:_this.voiceLength
+                };
+                _this.$http.post(web.API_PATH + 'come/expert/modify/voice', data)
+                    .then(
+                        (response) => {
+                            _this.$router.replace('/answer/join/joinmore')
+                        }
+                    );
+
 
             },
             timeout:function (play) {
