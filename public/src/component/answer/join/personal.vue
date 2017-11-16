@@ -4,13 +4,13 @@
         <div v-title>入驻心理咨询师</div>
         <header>个人简介</header>
         <div class="text_area">
-            <textarea name="" class="goodAt" @input="changeGoodAt()"   placeholder="请采用精简的语言介绍自己，以便用户快速地了解您！
+            <textarea name="" class="goodAt introduction" @input="changeIntroduction()"   placeholder="请采用精简的语言介绍自己，以便用户快速地了解您！
 
 例如：国家二级心理咨询师。专注婚恋情感咨询。擅长解
 决恋爱婚姻中的情感创伤疗愈及应对，解决各种情感心理
 纠葛。失恋安抚、恋人挽回、婚姻破裂挽回、婆媳关系处
 理、婚外情等情感问题。幸福并不难，相信我，把问题交
-给我、我们一起敲开幸福的大门。" cols="30" rows="8">{{goodAt}}</textarea>
+给我、我们一起敲开幸福的大门。" cols="30" rows="8">{{introduction}}</textarea>
             <div class="count" >{{inputLength}}/{{MAX_INPUT_LENGTH}}</div>
         </div>
 
@@ -39,8 +39,8 @@
 题" cols="30" rows="8">{{field}}</textarea>
 
         </div>
-        <div class="personal_btn" v-if="!experience||!goodAt||!field">保存</div>
-        <div class="personal_btn personOver" @click="personalOver()" v-if="experience&&goodAt&&field">保存</div>
+        <div class="personal_btn" v-if="!experience||!introduction||!field">保存</div>
+        <div class="personal_btn personOver" @click="personalOver()" v-if="experience&&introduction&&field">保存</div>
     </div>
 </template>
 
@@ -53,7 +53,7 @@
             return {
                 MAX_INPUT_LENGTH:200,
                 inputLength:0,
-                goodAt:'',
+                introduction:'',
                 canGoNext:false,
                 experience:'',
                 field:'',
@@ -63,11 +63,11 @@
 
 
         mounted: function () {
-            let goodAt= (cookie.get("goodAt"));
+            let introduction= (cookie.get("introduction"));
             let experience= (cookie.get("experience"));
             let field= (cookie.get("field"));
-            if(goodAt&&goodAt!=''){
-                this.goodAt=unescape(goodAt)
+            if(introduction&&introduction!=''){
+                this.introduction=unescape(introduction)
             }
             if(experience&&experience!=''){
                 this.experience=unescape(experience)
@@ -76,18 +76,18 @@
                 this.field=unescape(field)
             }
 
-            this.inputLength = this.goodAt.length
+            this.inputLength = this.introduction.length
             xqzs.wx.setConfig(this);
         },
         methods: {
-            changeGoodAt: function (v) {
-                let goodAt = $(".goodAt").val();
-                this.goodAt = goodAt
-                if (goodAt.length > this.MAX_INPUT_LENGTH) {
-                    goodAt = goodAt.substr(0, this.MAX_INPUT_LENGTH)
+            changeIntroduction: function (v) {
+                let introduction = $(".introduction").val();
+                this.introduction = introduction
+                if (introduction.length > this.MAX_INPUT_LENGTH) {
+                    introduction = introduction.substr(0, this.MAX_INPUT_LENGTH)
                 }
-                this.inputLength =goodAt.length;
-                cookie.set("goodAt",escape(goodAt));
+                this.inputLength =introduction.length;
+                cookie.set("introduction",escape(introduction));
             },
             getexperience:function () {
                 let experience = $('.experience').val();
@@ -106,8 +106,9 @@
                     expertId:cookie.get("expertId"),
                     introduction:unescape(cookie.get("introduction")),
                     experience:unescape(cookie.get("experience")),
-                    goodat:unescape(cookie.get("goodAt")),
+                    goodat:unescape(cookie.get("field")),
                 };
+                console.log(data)
                 _this.$http.post(web.API_PATH + 'come/expert/modify', data)
                     .then(
                         (response) => {
