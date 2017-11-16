@@ -177,6 +177,10 @@
                     xqzs.weui.tip("请选择资质")
                 }else if(!_this.otherType&&_this.certificateNo==''){
                     xqzs.weui.tip("请填写证件编号")
+                }else if(!_this.otherType&&_this.certificateFile1==''){
+                    xqzs.weui.tip("请上传证件照")
+                }else if(!_this.otherType&&_this.certificateFile2==''){
+                    xqzs.weui.tip("请上传证件照")
                 }
             },
             check:function () {
