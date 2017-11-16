@@ -168,6 +168,7 @@
                 if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
                     return ;
                 }
+                myVideo.pause(this.play);
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(_this.localId,function (serverId) {
                     _this.finish=true;
