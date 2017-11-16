@@ -220,13 +220,13 @@
                 xqzs.wx.voice.stopRecord(function (localId) {
                     _this.localId = localId;
                     xqzs.localdb.set("voice_localId", localId);
-//                    _this._recordStop();
+                    _this._recordStop();
                 });
 
             },
             _recordStop:function () {
                 let _this = this;
-                _this.clearTimeOut();
+//                _this.clearTimeOut();
                 _this.answering=false;
                 _this.preAnswer=true;
             },
