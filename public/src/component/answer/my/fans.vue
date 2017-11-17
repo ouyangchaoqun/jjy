@@ -1,30 +1,37 @@
 <template id="fans">
     <div class="fansBox">
         <div v-title>我的粉丝</div>
-        <v-showLoad v-if="showLoad"></v-showLoad>
-        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                  :bottomHeight="50"
-                  :isShowMoreText="isShowMoreText">
-            <div>
-                <header>共{{count}}位粉丝</header>
-                <ul class="fansItem">
-                    <li v-for="item in list">
-                        <img :src="item.faceUrl" alt="">
-                        <div class="right">
-                            <div>{{item.nickName}}</div>
-                            <div class="bottom">
-                                <div><span>{{getFormatDate(item.followTime)}}</span><span>{{getFormatTime(item.followTime)}}</span></div>
-                                <div><span>{{item.questionCount}}个问题</span><span>{{item.listenTimes}}次偷听</span></div>
+        <div v-if="count.length>0">
+            <v-showLoad v-if="showLoad"></v-showLoad>
+            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
+                      :bottomHeight="50"
+                      :isShowMoreText="isShowMoreText">
+                <div>
+                    <header>共{{count}}位粉丝</header>
+                    <ul class="fansItem">
+                        <li v-for="item in list">
+                            <img :src="item.faceUrl" alt="">
+                            <div class="right">
+                                <div>{{item.nickName}}</div>
+                                <div class="bottom">
+                                    <div><span>{{getFormatDate(item.followTime)}}</span><span>{{getFormatTime(item.followTime)}}</span></div>
+                                    <div><span>{{item.questionCount}}个问题</span><span>{{item.listenTimes}}次偷听</span></div>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </v-scroll>
-        <div class="noFansBox"  v-if="count==0&&!showLoad">
+                        </li>
+                    </ul>
+                </div>
+            </v-scroll>
+        </div>
+
+        <div class="nothing comment" v-if="count==0">
             <div>
-                还没有粉丝
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>还没有粉丝</p>
+                </div>
             </div>
+
         </div>
     </div>
 </template>

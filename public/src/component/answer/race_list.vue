@@ -3,9 +3,11 @@
         <div v-title>抢答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="nothing comment" v-if="list.length==0&&!showLoad">
-            <img src="../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>暂无抢答问题</p>
+            <div>
+                <img src="../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>暂无抢答问题</p>
+                </div>
             </div>
         </div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
@@ -16,9 +18,11 @@
             <div class="list">
                 <div class="item" v-for="item in list">
                     <div class="info">
-                        <div class="img"><img :src="item.faceUrl"></div>
+                        <div class="img">
+                            <img :src="item.faceUrl">
+                        </div>
                         <div class="price">赏金 <span>￥{{item.price}}</span></div>
-                        <div class="type">在哪方面：{{item.questionClassName}}</div>
+                        <div class="type">在哪方面：感情感悟{{item.questionClassName}}</div>
                     </div>
 
                     <div class="content">
@@ -155,19 +159,19 @@
     }
 </script>
 <style>
-    .answer_race_list .list .item{ background: #fff; padding:0.8823529411764706rem; margin-bottom:0.5882352941176471rem; }
-    .answer_race_list  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem;margin-right: 0.588235rem }
+    .answer_race_list .list .item{ background: #fff; padding:0.8823529411764706rem; margin-bottom:0.41176471rem; }
+    .answer_race_list  .list .item .img{ width: 1.70588235rem; height: 1.70588235rem;margin-right: 0.588235rem }
     .answer_race_list  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
-    .answer_race_list  .list .info{line-height: 2.588235294117647rem;display: flex;display:-webkit-flex;position: relative}
-    .answer_race_list  .list .info .type{ font-size: 0.7058823529411765rem;   color:#999;position: absolute;right:0}
-    .answer_race_list .item .content{ font-size: 0.823529411764706rem;color:#474747;margin-bottom: 0.4rem;padding-left: 3.176471rem}
-    .answer_race_list .item .content>div:nth-of-type(1){margin-bottom:0.3rem;}
-    .answer_race_list .item .last_time{font-size: 0.70588235rem;color:#666;}
-    .answer_race_list  .list .info .price{ float:left;font-size: 0.88235rem;color:#FE7301;   width: 7rem;}
+    .answer_race_list  .list .info{line-height: 1.70588235rem;display: flex;display:-webkit-flex;position: relative;margin-bottom: 2px;}
+    .answer_race_list  .list .info .type{ font-size: 0.76471rem;   color:rgba(36,37,61,0.5);}
+    .answer_race_list .item .content{ font-size: 0.8823529411764706rem;color:rgba(36,37,61,1);margin-bottom: 1.176471rem;padding-left: 2.26471rem}
+    .answer_race_list .item .content>div:nth-of-type(1){margin-bottom:0.588235rem;}
+    .answer_race_list .item .last_time{font-size: 0.70588235rem;color:rgba(36,37,61,0.5);line-height: 1}
+    .answer_race_list  .list .info .price{ position:absolute;right:0;font-size: 0.70588235rem;color:rgba(254,115,1,1);text-align: right;width: 7rem;}
     .answer_race_list .list .btn_race:active{
         background: linear-gradient(to right, rgb(238, 146, 24), rgb(238, 109, 6));
     }
-    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 5.295rem; margin: 0 auto; line-height: 1.76471rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); margin-top: 0.6rem;font-size: 0.88235rem}
+    .answer_race_list .list .btn_race{ color:#fff; text-align: center; width: 5.295rem; margin: 0 auto; line-height: 1.76471rem; border-radius: 1.2rem; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));font-size: 0.88235rem}
 
 
 

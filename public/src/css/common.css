@@ -361,7 +361,8 @@ a{
 
 
 
-.nothing{ padding-top: 4.4rem ; text-align: center; width: 100%;  position: relative;}
+.nothing{text-align: center; width: 100%; height:100%;background: #fff; }
+.nothing>div{padding-top: 4.4rem;position: relative;}
 .nothing img{ max-width: 100%}
 .nothing .nothing_bottom{position: absolute;width:100%;bottom:0;color:#C3C5CD;font-size: 0.70588rem;line-height: 1.2rem}
 .nothing .nothing_bottom p{font-size: 0.88235rem;color:#95979D;}

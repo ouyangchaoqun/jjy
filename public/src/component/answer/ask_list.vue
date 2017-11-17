@@ -3,10 +3,13 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>待答</div>
         <div class="nothing comment" v-if="list.length==0">
-            <img src="../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>暂无待答问题</p>
+            <div>
+                <img src="../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>暂无待答问题</p>
+                </div>
             </div>
+
         </div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="50"

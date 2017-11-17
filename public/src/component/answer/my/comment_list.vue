@@ -2,10 +2,16 @@
     <div style="height: 100%" class="answer_my_coment_list wbg">
 
         <div v-title>我的评价</div>
-        <div class="nothing comment" v-show="list.length==0&&!showLoad"  >
-            您还没收到任何评价
+        <div class="nothing comment" v-show="list.length==0&&!showLoad" >
+            <div>
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>您还没收到任何评价</p>
+                </div>
+            </div>
+
         </div>
-        <div>
+        <div v-show="list.length>0">
             <v-showLoad v-if="showLoad"></v-showLoad>
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :bottomHeight="0"
@@ -182,7 +188,6 @@
 </script>
 <style>
 
-    .answer_my_coment_list .nothing.comment{ background: url(../../../images/asker/nothing_star.png) no-repeat center top; background-size: 5.852941176470588rem; margin-top: 8rem; padding-top: 8rem; }
 
     .answer_my_coment_list .item{ padding: 0.88235rem; border-bottom: 0.7058823529411765rem solid #F4F4F7;}
     .answer_my_coment_list .comment .img{ width: 2rem; height: 100%; float:left; margin-right: 0.5rem;}

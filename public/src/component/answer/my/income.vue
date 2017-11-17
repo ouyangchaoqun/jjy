@@ -3,13 +3,16 @@
 
         <div v-title>我的收益</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="nothing income" v-if="income==0&&!showLoad">
-            <img src="../../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>没有收益</p>
-                可以对一对一提问进行回答
-                <div @click="goQuestion()">去回答</div>
+        <div class="nothing comment" v-if="income==0&&!showLoad">
+            <div>
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>没有收益</p>
+                    可以对一对一提问进行回答
+                    <div @click="goQuestion()">去回答</div>
+                </div>
             </div>
+
         </div>
         <div class="my_income" v-if="income>0">
             <div class="img"></div>
