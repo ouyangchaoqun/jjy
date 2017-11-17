@@ -7,9 +7,7 @@
             <div>
                 <img src="../../../images/asker/newNoContent.png" alt="">
                 <div class="nothing_bottom">
-                    <p>没有收益</p>
-                    可以对一对一提问进行回答
-                    <div @click="goQuestion()">去回答</div>
+                    <p>还没有收益</p>
                 </div>
             </div>
 
