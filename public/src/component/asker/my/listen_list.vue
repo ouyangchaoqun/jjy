@@ -2,12 +2,15 @@
     <div style="height: 100%" class="asker_my_listen_list_box wbg">
         <div v-title>我的偷听</div>
         <div class="nothing listen" v-if="list.length==0&&!showLoad">
-            <img src="../../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>您还没有偷听</p>
-                在偷听页面可以点击播放按钮进行偷听
-                <div @click="goAsk()">去偷听</div>
+            <div>
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>您还没有偷听</p>
+                    在偷听页面可以点击播放按钮进行偷听
+                    <div @click="goAsk()">去偷听</div>
+                </div>
             </div>
+
         </div>
 
         <v-showLoad v-if="showLoad"></v-showLoad>

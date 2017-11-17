@@ -2,15 +2,18 @@
     <div style="height: 100%" class="asker_my_income_box wbg">
         <div v-title>我的收益</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="nothing income" v-if="income==0&&!showLoad">
-            <img src="../../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>没有收益明细</p>
-                可以对专家进行提问
-                <div @click="goAsk()">去提问</div>
+        <div class="nothing income"  v-if="income==0&&!showLoad">
+            <div>
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>您还没有收益</p>
+                    可以对专家进行提问产生偷听分成
+                    <div @click="goAsk()">去提问</div>
+                </div>
             </div>
+
         </div>
-        <div class="my_income"  v-if="income>0">
+        <div class="my_income" v-if="income>0">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
             <div class="money">￥{{formatPrice(income)}}</div>

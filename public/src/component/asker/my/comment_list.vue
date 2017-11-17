@@ -2,12 +2,15 @@
     <div style="height: 100%" class="asker_my_coment_list wbg">
         <div v-title>我的评价</div>
         <div class="nothing comment" v-if="list.length==0&&!showLoad">
-            <img src="../../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>您还没有过任何评价</p>
-                在我问的问题中可以进行评价
-                <div @click="goComment()">去评价</div>
+            <div>
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>您还没有过任何评价</p>
+                    在我问的问题中可以进行评价
+                    <div @click="goComment()">去评价</div>
+                </div>
             </div>
+
         </div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"

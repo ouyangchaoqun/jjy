@@ -3,12 +3,15 @@
 
         <div v-title>我的收听</div>
         <div class="nothing answer" v-if="list.length==0&&!showLoad" >
-            <img src="../../../images/asker/newNoContent.png" alt="">
-            <div class="nothing_bottom">
-                <p>您还没有任何收听</p>
-                在专家详情页面可以点击收听按钮进行收听
-                <div @click="goAnswerIndex()">去收听</div>
+            <div>
+                <img src="../../../images/asker/newNoContent.png" alt="">
+                <div class="nothing_bottom">
+                    <p>您还没有任何收听</p>
+                    在专家详情页面可以点击收听按钮进行收听
+                    <div @click="goAnswerIndex()">去收听</div>
+                </div>
             </div>
+
         </div>
 
         <v-showLoad v-if="showLoad"></v-showLoad>
