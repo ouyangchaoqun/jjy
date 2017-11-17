@@ -83,11 +83,11 @@
 
         <div id="select_type" class="select_type" v-show="showTypes" @click="select_typeFlag()">
             <div class="dialog_select_type">
-                <div class="title">选择问题类型</div>
-                <div class="types">
+                <div class="select_title">选择问题类型</div>
+                <div class="select_types">
                     <div class="item" :class="{on:item.isSelect}" v-for="(item,index) in types" @click.stop="select(index)"><span>{{item.title}}</span></div>
                 </div>
-                <div class="yes">
+                <div class="select_yes">
                     <div>取消</div>
                     <div @click="sureClass()">确定</div>
                 </div>
@@ -500,20 +500,7 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;}
     .joinmore_box .bottom_right{font-size: 0.70588235rem;color:rgba(253,115,1,1);float: right;position: absolute;right:0.88235rem;top:0.588235rem;}
-    .joinmore_box .select_type{width:100%;height:100%;background: rgba(0,0,0,0.6);position: fixed;top:0;right:0;left: 0;
-        bottom:0;z-index: 1000}
-    .joinmore_box .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:16rem; position: fixed;
-        top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;overflow: hidden}
-    .joinmore_box .dialog_select_type .title{ text-align: center; line-height: 3rem; font-size: 1rem;  font-weight: bold;}
-    .joinmore_box .dialog_select_type .types{ margin:  1rem 0;}
-    .joinmore_box .dialog_select_type .types .item{margin: 0 auto; width: 27%; float:left;text-align: center; line-height: 1.8235rem; border-radius:0.294rem; margin: 0 3%; margin-bottom: 0.88235rem; font-size: 0.7058823529411765rem;color:rgba(36,37,61,0.8);
-        background: rgba(245,245,245,1);
-    }
-    .joinmore_box .dialog_select_type .types .item.on{ color:rgba(255,81,2,1);background: rgba(253,115,1,1) ;color:#fff;}
-    .joinmore_box .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% ;display: flex}
-    .joinmore_box .yes div{flex: 1}
-    .joinmore_box .yes div:active{background: #eee}
-    .joinmore_box .yes div:nth-of-type(1){border-right:1px solid rgba(224,224,225,1)}
+
     .joinmore_box .title_bottom .class_style{font-size: 0.7058823529411765rem;background: rgba(253,115,1,1);color:#fff;margin-right: 0.588235rem;padding: 0.294rem 0.588235rem;border-radius: 0.294rem;}
     .joinmore_box .subBtn_nor{background: linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5)); line-height: 2.588235rem;color:rgba(255,255,255,1);font-size: 1.0588235rem;text-align: center;margin-top: 1.4rem;}
     .joinmore_box .subBtn_per{background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1)); }

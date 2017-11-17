@@ -695,3 +695,71 @@ body>div[class='']>*:not(.weui-mask):not(.weui-picker){ display: none}
 .record_voice_box .mask i{ display: block; position: absolute;
     left: 50%; top:50% }
 .record_voice_box  .tip{ position: absolute; top:55px; text-align: center; width: 100%; color:#666 ; font-size: 0.8235rem;}
+/*选择问题类型弹窗*/
+ .select_type{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+ .dialog_select_type{
+    background: #fff;
+    border-radius: 10px;
+    width: 80%;
+    height: 16rem;
+    position: fixed;
+    top: 50%;
+    margin-top: -9.5rem;
+    left: 50%;
+    margin-left: -40%;
+    z-index: 10001;
+    overflow: hidden;
+}
+ .dialog_select_type .select_title{
+    text-align: center;
+    line-height: 3rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+ .dialog_select_type .select_types{
+    margin: 1rem 0;
+}
+ .dialog_select_type .select_types .item{
+    width: 27%;
+    float: left;
+    text-align: center;
+    line-height: 1.8235rem;
+    border-radius: 0.294rem;
+    margin: 0 3%;
+    margin-bottom: 0.88235rem;
+    font-size: 0.7058823529411765rem;
+    color: rgba(36,37,61,0.8);
+    background: rgba(245,245,245,1);
+}
+ .dialog_select_type .select_types .item.on{
+    background: rgba(253,115,1,1);
+    color: #fff;
+}
+ .dialog_select_type  .select_yes{
+    border-top: 1px solid #eee;
+    color: #FE7301;
+    text-align: center;
+    line-height: 2.588235294117647rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+}
+ .select_yes div{
+    flex: 1;
+}
+.select_yes div:nth-of-type(1){
+    border-right: 1px solid rgba(224,224,225,1);
+}
+.select_yes div:active{background: #eee}

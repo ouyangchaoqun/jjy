@@ -16,18 +16,20 @@
             </div>
             <div class="text_area">
                 <p v-if="isSelectAnswer">你匿名提问的回答每被偷听一次，你分成¥0.5</p>
-                <textarea v-if="isSelectAnswer" class="content answer_select"></textarea>
-                <textarea v-if="!isSelectAnswer" class="content"
-                          placeholder="请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。"></textarea>
-                <div class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
+                <p v-if="!isSelectAnswer">请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。</p>
+                <textarea v-if="isSelectAnswer" class="content answer_select" maxlength="200"></textarea>
+                <textarea v-if="!isSelectAnswer" class="content" maxlength="140"></textarea>
+                <div v-if="!isSelectAnswer" class="last_word_count">{{contentLength}}/140</div>
+                <div v-if="isSelectAnswer" class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
                 <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
+                <div class="price" v-if="!isSelectAnswer">¥10.00</div>
             </div>
             <div class="tip" @click="tip()">提问须知</div>
             <div class="clear"></div>
-            <div class="set_price" v-if="!isSelectAnswer">
-                <div class="txt">设置赏金：</div>
-                <input type="number" class="price" placeholder="10元起">
-            </div>
+            <!--<div class="set_price" v-if="!isSelectAnswer">-->
+                <!--<div class="txt">设置赏金：</div>-->
+                <!--<input type="number" class="price" placeholder="10元起">-->
+            <!--</div>-->
             <div class="submit weui-btn weui-btn_primary weui-btn_disabled" v-if="!isSubFlag">提交</div>
             <div class="submit weui-btn weui-btn_primary" @click="submit()" v-if="isSubFlag">提交</div>
         </div>
@@ -36,19 +38,22 @@
 
         <div id="select_type" style="display: none">
             <div class="dialog_select_type">
-                <div class="title">选择问题类型</div>
-                <div class="types">
+                <div class="select_title">选择问题类型</div>
+                <div class="select_types">
                     <div class="item"   v-for="(item,index) in types"   :index="index"><span>{{item.title}}</span></div>
                     <div class="clear"></div>
                 </div>
-                <div class="yes">确定</div>
+                <div class="select_yes">
+                    <div class="hide_btn">取消</div>
+                    <div class="sure_click">确定</div>
+                </div>
 
 
             </div>
         </div>
         <div id="tip" style="display: none">
-            <div class="dialog_select_type">
-                <div class="title">提问须知</div>
+            <div class="dialog_select_type dialog_select_Height">
+                <div class="select_title">提问须知</div>
                 <div class="tip_content">
                     <p>
                     1.提交问题，付款成功后，好一点将为您匹配专业咨询师抢答。
@@ -203,22 +208,22 @@
                             }
                         });
                 }else{
-                    let price= $(".price").val();
-                    if(price==''){
-                        xqzs.weui.tip("请输入金额");
-                        return;
-                    }
-                    if(!xqzs.string.checkPrice(price)){
-                        xqzs.weui.tip("请输入正确的金额");
-                        return;
-                    }
-                    if(parseFloat(price)>xqzs.price.MAX_ASK_PRICE||parseFloat(price)<xqzs.price.MIN_ASK_PRICE){
-                        xqzs.weui.tip("金额需在 "+xqzs.price.MIN_ASK_PRICE+"-"+xqzs.price.MAX_ASK_PRICE+" 之间！");
-                        return;
-                    }
+//                    let price= $(".price").val();
+//                    if(price==''){
+//                        xqzs.weui.tip("请输入金额");
+//                        return;
+//                    }
+//                    if(!xqzs.string.checkPrice(price)){
+//                        xqzs.weui.tip("请输入正确的金额");
+//                        return;
+//                    }
+//                    if(parseFloat(price)>xqzs.price.MAX_ASK_PRICE||parseFloat(price)<xqzs.price.MIN_ASK_PRICE){
+//                        xqzs.weui.tip("金额需在 "+xqzs.price.MIN_ASK_PRICE+"-"+xqzs.price.MAX_ASK_PRICE+" 之间！");
+//                        return;
+//                    }
                     _this.showLoad=true;
 
-                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:price})
+                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:10})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 let result = bt.data.data;
@@ -266,21 +271,22 @@
                 let _this=this;
                 this.showTypes=true;
                 xqzs.weui.dialogCustom($("#select_type").html());
+
                 if(_this.typeSelectIndex!=null){
-                    $(".js_dialog .types .item").each(function (i) {
+                    $(".js_dialog .select_types .item").each(function (i) {
 
                         if(i==_this.typeSelectIndex){
                             $(this).addClass("on")
                         }
                     })
                 }
-                $(".types .item").click(function () {
-                    $(".types .item").removeClass("on");
+                $(".select_types .item").click(function () {
+                    $(".select_types .item").removeClass("on");
                     $(this).addClass("on");
                     let index=  parseInt($(this).attr("index"));
                     _this.typeSelectIndex=index;
                 });
-                $(".dialog_select_type .yes").click(function () {
+                $(".dialog_select_type .select_yes .sure_click").click(function () {
 
 
                     if(_this.typeSelectIndex==null){
@@ -313,6 +319,7 @@
                     _this.questionClass=_this.types[_this.typeSelectIndex].classId;
                 }
             })
+
         }
 
 
@@ -324,23 +331,25 @@
         background: #fff
     }
     .asker_ask_box .ask_type {
-        margin: 1.2rem 0.8823529411764706rem; margin-bottom: 0;
+        margin: 1.471rem 0.8823529411764706rem 1.176471rem 0.88235rem;
+        background: rgba(245,245,245,1);
+        border-radius: 6px;
     }
     .asker_ask_box .ask_type .tab {
-        line-height: 1.705882352941176rem;
+        line-height: 2.588235rem;
         font-size: 0.8823529411764706rem;
-        color: rgba(36,37,61,1);
+        color: rgba(36,37,61,0.5);
         margin-right: 0.3rem;
         float: left;
+        margin-left: 0.7rem;
     }
     .asker_ask_box  .ask_type .select_box {
-        border: 0.0588235294117647rem solid  rgba(255,158,25,1);
-        height: 1.647058823529412rem;
         width: 7.529411764705882rem;
         float: left;
-        border-radius: 6px;
         text-align: center;
-        line-height: 1.647058823529412rem;
+        line-height: 2.588235rem;
+        height: 2.588235rem;
+        color: rgba(36,37,61,0.7);
     }
     .asker_ask_box .text_area {
         position: relative;
@@ -349,15 +358,15 @@
         border-radius: 6px;
         font-size: 0.7647058823529412rem;
         padding: 1rem;
-        height: 8.45rem;
+        height: 9rem;
         margin-top: 0.8823529411764706rem;
         padding-top: 0.588235rem;
     }
     .asker_ask_box .text_area p{
         font-size: 0.8235rem;
-        line-height: 1;
+        line-height: 1.4rem;
         color:rgba(36,37,61,0.5);
-        margin-bottom: 10px;
+        margin-bottom: 0.294rem;
     }
     .asker_ask_box .text_area .price{
         color: rgba(253,114,6,1);
@@ -408,7 +417,7 @@
         color: rgba(253,114,6,1);
         padding: 0 0.5rem;
         width: 4rem;
-        height: 26px;
+        height:1.5294rem;
         border: none;
         border-bottom: 1px solid #ccc;
     }
@@ -416,18 +425,13 @@
         color: #ff9900;}
     .asker_ask_box .submit {
         border-radius: 50px;
-        margin: 2rem 0.88rem 5rem;
+        margin: 3rem 0.88rem 5rem;
     }
 
     .asker_ask_box .submit:active {
         background: linear-gradient(to right, rgb(239, 143, 25), rgb(211, 105, 6));
     }
-     .dialog_select_type{ background: #fff; border-radius: 10px; width: 80%; height:19rem; position: fixed;
-        top: 50%; margin-top: -9.5rem; left:50%; margin-left: -40% ;    z-index: 10001;}
-     .dialog_select_type .title{ text-align: center; line-height: 3rem; font-size: 1.058823529411765rem;  font-weight: bold;}
-      .dialog_select_type .types{ margin: 0.9rem;}
-     .dialog_select_type .types .item{ width: 27%; float:left;text-align: center; border: 1px solid #9E9E9E ; line-height: 1.411764705882353rem; border-radius:0.7058823529411765rem; margin: 0 2%; margin-bottom: 1.8rem; font-size: 0.7058823529411765rem;color:#999; padding: 0 0.5%; }
-     .dialog_select_type .types .item.on{  border: 1px solid rgba(255,81,2,1); color:rgba(255,81,2,1)}
+     .dialog_select_Height{ height:19rem;}
     .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
     .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 12rem; overflow: auto}
     .dialog_select_type .tip_content p{ margin-bottom: 0.6rem;}
@@ -438,6 +442,6 @@
     .asker_ask_box .ask_type_new .select_box div{flex:1;color:rgba(36,37,61,0.7);font-size: 0.88235rem;background: rgba(245,245,245,1);border-radius: 5px;}
     .asker_ask_box .ask_type_new .select_box div:nth-of-type(2){margin:0 0.88235rem;}
     .asker_ask_box .ask_type_new .select_box .on_new{background: rgba(253,114,6,1);color:#fff;}
-    .asker_ask_box  .text_area .content{ font-size: 0.88235rem; color:#333; height: 90%; line-height: 1.5}
+    .asker_ask_box  .text_area .content{ font-size: 0.8235rem; color:rgba(36,37,61,1); height: 55%; line-height: 1.41rem}
     .asker_ask_box  .text_area  .answer_select{ height: 70%}
 </style>

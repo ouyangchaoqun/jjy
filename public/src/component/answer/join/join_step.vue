@@ -181,6 +181,7 @@
                 }).then(function (data) {//es5写法
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
+                        console.log(_this.user)
                         _this.realName =  _this.user.realName
                         _this.identityNo = _this.user.idcard
                         _this.sex=_this.user.sex==1?'男':'女';

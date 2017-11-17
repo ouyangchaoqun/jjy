@@ -134,6 +134,9 @@ var xqzs = {
             $(".js_dialog .weui-mask").click(function () {
                 xqzs.weui.dialogClose()
             });
+            $('.js_dialog .hide_btn').click(function () {
+                xqzs.weui.dialogClose()
+            })
 
         },
         dialogClose: function () {
