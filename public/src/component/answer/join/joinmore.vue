@@ -159,10 +159,9 @@
         },
 
         mounted: function () {
-            this.showLoad = true
+
             this.$http.get(web.API_PATH+'come/expert/query/detail/by/userId/_userId_').then(function (data) {
                 if(data.data.status==1&&data.data.data !=null){
-                    this.showLoad = false;
                     let  expertId = data.data.data.id;
                     this.expertId = expertId;
                     cookie.set('expertId',expertId,300);
@@ -197,7 +196,9 @@
             },
             getExpertByUserId:function () {
                 let _this=this;
+                _this.showLoad = true
                 _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad = false;
                     console.log(data.data.data+'******************')
                     if (data.body.status == 1&&data.body.data!=null) {
                         _this.jobTitle = data.data.data.jobTitle||'必填';
@@ -444,6 +445,7 @@
             sub_more:function () {
                 console.log('提交')
                 let _this = this;
+                _this.showLoad=true;
                 let msg = {
                     'userId':"_userId_",
                     "faceUrl":_this.faceUrl,
@@ -458,6 +460,7 @@
                     .then(
                         (response) => {
                             console.log(response)
+                            _this.showLoad = false
                             if(response.data.status==9000006){
                                 xqzs.weui.tip("您已经提交过审核",function () {
                                     window.history.go(-1);

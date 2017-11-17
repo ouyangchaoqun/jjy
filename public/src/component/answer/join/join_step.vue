@@ -1,7 +1,7 @@
 <template >
     <div class="join_stepBox">
         <v-mobile class="mobile_box" style="display: none"></v-mobile>
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>入驻心理咨询师</div>
         <header>填写基本信息</header>
         <div class="step_detailBox">
@@ -94,10 +94,11 @@
 
 <script type="es6">
     import mobile from './mobile.vue';
-
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
+                showLoad:false,
                 sex:'',
                 sexIndex:'',
                 defaultCity: '[330000, 330100, 330102]',
@@ -174,11 +175,13 @@
             getUserInfo:function () {
                 let _this = this;
                 //用户信息
+                _this.showLoad = true;
                 this.$http({
                     method: 'GET',
                     type: "json",
                     url: web.API_PATH + 'user/find/by/user/Id/_userId_',
                 }).then(function (data) {//es5写法
+                    _this.showLoad = false;
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
                         console.log(_this.user)
@@ -437,6 +440,7 @@
             },
             msgSubmit: function () {
                 let _this = this;
+                _this.showLoad= true;
                 let mobileVal = $('.li_right .mobile').text();
                 let msg = {
                     "id": _this.user.id,
@@ -458,6 +462,7 @@
                     .then(
                         (response) => {
                             console.log(response)
+                            _this.showLoad= false;
                             _this.$router.replace("/answer/join/joinmore")
                         }
                     );
@@ -465,7 +470,8 @@
 
         },
         components:{
-            'v-mobile':mobile
+            'v-mobile':mobile,
+            'v-showLoad': showLoad,
         },
 
 

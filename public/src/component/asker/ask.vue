@@ -166,7 +166,9 @@
             },
             getClassList:function () {
                 let _this=this;
+                _this.showLoad = true;
                 _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
+                    _this.showLoad = false
                     if (data.body.status == 1) {
                             _this.types= data.body.data
                     }
