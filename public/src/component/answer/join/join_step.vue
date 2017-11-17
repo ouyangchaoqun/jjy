@@ -55,7 +55,7 @@
                 <li>
                     <span class="li_left"></span>邮 箱
                     <div class="li_right">
-                        <input type="email" class="email" :value="email" @blur="fouceOut()">
+                        <input type="text" class="email" :value="email" @input="emailChange()">
                         <i></i>
                     </div>
                 </li>
@@ -73,7 +73,7 @@
                 <li>
                     <span class="li_left">*</span>身份证号
                     <div class="li_right">
-                        <input type="text" class="identityNo"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*" >
+                        <input type="text" class="identityNo"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*">
                         <i></i>
                     </div>
                 </li>
@@ -126,9 +126,7 @@
                 mobileVal:'123',
                 realName:'',
                 mobileBox:false,
-                idcard:'',
-                ema : /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
-
+                idcard:''
 
             }
         },
@@ -236,17 +234,6 @@
             changeRealName:function () {
                 let realNameVal = $('.realName').val()
                 this.realName = realNameVal
-            },
-            fouceOut:function () {
-              console.log('shiqushiqu')
-                let _this = this;
-                let emailVal = $('.email').val()
-                if (!_this.ema.test(emailVal)){
-                    xqzs.weui.tip("请填写正确的邮箱");
-                }else {
-                    _this.email = emailVal
-                }
-                console.log(_this.email)
             },
             getSexPicker:function () {
                 let _this = this;
@@ -425,17 +412,11 @@
                 cookie.set('identityNo',identityNo)
                 _this.identityNo = identityNo
             },
-//            emailChange:function () {
-//                let _this = this;
-//                let ema = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
-//                let emailVal = $('.email').val()
-//                if (!ema.test(emailVal)){
-//                    xqzs.weui.tip("请填写正确的邮箱");
-//                }else {
-//                    _this.email = emailVal
-//                }
-//
-//            },
+            emailChange:function () {
+                let _this = this;
+                let emailVal = $('.email').val()
+                _this.email = emailVal
+            },
             goMobile:function () {
                 $('.mobile_box').show()
             },
@@ -460,10 +441,6 @@
             },
             msgSubmit: function () {
                 let _this = this;
-                if (!_this.ema.test(_this.email)){
-                    xqzs.weui.tip("请填写正确的邮箱");
-                    return
-                }
                 _this.showLoad= true;
                 let mobileVal = $('.li_right .mobile').text();
                 let msg = {
