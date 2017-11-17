@@ -1,19 +1,33 @@
 <template id="my_problem_index">
-    <div>
+    <div style="background: #fff">
         <div v-title>我的回答</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
             <div class="my_problem_tabs">
-                <div class="my_problem_active">抢答</div>
-                <div>一对一解答</div>
+                <div class="my_problem_tab">
+                    <div class=" my_problem_active">抢答</div>
+                </div>
+                <div class="my_problem_tab">
+                   <div > 一对一解答</div>
+                </div>
+            </div>
+            <div class="nothing comment" v-if="list.length==0">
+                <div>
+                    <img src="../../../images/asker/newNoContent.png" alt="">
+                    <div class="nothing_bottom">
+                        <p v-if="type==1">还没有抢答</p>
+                        <p v-if="type==2">还未人找你解答</p>
+                        <div @click="goRace()" v-if="type==1">去抢答</div>
+                    </div>
+                </div>
             </div>
             <div class="my_problem_box">
             <!--抢答-->
             <div class="problem_box_active">
                 <ul class="problem_item">
-                    <li v-for="(item,index) in list" v-if="type==1">
+                    <li v-for="(item,index) in list" v-if="type==1" :class="{li_border:list.length>1}">
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
                             <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
@@ -55,7 +69,7 @@
             <!--一对一解答-->
             <div>
                 <ul class="problem_item">
-                    <li v-if="type==2" v-for="(item,index) in list">
+                    <li v-if="type==2" v-for="(item,index) in list" :class="{li_border:list.length>1}">
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
                             <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
@@ -116,13 +130,13 @@
         },
         mounted: function () {
             let _this = this;
-            $('.my_problem_tabs>div').click(function () {
-                $('.my_problem_tabs>div').removeClass('my_problem_active')
+            $('.my_problem_tabs .my_problem_tab div').click(function () {
+                $('.my_problem_tabs .my_problem_tab div').removeClass('my_problem_active')
                 $('.my_problem_box>div').removeClass('problem_box_active')
                 $(this).addClass('my_problem_active')
-                $('.my_problem_box>div').eq($(this).index()).addClass('problem_box_active')
+                $('.my_problem_box>div').eq($(this).parent().index()).addClass('problem_box_active')
 
-                if ($(this).index() == 0) {
+                if ($(this).parent().index() == 0) {
                     _this.changeType(1);
                 } else {
                     _this.changeType(2);
@@ -247,7 +261,6 @@
                     vm.isLoading = false;
                     vm.showLoad = false;
                 });
-
             },
             onInfinite(done) {
                 this.getList(done);
@@ -266,6 +279,9 @@
             },
             formatPrice:function (price) {
                 return xqzs.string.formatPrice(price)
+            },
+            goRace:function () {
+                this.$router.push("/answer/race/list")
             }
 
         },
@@ -278,7 +294,7 @@
 </script>
 <style>
     .my_problem_tabs{
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size: 0.88235rem;
         text-align: center;
         display: -webkit-box;
@@ -292,6 +308,10 @@
     .my_problem_tabs>div{
         flex: 1;
         position: relative;
+    }
+    .my_problem_tab>div{
+        width:50%;
+        margin:0 auto;
     }
     .my_problem_tabs>div:nth-of-type(1)::after{
         content: '';
@@ -321,11 +341,14 @@
     .problem_item li{
         padding:0.88235rem 0.88235rem 0.588235rem 0.88235rem;
         background: #fff;
-        margin-bottom: 0.588235rem;
+
+    }
+    .problem_item .li_border{
+        border-bottom: 0.41176471rem solid #F5F5F5;
     }
     .problem_item_top{display: -webkit-box;display: -webkit-flex;display: flex;font-size: 12px;line-height: 34px;color:#999;position: relative}
-    .problem_item_top span{color:#666;margin-right: 10px;}
-    .problem_item_top i{font-style: normal;color:#FF9900;margin-left: 5px}
+    .problem_item_top span{color:rgba(36,37,61,0.7);margin-right: 10px;}
+    .problem_item_top i{font-style: normal;color:rgba(254,115,1,1);margin-left: 5px}
     .problem_item_top img{
         width:34px;
         height:34px;
@@ -334,7 +357,7 @@
         margin-right: 10px;
     }
     .problem_item_right{position: absolute;right:0}
-    .problem_item_del{color:#333;font-size: 15px;line-height: 20px;padding-left:44px;margin-bottom: 1.176471rem}
+    .problem_item_del{color:rgba(36,37,61,1);font-size: 15px;line-height: 20px;padding-left:44px;margin-bottom: 1.176471rem}
     .problem_answer_info{
         display: -webkit-box;
         display: -webkit-flex;
@@ -342,7 +365,7 @@
         line-height: 2.8235rem;
         height:2.8235rem;
         font-size: 0.8235rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         margin-bottom: 0.88235rem;
     }
     .problem_answer_info img{
