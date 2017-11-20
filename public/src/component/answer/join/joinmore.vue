@@ -537,6 +537,7 @@
         left:50%;
         margin-left: -8.235294rem;
         overflow: hidden;
+        z-index: 1001;
     }
     .joinmore_box .myask_class h3{
         font-size:1.0588235rem;
