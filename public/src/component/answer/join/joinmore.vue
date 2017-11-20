@@ -432,7 +432,7 @@
                 }else if(_this.freeTimeText==''){
                     xqzs.weui.tip("请设置免费时间")
                 }else if(_this.price<10){
-                    xqzs.weui.tip("请设置提问酬金(大于10)")
+                    xqzs.weui.tip("请设置提问酬金(大于等于10)")
                 }else if(_this.jobTitle==''||_this.jobTitle=='必填'){
                     xqzs.weui.tip("请编辑从业资质")
                 }else if(_this.introduction==''||_this.introduction=='必填'){
