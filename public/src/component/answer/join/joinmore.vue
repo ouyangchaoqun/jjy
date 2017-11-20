@@ -1,6 +1,6 @@
 <template >
     <div class="joinmore_box">
-        <div class="weui-mask weui-animate-fade-in" v-show="myask_mask_flag"  @click="hide_myask_mask()">
+        <div class="select_type" v-show="myask_mask_flag"  @click="hide_myask_mask()">
             <div class="myask_class myask_know_box" @click.stop>
                 <h3>解答须知</h3>
                 <ul style="overflow: auto;height: 12.35294rem;width:100%;">
