@@ -98,8 +98,14 @@
             <div class="myask_class myask_know_box" @click.stop>
                 <h3>解答须知</h3>
                 <ul style="overflow: auto;height: 12.35294rem;width:100%;">
-                    <li><b>1.</b>提交问题，设置赏金支付后，心情指数将为您匹配专业咨询师开始抢答。<br/>（1）设置的赏金越高，匹配的咨询师等级越高，抢答的咨询师越多。<br/>（2）问题描述越清楚，咨询师的回答将精准。</li>
-                    <li><b>2.</b>你可以选择做佳答案：<br/>（1）该回答将产生偷偷听收入；<br/>（2）其咨询师将获得全部赏金；</li>
+                    <li><b>1.</b>提交问题，设置赏金支付后，心情指数将为您匹配专业咨询师开始抢答。
+                        <p>（1）设置的赏金越高，匹配的咨询师等级越高，抢答的咨询师越多。</p>
+                        <p>（2）问题描述越清楚，咨询师的回答将精准。</p>
+                    </li>
+                    <li><b>2.</b>你可以选择做佳答案：
+                        <p>（1）该回答将产生偷偷听收入；</p>
+                        <p>（2）其咨询师将获得全部赏金；</p>
+                    </li>
                     <li><b>3.</b>48小时内无人抢答，则全额退款。</li>
 
 
@@ -526,7 +532,7 @@
     }
     .joinmore_box .myask_class{
         width:16.470588rem;
-        text-align: center;
+        text-align: left;
         padding-top: 1.1176471rem;
         background: #fff;
         color: #999;
@@ -545,6 +551,7 @@
         color:rgba(51,51,51,1);
         line-height:1;
         margin-bottom: 1.23588rem;
+        width:100%;
     }
     .joinmore_box .myask_class_true{
         font-size: 1.0588235rem;
