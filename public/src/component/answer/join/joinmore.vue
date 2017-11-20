@@ -1,7 +1,7 @@
 <template >
     <div class="joinmore_box">
         <div v-title>入驻心理咨询师</div>
-        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-if="showLoad"></div>
         <header>
             <div class="headerImg_box">
                 <div class="headerImg" @click="changeHeadpic()">
