@@ -524,7 +524,7 @@ a{
 .myask_class{
     width:16.470588rem;
     text-align: center;
-    padding-top: 1.88235rem;
+    /*padding-top: 1.88235rem;*/
     background: #fff;
     color: #999;
     font-size: 0.70588rem;
@@ -533,6 +533,7 @@ a{
     top:30%;
     left:50%;
     margin-left: -8.235294rem;
+    height:auto;
     overflow: hidden;
 }
 .myask_class h3{
