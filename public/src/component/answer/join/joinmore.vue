@@ -1,6 +1,6 @@
 <template >
     <div class="joinmore_box">
-        <div class="weui-mask weui-animate-fade-in"  @click="hide_myask_mask()">
+        <div class="weui-mask weui-animate-fade-in" v-show="myask_mask_flag"  @click="hide_myask_mask()">
             <div class="myask_class myask_know_box" @click.stop>
                 <h3>解答须知</h3>
                 <ul style="overflow: auto;height: 12.35294rem;width:100%;">
@@ -363,9 +363,9 @@
             goVoice:function () {
                 this.$router.replace('voice')
             },
-//            beforeDestroy:function () {
-//                xqzs.image.hideClip()
-//            },
+            beforeDestroy:function () {
+                xqzs.image.hideClip()
+            },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
@@ -535,7 +535,7 @@
         width:16.470588rem;
         text-align: left;
         padding-top: 1.1176471rem;
-        background: pink;
+        background: #fff;
         color: #999;
         font-size: 0.70588rem;
         border-radius: 5px;
