@@ -509,4 +509,53 @@
     .joinmore_box .subBtn_per{background: linear-gradient(rgba(255,158,25,1),rgba(253,115,1,1)); }
     .joinmore_box .need_know_box{color:rgba(36,37,61,0.5);display: inline-block;float: right;font-size: 0.70588235rem;position: relative;}
     .joinmore_box .need_know_box img{width:0.8235rem;height:0.8235rem;position: absolute;left:-1.176471rem;top:50%;margin-top: -0.41176471rem;}
+
+    .joinmore_box .myask_know_box{
+        padding-top: 1.1176471rem;
+        text-align: left;
+        color: #666;
+        font-size:0.8235rem;
+        line-height: 1.176471rem;
+    }
+    .joinmore_box .myask_know_box li{
+        padding: 0 0.88235rem;
+        margin-bottom: 0.588235rem;
+    }
+    .joinmore_box .myask_know_box b{
+        color: #333;
+    }
+    .joinmore_box .myask_class{
+        width:16.470588rem;
+        text-align: center;
+        padding-top: 1.1176471rem;
+        background: #fff;
+        color: #999;
+        font-size: 0.70588rem;
+        border-radius: 5px;
+        position: absolute;
+        top:20%;
+        left:50%;
+        margin-left: -8.235294rem;
+        overflow: hidden;
+    }
+    .joinmore_box .myask_class h3{
+        font-size:1.0588235rem;
+        font-family:PingFangSC-Regular;
+        color:rgba(51,51,51,1);
+        line-height:1;
+        margin-bottom: 1.23588rem;
+    }
+    .joinmore_box .myask_class_true{
+        font-size: 1.0588235rem;
+        height:2.941176rem;
+        line-height: 2.941176rem;
+        color: rgba(253,114,6,1);
+        text-align: center;
+        border-top: 1px solid #eee;
+    }
+    .joinmore_box .myask_class_true:active{
+        background: #ccc;
+    }
+
+
 </style>
