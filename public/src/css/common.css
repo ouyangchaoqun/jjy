@@ -526,14 +526,14 @@ a{
     text-align: center;
     /*padding-top: 1.88235rem;*/
     background: #fff;
-    color: #999;
+    color: rgba(36,37,61,0.5);
     font-size: 0.70588rem;
     border-radius: 5px;
     position: absolute;
-    top:30%;
+    top:20%;
     left:50%;
     margin-left: -8.235294rem;
-    height:auto;
+    height:310px;
     overflow: hidden;
 }
 .myask_class h3{
