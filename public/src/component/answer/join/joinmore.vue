@@ -1,7 +1,7 @@
 <template >
     <div class="joinmore_box">
         <div v-title>入驻心理咨询师</div>
-        <div v-if="showLoad"></div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <header>
             <div class="headerImg_box">
                 <div class="headerImg" @click="changeHeadpic()">
@@ -176,13 +176,13 @@
                 }
             })
 
-            this.initOss();
+//            this.initOss();
             let sign= (cookie.get("sign"));
             if(sign&&sign!=''){
                 this.sign=unescape(sign)
             }
 
-            xqzs.wx.setConfig(this);
+//            xqzs.wx.setConfig(this);
         } ,
         methods:  {
             initOss:function () {
