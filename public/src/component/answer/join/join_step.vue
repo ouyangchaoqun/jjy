@@ -87,7 +87,7 @@
         </div>
 
         <div class="joinStep_nor_btn" v-show="!(realName&&birthday&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2)"  @click="check_step()">下一步</div>
-        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
+        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&identityNo&&mobileVal" @click="msgSubmit()">下一步</div>
 
     </div>
 </template>

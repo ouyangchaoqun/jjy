@@ -157,10 +157,6 @@
 
             }
         },
-        updated:function () {
-            console.log('**********'+$('.myask_know_box').height())
-        },
-
         mounted: function () {
 
             this.$http.get(web.API_PATH+'come/expert/query/detail/by/userId/_userId_').then(function (data) {
