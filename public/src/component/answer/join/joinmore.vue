@@ -520,7 +520,7 @@
     .joinmore_box .myask_know_box{
         padding-top: 1.1176471rem;
         text-align: left;
-        color: #666;
+        color: rgba(36,37,61,0.7);
         font-size:0.8235rem;
         line-height: 1.176471rem;
     }
@@ -529,14 +529,14 @@
         margin-bottom: 0.588235rem;
     }
     .joinmore_box .myask_know_box b{
-        color: #333;
+        color: rgba(36,37,61,1);
     }
     .joinmore_box .myask_class{
         width:16.470588rem;
         text-align: left;
         padding-top: 1.1176471rem;
         background: #fff;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         border-radius: 5px;
         position: absolute;
@@ -549,7 +549,7 @@
     .joinmore_box .myask_class h3{
         font-size:1.0588235rem;
         font-family:PingFangSC-Regular;
-        color:rgba(51,51,51,1);
+        color:rgba(36,37,61,1);
         line-height:1;
         margin-bottom: 1.23588rem;
         width:100%;

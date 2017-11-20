@@ -1,6 +1,7 @@
 <template>
     <div style="height: 100%" class="asker_my_index_box">
         <div v-title>我的</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="weui-tab__panel main">
             <div class="main">
             <div class="top">
@@ -27,11 +28,12 @@
 <script type="es6">
 
     import askerBottom from "../include/bottom.vue";
-
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
                 income:0,
+                showLoad:false,
             }
         },
         props:{
@@ -40,7 +42,8 @@
             }
         },
         components: {
-            "v-asker-bottom": askerBottom
+            "v-asker-bottom": askerBottom,
+            'v-showLoad':showLoad
         },
         methods: {
             formatPrice:function (v) {
@@ -76,11 +79,10 @@
 
             },
             goJoin:function () {
+                this.showLoad = true;
                 this.$router.push("/answer/join/joinstep");
-
             },
             getIncome:function () {
-
                 let _this= this;
                 _this.$http.get(web.API_PATH + 'come/user/query/income/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
@@ -94,14 +96,15 @@
         },
         mounted: function () {
             let _this=this;
+            _this.showLoad = true;
             _this.$http({
                 method: 'GET',
                 type: "json",
                 url: web.API_PATH + 'user/find/by/user/Id/_userId_',
             }).then(function (data) {//es5写法
+                _this.showLoad = false;
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
-
 
                 }
             }, function (error) {
