@@ -363,9 +363,9 @@
             goVoice:function () {
                 this.$router.replace('voice')
             },
-            beforeDestroy:function () {
-                xqzs.image.hideClip()
-            },
+//            beforeDestroy:function () {
+//                xqzs.image.hideClip()
+//            },
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
