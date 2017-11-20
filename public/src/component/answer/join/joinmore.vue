@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div class="weui-mask weui-animate-fade-in" v-show="myask_mask_flag" @click="hide_myask_mask()">
+        <div class="weui-mask weui-animate-fade-in"  @click="hide_myask_mask()">
             <div class="myask_class myask_know_box" @click.stop>
                 <h3>解答须知</h3>
                 <ul style="overflow: auto;height: 12.35294rem;width:100%;">
@@ -534,7 +534,7 @@
         width:16.470588rem;
         text-align: left;
         padding-top: 1.1176471rem;
-        background: #fff;
+        background: pink;
         color: #999;
         font-size: 0.70588rem;
         border-radius: 5px;
@@ -552,6 +552,7 @@
         line-height:1;
         margin-bottom: 1.23588rem;
         width:100%;
+        text-align: center;
     }
     .joinmore_box .myask_class_true{
         font-size: 1.0588235rem;
