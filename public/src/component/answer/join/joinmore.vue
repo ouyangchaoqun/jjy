@@ -78,8 +78,8 @@
                 <input type="" readonly  :value="freeTimeText">
             </div>
         </div>
-        <div v-show="!(jobTitle&&freeTimeText&&price>=10&&classType&&sign&&introduction&&faceUrl)" class="subBtn_nor" @click="check_step()">提交</div>
-        <div v-show="(jobTitle&&freeTimeText&&price>=10&&classType&&sign&&introduction&&faceUrl)" class="subBtn_nor subBtn_per" @click="sub_more()">提交</div>
+        <div v-show="!(jobTitle&&freeTimeText&&price>=10&&classType&&sign!='必填'&&introduction&&faceUrl)" class="subBtn_nor" @click="check_step()">提交</div>
+        <div v-show="(jobTitle&&freeTimeText&&price>=10&&classType&&sign!='必填'&&introduction&&faceUrl)" class="subBtn_nor subBtn_per" @click="sub_more()">提交</div>
 
         <div id="select_type" class="select_type" v-show="showTypes" @click="select_typeFlag()">
             <div class="dialog_select_type">
@@ -212,7 +212,7 @@
                             }
 
                         _this.price =cookie.get('priceChange')==null?parseInt (data.data.data.price):cookie.get('priceChange');
-                        _this.faceUrl = data.data.data.faceUrl;
+                        _this.faceUrl =cookie.get('faceUrl')==null? data.data.data.faceUrl:cookie.get('faceUrl');
                     }
                 }, function (error) {
                 });
@@ -224,6 +224,7 @@
                 },function (json,ix) {
                     _this.showLoad=false;
                     _this.faceUrl=json.data.path;
+                    cookie.set('faceUrl',_this.faceUrl)
                     xqzs.image.hideClip()
                 });
             },
@@ -432,11 +433,11 @@
                     xqzs.weui.tip("请设置免费时间")
                 }else if(_this.price<10){
                     xqzs.weui.tip("请设置提问酬金(大于10)")
-                }else if(_this.jobTitle==''){
+                }else if(_this.jobTitle==''||_this.jobTitle=='必填'){
                     xqzs.weui.tip("请编辑从业资质")
-                }else if(_this.introduction==''){
+                }else if(_this.introduction==''||_this.introduction=='必填'){
                     xqzs.weui.tip("请编辑自我介绍")
-                }else if(_this.sign==''){
+                }else if(_this.sign==''||_this.sign=='必填'){
                     xqzs.weui.tip("请编辑个性签名")
                 }else if(_this.faceUrl==''){
                     xqzs.weui.tip("请上传个人头像")
