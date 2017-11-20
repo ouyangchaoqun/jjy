@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div class="weui-mask weui-animate-fade-in" v-if="myask_mask_flag" @click="hide_myask_mask()">
+        <div class="weui-mask weui-animate-fade-in" v-show="myask_mask_flag" @click="hide_myask_mask()">
             <div class="myask_class myask_know_box" @click.stop>
                 <h3>解答须知</h3>
                 <ul style="overflow: auto;height: 12.35294rem;width:100%;">
@@ -107,8 +107,8 @@
                 <div class="myask_class_true" @click="hide_myask_mask()">知道了</div>
             </div>
         </div>
-    </div>
 
+    </div>
 </template>
 
 <script type="es6">
@@ -156,6 +156,9 @@
                 myask_mask_flag:false,
 
             }
+        },
+        updated:function () {
+            console.log('**********'+$('.myask_know_box').height())
         },
 
         mounted: function () {
