@@ -232,8 +232,10 @@
     .number .input_box{width:65%;position: absolute;right:0.88235rem;}
     .number span{color:rgba(36,37,61,1);font-size: 0.8235rem;}
     .weui-check__label:active{ background: none}
-    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;padding:0 0.88235rem;justify-content:space-between;padding-top:1.176471rem;}
-    .answer_join_quali .photo_img .img{background:#f4f4f7;width:9.71rem;height:6.76471rem;position: relative}
+    .answer_join_quali .photo_img{display: flex;display: -webkit-flex;justify-content:space-between;padding-top:1.176471rem;}
+    .answer_join_quali .photo_img .img{background:#f4f4f7;width:44%;height:6.76471rem;position: relative}
+    .answer_join_quali .photo_img .img:nth-of-type(1){margin-left: 4%;}
+    .answer_join_quali .photo_img .img:nth-of-type(2){margin-right: 4%;}
     .answer_join_quali .photo_img .img img{ max-height: 100%; max-width: 100%; position: absolute; top:0; left:0; z-index: 100}
     .img div{width:44px;height:44px;border-radius: 50%;background: #fff;text-align: center;line-height: 40px;position: absolute;top:25%;left:50%;margin-left:-22px;}
     .img div b{color:rgba(253,114,6,1);font-size: 1.6rem}
