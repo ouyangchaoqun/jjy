@@ -15,10 +15,8 @@
                 <div class="clear"></div>
             </div>
             <div class="text_area">
-                <p v-if="isSelectAnswer">你匿名提问的回答每被偷听一次，你分成¥0.5</p>
-                <p v-if="!isSelectAnswer">请输入您的问题，心情指数将为您匹配专业咨询师进行抢答。</p>
-                <textarea v-if="isSelectAnswer" class="content answer_select" maxlength="200"></textarea>
-                <textarea v-if="!isSelectAnswer" class="content" maxlength="140"></textarea>
+                <textarea v-if="isSelectAnswer" placeholder="请详细描述您的问题，专家将第一时间帮您解答。" class="content answer_select" maxlength="200"></textarea>
+                <textarea v-if="!isSelectAnswer" placeholder="请输入您的问题，好一点将为您匹配专业咨询师进行抢答。" class="content" maxlength="140"></textarea>
                 <div v-if="!isSelectAnswer" class="last_word_count">{{contentLength}}/140</div>
                 <div v-if="isSelectAnswer" class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
                 <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
@@ -54,27 +52,41 @@
         <div id="tip" style="display: none">
             <div class="dialog_select_type dialog_select_Height">
                 <div class="select_title">提问须知</div>
-                <div class="tip_content">
+                <div class="tip_content" v-if="!isSelectAnswer">
                     <p>
-                    1.提交问题，付款成功后，好一点将为您匹配专业咨询师抢答。
-                    </p><p>
-                    2.你可以选择出最佳回案：<br>
-                    （1）该回答将产生偷听收入；<br>
-                    （2）其咨询师将获得全部赏金；<br>
-                </p><p>
-                    3.若48小时内无人抢答，则全额退款；<br>
-                </p><p>
-                    4.若48小时内没有选中最佳回答：<br>
-                </p><p>
-                    （1）所有回答将不产生偷听收入；<br>
-                    （2）参与抢答的咨询师将平分赏金；<br>
-                </p><p>
-                    5.所有收入扣除10%为收益。<br>
-                </p>
-
-
-
+                        1.  提交问题，付款成功后，好一点将为您匹配专业咨询师进行抢答。
+                    </p>
+                    <p>
+                        2.  你可以从解答中选出最佳解答：<br>
+                          1）  该解答将产生偷听收入；<br>
+                          2）  并且该咨询师将获得全部赏金；<br>
+                    </p>
+                    <p>
+                        3.  若48小时内无咨询师抢答，则赏金将原路径退还；<br>
+                    </p>
+                    <p>
+                        4.  若您在48小时内没有选出最佳解答：<br>
+                        1）  所有解答均不产生偷听收入；<br>
+                        2）  参与抢答的咨询师将平分赏金；<br>
+                    </p>
+                    <p>
+                        5.  最佳解答每被偷听一次，您将获得10%的偷听收益 。<br>
+                    </p>
                 </div>
+                <div class="tip_content" v-if="isSelectAnswer">
+                    <p>
+                        1. 提问后将安排咨询师在第一时间为您解答，若超过48小时未解答，支付酬金将按原路径返还。
+                    </p>
+                    <p>
+                        2.  专家解答每被偷听一次，您将获得10%的偷听收益；
+                    </p>
+                    <p>
+                        3.  .所有免费听的答案都不产生偷听收入，包括：<br>
+                        1）该答主开启了限时免费听，例如“限时免费2小时”，则在解答2小时内该解答可被免费听；<br>
+                        2）答主联合好一点平台的其他免费推广；<br>
+                    </p>
+                </div>
+
                 <div class="yes know" >知道了</div>
 
 
@@ -131,7 +143,6 @@
                 $(".content").keyup(function () {
 
                     let content  =  $(this).val();
-                    console.log(content)
                     if(content.length>0){
                         _this.isSubFlag=true
                     }else{
@@ -351,7 +362,8 @@
         text-align: center;
         line-height: 2.588235rem;
         height: 2.588235rem;
-        color: rgba(36,37,61,0.7);
+        color: rgba(36,37,61,1);
+        font-size: 0.88235rem;
     }
     .asker_ask_box .text_area {
         position: relative;
@@ -364,12 +376,12 @@
         margin-top: 0.8823529411764706rem;
         padding-top: 0.588235rem;
     }
-    .asker_ask_box .text_area p{
-        font-size: 0.8235rem;
-        line-height: 1.4rem;
-        color:rgba(36,37,61,0.5);
-        margin-bottom: 0.294rem;
-    }
+    /*.asker_ask_box .text_area p{*/
+        /*font-size: 0.8235rem;*/
+        /*line-height: 1.4rem;*/
+        /*color:rgba(36,37,61,0.5);*/
+        /*margin-bottom: 0.294rem;*/
+    /*}*/
     .asker_ask_box .text_area .price{
         color: rgba(253,114,6,1);
         position: absolute;
@@ -444,6 +456,6 @@
     .asker_ask_box .ask_type_new .select_box div{flex:1;color:rgba(36,37,61,0.7);font-size: 0.88235rem;background: rgba(245,245,245,1);border-radius: 5px;}
     .asker_ask_box .ask_type_new .select_box div:nth-of-type(2){margin:0 0.88235rem;}
     .asker_ask_box .ask_type_new .select_box .on_new{background: rgba(253,114,6,1);color:#fff;}
-    .asker_ask_box  .text_area .content{ font-size: 0.8235rem; color:rgba(36,37,61,1); height: 55%; line-height: 1.41rem}
-    .asker_ask_box  .text_area  .answer_select{ height: 70%}
+    .asker_ask_box  .text_area .content{ font-size: 0.8235rem; color:rgba(36,37,61,1); height: 90%; line-height: 1.41rem}
+    /*.asker_ask_box  .text_area  .answer_select{ height: 90%}*/
 </style>
