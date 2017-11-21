@@ -447,6 +447,7 @@
     }
      .dialog_select_Height{ height:19rem;}
     .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
+    .dialog_select_type  .yes:active{background: #eee}
     .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 12rem; overflow: auto}
     .dialog_select_type .tip_content p{ margin-bottom: 0.6rem;}
     .asker_ask_box .ask_type_new{padding:1.176471rem 0.88235rem;padding-bottom: 0.2941rem}
