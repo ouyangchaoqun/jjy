@@ -34,9 +34,7 @@
                                 <div class="class_s">
                                     <span v-for="(tag,tagIndex) in item.domains">{{tag.title}} <i v-if="tagIndex<2">、</i></span>
                                 </div>
-                                <div class="class_s other"><span class="ml"
-                                                                 v-if="item.answerCount!=null">{{item.answerCount||0}}个回答</span><span
-                                        class="ml">{{item.followCount||0}}人收听</span></div>
+                                <div class="class_s other"><span v-if="item.answerCount!=null">{{item.answerCount||0}}个回答</span><span>{{item.followCount||0}}人收听</span></div>
                             </div>
                         </div>
                     </div>
