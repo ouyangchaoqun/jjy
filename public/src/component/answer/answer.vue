@@ -234,7 +234,7 @@
                                 if (bt.data && bt.data.status == 1) {
                                     _this.isAnswered=true;
                                     _this.answerId= bt.data.data.answerId;
-                                    $(".record_voice_box").hide()
+                                    $(".record_voice_box .tip").hide()
                                 }else if(bt.data.status==910003){
                                     window.history.go(-1);
 
