@@ -8,8 +8,8 @@
             <div class="img"><img :src="detail.faceUrl"></div>
             <div class="info">
                 <div class="names"><span>{{detail.nickname}}</span> </div>
-                <div class="type"><span>在哪方面：</span>{{detail.title}}</div>
                 <div class="content">{{detail.content}}</div>
+                <div class="type"><span>在哪方面：</span>{{detail.title}}</div>
                 <div class="last_time">{{getTime(detail.addTime)}}</div>
                 <div class="clear"></div>
 
@@ -25,7 +25,7 @@
 
 
             </div>
-            <div class="price">酬金 <span>￥{{detail.price}}</span></div>
+            <div class="price">￥{{detail.price}}</div>
 
             <div class="clear"></div>
         </div>
@@ -324,18 +324,19 @@
 </script>
 <style>
     .answer_answer_box{ width: 100%; overflow: hidden}
-    .answer_answer_box .answer{ background: #fff; padding:0.8823529411764706rem;  position: relative; border-bottom: 0.92rem solid #F4F4F7 }
-   .answer_answer_box .answer .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
+    .answer_answer_box .answer{ background: #fff; padding:0.8823529411764706rem;  position: relative; border-bottom: 0.471rem solid #F4F4F7 }
+   .answer_answer_box .answer .img{ width: 1.70588235rem; height: 1.70588235rem; float:left; }
    .answer_answer_box .answer .img img{ width: 100%; height: 100%; border-radius: 50%}
-   .answer_answer_box .answer .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }
-   .answer_answer_box .answer .info .names{ font-size: 0.7058823529411765rem;  color:#666; margin-bottom: 0.2rem; width: 14.11764705882353rem; line-height: 2.5rem}
-   .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:#474747; line-height:1.176470588235294rem; margin-bottom: 0.4rem}
-   .answer_answer_box .answer .info .last_time{ float:left;font-size:0.7647058823529412rem;color:#666; width: 6rem;
+   .answer_answer_box .answer .info .names{ font-size: 0.7058823529411765rem;  color:rgba(36,37,61,0.5); margin-bottom: 0.235rem; line-height: 1.70588235rem}
+    .answer_answer_box .answer .info .names span{
+        margin-left: 0.588235rem;
+    }
+   .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:rgba(36,37,61,1); line-height:1.176470588235294rem; margin-bottom: 0.4rem;width:98%;}
+   .answer_answer_box .answer .info .last_time{ float:left;font-size:0.7647058823529412rem;color:rgba(36,37,61,0.5); width: 6rem;
     }
    .answer_answer_box .answer .info .type{ font-size: 0.7058823529411765rem; color:#333;margin-bottom: 0.4rem}
-    .answer_answer_box .answer .info .type span{ color:#666}
-   .answer_answer_box .answer .price{ font-size: 0.8823529411764706rem;color:#535353; text-align: right;position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
-    .answer_answer_box .answer  .price span{ color:#FE7301; font-size: 1.058823529411765rem;}
+    .answer_answer_box .answer .info .type span{ color:rgba(36,37,61,0.5);}
+   .answer_answer_box .answer .price{ font-size: 0.70588235rem;color:rgba(254,115,1,1); text-align: right;position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
     .answer_answer_box .answer .info  .audio{ margin-top: 0.6rem;}
 
 
