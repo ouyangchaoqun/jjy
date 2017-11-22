@@ -327,7 +327,7 @@
     .answer_answer_box .answer{ background: #fff; padding:1.176471rem 0.8823529411764706rem 0.471rem 0.88235rem;  position: relative; border-bottom: 0.471rem solid #F4F4F7 }
    .answer_answer_box .answer .img{ width: 1.70588235rem; height: 1.70588235rem; float:left; }
    .answer_answer_box .answer .img img{ width: 100%; height: 100%; border-radius: 50%}
-   .answer_answer_box .answer .info .names{ font-size: 0.7058823529411765rem;  color:rgba(36,37,61,0.5); margin-bottom: 0.235rem; line-height: 1.70588235rem}
+   .answer_answer_box .answer .info .names{ font-size: 0.7058823529411765rem;  color:rgba(36,37,61,0.5); margin-bottom: 0.471rem; line-height: 1.70588235rem}
     .answer_answer_box .answer .info .names span{
         margin-left: 0.588235rem;
     }
