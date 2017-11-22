@@ -805,7 +805,7 @@
     }
     .answer_detail_box .listen{
         float: left;
-        width: 25%;
+        width: 30%;
         background: white;
         box-shadow: #eee 0 -5px 5px -5px;
         height: 2.588rem;
@@ -825,7 +825,7 @@
         padding-left:1.1rem;
         margin-left: 0.6rem;
     }
-    .answer_detail_box .pay_ask{width: 75%;float: right; background: linear-gradient(to right, rgba(255,158,25,1), rgba(254,115,1,1));color: white;line-height: 2.588rem;height: 2.588rem}
+    .answer_detail_box .pay_ask{width: 70%;float: right; background: linear-gradient(to right, rgba(255,158,25,1), rgba(254,115,1,1));color: white;line-height: 2.588rem;height: 2.588rem}
     .friestP{overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 4;line-height:1.176rem;-webkit-box-orient: vertical;}
     .addopen{margin-top:1.76rem;height:auto;}
     .addstop{margin-top:0;height:0;overflow: hidden;}

@@ -314,7 +314,7 @@ a{
 .answer_list .other{display: flex;display: -webkit-flex;margin-bottom: 0.294rem;position: absolute;bottom: 0;width: 100%;}
 .answer_list .other span{flex:1;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .answer_list .other .ml{text-align: center}
-.answer_list .item .img{ width: 5.88235rem; height: 5.88235rem;display: inline-block;border-radius: 0.294rem;overflow: hidden}
+.answer_list .item .img{ width: 5.88235rem; height: 5.88235rem;display: inline-block;border-radius: 0.588235rem;overflow: hidden}
 .answer_list .item .img img{ width: 100%; height: 100%;}
 
  .audio{ margin-bottom: 0.3rem;}
@@ -418,19 +418,19 @@ a{
     padding-top: 0.470588235rem;
 }
 .followed_box{
-    height:1.70588235rem;
-    line-height: 1.76471rem;
+    height:1.5rem;
+    line-height: 1.5rem;
     border:1px solid rgba(253,87,57,1);
     display: inline-block;
-    padding:0 0.3rem;
+    width:3rem;
     text-align: center;
     color:rgba(253,87,57,1);
     border-radius: 0.294rem;
     position: absolute;
     right: 0.88235rem;
     top: 50%;
-    margin-top: -0.85294rem;
-    font-size: 0.8235rem;
+    margin-top: -0.75rem;
+    font-size: 0.70588rem;
 }
 .followed_box img{
     display: inline-block;

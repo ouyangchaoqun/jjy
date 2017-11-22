@@ -53,10 +53,8 @@
                         class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
                 </div>
                 <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">+ 收听</div>
-                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" ><img src="../../../images/followed_new.png" alt="">已收听</div>
-                <!--<img src="../../../images/asker/isfollowed.png" v-if="detail.expert.isFollow" alt="" @click="follow(detail.expertId)">-->
-                <!--<img src="../../../images/asker/nofollowed.png" v-if="!detail.expert.isFollow" alt="" @click="follow(detail.expertId)">-->
+                <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">收听</div>
+                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" >已收听</div>
             </div>
         </div>
 
@@ -73,10 +71,6 @@
 
             </div>
             <div class="problem_assess_item">
-                <!--<div class="problem_assess_class">-->
-                    <!--<span v-for="(item,index) in tags" @click="selectTag(index)" :class="{on:item.selected==true}">{{item.title}}</span>-->
-
-                <!--</div>-->
                 <div class="problem_assess_input">
                     <textarea placeholder="您的反馈将影响咨询师" @input="contentChange()" id="content"></textarea>
                 </div>

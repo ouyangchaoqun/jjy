@@ -260,7 +260,6 @@
     .my_problem_list1 {
         padding: 0.70588235rem 0.88235rem 0.9rem 0.88235rem;
         background: #fff;
-        line-height: 2rem;
         margin-bottom: 0.41176471rem;
     }
 
@@ -272,6 +271,7 @@
         color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         margin-bottom: 0.588235rem;
+        line-height:  1.70588235rem;
     }
     .problem_header > div:nth-of-type(2) {
         position: absolute;
@@ -279,8 +279,8 @@
     }
 
     .problem_header img {
-        height: 2rem;
-        width: 2rem;
+        height: 1.70588235rem;
+        width: 1.70588235rem;
         display: block;
         border-radius: 50%;
         margin-right: 0.588235rem;

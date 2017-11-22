@@ -445,15 +445,13 @@
 
     .index_li_header{
         font-size: 0.8235rem;
-        color: rgba(36,37,61,1);
+        color: rgba(36,37,61,0.5);
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         line-height: 1.70588235rem;
         margin-bottom: 0.5294rem;
     }
-    .index_li_header span{
-        color: rgba(36,37,61,0.5);}
     .index_li_header img{
         height:1.70588235rem;
         width:1.70588235rem;
