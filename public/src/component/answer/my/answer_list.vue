@@ -59,7 +59,7 @@
                         <div class="problem_answer_bottom">
                             <div class="problem_answer_time"><span>{{formatDateText(item.answerTime)}}</span><span>听过 {{item.listenTimes}}</span></div>
                             <div class="problem_answer_zan">
-                                <div  v-if="item.inCome!=0"><span>偷听分成 </span><span style="color:#FF9900">￥{{formatPrice(item.inCome)}}</span></div>
+                                <div  v-if="item.inCome!=0"><span>偷听分成 </span><span>￥{{formatPrice(item.inCome)}}</span></div>
                                 <div class="good_care"><span>{{item.likeTimes}}</span></div>
                             </div>
                         </div>
@@ -405,7 +405,7 @@
         margin-top:-10px;
     }
     .problem_bestAns{
-        color: #44A3FF;
+        color: rgba(36,37,61,1);
         font-size: 0.70588235rem;
         position: absolute;
         right:-6.6rem;
