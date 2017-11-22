@@ -142,13 +142,13 @@
     }
 </script>
 <style>
-    .answer_ask_list_box .list .item{ background: #fff; padding:1.176471rem 0.8823529411764706rem 0.3529rem 0.88235rem; margin-bottom:0.5882352941176471rem; }
+    .answer_ask_list_box .list .item{ background: #fff; padding:1.176471rem 0.8823529411764706rem 0.3529rem 0.88235rem; margin-bottom:0.41176471rem; }
     .answer_ask_list_box .list .item:active{background: #eee}
     .answer_ask_list_box  .list .item .img{ width: 1.70588235rem; height: 1.70588235rem; float:left; }
     .answer_ask_list_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
     .answer_ask_list_box  .list .info .names{ font-size: 0.7058823529411765rem;color:rgba(36,37,61,0.5);line-height:1.70588235rem }
-    .answer_ask_list_box .list .info .names span{ color:#535353; font-size: 0.8823529411764706rem; margin-right: 0.4rem}
+    .answer_ask_list_box .list .info .names span{ color:rgba(36,37,61,0.5); font-size: 0.76471rem; margin-left: 0.588235rem}
     .answer_ask_list_box  .list .info .content{ font-size: 0.8823529411764706rem; color:rgba(36,37,61,1);margin-bottom: 0.5rem }
-    .answer_ask_list_box  .list .info .last_time{line-height:1;font-size: 0.70588235rem;color:rgba(36,37,61,0.5);margin-bottom: 0.529rem;}
+    .answer_ask_list_box  .list .info .last_time{line-height:1;font-size: 0.76471rem;color:rgba(36,37,61,0.5);margin-bottom: 0.529rem;}
     .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.70588235rem;color:#FE7301; text-align: right; width: 7rem;}
 </style>
