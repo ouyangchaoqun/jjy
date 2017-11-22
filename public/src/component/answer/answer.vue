@@ -187,7 +187,15 @@
                     _this.playing=false;
                     _this.isOver=false;
                     _this.localId=null;
-                    myVideo.start(_this.start);
+                    _this.clearTimeOut();
+                    myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
+                    myVideo.initStart();
+                    $('.record_voice_box .mask i').attr("class","start")
+                    $(".tip").html('点击录音(至少录制45秒)')
+
+
+
+
                 })
 
             },
