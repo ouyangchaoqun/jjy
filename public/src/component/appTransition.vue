@@ -369,7 +369,7 @@
         margin-left: -0.8rem;
         margin-top: -0.9rem; }
 
-    .record_voice_box .time_in{ color:#FE7301 ; font-size:1.6rem; text-align: center ; position: absolute  ; top:-9rem; width: 100%; padding-left: 0.5rem;}
+    .record_voice_box .time_in{ color:#FE7301 ; font-size:1.6rem; text-align: center ; position: absolute  ; top:-7.5rem; width: 100%; padding-left: 0.5rem;}
     .record_voice_box .time_in_tip{ color:#999;font-size: 0.8235rem;text-align: center;position: absolute  ; top:-7rem;width: 100%;}
     .addPlayBox  .re_start:before{content: ' '; display: block; width: 1.6rem; height: 1.6rem; background: url(../images/answer/record_voice_restart.png) no-repeat; background-size: 1.6rem; margin: 0 auto; margin-top: 0.8rem; margin-bottom: 0.5rem;color:#999}
     .addPlayBox .re_start{ text-align: center;color:#999}

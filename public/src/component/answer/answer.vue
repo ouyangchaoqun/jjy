@@ -334,7 +334,6 @@
    .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:rgba(36,37,61,1); line-height:1.176470588235294rem; margin-bottom:  0.8235rem;width:98%;}
    .answer_answer_box .answer .info .last_time{ line-height:1;font-size: 0.76471rem;color:rgba(36,37,61,0.5);margin-bottom: 0.529rem;
     }
-   .answer_answer_box .answer .info .type{ font-size: 0.7058823529411765rem; color:#333;margin-bottom: 0.4rem}
     .answer_answer_box .answer .info .type span{ color:rgba(36,37,61,0.5);}
    .answer_answer_box .answer .price{ font-size: 0.70588235rem;color:rgba(254,115,1,1); float: right}
     .answer_answer_box .answer .info  .audio{ margin-top: 0.6rem;}
