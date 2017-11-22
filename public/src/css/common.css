@@ -764,5 +764,6 @@ body>div[class='']>*:not(.weui-mask):not(.weui-picker){ display: none}
 }
 .select_yes div:nth-of-type(1){
     border-right: 1px solid rgba(224,224,225,1);
+    color:rgba(36,37,61,0.5)
 }
 .select_yes div:active{background: #eee}

@@ -9,9 +9,9 @@
                     <div v-for="item in types">{{item.title}}</div>
                 </div>
             </div>
-            <div class="ask_type" v-if="!isSelectAnswer">
+            <div class="ask_type" v-if="!isSelectAnswer" @click="selectType()">
                 <div class="tab">选择问题类型：</div>
-                <div class="select_box" @click="selectType()">{{type}}</div>
+                <div class="select_box">{{type}}</div>
                 <div class="clear"></div>
             </div>
             <div class="text_area">
@@ -448,7 +448,7 @@
      .dialog_select_Height{ height:19rem;}
     .dialog_select_type  .yes{ border-top: 1px solid #eee; color:#FE7301; text-align: center; line-height: 2.588235294117647rem; position: absolute; bottom:0; left:0; width: 100% }
     .dialog_select_type  .yes:active{background: #eee}
-    .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 12rem; overflow: auto}
+    .dialog_select_type .tip_content{ padding:0  1rem; line-height: 1.8; font-size: 0.8235294117647059rem; color:#666; height: 13rem; overflow: auto}
     .dialog_select_type .tip_content p{ margin-bottom: 0.6rem;}
     .asker_ask_box .ask_type_new{padding:1.176471rem 0.88235rem;padding-bottom: 0.2941rem}
     .asker_ask_box .ask_type_new .tab{color:rgba(36,37,61,1);font-size: 1rem;line-height: 1;margin-bottom: 1.176471rem;}
