@@ -7,9 +7,9 @@
         <div class="answer" >
             <div class="img"><img :src="detail.faceUrl"></div>
             <div class="info">
-                <div class="names"><span>{{detail.nickname}}</span> </div>
+                <div class="names"><span>{{detail.nickname}}</span>  <div class="price">￥{{detail.price}}</div></div>
                 <div class="content">{{detail.content}}</div>
-                <div class="type"><span>在哪方面：</span>{{detail.title}}</div>
+                <div class="last_time">在哪方面：{{detail.title}}</div>
                 <div class="last_time">{{getTime(detail.addTime)}}</div>
                 <div class="clear"></div>
 
@@ -25,7 +25,7 @@
 
 
             </div>
-            <div class="price">￥{{detail.price}}</div>
+
 
             <div class="clear"></div>
         </div>
@@ -324,19 +324,19 @@
 </script>
 <style>
     .answer_answer_box{ width: 100%; overflow: hidden}
-    .answer_answer_box .answer{ background: #fff; padding:0.8823529411764706rem;  position: relative; border-bottom: 0.471rem solid #F4F4F7 }
+    .answer_answer_box .answer{ background: #fff; padding:1.176471rem 0.8823529411764706rem 0.471rem 0.88235rem;  position: relative; border-bottom: 0.471rem solid #F4F4F7 }
    .answer_answer_box .answer .img{ width: 1.70588235rem; height: 1.70588235rem; float:left; }
    .answer_answer_box .answer .img img{ width: 100%; height: 100%; border-radius: 50%}
    .answer_answer_box .answer .info .names{ font-size: 0.7058823529411765rem;  color:rgba(36,37,61,0.5); margin-bottom: 0.235rem; line-height: 1.70588235rem}
     .answer_answer_box .answer .info .names span{
         margin-left: 0.588235rem;
     }
-   .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:rgba(36,37,61,1); line-height:1.176470588235294rem; margin-bottom: 0.4rem;width:98%;}
-   .answer_answer_box .answer .info .last_time{ float:left;font-size:0.7647058823529412rem;color:rgba(36,37,61,0.5); width: 6rem;
+   .answer_answer_box .answer .info .content{  font-size: 0.8823529411764706rem; color:rgba(36,37,61,1); line-height:1.176470588235294rem; margin-bottom:  0.8235rem;width:98%;}
+   .answer_answer_box .answer .info .last_time{ line-height:1;font-size: 0.76471rem;color:rgba(36,37,61,0.5);margin-bottom: 0.529rem;
     }
    .answer_answer_box .answer .info .type{ font-size: 0.7058823529411765rem; color:#333;margin-bottom: 0.4rem}
     .answer_answer_box .answer .info .type span{ color:rgba(36,37,61,0.5);}
-   .answer_answer_box .answer .price{ font-size: 0.70588235rem;color:rgba(254,115,1,1); text-align: right;position: absolute; right:0.8823529411764706rem; top:0.8823529411764706rem ;}
+   .answer_answer_box .answer .price{ font-size: 0.70588235rem;color:rgba(254,115,1,1); float: right}
     .answer_answer_box .answer .info  .audio{ margin-top: 0.6rem;}
 
 
