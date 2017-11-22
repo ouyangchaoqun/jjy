@@ -17,12 +17,18 @@
             <div v-title>待答</div>
             <div class="list  ">
                 <div class="item" v-for="item in list" @click="answer(item.id)">
-                    <div class="img"><img :src="item.faceUrl"></div>
+                    <div class="img">
+                        <img :src="item.faceUrl">
+                    </div>
                     <div class="info">
-                        <div class="names"><span>{{item.nickName}}陈**</span> 在哪方面：{{item.questionClassName}}</div>
-                        <div class="content">{{item.content}}</div>
+                        <div class="names"><span>{{item.nickName}}</span>
+                            <div class="price">酬金￥{{item.price}}</div>
+                        </div>
+                        <div class="content">{{item.content}}
+
+                        </div>
+                        <div class="last_time"> 在哪方面：{{item.questionClassName}}</div>
                         <div class="last_time">还{{formatDateText(item.endTime)}}</div>
-                        <div class="price">酬金 <span>￥{{item.price}}</span></div>
 
                     </div>
                     <div class="clear"></div>
@@ -136,14 +142,13 @@
     }
 </script>
 <style>
-    .answer_ask_list_box .list .item{ background: #fff; padding:0.8823529411764706rem; margin-bottom:0.5882352941176471rem; }
+    .answer_ask_list_box .list .item{ background: #fff; padding:1.176471rem 0.8823529411764706rem 0.3529rem 0.88235rem; margin-bottom:0.5882352941176471rem; }
     .answer_ask_list_box .list .item:active{background: #eee}
-    .answer_ask_list_box  .list .item .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; }
+    .answer_ask_list_box  .list .item .img{ width: 1.70588235rem; height: 1.70588235rem; float:left; }
     .answer_ask_list_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%}
-    .answer_ask_list_box  .list .info{ float:left; margin-left:0.8823529411764706rem; width: 81% }
-    .answer_ask_list_box  .list .info .names{ font-size: 0.7058823529411765rem;color:#999;line-height:2.588235294117647rem }
+    .answer_ask_list_box  .list .info .names{ font-size: 0.7058823529411765rem;color:rgba(36,37,61,0.5);line-height:1.70588235rem }
     .answer_ask_list_box .list .info .names span{ color:#535353; font-size: 0.8823529411764706rem; margin-right: 0.4rem}
-    .answer_ask_list_box  .list .info .content{ font-size: 0.823529411764706rem; color:#474747;margin-bottom: 0.3rem }
-    .answer_ask_list_box  .list .info .last_time{ float:left;font-size: 0.70588235rem;color:#999;}
-    .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.7647058823529412rem;color:#FE7301; text-align: right; width: 7rem;}
+    .answer_ask_list_box  .list .info .content{ font-size: 0.8823529411764706rem; color:rgba(36,37,61,1);margin-bottom: 0.5rem }
+    .answer_ask_list_box  .list .info .last_time{line-height:1;font-size: 0.70588235rem;color:rgba(36,37,61,0.5);margin-bottom: 0.529rem;}
+    .answer_ask_list_box  .list .info .price{ float:right;font-size: 0.70588235rem;color:#FE7301; text-align: right; width: 7rem;}
 </style>

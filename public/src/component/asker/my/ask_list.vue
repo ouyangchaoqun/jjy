@@ -34,7 +34,7 @@
                                     <div>{{item.nickName}}</div>
                                     <div class="wait_Answer wait_style" v-if="item.questionStatus==0">待回答</div>
                                     <div class="wait_Answer over_style" v-if="item.questionStatus==1">已回答</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
+                                    <div class="wait_Answer over_style" v-if="item.questionStatus==2">结束</div>
                                     <div class="wait_Answer nop_style" v-if="item.questionStatus==3">未支付</div>
                                 </div>
                                 <div class="my_problem_content">
@@ -60,7 +60,7 @@
                                     <div style="color: #333;margin-left: 10px">情感困惑</div>
                                     <div class="wait_Answer wait_style" v-if="item.questionStatus==0">正在进行</div>
                                     <div class="wait_Answer over_style" v-if="item.questionStatus==1">已回答</div>
-                                    <div class="wait_Answer" v-if="item.questionStatus==2">结束</div>
+                                    <div class="wait_Answer over_style" v-if="item.questionStatus==2">结束</div>
                                     <div class="wait_Answer nop_style" v-if="item.questionStatus==3">未支付</div>
                                 </div>
                                 <div class="my_problem_content">
@@ -288,7 +288,7 @@
 
     .my_problem_content {
         color: rgba(36,37,61,1);
-        font-size: 0.8235rem;
+        font-size: 0.88235rem;
         line-height: 1.4rem;
         overflow: hidden;
         text-overflow: ellipsis;
