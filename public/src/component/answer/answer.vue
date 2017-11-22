@@ -69,12 +69,20 @@
             </div>
             <!--<div class="time_in_tip">至少录制45秒</div>-->
             <div class="circle">
+                <div class="pie_left_play">
+                    <div class="left_play"></div>
+                </div>
+                <div class="pie_right_play">
+                    <div class="right_play"></div>
+                </div>
                 <div class="pie_left">
                     <div class="left"></div>
                 </div>
                 <div class="pie_right">
                     <div class="right"></div>
                 </div>
+
+
 
                 <div class="gg"></div>
                 <div class="move">

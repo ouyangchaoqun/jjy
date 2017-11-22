@@ -1478,8 +1478,10 @@ document.addEventListener("visibilitychange", function () {
             this.maxnum = 360;
             clearInterval (this.timer)
             $('.right').css('transform', "rotate(0)");
-            $('.move').css('transform', "rotate(0)")
+            $('.move').css('transform', "rotate(0)");
             $('.left').css('transform', "rotate(0)");
+            $(".pie_left_play ,.pie_right_play").hide();
+            $(".pie_left ,.pie_right").css({opacity:1});
         },
         clearTimer:function(){
             if(this.timer){
@@ -1517,6 +1519,24 @@ document.addEventListener("visibilitychange", function () {
             if(callbackEnd&&typeof(callbackEnd)=='function'){
                 callbackEnd()
             }
+
+
+
+            //播放停止位置that.
+
+            $(".pie_left_play ,.pie_right_play").show();
+            $(".pie_left ,.pie_right").css({opacity:0.7});
+
+            console.log(that.maxNum);
+            if(that.maxNum<=180){
+                $('.record_voice_box .left_play').css('transform', "rotate(" + 0 + "deg)");
+                $('.record_voice_box .right_play').css('transform', "rotate(" + that.maxNum + "deg)");
+            }else{
+                $('.record_voice_box .right_play').css('transform', "rotate(180deg)");
+                $('.record_voice_box .left_play').css('transform', "rotate(" + (that.maxNum-180) + "deg)");
+            }
+
+
             that.bth.html('试听');
             that.maski.attr("class","playing")
             that.obj.unbind('click').bind('click',function(){that.play(that.callbackPlay)})
