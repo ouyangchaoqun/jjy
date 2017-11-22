@@ -67,7 +67,7 @@
                 <div>{{answerTime}}"</div>
 
             </div>
-            <div class="time_in_tip">至少录制45秒</div>
+            <!--<div class="time_in_tip">至少录制45秒</div>-->
             <div class="circle">
                 <div class="pie_left">
                     <div class="left"></div>
@@ -83,7 +83,7 @@
                 <div class="mask"><i class="start"></i></div>
 
             </div>
-            <div class="tip">点击开始录音</div>
+            <div class="tip">点击录音(至少录制45秒)</div>
         </div>
 
 

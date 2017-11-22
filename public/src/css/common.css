@@ -697,7 +697,7 @@ body>div[class='']>*:not(.weui-mask):not(.weui-picker){ display: none}
 .record_voice_box .mask {  width:90px;  height: 90px;  border-radius: 50%;  background:#FE7301 100%;  position: absolute;  top:50%;  left:50%;  margin-top:-45px;  margin-left:-45px;  text-align: center;  line-height: 80px; color:#fff;  }
 .record_voice_box .mask i{ display: block; position: absolute;
     left: 50%; top:50% }
-.record_voice_box  .tip{ position: absolute; top:55px; text-align: center; width: 100%; color:#666 ; font-size: 0.8235rem;}
+.record_voice_box  .tip{ position: absolute; top:55px; text-align: center; width: 100%; color:rgba(36,37,61,0.5) ; font-size: 0.8235rem;}
 /*选择问题类型弹窗*/
  .select_type{
     width: 100%;
