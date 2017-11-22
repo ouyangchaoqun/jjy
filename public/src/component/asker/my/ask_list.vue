@@ -57,7 +57,7 @@
                             <a @click="goRaceDetail(item.questionId)">
                                 <div class="problem_header headerStyle">
                                     问题类型：
-                                    <div style="color: #333;margin-left: 10px">情感困惑</div>
+                                    <div class="wait_style">情感困惑</div>
                                     <div class="wait_Answer wait_style" v-if="item.questionStatus==0">正在进行</div>
                                     <div class="wait_Answer over_style" v-if="item.questionStatus==1">已回答</div>
                                     <div class="wait_Answer over_style" v-if="item.questionStatus==2">结束</div>
@@ -269,7 +269,7 @@
         display: -webkit-flex;
         display: flex;
         position: relative;
-        color: rgba(36,37,61,1);
+        color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         margin-bottom: 0.588235rem;
     }

@@ -2,7 +2,7 @@
     <div class="sign_box">
         <div v-title>入驻心理咨询师</div>
         <div class="text_area">
-            <textarea name=""   class="sign" @input="changeSign()"  placeholder="限25个字符。
+            <textarea name="" maxlength="25"   class="sign" @input="changeSign()"  placeholder="限25个字符。
 
 方向1:可以写您对咨询的理解（价值观）
 示例：有阴影的地方就有阳光。
@@ -25,7 +25,7 @@
     export default {
         data() {
             return {
-                MAX_INPUT_LENGTH:200,
+                MAX_INPUT_LENGTH:25,
                 inputLength:0,
                 sign:'',
                 canGoNext:false
@@ -38,7 +38,6 @@
             }
 
             this.inputLength = this.sign.length
-            this.check();
             xqzs.wx.setConfig(this);
         },
         methods: {
@@ -46,19 +45,11 @@
                 let sign = $(".sign").val();
                 this.sign = sign;
                 if (sign.length > this.MAX_INPUT_LENGTH) {
+                    xqzs.weui.tip("限25个字符")
                     sign = sign.substr(0, this.MAX_INPUT_LENGTH)
                 }
                 this.inputLength =sign.length;
                 cookie.set("sign",escape(sign));
-                this.check();
-            },
-            check:function () {
-                let sign= (cookie.get("sign"));
-                if(sign&&sign!=''){
-                    this.canGoNext=true;
-                }else{
-                    this.canGoNext=false;
-                }
             },
             goJoinmore:function () {
                 let _this = this;

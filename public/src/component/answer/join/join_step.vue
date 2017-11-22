@@ -460,10 +460,6 @@
             },
             msgSubmit: function () {
                 let _this = this;
-                if (!_this.ema.test(_this.email)){
-                    xqzs.weui.tip("请填写正确的邮箱");
-                    return
-                }
                 _this.showLoad= true;
                 let mobileVal = $('.li_right .mobile').text();
                 let msg = {

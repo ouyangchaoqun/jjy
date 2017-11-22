@@ -32,7 +32,7 @@
                             <div class="img"><img :src="item.faceUrl"></div>
                             <div class="itemDetail_right">
                                 <div class="title">{{item.sign}}</div>
-                                <div class="class_s">
+                                <div class="itemDetail_class_s">
                                     <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
                                             v-if="goodIndex<2">、</i></span>
                                 </div>
@@ -305,7 +305,7 @@
    .answer_index  .class_list{  padding:0.47rem 0;background: #fff;}
    .answer_index  .class_list .class_item:active{ background:#f1f1f1}
    .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;padding: 6px 0 ; }
-
+.itemDetail_class_s{font-size: 0.70588rem;color:rgba(36,37,61,0.5);position: absolute;bottom: 24%;}
    .answer_list .info .other{margin-bottom: 0.88235rem}
     .addClassImg{height:2.59rem; width:2.6176471rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/answer/index_class_nor.png") no-repeat;background-size: 22.0588235rem;}
    .clickImg{background: url("../../images/answer/index_class_per.png") no-repeat;background-size: 22.0588235rem;}
