@@ -60,7 +60,7 @@
 
 
         <!--匿名评价-->
-        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"><!---->
+        <div class="problem_assess" ><!--v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"-->
             <h4>匿名评价</h4>
             <div class="star">
                 <div v-for="(item,index) in comText">
@@ -257,7 +257,6 @@
                 let that=this;
                 let content = $("#content").val();
                 that.contentOver = content
-                console.log(that.contentOver)
                 if(this.point==0){
                     xqzs.weui.toast('fail',"请选择分数",function () {
 
@@ -293,7 +292,7 @@
                             xqzs.weui.toast("success","评论成功",function () {
                                 that.isOver = true;
                                 console.log(that.isOver)
-                                window.location.href=window.location.href
+//                                window.location.href=window.location.href
                             })
                         }
                     });
