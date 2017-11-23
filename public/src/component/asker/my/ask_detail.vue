@@ -1,6 +1,7 @@
 <template id="my_problem_detail">
     <div :class="{problem_box_background:problem_assess_flag}">
         <div v-title>问题详情</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_problem_detail">
             <div class="problem_detail_header">
                 问题类型:  <div>{{detail.title}}</div>
@@ -60,7 +61,7 @@
 
 
         <!--匿名评价-->
-        <div class="problem_assess" ><!--v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"-->
+        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"><!---->
             <h4>匿名评价</h4>
             <div class="star">
                 <div v-for="(item,index) in comText">
@@ -84,6 +85,7 @@
 </template>
 
 <script type="es6">
+    import showLoad from '../../include/showLoad.vue';
     var my_problem_detail = {
         template: '#my_problem_detail'
     };
@@ -100,11 +102,12 @@
                 MAX_TAG_COUNT:5,
                 comText:[{click:1,text:'极差'},{click:2,text:'不满意'},{click:3,text:'一般'},{click:4,text:'满意'},{click:5,text:'非常满意'}],
                 isOver:false,
-                contentOver:''
+                contentOver:'',
+                showLoad: false,
             }
         },
         mounted: function () {
-
+            this.showLoad = true;
             this.id= parseInt(this.$route.query.id);
             this.getDetail();
 //            this.getTags();
@@ -255,6 +258,7 @@
             },
             comment:function () {
                 let that=this;
+                that.showLoad = true;
                 let content = $("#content").val();
                 that.contentOver = content
                 if(this.point==0){
@@ -291,6 +295,7 @@
                         if (bt.data && bt.data.status == 1) {
                             xqzs.weui.toast("success","评论成功",function () {
                                 that.isOver = true;
+                                that.showLoad = false;
                                 console.log(that.isOver)
 //                                window.location.href=window.location.href
                             })
@@ -318,8 +323,10 @@
             getDetail:function () {
 
                 let _this= this;
+
                 _this.$http.get(web.API_PATH + 'come/user/query/question/_userId_/'+this.id ).then(function (data) {//es5写法
                     if (data.body.status == 1) {
+                        _this.showLoad = false
                         console.log(data.body.data.data)
                         _this.detail= data.body.data.data
                     }
@@ -328,6 +335,9 @@
 
             }
 
+        },
+        components: {
+            'v-showLoad': showLoad,
         },
         beforeDestroy:function () {
             xqzs.voice.pause();
