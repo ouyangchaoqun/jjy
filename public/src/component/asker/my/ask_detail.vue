@@ -1,5 +1,5 @@
 <template id="my_problem_detail">
-    <div :class="{problem_box_background:problem_assess_flag}">
+    <div><!--:class="{problem_box_background:problem_assess_flag}"-->
         <div v-title>问题详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_problem_detail">
