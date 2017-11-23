@@ -393,7 +393,7 @@
         text-align: left;
     }
     .problem_assess_input{
-       padding: 0 2.1176471rem 1.6471rem 2.1176471rem;
+       padding: 0 0.88235rem 1.6471rem 0.88235rem;
     }
     .problem_assess_item textarea{
         height:4.1176471rem;
