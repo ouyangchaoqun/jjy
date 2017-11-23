@@ -60,7 +60,7 @@
 
 
         <!--匿名评价-->
-        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null">
+        <div class="problem_assess" v-if="detail.answers&&detail.answers.length>0&&detail.answers[0].evaluate&&detail.answers[0].evaluate.id==null"><!---->
             <h4>匿名评价</h4>
             <div class="star">
                 <div v-for="(item,index) in comText">
@@ -72,10 +72,11 @@
             </div>
             <div class="problem_assess_item">
                 <div class="problem_assess_input">
-                    <textarea placeholder="您的反馈将影响咨询师" @input="contentChange()" id="content"></textarea>
+                    <textarea v-if="!isOver" placeholder="您的反馈将影响咨询师" @input="contentChange()" id="content"></textarea>
+                    <div class="addIsOverHtml" v-if="isOver">{{contentOver}}很好满意 五星好评</div>
                 </div>
             </div>
-            <div class="problem_assess_btn">
+            <div v-if="!isOver" class="problem_assess_btn">
                 <div class="weui-btn weui-btn_disabled weui-btn_primary" @click="comment()">提交</div>
             </div>
         </div>
@@ -97,7 +98,9 @@
                 point:0,
                 tags:[],
                 MAX_TAG_COUNT:5,
-                comText:[{click:1,text:'极差'},{click:2,text:'不满意'},{click:3,text:'一般'},{click:4,text:'满意'},{click:5,text:'非常满意'}]
+                comText:[{click:1,text:'极差'},{click:2,text:'不满意'},{click:3,text:'一般'},{click:4,text:'满意'},{click:5,text:'非常满意'}],
+                isOver:false,
+                contentOver:''
             }
         },
         mounted: function () {
@@ -253,6 +256,7 @@
             comment:function () {
                 let that=this;
                 let content = $("#content").val();
+                that.contentOver = content
                 if(this.point==0){
                     xqzs.weui.toast('fail',"请选择分数",function () {
 
@@ -286,6 +290,7 @@
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
                             xqzs.weui.toast("success","评论成功",function () {
+                                that.isOver = true;
                                 window.location.href=window.location.href
                             })
                         }
@@ -424,6 +429,7 @@
         background: #F4F4F7;
     }
     .problem_answer_info .problem_answer_yy{margin-top: 3px}
+    .problem_assess_input .addIsOverHtml{text-align: left;background: #EBEBEC;border-radius: 0.294rem;padding:0.294rem 0.88235rem;}
     .addContentStyle{margin-bottom: 0}
     /*.steal_expert_info .img{color:rgba(254,115,1,1);padding:0 0.588235rem;border:1px solid rgba(253,87,57,1);border-radius: 2.5px;height:1.235rem;line-height: 1.235rem;position: absolute;*/
     /*right:0.88235rem;top:50%;margin-top: -0.6176471rem}*/
