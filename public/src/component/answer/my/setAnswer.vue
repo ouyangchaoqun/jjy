@@ -191,7 +191,7 @@
     .setItem .setItem_bottom{
         text-align: center;
         font-size: 0.70588235rem;
-        color: #666;
+        color: rgba(36,37,61,0.7);
     }
     .setItem_bottom img{
         height:14px;
@@ -207,7 +207,7 @@
         padding-left: 1.176471rem;
     }
     .set_price{ width: 66%; margin: 0rem auto; margin-top: 48% }
-    .set_price .til,  .set_price .select{ float:left; line-height: 2rem; text-align: center; color:#333; font-size: 0.88235rem;}
+    .set_price .til,  .set_price .select{ float:left; line-height: 2rem; text-align: center; color:rgba(36,37,61,1); font-size: 0.88235rem;}
     .set_price .select input{ width: 6rem;font-size: 1.2rem; line-height: 2rem;;color: #FE7301; text-align: center}
     .set_price .select{ margin-left: 0.6rem; width:50%;color: #ffaa00; font-size: 1.2rem; line-height: 2rem;; border-radius: 0.3rem; border: 1px solid #B3B3B3
     }

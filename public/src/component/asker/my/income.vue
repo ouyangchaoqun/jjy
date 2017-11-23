@@ -80,7 +80,7 @@
    .asker_my_income_box .my_income .img{ background: url(../../../images/asker/income.png) no-repeat; width: 6.21rem; height: 5.941176471rem; background-size:100% 100%; margin: 0 auto ; margin-top:3.7rem; }
    .asker_my_income_box .my_income{ line-height: 1}
    .asker_my_income_box .my_income .my_income_txt{ width: 100%; text-align: center; margin-top: 0.76471rem;font-size: 0.8823529411764706rem; color:rgba(36,37,61,1);}
-   .asker_my_income_box .my_income .money{ margin-top: 0.7058823529411765rem; text-align: center; width: 100%; font-size: 2.117647058823529rem;line-height: 1;color:rgba(254,115,1,1)}
+   .asker_my_income_box .my_income .money{ margin-top: 0.7058823529411765rem; text-align: center; width: 100%; font-size: 2.117647058823529rem;line-height: 1;color:#FE7301}
 
    .asker_my_income_box  .my_income .get_money{color:rgba(36,37,61,1) ; margin:0 auto;line-height:2.88235rem; border-top:1px solid #D1D1D1;border-bottom:1px solid #D1D1D1;text-align: center; font-size: 1.058823529411765rem; margin-top: 2.941176471rem;}
     .asker_my_income_box  .my_income .get_money:active{background: #eee}

@@ -147,7 +147,7 @@
     .answer_my_index_box .top .name{color:rgba(255,255,255,1);padding-top: 0.8235rem;margin-bottom:0.52941rem}
     .answer_my_index_box .top .perfect{color:rgba(255,255,255,1);font-size: 0.76471rem;}
     .main_lists a{ position: relative; height:3.470588235294118rem;    line-height:3.470588235294118rem;
-        color:#333; font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; background: #fff;  }
+        color:rgba(36,37,61,1); font-size: 0.8823529411764706rem; padding:  0  0.8823rem;display: block; overflow: hidden; padding-left: 2.66rem; background: #fff;  }
     .main_lists a:after{ background: url(../../../images/arrow.png) ; width: 0.9411764705882353rem; height: 0.9411764705882353rem; background-size: 0.9411764705882353rem; position: absolute;
         right:0.88235rem;top:1.25rem ; content: " "}
     .main_lists a:before{ content: " "; height: 0.0588235294117647rem; background: #eee; display: block; position: absolute; bottom:0;left: 0.9411764705882353rem; width: 100%}

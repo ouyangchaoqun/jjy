@@ -420,11 +420,11 @@ a{
 .followed_box{
     height:1.5rem;
     line-height: 1.5rem;
-    border:1px solid rgba(253,87,57,1);
+    border:1px solid #FE7301;
     display: inline-block;
     width:3rem;
     text-align: center;
-    color:rgba(253,87,57,1);
+    color:#FE7301;
     border-radius: 0.294rem;
     position: absolute;
     right: 0.88235rem;
@@ -463,7 +463,7 @@ a{
     margin-left: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(2){
-    color: rgba(253,87,57,1);
+    color:#FE7301;
     position: absolute;
     right:0.88235rem;
 }
@@ -666,7 +666,7 @@ a{
 .weui-btn_primary{
     background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
 }
-.stepStyle{height: 2.1176471rem;line-height: 2.1176471rem;text-align: center;color:#666;font-size: 0.8235rem;border-bottom: 1px solid #eee;margin-bottom: 0.8235rem}
+.stepStyle{height: 2.1176471rem;line-height: 2.1176471rem;text-align: center;color:rgba(36,37,61,0.7);font-size: 0.8235rem;border-bottom: 1px solid #eee;margin-bottom: 0.8235rem}
 .joinStep_title{color:#454B54;font-size: 0.941176471rem;text-align: center;line-height: 1;font-weight: bold;margin-bottom: 0.88235rem}
 
 .weui-tab__panel{ padding-bottom: 0 !important;}

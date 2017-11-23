@@ -271,7 +271,7 @@
     }
 </script>
 <style>
-    .submit_best_answer{ background: #666666; height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:#fff; padding: 0 0.5rem; font-size: 0.8235294117647059rem; position: fixed; bottom:0;left:0; width: 100%}
+    .submit_best_answer{ background: rgba(36,37,61,0.7); height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:#fff; padding: 0 0.5rem; font-size: 0.8235294117647059rem; position: fixed; bottom:0;left:0; width: 100%}
     .submit_btn { position: fixed;right:0; bottom:0; height: 2.588235294117647rem;; background: #09bb07; text-align: center; width: 6rem;}
     .submit_btn:active{ background: #089407;}
     .rob_problem{
@@ -279,7 +279,7 @@
     }
     .rob_status_box{
         padding:0 0.88235rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.70588235rem;
         border-bottom: 0.41176471rem solid #f4f4f8;
     }
@@ -301,7 +301,7 @@
         display: -webkit-box;
         display: -webkit-flex;
         font-size: 0.70588235rem;
-        color: #333;
+        color: rgba(36,37,61,1);
         line-height: 2rem;
         margin-bottom: 0.4rem;
     }
@@ -343,7 +343,7 @@
         position: absolute;
         left:10.88235rem;
         top:0.470588rem;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 0.8235rem;
     }
 
@@ -384,7 +384,7 @@
         border-bottom: 1px solid #D1D1D3;
     }
     .problem_dialog_bd span{
-        color: #333;
+        color: rgba(36,37,61,1);
     }
     .problem_dialog_fd{
         display: flex;
@@ -402,7 +402,7 @@
         background: #eee;
     }
     .problem_dialog_fd div:nth-of-type(1){
-        color: #666;
+        color: rgba(36,37,61,0.7);
         position: relative;
     }
     .problem_dialog_fd div:nth-of-type(1)::after{
@@ -424,14 +424,14 @@
         left:50%;
         margin-left:-7.235294rem;
         padding-top:1.6470588rem;
-        color: #666;
+        color: rgba(36,37,61,0.7);
         font-size: 0.76471rem;
         border-radius: 5px;
         z-index: 10001;
     }
     .best_dialog_header{
         position: relative;
-        color: #333;
+        color: rgba(36,37,61,1);
         font-size: 1.23529411rem;
         text-align: center;
         margin-bottom: 1.176471rem;

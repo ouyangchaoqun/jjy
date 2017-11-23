@@ -271,7 +271,7 @@
         color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         margin-bottom: 0.588235rem;
-        line-height:  1.70588235rem;
+        line-height:  1.70588235rem ;
     }
     .problem_header > div:nth-of-type(2) {
         position: absolute;
@@ -315,7 +315,7 @@
     .my_problem_bottom .my_problem_money {
         position: absolute;
         right: 0;
-        color: rgba(253,114,6,1);
+        color: #FE7301;
         margin: 0;
     }
     .wait_style{color:rgba(36,37,61,1)}

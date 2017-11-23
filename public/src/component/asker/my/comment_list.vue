@@ -247,7 +247,8 @@
     .asker_my_coment_list .comment .info .star span{ display: inline-block; background: url(../../../images/starNew_no.png) no-repeat; background-size: 0.85294rem;  height: 0.85294rem; width: 0.85294rem; margin-right: 0.4rem; }
     .asker_my_coment_list .comment .info .star span.on{background: url(../../../images/starNew.png) no-repeat;background-size: 0.85294rem; }
 
-    .asker_my_coment_list .reply{ background: #F1F1F5;  font-size:0.7058823529411765rem; color:rgba(36,37,61,0.5); padding:0.5rem ; border-radius: 0.3rem; position: relative; margin-top: 0.88rem }
+    .asker_my_coment_list .reply{ background: #F1F1F5;  font-size:0.7058823529411765rem; color:rgba(36,37,61,1); padding:0.5rem ; border-radius: 0.3rem; position: relative; margin-top: 0.88rem }
+   .asker_my_coment_list .reply span{color:rgba(36,37,61,0.5);}
     .asker_my_coment_list .reply:before{ content:" " ; display: block; position: absolute; left:0.8rem; top:-0.6rem;  width: 0;
         height: 0;
         border-left: 0.5rem solid transparent;

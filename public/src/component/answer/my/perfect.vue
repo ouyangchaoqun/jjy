@@ -472,7 +472,7 @@
     .list0.perfect_header .rightImg{top:27px}
 
 
-    .lut{ float:left; background: #ececec; color:#333; height: 30px; line-height: 30px;  padding: 0 10px; margin-top: 6px; font-size: 14px; margin-left: 10px;}
+    .lut{ float:left; background: #ececec; color:rgba(36,37,61,1); height: 30px; line-height: 30px;  padding: 0 10px; margin-top: 6px; font-size: 14px; margin-left: 10px;}
     .lut:nth-child(3){ margin-left: 0}
     .lut.on{ float:left; background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1)); color:#fff;}
 
@@ -522,21 +522,21 @@
 
     .list0 span {
         float: left;
-        color: #333333;
+        color: rgba(36,37,61,1);
         font-size: 15px;
     }
 
     .list0 .mobile {
         float: right;
         font-size: 15px;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         margin-right: 20px
     }
 
     .list0 input,.list0 .input {
         float: right;
         font-size: 14px;
-        color: #999999;
+        color: rgba(36,37,61,0.5);
         height: 44px;
         text-align: right;
         border: 0;
@@ -544,19 +544,19 @@
     }
 
     .list0 input::-webkit-input-placeholder {
-        color: #999;
+        color: rgba(36,37,61,0.5);
     }
 
     .list0 input:-moz-placeholder {
-        color: #999;
+        color: rgba(36,37,61,0.5);
     }
 
     .list0 input::-moz-placeholder {
-        color: #999;
+        color: rgba(36,37,61,0.5);
     }
 
     .list0 input:-ms-input-placeholder {
-        color: #999;
+        color: rgba(36,37,61,0.5);
     }
 
     .list0 img {
@@ -568,7 +568,7 @@
 
     .showdL {
         float: right;
-        color: #999;
+        color: rgba(36,37,61,0.5);
         font-size: 15px;
         width: 150px;
         text-align: right;
@@ -577,7 +577,7 @@
     .showdL span {
         margin-left: 5px;
         float: none;
-        color: #999;
+        color: rgba(36,37,61,0.5);
     }
 
     .list03 {

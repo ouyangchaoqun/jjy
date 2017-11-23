@@ -210,7 +210,7 @@
 
     .answer_join_mobile_box .validate_top h1 {
         font-size: 18px;
-        color: #333; text-align: center;
+        color: rgba(36,37,61,1); text-align: center;
         margin-bottom: 18px;
     }
 
@@ -238,14 +238,14 @@
 
     .answer_join_mobile_box .input_phone {
         font-size: 15px;
-        color: #333333;
+        color: rgba(36,37,61,1);
 
     }
 
     .answer_join_mobile_box .input_code {
         font-size: 15px;
         width: 100%;
-        color: #333333;
+        color: rgba(36,37,61,1);
     }
 
     .answer_join_mobile_box .validate_div {
@@ -290,7 +290,7 @@
 
     #message {
         font-size: 11px;
-        color: #999999;
+        color: rgba(36,37,61,0.5);
         position: absolute;
         top: 50px;
         left: 15px;

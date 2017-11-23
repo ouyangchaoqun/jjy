@@ -300,7 +300,7 @@
     .answer_list .headerImg{width:1.471rem;height:1.471rem;border-radius: 50%;border:1px solid rgba(253,87,57,1);position: relative;margin-right: 0.35rem;}
     .answer_list .headerImg div{background: url("../../images/playNew.png") no-repeat;content: '';width:0.88235rem;height:0.76471rem;position: absolute;left:5px;top:6px;background-size:100%;}
     .answer_list .headerImg img{width:0.88235rem;height:0.76471rem;display: inline-block;margin-left: 0.3rem;}
-    .answer_list .class_s .price{color:rgba(253,87,57,1)}
+    .answer_list .class_s .price{color:#FE7301}
     .answer_list .class_s .price b{color:rgba(36,37,61,0.5);font-style: normal;font-weight: normal;}
    .answer_index  .class_list{  padding:0.47rem 0;background: #fff;}
    .answer_index  .class_list .class_item:active{ background:#f1f1f1}
