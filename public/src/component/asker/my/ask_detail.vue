@@ -72,11 +72,11 @@
             </div>
             <div class="problem_assess_item">
                 <div class="problem_assess_input">
-                    <textarea v-if="!isOver" placeholder="您的反馈将影响咨询师" @input="contentChange()" id="content"></textarea>
-                    <div class="addIsOverHtml" v-if="isOver">{{contentOver}}很好满意 五星好评</div>
+                    <textarea v-show="!isOver" placeholder="您的反馈将影响咨询师" @input="contentChange()" id="content"></textarea>
+                    <div class="addIsOverHtml" v-show="isOver">{{contentOver}}</div>
                 </div>
             </div>
-            <div v-if="!isOver" class="problem_assess_btn">
+            <div v-show="!isOver" class="problem_assess_btn">
                 <div class="weui-btn weui-btn_disabled weui-btn_primary" @click="comment()">提交</div>
             </div>
         </div>
@@ -257,6 +257,7 @@
                 let that=this;
                 let content = $("#content").val();
                 that.contentOver = content
+                console.log(that.contentOver)
                 if(this.point==0){
                     xqzs.weui.toast('fail',"请选择分数",function () {
 
@@ -291,6 +292,7 @@
                         if (bt.data && bt.data.status == 1) {
                             xqzs.weui.toast("success","评论成功",function () {
                                 that.isOver = true;
+                                console.log(that.isOver)
                                 window.location.href=window.location.href
                             })
                         }
