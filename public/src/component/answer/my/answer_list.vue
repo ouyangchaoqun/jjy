@@ -408,7 +408,7 @@
         color: rgba(36,37,61,1);
         font-size: 0.70588235rem;
         position: absolute;
-        right:-6.6rem;
+        right:-5.6rem;
         top:0;
         line-height: 1;
         top:50%;
