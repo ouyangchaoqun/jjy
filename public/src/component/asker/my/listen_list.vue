@@ -35,7 +35,8 @@
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                     <template v-if="item.playing">正在播放..</template>
                                     <template v-if="item.paused">播放暂停</template>
-                                    <div class="second">{{item.length}}”</div>
+                                    <div class="second" v-show="!item.ct">{{item.answerVoiceLength}}”</div>
+                                    <div class="second" v-show="item.ct">{{item.ct}}”</div>
                                 </div>
 
                                 <div class="clear"></div>
@@ -76,7 +77,10 @@
                 isShowMoreText:false,
                 showLoad:false,
                 list:[],
-                count:null
+                count:null,
+                answerTime:"00",
+                timeOut:null,
+                playing:false,
             }
         },
         components: {
@@ -121,14 +125,45 @@
                     xqzs.voice.audio=document.createElement("audio");
                 }
             },
+            timeout:function (play,time,index) {
+                let _this=this;
+                _this.timeOut = setTimeout(function () {
+                    if(play==true){  //试听
+                        if(time>0){
+                            time = time -1 ;
+                            if(time<10)time="0"+time
+                            _this.timeout(play,time,index);
+                        }else{
+                            _this.playing=false;
+                        }
+                    }
+
+                },1000);
+
+                console.log( '*********'+time);
+                console.log(index)
+                _this.list[index].ct =time;
+                _this.$set(_this.list,index,_this.list[index])
+            },
+
+            clearTimeOut:function () {
+                let _this=this;
+                if(_this.timeOut!==null){
+                    clearTimeout(_this.timeOut);
+                }
+            },
             play:function (index) {
                 this.initVoice();
                 let _this=this;
                 let list = _this.list;
+                let CT= list[index].ct? list[index].ct: list[index].answerVoiceLength;
+                console.log(CT)
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
                     _this.$set(_this.list,index,list[index])
+                    if(_this.playing)_this.clearTimeOut();
+                    _this.playing = false;
                 };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
@@ -144,12 +179,15 @@
                     list[index].playing=true;
                     _this.$set(_this.list,index,list[index])
                     xqzs.voice.play();
+                    _this.timeout(true,CT,index)
                 }else{
                     if(item.playing){    //播放中去做暂停操作
                         list[index].paused=true;
                         list[index].playing=false;
                         _this.$set(_this.list,index,list[index])
                         xqzs.voice.pause();
+                        _this.clearTimeOut();
+                        _this.playing = false;
                     }else{     //重新打开播放
                         let answerId= item.answerId;
                         this.getVoiceUrl(answerId,function (url) {
@@ -157,6 +195,8 @@
                             list[index].playing=true;
                             list[index].paused=false;
                             _this.$set(_this.list,index,list[index])
+                            _this.playing=true;
+                            _this.timeout(true,CT,index)
                         })
                     }
 
