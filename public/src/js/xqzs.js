@@ -1110,29 +1110,39 @@ var xqzs = {
                 xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: base64data}, function (json,ix) {
                     var canvas = document.createElement("canvas");
                     var image = new Image();
-                    // console.log(json.data.path)
+                      console.log(json.data.path)
 
-                    image.crossOrigin  = 'Anonymous';
-                    image.onload = function () {
-                        switch (orientation) {
-                            case 6://需要顺时针（向左）90度旋转
-                                xqzs.image.rotateImg(this,'left',canvas);
-                                break;
-                            case 8://需要逆时针（向右）90度旋转
-                                xqzs.image.rotateImg(this,'right',canvas);
-                                break;
-                            case 3://需要180度旋转
-                                xqzs.image.rotateImg(this,'right',canvas);//转两次
-                                xqzs.image.rotateImg(this,'right',canvas);
-                                break;
-                        }
-                        if(typeof (callback)==='function'){
-                            console.log(canvas);
-                            callback(canvas.toDataURL() )
-                        }
+                    $.ajax({
+                        url:json.data.path+"?x-oss-process=image/info",
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (json2) {
+                            if(json2.Orientation.value==orientation){
+                                image.crossOrigin  = 'Anonymous';
+                                image.onload = function () {
+                                    switch (orientation) {
+                                        case 6://需要顺时针（向左）90度旋转
+                                            xqzs.image.rotateImg(this,'left',canvas);
+                                            break;
+                                        case 8://需要逆时针（向右）90度旋转
+                                            xqzs.image.rotateImg(this,'right',canvas);
+                                            break;
+                                        case 3://需要180度旋转
+                                            xqzs.image.rotateImg(this,'right',canvas);//转两次
+                                            xqzs.image.rotateImg(this,'right',canvas);
+                                            break;
+                                    }
+                                    if(typeof (callback)==='function'){
+                                        console.log("canvas"+canvas.toDataURL());
+                                        callback(canvas.toDataURL() )
+                                    }
 
-                    };
-                    image.src = json.data.path;
+                                };
+                                image.src = json.data.path;
+                            }
+                        }
+                    })
+
                 },function () {
 
                 },0);
@@ -1192,14 +1202,17 @@ var xqzs = {
                             //     _img.style.transform="rotate(90deg)";
                             // }
 
+
+                            console.log("getData");
                             xqzs.image.rotateBase64Image($uploadpicinfo, $alioss,_img.src, function (url) {
 
                                 _img.src=url
                             }, orientation)
 
                         });
+                        console.log("照片读取完成");
                     }
-                    console.log("照片读取完成");
+
                 },
                 clipFinish: function (dataURL) {
 
