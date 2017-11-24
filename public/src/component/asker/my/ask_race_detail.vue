@@ -74,7 +74,7 @@
                 </li>
             </ul>
         </div>
-        <div class="submit_best_answer" v-if="selBestAnswerId!=0">
+        <div class="submit_best_answer" v-if="selBestAnswerId!=0&&isOver">
             已选择最佳答案，确定加入偷偷听分成
             <div class="submit_btn" @click="setBestAnswerId()">完成快问</div>
         </div>
@@ -104,7 +104,8 @@
                 detail:{},
                 selBestAnswerId:0,
                 selBestAnswer:null,
-                bestAnswer:{}
+                bestAnswer:{},
+                isOver:true
 
 
             }
@@ -214,6 +215,7 @@
                              $(".best_dialog_fb").click(function () {
                                  xqzs.weui.dialogClose();
 
+                                 _this.isOver = false
                              })
                              
                         }
@@ -450,7 +452,7 @@
         border-bottom: 1px solid #D1D1D3;
     }
     .best_dialog_fb{
-        color: #09bb07;
+        color: #FE7301;
         font-size: 1.0588235rem;
         text-align: center;
         height:2.941176rem;
