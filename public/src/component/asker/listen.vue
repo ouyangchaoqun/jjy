@@ -263,8 +263,8 @@
                 this.initVoice();
                 let _this=this;
                 let list = _this.navLists[_this.typeIndex].list;
-               var T = list[index].length;
-                console.log(T)
+                console.log(list)
+                console.log(list[index].length)
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
