@@ -39,6 +39,7 @@
                                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
+                                                    <div class="second">{{item.length}}”</div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
@@ -46,15 +47,23 @@
 
                                         <!--付费听-->
                                         <div class="problem_answer_yy" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
-                                            <div class="audio"><div class="audio_btn pay" >1元偷听</div></div>
+                                            <div class="audio">
+                                                <div class="audio_btn pay" >1元偷听
+                                                    <div class="second">{{item.length}}”</div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <!--限时免费听-->
                                         <span class="problem_answer_yy"   v-if="item.answerType==3">
-                                            <div class="audio" :class="{playing:item.playing,paused:item.paused}"><div class="audio_btn"  @click.stop="play(index)" >
-                                            <template v-if="!item.playing&&!item.paused">限时免费听</template>
+                                            <div class="audio" :class="{playing:item.playing,paused:item.paused}">
+                                                <div class="audio_btn"  @click.stop="play(index)" >
+                                                    <template v-if="!item.playing&&!item.paused">限时免费听</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
-                                            </div><div class="clear"></div></div>
+                                                    <div class="second">{{item.length}}”</div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
                                         </span>
 
                                         <div class="index_li_count">听过{{item.listenTimes}}</div>
