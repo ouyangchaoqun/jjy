@@ -3,7 +3,6 @@
         <!--头部导航栏-->
         <div v-title>偷听</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-
         <div class="weui-tab__panel main">
             <nav>
                 <div class="swiper-container navSwiper">
@@ -128,7 +127,8 @@
                 isPageEnd: false,
                 isShowMoreText:false,
                 showLoad:false,
-                type:0
+                type:0,
+                stopState:false,
             }
         },
 
@@ -211,6 +211,15 @@
                     event.stopPropagation();
                 })
             },
+            timeout:function () {
+                let _this = this;
+                  setTimeout(function () {
+                      time--;
+                      if(time!=0&&!_this.stopState){
+                          timeout()
+                      }
+                  },1000)
+            },
             pay:function (index) {
                 let  item = this.navLists[this.typeIndex].list[index];
                 let _this=this;
@@ -254,6 +263,8 @@
                 this.initVoice();
                 let _this=this;
                 let list = _this.navLists[_this.typeIndex].list;
+               var T = list[index].length;
+                console.log(T)
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
