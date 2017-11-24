@@ -48,7 +48,7 @@
 
 
                     </div>
-                    <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{item.length}}”</div>
+                    <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
                     <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span>{{item.likeTimes}}</span></div>
@@ -79,6 +79,9 @@
                 questionId:0,
                 detail:{},
                 showLoad:false,
+                timeOut:null,
+                playing:false,
+                list:[]
             }
         },
         mounted: function () {
@@ -110,7 +113,6 @@
             },
 
             pay:function (index) {
-                console.log(index)
                 let  item = this.detail.answerList[index];
                 let _this=this;
                 this.$http.get(web.API_PATH + "come/listen/create/order/_userId_/"+item.answerId)
@@ -144,15 +146,44 @@
                     xqzs.voice.audio=document.createElement("audio");
                 }
             },
+            timeout:function (play,time,index) {
+                let _this=this;
+                _this.timeOut = setTimeout(function () {
+                    if(play==true){  //试听
+                        if(time>0){
+                            time = time -1 ;
+                            if(time<10)time="0"+time
+                            _this.timeout(play,time,index);
+                        }else{
+                            _this.playing=false;
+                        }
+                    }
+
+                },1000);
+                _this.list[index].ct =time;
+                console.log(time)
+                _this.$set(_this.list,index,_this.list[index])
+            },
+
+            clearTimeOut:function () {
+                let _this=this;
+                if(_this.timeOut!==null){
+                    clearTimeout(_this.timeOut);
+                }
+            },
             play:function (index) {
                 this.initVoice();
                 let _this=this;
-
                 let list = _this.detail.answerList;
+                let CT= list[index].ct? list[index].ct: list[index].length;
+                let T = list[index].length;
+                console.log(CT)
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
-                    _this.$set(_this.detail.answerList,index,list[index])
+                    _this.$set(_this.detail.answerList,index,list[index]);
+                    if(_this.playing)_this.clearTimeOut();
+                    _this.playing = false;
                 };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
@@ -168,19 +199,25 @@
                    list[index].playing=true;
                     _this.$set(_this.detail.answerList,index,list[index])
                     xqzs.voice.play();
+                    _this.timeout(true,CT,index)
                 }else{
                     if(item.playing){    //播放中去做暂停操作
                        list[index].paused=true;
                        list[index].playing=false;
                         _this.$set(_this.detail.answerList,index,list[index])
                         xqzs.voice.pause();
+                        _this.clearTimeOut();
+                        _this.playing = false;
                     }else{     //重新打开播放
                         let answerId= item.answerId;
                         this.getVoiceUrl(answerId,function (url) {
                             xqzs.voice.play(url);
                            list[index].playing=true;
                            list[index].paused=false;
-                            _this.$set(_this.detail.answerList,index,list[index])
+                            _this.$set(_this.detail.answerList,index,list[index]);
+                            _this.playing=true;
+                            _this.clearTimeOut();
+                            _this.timeout(true,T,index)
                         })
                     }
 
@@ -212,6 +249,7 @@
                     _this.showLoad=false;
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
+                        _this.list = _this.detail.answerList;
                         console.log(_this.detail)
                     }
                 }, function (error) {

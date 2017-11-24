@@ -38,7 +38,7 @@
                                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
-                                                    <div class="second">{{item.ct?item.ct:item.length}}”</div>
+                                                    <div class="second">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
@@ -48,7 +48,7 @@
                                         <div class="problem_answer_yy" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
                                             <div class="audio">
                                                 <div class="audio_btn pay" >1元偷听
-                                                    <div class="second">{{item.ct?item.ct:item.length}}”</div>
+                                                    <div class="second">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                                     <template v-if="!item.playing&&!item.paused">限时免费听</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
-                                                    <div class="second">{{item.ct?item.ct:item.length}}”</div>
+                                                    <div class="second">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>

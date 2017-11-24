@@ -35,7 +35,7 @@
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                     <template v-if="item.playing">正在播放..</template>
                                     <template v-if="item.paused">播放暂停</template>
-                                    <div class="second">{{item.ct?item.ct:item.answerVoiceLength}}”</div>
+                                    <div class="second">{{(item.ct && item.ct!='00')?item.ct:item.answerVoiceLength}}”</div>
                                 </div>
                                 <div class="clear"></div>
                             </div>
