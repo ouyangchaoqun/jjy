@@ -26,9 +26,6 @@
                         <span class="lut" :class="{on:!isLunar}" @click.stop="lutSelect(0)">阳历</span>
                         <span class="lut" :class="{on:isLunar}"  @click.stop="lutSelect(1)">阴历</span>
                     </div>
-
-                    <!--<div class="lut" :class="{on:!isLunar}" @click.stop="lutSelect(0)">阳历</div>-->
-                    <!--<div class="lut" :class="{on:isLunar}"  @click.stop="lutSelect(1)">阴历</div>-->
                     <div class="li_right" style="width:40%" >
                         <div v-if="birthday">
                             <template v-if="!isLunar">
@@ -167,11 +164,6 @@
             this.getUserInfo();
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
             this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
-
-
-
-
-
         },
         methods: {
             getUserInfo:function () {

@@ -74,7 +74,7 @@
                 </li>
             </ul>
         </div>
-        <div class="submit_best_answer" v-if="selBestAnswerId!=0">
+        <div class="submit_best_answer" v-if="selBestAnswerId!=0&&isOver">
             已选择最佳答案，确定加入偷偷听分成
             <div class="submit_btn" @click="setBestAnswerId()">完成快问</div>
         </div>
@@ -104,7 +104,8 @@
                 detail:{},
                 selBestAnswerId:0,
                 selBestAnswer:null,
-                bestAnswer:{}
+                bestAnswer:{},
+                isOver:true
 
 
             }
@@ -214,6 +215,7 @@
                              $(".best_dialog_fb").click(function () {
                                  xqzs.weui.dialogClose();
 
+                                 _this.isOver = false
                              })
                              
                         }
@@ -271,9 +273,9 @@
     }
 </script>
 <style>
-    .submit_best_answer{ background: rgba(36,37,61,0.7); height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:#fff; padding: 0 0.5rem; font-size: 0.8235294117647059rem; position: fixed; bottom:0;left:0; width: 100%}
-    .submit_btn { position: fixed;right:0; bottom:0; height: 2.588235294117647rem;; background: #09bb07; text-align: center; width: 6rem;}
-    .submit_btn:active{ background: #089407;}
+    .submit_best_answer{ background: #fff; height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:rgba(36,37,61,1); font-size: 0.76471rem; position: fixed; bottom:0;left:0; width: 100%;box-shadow: 2px 0px 10px rgba(0,0,0,0.3);padding-left:0.5rem;}
+    .submit_btn { position: absolute;right:1.176471rem; top:50%; height: 1.588235rem;line-height: 1.588235rem; text-align: center; width: 4.71rem;border:0.0294rem solid rgba(252,66,42,1);color:rgba(252,66,42,1);border-radius: 0.88235rem;margin-top:-0.794rem;}
+    .submit_btn:active{ background: #FE7301;color:#fff;}
     .rob_problem{
         background: #fff;
     }
@@ -450,7 +452,7 @@
         border-bottom: 1px solid #D1D1D3;
     }
     .best_dialog_fb{
-        color: #09bb07;
+        color: #FE7301;
         font-size: 1.0588235rem;
         text-align: center;
         height:2.941176rem;
