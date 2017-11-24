@@ -35,10 +35,8 @@
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                     <template v-if="item.playing">正在播放..</template>
                                     <template v-if="item.paused">播放暂停</template>
-                                    <div class="second" v-show="!item.ct">{{item.answerVoiceLength}}”</div>
-                                    <div class="second" v-show="item.ct">{{item.ct}}”</div>
+                                    <div class="second">{{item.ct?item.ct:item.answerVoiceLength}}”</div>
                                 </div>
-
                                 <div class="clear"></div>
                             </div>
 
@@ -78,7 +76,6 @@
                 showLoad:false,
                 list:[],
                 count:null,
-                answerTime:"00",
                 timeOut:null,
                 playing:false,
             }
@@ -139,9 +136,6 @@
                     }
 
                 },1000);
-
-                console.log( '*********'+time);
-                console.log(index)
                 _this.list[index].ct =time;
                 _this.$set(_this.list,index,_this.list[index])
             },
@@ -157,6 +151,7 @@
                 let _this=this;
                 let list = _this.list;
                 let CT= list[index].ct? list[index].ct: list[index].answerVoiceLength;
+                let T = list[index].answerVoiceLength
                 console.log(CT)
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
@@ -196,7 +191,8 @@
                             list[index].paused=false;
                             _this.$set(_this.list,index,list[index])
                             _this.playing=true;
-                            _this.timeout(true,CT,index)
+                            _this.clearTimeOut();
+                            _this.timeout(true,T,index)
                         })
                     }
 

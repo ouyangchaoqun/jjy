@@ -38,7 +38,7 @@
                                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
-                                                    <div class="second">{{item.length}}”</div>
+                                                    <div class="second">{{item.ct?item.ct:item.length}}”</div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
@@ -48,7 +48,7 @@
                                         <div class="problem_answer_yy" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
                                             <div class="audio">
                                                 <div class="audio_btn pay" >1元偷听
-                                                    <div class="second">{{item.length}}”</div>
+                                                    <div class="second">{{item.ct?item.ct:item.length}}”</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                                     <template v-if="!item.playing&&!item.paused">限时免费听</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
-                                                    <div class="second">{{item.length}}”</div>
+                                                    <div class="second">{{item.ct?item.ct:item.length}}”</div>
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
@@ -128,7 +128,9 @@
                 isShowMoreText:false,
                 showLoad:false,
                 type:0,
-                stopState:false,
+                timeOut:null,
+                playing:false,
+                list:[]
             }
         },
 
@@ -211,17 +213,33 @@
                     event.stopPropagation();
                 })
             },
-            timeout:function () {
-                let _this = this;
-                  setTimeout(function () {
-                      time--;
-                      if(time!=0&&!_this.stopState){
-                          timeout()
-                      }
-                  },1000)
+            timeout:function (play,time,index) {
+                let _this=this;
+                _this.timeOut = setTimeout(function () {
+                    if(play==true){  //试听
+                        if(time>0){
+                            time = time -1 ;
+                            if(time<10)time="0"+time
+                            _this.timeout(play,time,index);
+                        }else{
+                            _this.playing=false;
+                        }
+                    }
+
+                },1000);
+                _this.list[index].ct =time;
+                _this.$set(_this.list,index,_this.list[index])
+            },
+
+            clearTimeOut:function () {
+                let _this=this;
+                if(_this.timeOut!==null){
+                    clearTimeout(_this.timeOut);
+                }
             },
             pay:function (index) {
                 let  item = this.navLists[this.typeIndex].list[index];
+                console.log(item)
                 let _this=this;
                 this.$http.get(web.API_PATH + "come/listen/create/order/_userId_/"+item.answerId)
                     .then(function (bt) {
@@ -263,12 +281,17 @@
                 this.initVoice();
                 let _this=this;
                 let list = _this.navLists[_this.typeIndex].list;
+                let CT= list[index].ct? list[index].ct: list[index].length;
+                let T = list[index].length;
+                console.log(CT,T)
                 console.log(list)
                 console.log(list[index].length)
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
-                    _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
+                    _this.$set(_this.navLists[_this.typeIndex].list,index,list[index]);
+                    if(_this.playing)_this.clearTimeOut();
+                    _this.playing = false;
                 };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
@@ -284,19 +307,25 @@
                     list[index].playing=true;
                     _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
                     xqzs.voice.play();
+                    _this.timeout(true,CT,index)
                 }else{
                     if(item.playing){    //播放中去做暂停操作
                         list[index].paused=true;
                         list[index].playing=false;
                         _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
                         xqzs.voice.pause();
+                        _this.clearTimeOut();
+                        _this.playing = false;
                     }else{     //重新打开播放
                         let answerId= item.answerId;
                         this.getVoiceUrl(answerId,function (url) {
                             xqzs.voice.play(url);
                             list[index].playing=true;
                             list[index].paused=false;
-                            _this.$set(_this.navLists[_this.typeIndex].list,index,list[index])
+                            _this.$set(_this.navLists[_this.typeIndex].list,index,list[index]);
+                            _this.playing=true;
+                            _this.clearTimeOut();
+                            _this.timeout(true,T,index)
                         })
                     }
 
@@ -367,6 +396,7 @@
 
                     if(response.data.status!=1&&vm.navLists[ vm.typeIndex].page==1){
                         vm.navLists[vm.typeIndex].list = [];
+                        vm.list=[];
                         vm.navLists[ vm.typeIndex].isPageEnd = true;
                         vm.isShowMoreText = false;
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
@@ -385,8 +415,10 @@
 
                     if (vm.navLists[ vm.typeIndex].page == 1) {
                         vm.navLists[vm.typeIndex].list = arr;
+                        vm.list=arr;
                     } else {
                         vm.navLists[vm.typeIndex].list =  vm.navLists[vm.typeIndex].list.concat(arr);
+                        vm.list=vm.list.concat(arr);
                     }
                      if (arr.length == 0) return;
                     vm.navLists[ vm.typeIndex].page = vm.navLists[ vm.typeIndex].page + 1;
