@@ -3,7 +3,7 @@
         <div v-title>我的</div>
         <div class="weui-tab__panel main">
             <div class="main">
-                <div class="top" @click="join()">
+                <div class="top" @click="goJoin()">
                         <img class="img" :src="resizeImg(expert.faceUrl)">
                         <div class="name">
                             {{expert.nickName}}
