@@ -20,9 +20,8 @@
                         <div class="itemHeader">
                             <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
                             <div class="header_addRightStyle">
-                                <div class="headerImg" @click.stop="play(index)"
-                                     :class="{playing:item.playing,paused:item.paused}">
-                                    <div></div>
+                                <div class="headerImg" @click.stop="play(index)">
+                                    <div :class="{addPlaying:item.playing,addPaused:item.paused}"></div>
                                 </div>
                                 {{item.length}}''
                             </div>
@@ -44,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="item" v-for="(item,index) in list" v-if="false">
+                <div class="item" v-for="(item,index) in list" v-if="true">
                     <div @click="goDetail(item.expertId)">
                         <div class="info">
                             <div class="problem_answer_yy">
@@ -298,7 +297,11 @@
 <style>
     .header_addRightStyle{position: absolute;right:0;top:-1px;display: flex;color:rgba(36,37,61,0.5);font-size: 0.70588rem;font-weight:normal}
     .answer_list .headerImg{width:1.471rem;height:1.471rem;border-radius: 50%;border:1px solid rgba(253,87,57,1);position: relative;margin-right: 0.35rem;}
-    .answer_list .headerImg div{background: url("../../images/playNew.png") no-repeat;content: '';width:0.88235rem;height:0.76471rem;position: absolute;left:5px;top:6px;background-size:100%;}
+    .answer_list .headerImg div{background: url("../../images/playing3.png") no-repeat;content: '';width:0.88235rem;height:0.76471rem;position: absolute;left:5px;top:6px;background-size:100%;}
+    .answer_list .headerImg .addPlaying{
+        animation: addPlaying 1.5s infinite;
+        -webkit-animation: addPlaying 1.5s infinite;
+    }
     .answer_list .headerImg img{width:0.88235rem;height:0.76471rem;display: inline-block;margin-left: 0.3rem;}
     .answer_list .class_s .price{color:#FE7301}
     .answer_list .class_s .price b{color:rgba(36,37,61,0.5);font-style: normal;font-weight: normal;}
@@ -321,4 +324,19 @@
     .class_list>div:nth-of-type(10) div{background-position:-18.5294rem -5.76471rem }
     .answer_index .noContent_icon{background: #fff;color:rgba(36,37,61,0.5);font-size: 0.76471rem;text-align: center;}
     .answer_index .noContent_icon div{margin-top: -3.8rem;}
+
+    @keyframes  addPlaying {
+        0%{
+            background: url("../../images/playing1.png") no-repeat;
+            background-size:20%;
+        }
+        50%{
+            background: url("../../images/playing2.png") no-repeat;
+            background-size:100%;
+        }
+        100%{
+            background: url("../../images/playing3.png") no-repeat;
+            background-size:100%;
+        }
+    }
 </style>
