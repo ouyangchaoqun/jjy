@@ -444,20 +444,23 @@
             },
 
             follow:function () {
-                if(this.detail.followed===1){
-                    xqzs.weui.tip("已经收听");
-                    return ;
-                }
 
                 let that=this;
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+this.id+"/_userId_", {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
-                            that.detail.followed=1;
-                            that.detail.followCount=that.detail.followCount+1;
-                            xqzs.weui.toast("success","收听成功")
-                        }else if(bt.data.status ==900004){
-                            xqzs.weui.toast("success","已经收听")
+
+                            if(that.detail.followed==1){
+                                that.detail.followed=0;
+                                that.detail.followCount=that.detail.followCount-1;
+                                xqzs.weui.toast("success","取消成功")
+                            }else{
+                                that.detail.followed=1;
+                                that.detail.followCount=that.detail.followCount+1;
+                                xqzs.weui.toast("success","收听成功")
+                            }
+
+
                         }else if(bt.data.status ==9000003){
                             xqzs.weui.toast("fail","不能收听自己")
                         }else {
