@@ -130,7 +130,7 @@
                 MAX_COUNT:3,
                 showTypes:false,
                 sign:'',
-                price:'',
+                price:10,
                 times:[{
                     label: '不免费',
                     value: 0

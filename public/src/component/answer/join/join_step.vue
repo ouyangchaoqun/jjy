@@ -27,7 +27,7 @@
                         <i></i>
                     </div>
                 </li>
-                <li @click="showDate()">
+                <li @click="showDate()" v-if="false">
                     <span class="li_left">*</span>生日
                     <div class="lut_box">
                         <span class="lut" :class="{on:!isLunar}" @click.stop="lutSelect(0)">阳历</span>
@@ -90,8 +90,8 @@
             </div>
         </div>
 
-        <div class="joinStep_nor_btn" v-show="!(realName&&birthday&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2)"  @click="check_step()">下一步</div>
-        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&birthday&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
+        <div class="joinStep_nor_btn" v-show="!(realName&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2)"  @click="check_step()">下一步</div>
+        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
 
     </div>
 </template>
@@ -240,7 +240,7 @@
             },
             changeNickName:function () {
                 let nickName = $('.nickName').val()
-                this.realName = nickName
+                this.nickName = nickName
             },
             fouceOut:function () {
                 console.log('shiqushiqu')
@@ -449,8 +449,6 @@
                 console.log('check-------------')
                 if(_this.realName==''){
                     xqzs.weui.tip("请填写真实姓名")
-                }else if(_this.birthday==false){
-                    xqzs.weui.tip("请选择出生日期")
                 }else if(_this.mobileVal==''){
                     xqzs.weui.tip("请填写手机号码")
                 }else if(_this.provinceName==''){
@@ -472,7 +470,6 @@
                     "realName": _this.realName,
                     "nickName": _this.nickName,
                     "sex": _this.sexIndex,
-                    "birthday": _this.birthday,
                     "countryId": 0,
                     'identityNo':_this.identityNo,
                     'cardImage':[unescape(cookie.get("identityFile1")),unescape(cookie.get("identityFile2"))],
