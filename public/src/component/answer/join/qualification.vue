@@ -6,12 +6,13 @@
         <div class="checks">
             <div class="level_types">
                 <div class="item"  v-for="(item,index) in level" @click="getItemClass(index)"  :index="index" ><div class="level_item " :class="{checked_item:item.name==jobTitle}"></div><span >{{item.name}}</span></div>
+                <div class="otherInput"><input name="otherTitle"  class="changeotherTitle" :value="otherTitle" @input="changeotherTitle()"></div>
                 <div class="clear"></div>
             </div>
 
         </div>
 
-            <div v-if="!otherType">
+            <div >
                 <div class="number">
                     <div>
                         <span>证书编号</span>
@@ -33,7 +34,7 @@
 
                         <img v-if="certificateFile1!=''" :src="certificateFile1" />
                     </div>
-                    <div class="img" @click="upload(2)">
+                    <div class="img" @click="upload(2)" v-if="!otherType">
                         <template  v-if="certificateFile2==''" >
                             <div>
                                 <b>+</b>
@@ -46,8 +47,8 @@
                 </div>
             </div>
         </div>
-        <div v-show="!(jobTitle&&otherType)||!(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn" @click="check_step()">保存</div>
-        <div v-show="(jobTitle&&otherType)||(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
+        <div v-show="!(jobTitle)||!(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn" @click="check_step()">保存</div>
+        <div v-show="(jobTitle)||(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
     </div>
 </template>
 
@@ -83,15 +84,26 @@
 
 
             this.initOss();
+            let _this=this;
 
             let certificateNo= cookie.get("certificateNo")
-            console.log(certificateNo)
+
             if(certificateNo&&certificateNo!=''){
                 this.certificateNo= unescape(certificateNo);
             }
             let jobTitle= cookie.get("jobTitle");
+
             if(jobTitle&&jobTitle!=''){
-                this.jobTitle=unescape(jobTitle);
+               let jobTitleC=unescape(jobTitle);
+                console.log(jobTitleC+"++++++++++++++++++")
+                if(jobTitleC.indexOf("其它")>=0){
+                    let t= jobTitleC.split("：");
+                    _this.jobTitle=t[0];
+                    _this.otherType=true ;
+                    console.log(t[1]+"++++++++++++++++++")
+                }else{
+                    _this.jobTitle = jobTitleC;
+                }
             }
 
             let certificateFile1= cookie.get("certificateFile1");
@@ -145,6 +157,24 @@
                     console.info(e);
                 })
             },
+
+
+            changeotherTitle: function (v) {
+                if(!this.otherType){
+                    $(".changeotherTitle").val('')
+                    return
+                }
+                let otherTitle = $(".changeotherTitle").val();
+                this.otherTitle = otherTitle;
+                console.log(otherTitle);
+                if (otherTitle != '') {
+                    cookie.set("jobTitle", escape('其它：'+otherTitle))
+                } else {
+                    cookie.set("jobTitle", '')
+                }
+            },
+
+
             changeCertificateNo:function (v) {
                 let certificateNo = $(".certificateNo").val();
                 this.certificateNo = certificateNo
@@ -175,9 +205,9 @@
                 console.log(_this.otherType)
                 if(_this.jobTitle==''){
                     xqzs.weui.tip("请选择资质")
-                }else if(!_this.otherType&&_this.certificateNo==''){
+                }else if(_this.certificateNo==''){
                     xqzs.weui.tip("请填写证件编号")
-                }else if(!_this.otherType&&_this.certificateFile1==''){
+                }else if(_this.certificateFile1==''){
                     xqzs.weui.tip("请上传证件照")
                 }else if(!_this.otherType&&_this.certificateFile2==''){
                     xqzs.weui.tip("请上传证件照")
@@ -220,6 +250,8 @@
     }
 </script>
 <style>
+
+
     .answer_join_quali .answer_join_top_box{position: static;margin-bottom: 1.471rem;padding-top: 3rem;}
     .answer_join_quali .sub_title{font-size: 0.70588235rem; color:#999;line-height: 1; text-align: center;}
     .answer_join_quali  .weui-cells:after, .weui-cells:before,.answer_join_quali  .weui-cell:before{ display: none}
@@ -229,7 +261,6 @@
     }
     .number{line-height:2.35rem }
     .number>div{display: flex;padding-left:1.76471rem;position: relative}
-    .number .input_box{width:65%;position: absolute;right:0.88235rem;}
     .number span{color:rgba(36,37,61,1);font-size: 0.8235rem;}
     .weui-check__label:active{ background: none}
     .answer_join_quali .photo_img{display: flex;display: -webkit-flex;justify-content:space-between;padding-top:1.176471rem;}
@@ -247,6 +278,12 @@
     .checks .checked_item{border-color: rgba(253,114,6,1)}
     .checks .checked_item::after{  content: '';  width:10px;  height: 10px;  background: rgba(253,114,6,1);  border-radius: 50%;  position: absolute;  top:50%;  margin-top:-5px;  left: 50%;  margin-left:-5px;  }
     .photo,.number .weui-cell__hd{font-size: 0.8235rem;color:#666}
-    .certificateNo{background: rgba(245,245,245,1);height:2.35rem;width: 100%;border-radius: 0.294rem;font-size: 0.76471rem;padding-left:0.588235rem;}
     .quaBtn{line-height: 2.5294rem;background:linear-gradient(rgba(255,158,25,0.5),rgba(253,115,1,0.5));text-align: center;color:rgba(255,255,255,1);font-size: 1.0588235rem;position: absolute;bottom:0;width:100%; }
+
+
+    .certificateNo{background: rgba(245,245,245,1);height:2.35rem;width: 100%;border-radius: 0.294rem;font-size: 0.76471rem;padding-left:0.588235rem;}
+    .number .input_box{width:65%;position: absolute;left:5.88235rem;}
+
+    .level_types { position: relative}
+    .otherInput input{background: rgba(245,245,245,1);height:1.8rem;width: 40%;border-radius: 0.294rem;font-size: 0.76471rem;padding-left:0.588235rem;  position: absolute; bottom:0.5rem; left:5.88235rem;}
  </style>

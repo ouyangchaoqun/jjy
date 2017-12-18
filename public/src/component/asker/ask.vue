@@ -3,7 +3,7 @@
         <div v-title>提问</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="change_height">
-            <div class="ask_type_new" v-if="isSelectAnswer&&false">
+            <div class="ask_type_new" v-if="isSelectAnswer">
                 <div class="tab">问题类型 <span>点击选择</span></div>
                 <div class="select_box">
                     <div v-for="item in types">{{item.title}}</div>
@@ -188,8 +188,7 @@
             },
             submit:function () {
 
-                if(!this.isSelectAnswer)
-                if(this.questionClass==0){
+                 if(this.questionClass==0){
                     xqzs.weui.tip("请选择问题类型")
                     return;
                 }
@@ -340,6 +339,7 @@
     }
 </script>
 <style>
+
     .change_height{ height: 100%; overflow-y: scroll; width: 100%;}
     .asker_ask_box {
         background: #fff

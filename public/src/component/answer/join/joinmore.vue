@@ -473,7 +473,10 @@
                                     window.history.go(-1);
                                 })
                             }else if(response.data.status==1){
-                                _this.$router.replace("./reviewing")
+                                xqzs.weui.tip("资料提交成功",function () {
+                                    _this.$router.replace("./reviewing")
+                                })
+
                             }
 
                         }
