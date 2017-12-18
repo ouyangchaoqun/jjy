@@ -13,6 +13,13 @@
                         <i></i>
                     </div>
                 </li>
+                <li>
+                    <span class="li_left">*</span>咨询师昵称
+                    <div class="li_right">
+                        <input type="text" class="nickName" placeholder="还未填写（如张三）" :value="nickName">
+                        <i></i>
+                    </div>
+                </li>
                 <li @click="getSexPicker()">
                     <span class="li_left">*</span>性别
                     <div class="li_right">
@@ -122,6 +129,7 @@
                 email:'',
                 mobileVal:'123',
                 realName:'',
+                nickName:'',
                 mobileBox:false,
                 idcard:'',
                 ema : /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
@@ -178,8 +186,8 @@
                     _this.showLoad = false;
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
-                        console.log(_this.user)
-                        _this.realName =  _this.user.realName
+                        _this.realName =  _this.user.realName;
+                       if(_this.nickName=='') _this.nickName =  _this.user.nickName;
                         _this.identityNo = cookie.get('identityNo')==null?_this.user.idcard:cookie.get('identityNo');
                         _this.sex=_this.user.sex==1?'男':'女';
                         _this.cardType=_this.user.cardType;
@@ -221,6 +229,7 @@
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1&&data.body.data!=null) {
                         _this.faceUrl = data.data.data.faceUrl;
+                        _this.nickName = data.data.data.nickName;
                     }
                 }, function (error) {
                 });
@@ -457,6 +466,7 @@
                 let msg = {
                     "id": _this.user.id,
                     "realName": _this.realName,
+                    "nickName": _this.nickName,
                     "sex": _this.sexIndex,
                     "birthday": _this.birthday,
                     "countryId": 0,

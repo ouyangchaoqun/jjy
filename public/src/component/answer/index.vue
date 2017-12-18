@@ -18,7 +18,7 @@
                 <div class="item" v-for="(item,index) in list">
                     <div @click="goDetail(item.expertId)">
                         <div class="itemHeader">
-                            <div>{{item.nickName}}/ <span>{{item.city}}</span></div>
+                            <div>{{item.nickName}} <span>{{item.city}}</span></div>
                             <div class="header_addRightStyle">
                                 <div class="headerImg" @click.stop="play(index)">
                                     <div :class="{addPlaying:item.playing,addPaused:item.paused}"></div>
@@ -32,8 +32,7 @@
                             <div class="itemDetail_right">
                                 <div class="title">{{item.sign}}</div>
                                 <div class="itemDetail_class_s">
-                                    <span v-for="(good,goodIndex) in item.goodAt">{{good.title}} <i
-                                            v-if="goodIndex<2">、</i></span>
+                                    <span v-for="(good,goodIndex) in item.goodAt" class="tab_i_i">{{good.title}}</span>
                                 </div>
                                 <div class="class_s other"><span class="price"><b>问价</b>¥{{item.price}}</span> <span
                                         class="ml"
@@ -339,4 +338,7 @@
             background-size:100%;
         }
     }
+    .answer_index .itemDetail_class_s .tab_i_i{ color: #FF9966;background:rgba(204,204,204,0.3);; border-radius:0.1470588235294118rem ; padding: 0.2rem 0.3rem; margin: 0 0.3rem; }
+    .answer_index .itemDetail_class_s .tab_i_i:first-child{ margin-left: 0;}
+
 </style>

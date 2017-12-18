@@ -46,7 +46,7 @@
     .asker_bottom_box .big_btn{width:2.617647058823529rem;
         height:2.617647058823529rem;
         border-radius: 50%;
-        background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
+        background: #fa5739;
         font-size: 20px;
         color: #fff;
         text-align: center;
@@ -56,7 +56,7 @@
         margin-left:-1.294rem;
         top:-0.58235rem;}
     .asker_bottom_box .big_btn:active{
-        background: linear-gradient(to right, rgb(240, 146, 25), rgb(240, 112, 6));
+        background: #d34c32;
     }
     .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/newBottom_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
     .asker_bottom_box a .icon.listen{ background-position: 0 0;}

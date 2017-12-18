@@ -3,7 +3,7 @@
         <div v-title>提问</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="change_height">
-            <div class="ask_type_new" v-if="isSelectAnswer">
+            <div class="ask_type_new" v-if="isSelectAnswer&&false">
                 <div class="tab">问题类型 <span>点击选择</span></div>
                 <div class="select_box">
                     <div v-for="item in types">{{item.title}}</div>
@@ -78,10 +78,10 @@
                         1. 提问后将安排咨询师在第一时间为您解答，若超过48小时未解答，支付酬金将按原路径返还。
                     </p>
                     <p>
-                        2.  专家解答每被偷听一次，您将获得10%的偷听收益；
+                        2. 专家解答每被偷听一次，您将获得10%的偷听收益；
                     </p>
                     <p>
-                        3.  .所有免费听的答案都不产生偷听收入，包括：<br>
+                        3. 所有免费听的答案都不产生偷听收入，包括：<br>
                         1）该答主开启了限时免费听，例如“限时免费2小时”，则在解答2小时内该解答可被免费听；<br>
                         2）答主联合好一点平台的其他免费推广；<br>
                     </p>
