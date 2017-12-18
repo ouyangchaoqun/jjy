@@ -8,7 +8,7 @@
             <span class="icon answer"></span>找专家
         </router-link>
         <router-link to='/asker/ask/' replace class="middle"  >
-            <div class="big_btn">问</div>
+            <div class="big_btn" :class="{on:tabOnIndex==2}">问</div>
         </router-link>
         <router-link to='/asker/my/ask/list' replace   :class="{on:tabOnIndex==3}" >
             <span class="icon my_ask"></span>我问
@@ -46,7 +46,7 @@
     .asker_bottom_box .big_btn{width:2.617647058823529rem;
         height:2.617647058823529rem;
         border-radius: 50%;
-        background: #fa5739;
+        background: #cdcdcd;
         font-size: 20px;
         color: #fff;
         text-align: center;
@@ -55,9 +55,11 @@
         left:50%;
         margin-left:-1.294rem;
         top:-0.58235rem;}
-    .asker_bottom_box .big_btn:active{
-        background: #d34c32;
+    .asker_bottom_box  .big_btn.on{
+        background: #ff7900;
     }
+
+
     .asker_bottom_box a .icon{ display: block; width: 1.588235294117647rem; margin: 0.1rem auto;background: url(../../../images/asker/newBottom_icon.png) no-repeat; background-size: 6.352941176470588rem; height:1.588235294117647rem;  }
     .asker_bottom_box a .icon.listen{ background-position: 0 0;}
     .asker_bottom_box a .icon.answer{ background-position: -1.588235294117647rem 0;}

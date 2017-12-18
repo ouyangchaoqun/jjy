@@ -16,7 +16,7 @@
                 <li>
                     <span class="li_left">*</span>咨询师昵称
                     <div class="li_right">
-                        <input type="text" class="nickName" placeholder="还未填写（如张三）" :value="nickName">
+                        <input type="text" class="nickName" @input="changeNickName()" placeholder="还未填写（如张三）" :value="nickName">
                         <i></i>
                     </div>
                 </li>
@@ -237,6 +237,10 @@
             changeRealName:function () {
                 let realNameVal = $('.realName').val()
                 this.realName = realNameVal
+            },
+            changeNickName:function () {
+                let nickName = $('.nickName').val()
+                this.realName = nickName
             },
             fouceOut:function () {
                 console.log('shiqushiqu')

@@ -32,7 +32,7 @@
             <div class="submit weui-btn weui-btn_primary" @click="submit()" v-if="isSubFlag">提交</div>
         </div>
 
-        <v-asker-bottom v-if="!isSelectAnswer"></v-asker-bottom>
+        <v-asker-bottom v-if="!isSelectAnswer" tabOnIndex="2"></v-asker-bottom>
 
         <div id="select_type" style="display: none">
             <div class="dialog_select_type">
@@ -188,6 +188,7 @@
             },
             submit:function () {
 
+                if(!this.isSelectAnswer)
                 if(this.questionClass==0){
                     xqzs.weui.tip("请选择问题类型")
                     return;
