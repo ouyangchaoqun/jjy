@@ -766,7 +766,7 @@
     .answer_detail_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%}
     .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:rgba(36,37,61,0.5); margin-bottom: 0.2rem; width: 14.11764705882353rem;line-height: 1}
     .answer_detail_box  .list .info .star{line-height: 1;margin-bottom: 0.35rem}
-    .answer_detail_box  .list .word{ font-size:0.8235rem;  color:rgba(36,37,61,1); margin-bottom: 0.4rem;}
+    .answer_detail_box  .list .word{ font-size:0.8235rem;  color:rgba(36,37,61,1); margin-bottom: 0.4rem; overflow: hidden;word-wrap:break-word;}
     .answer_detail_box  .list .time{ font-size:0.7058823529411765rem; color:rgba(36,37,61,0.5);}
     .answer_detail_box .timeRight{float: right}
     .answer_detail_box  .list .info .class_s { clear: both; padding-top: 0.3rem;}

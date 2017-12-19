@@ -240,7 +240,10 @@
                                 if (bt.data && bt.data.status == 1) {
                                     _this.isAnswered=true;
                                     _this.answerId= bt.data.data.answerId;
-                                    $(".record_voice_box .tip").hide()
+                                    $(".record_voice_box .tip").hide();
+                                    xqzs.weui.toast("success",'回答成功',function () {
+                                        _this.$router.push("/answer/my/answer/list");
+                                    })
                                 }else if(bt.data.status==910003){
                                     window.history.go(-1);
 

@@ -19,7 +19,7 @@
                         <!--* const EXPERT_FREE_TIME = 3;专家免费偷听期内答案-->
                         <!--* const EXPERT_NOT_FREE  = 4;专家收费期内的答案",-->
                         <!--免费听-->
-                        <template v-if="item.needPay==0&&(item.answerType==1||item.answerType!=3)">
+                        <template v-if="detail.needPay==0&&(item.answerType==1||item.answerType!=3)">
                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
                                 <div class="audio_btn" @click.stop="play(index)" >
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
@@ -31,13 +31,13 @@
                         </template>
 
                         <!--付费听-->
-                        <template  v-if="item.needPay==1">
+                        <template  v-if="detail.needPay==1">
                             <div @click="pay(index)">
                                 <div class="audio"><div class="audio_btn pay" >1元偷听</div></div>
                             </div>
                         </template>
                         <!--限时免费听-->
-                        <template v-if="item.answerType==3&&item.needPay==0">
+                        <template v-if="item.answerType==3&&detail.needPay==0">
                             <div class="audio"  :class="{playing:item.playing,paused:item.paused}"><div class="audio_btn" @click.stop="play(index)" >
                                 <template v-if="!item.playing&&!item.paused">限时免费听</template>
                                 <template v-if="item.playing">正在播放..</template>
@@ -48,7 +48,7 @@
 
 
                     </div>
-                    <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&item.needPay==1}">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
+                    <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&detail.needPay==1}">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
                     <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span>{{item.likeTimes}}</span></div>
@@ -138,6 +138,7 @@
                 let item =  this.detail.answerList[index];
                 item.answerType=1;
                 item.needPay=0;
+                this.detail.needPay=0;
                 this.$set( this.detail.answerList,index,item);
             },
 
@@ -250,7 +251,7 @@
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
                         _this.list = _this.detail.answerList;
-                        console.log(_this.list)
+                        console.log(_this.detail)
                     }
                 }, function (error) {
                     _this.showLoad=false;
@@ -334,6 +335,8 @@
         color: rgba(36,37,61,1);
         font-size:0.88235rem;
         line-height: 1.35294rem;
+        overflow: hidden;
+        word-wrap:break-word;
     }
     .steal_detail_answer{
         background: #fff;

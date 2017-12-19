@@ -55,7 +55,7 @@
                 </div>
                 <div class="steal_expert_des">{{detail.expert.sign}}</div>
                 <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">收听</div>
-                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" >已收听</div>
+                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" @click="follow(detail.expertId)" >已收听</div>
             </div>
         </div>
 
@@ -304,13 +304,19 @@
             },
             follow:function (id) {
                 let that=this;
+
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+id+"/_userId_", {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
-                            that.detail.expert.isFollow=1;
-                            xqzs.weui.toast("success","收听成功",function () {
+                            if(that.detail.expert.isFollow==0){
+                                that.detail.expert.isFollow=1;
+                                xqzs.weui.toast("success","收听成功")
+                            }else {
+                                that.detail.expert.isFollow=0;
+                                xqzs.weui.toast("success","取消成功")
+                            }
 
-                            })
+
                         }else if(bt.data.status ==900004){
                             xqzs.weui.tip("已经收听")
                         }else if(bt.data.status ==9000003){
