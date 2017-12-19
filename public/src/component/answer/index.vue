@@ -341,15 +341,15 @@
     @keyframes  addPlaying {
         0%{
             background: url("../../images/playing1.png") no-repeat;
-            background-size:20%;
+            background-size:  100%;
         }
         50%{
             background: url("../../images/playing2.png") no-repeat;
-            background-size:100%;
+            background-size:  100%;
         }
         100%{
             background: url("../../images/playing3.png") no-repeat;
-            background-size:100%;
+            background-size:  100%;
         }
     }
     .answer_index .itemDetail_class_s .tab_i_i{ color: #FF9966;background:rgba(204,204,204,0.3);; border-radius:0.1470588235294118rem ; padding: 0.2rem 0.3rem; margin: 0 0.3rem; }

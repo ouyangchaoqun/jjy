@@ -19,7 +19,7 @@
                         <!--* const EXPERT_FREE_TIME = 3;专家免费偷听期内答案-->
                         <!--* const EXPERT_NOT_FREE  = 4;专家收费期内的答案",-->
                         <!--免费听-->
-                        <template v-if="item.answerType==1||item.needPay==0&&item.answerType!=3">
+                        <template v-if="item.needPay==0&&(item.answerType==1||item.answerType!=3)">
                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
                                 <div class="audio_btn" @click.stop="play(index)" >
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
@@ -59,8 +59,8 @@
                         <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{item.sign}}</div>
-                    <div class="followed_box" v-if="item.isFollowed==0" @click="follow(item.expertId)"> 收听</div>
-                    <div class="followed_box isfollow_style"  v-if="item.isFollowed==1" >已收听</div>
+                    <div class="followed_box" v-if="item.isFollowed==0" @click="follow(index)"> 收听</div>
+                    <div class="followed_box isfollow_style"  v-if="item.isFollowed==1" @click="follow(index)" >已收听</div>
                 </div>
             </li>
 
@@ -250,21 +250,30 @@
                     if (data.body.status == 1) {
                         _this.detail= data.body.data
                         _this.list = _this.detail.answerList;
-                        console.log(_this.detail)
+                        console.log(_this.list)
                     }
                 }, function (error) {
                     _this.showLoad=false;
                 });
 
             },
-            follow:function (id) {
+            follow:function (index) {
+
+                let item = this.list[index];
+                let id = item.expertId;
+                console.log(item)
                 let that=this;
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+id+"/_userId_", {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
-                            xqzs.weui.toast("success","收听成功",function () {
+                            if(item.isFollowed){
+                                xqzs.weui.toast("success","收听成功")
+                            }else{
+                                xqzs.weui.toast("success","取消成功")
+                            }
+                            item.isFollowed=!item.isFollowed;
+                            that.$set(that.list,index,item);
 
-                            })
                         }else if(bt.data.status ==900004){
                             xqzs.weui.toast("success","已经收听",function () {
 
