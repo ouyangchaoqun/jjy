@@ -69,11 +69,11 @@
         <div class="title_bottom">
             <span class="bottom_left">
                  <div class="audio">
-                    <div class="audio_btn" @click.stop="play(index)">
-                        <template >点击播放</template><!--v-if="!item.playing&&!item.paused"-->
-                        <!--<template v-if="item.playing">正在播放..</template>-->
-                        <!--<template v-if="item.paused">播放暂停</template>-->
-                        <div class="second"></div><!--{{item.voiceLength}}”-->
+                    <div class="audio_btn" @click.stop="play()">
+                        <template v-if="!playing&&!paused" >点击播放</template>
+                        <template v-if="playing">正在播放..</template>
+                        <template v-if="paused">播放暂停</template>
+                        <div class="second">{{voiceLength}}”</div>
                     </div>
 
                     <div class="clear"></div>
@@ -161,11 +161,17 @@
                 ids:[],
                 expertId:'',
                 myask_mask_flag:false,
+                voicePath:null,
+                expertInfo:null,
+                paused:false,
+                playing:false,
+                isEdit:false
+
 
             }
         },
         mounted: function () {
-
+            this.isEdit=this.$route.query.edit;
             this.$http.get(web.API_PATH+'come/expert/query/detail/by/userId/_userId_').then(function (data) {
                 if(data.data.status==1&&data.data.data !=null){
                     let  expertId = data.data.data.id;
@@ -205,20 +211,27 @@
                 _this.showLoad = true
                 _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
                     _this.showLoad = false;
-                    console.log(data.data.data+'******************')
+                     _this.expertInfo=data.data.data;
+                    console.log(data.data.data)
                     if (data.body.status == 1&&data.body.data!=null) {
+
                         _this.jobTitle = data.data.data.jobTitle||'必填';
                         _this.sign = data.data.data.sign||'必填';
                         _this.introduction = data.data.data.introduction||'必填';
                         _this.freeTime=data.data.data.freeTime;
                             for(let i =0;i<_this.times.length;i++){
                                 if(_this.times[i].value== _this.freeTime){
-                                    _this.freeTimeText=cookie.get('freeTimeTextChange')==null? _this.times[i].label:cookie.get('freeTimeTextChange');
+                                    _this.freeTimeText= _this.times[i].label;
                                 }
                             }
-
-                        _this.price =cookie.get('priceChange')==null?parseInt (data.data.data.price):cookie.get('priceChange');
-                        _this.faceUrl =cookie.get('faceUrl')==null? data.data.data.faceUrl:cookie.get('faceUrl');
+                        _this.price =parseInt (data.data.data.price);
+                        _this.faceUrl = data.data.data.faceUrl;
+                        _this.voicePath=data.data.data.voicePath;
+                        _this.voiceLength= data.data.data.voiceLength;
+                        if(data.data.data.voiceDetail&& !_this.voicePath){
+                            _this.voicePath =data.data.data.voiceDetail.path
+                            _this.voiceLength= data.data.data.voiceDetail.length
+                        }
                     }
                 }, function (error) {
                 });
@@ -339,8 +352,14 @@
             selectFreeTime:function () {
                 let  data= this.times;
                 let _this=this;
+
+
+                let defaultValue = [ _this.freeTime]
+                console.log(defaultValue)
+
                 weui.picker(  data, {
                     id:"id"+Math.random(),
+                    defaultValue: defaultValue,
                     onChange: function (result) {
                         console.log(result);
                     },
@@ -351,17 +370,36 @@
                     },
                 });
             },
+            tip:function () {
+                xqzs.weui.tip("认证中！")
+            },
             goQualification:function () {
-                this.$router.replace('qualification')
+                if(this.expertInfo.certificateNoStatus===0){
+                    this.tip();
+                    return ;
+                }
+                this.$router.push('qualification')
             },
             goPersonal:function () {
-                this.$router.replace('personal')
+                if(this.expertInfo.introductionStatus===0||this.expertInfo.goodatStatus===0||this.expertInfo.experienceStatus===0){
+                this.tip();
+                return ;
+            }
+                this.$router.push('personal')
             },
             goSign:function () {
-                this.$router.replace('sign')
+                if(this.expertInfo.signStatus===0){
+                    this.tip();
+                    return ;
+                }
+                this.$router.push('sign')
             },
             goVoice:function () {
-                this.$router.replace('voice')
+                if(this.expertInfo.voiceMessageIdStatus===0){
+                    this.tip();
+                    return ;
+                }
+                this.$router.push('voice')
             },
             beforeDestroy:function () {
                 xqzs.image.hideClip()
@@ -371,66 +409,32 @@
                     xqzs.voice.audio=document.createElement("audio");
                 }
             },
-            play:function (index) {
+            play:function () {
                 this.initVoice();
                 let _this=this;
-                console.log(_this.detail.answers)
-                let list = _this.detail.answers;
+
                 xqzs.voice.onEnded=function () {
-                    list[index].paused=false;
-                    list[index].playing=false;
-                    _this.$set(_this.detail.answers,index,list[index])
+                   _this.paused=false;
+                    _this.playing=false;
+
                 };
-                //重置其他列表内容
-                for(let i = 0;i<list.length;i++){
-                    if(index!=i&&(list[i].playing||list[i].paused)){
-                        list[i].paused=false;
-                        list[i].playing=false;
-                        _this.$set(_this.detail.answers,i,list[i]);
-                    }
-                }
-                let item= this.detail.answers[index];
-                if(item.paused){  //暂停中也就是已经获取到且为当前音频
-                    list[index].paused=false;
-                    list[index].playing=true;
-                    _this.$set(_this.list,index,list[index])
-                    xqzs.voice.play();
+                if(_this.paused){  //暂停中也就是已经获取到且为当前音频
+                    _this.paused=false;
+                    _this.playing=true;
+                     xqzs.voice.play();
                 }else{
-                    if(item.playing){    //播放中去做暂停操作
-                        list[index].paused=true;
-                        list[index].playing=false;
-                        _this.$set(_this.detail.answers,index,list[index])
-                        xqzs.voice.pause();
+                    if(_this.playing){    //播放中去做暂停操作
+                        _this.paused=true;
+                        _this.playing=false;
+                         xqzs.voice.pause();
                     }else{     //重新打开播放
-                        let answerId= item.answerId;
-                        this.getVoiceUrl(answerId,function (url) {
-                            xqzs.voice.play(url);
-                            list[index].playing=true;
-                            list[index].paused=false;
-                            _this.$set(_this.detail.answers,index,list[index])
-                        })
+                        xqzs.voice.play(_this.voicePath);
+                        _this.playing=true;
+                        _this.paused=false;
                     }
-
                 }
+            },
 
-            },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (answerId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data.path)
-                            }
-                        }
-                    });
-            },
             check_step:function () {
                 let _this = this;
                 if(_this.classType.length==0){
@@ -462,19 +466,32 @@
                     'finish':'yes'
                 };
 
+                let url = "come/expert/register";
+
+                if(_this.isEdit){
+                    msg.expertId=cookie.get('expertId');
+                    if(_this.isEdit){
+                        url = "come/expert/modify";
+                    }
+                }
                 console.log(msg);
-                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
+                _this.$http.post(web.API_PATH + url, msg)
                     .then(
                         (response) => {
                             console.log(response)
                             _this.showLoad = false
                             if(response.data.status==9000006){
                                 xqzs.weui.tip("您已经提交过审核",function () {
-                                    window.history.go(-1);
+                                    _this.$router.go(-1)
                                 })
                             }else if(response.data.status==1){
                                 xqzs.weui.tip("资料提交成功",function () {
-                                    _this.$router.replace("./reviewing")
+                                    if(_this.isEdit){
+                                        _this.$router.go(-1)
+                                    }else{
+                                        _this.$router.replace("./reviewing")
+                                    }
+
                                 })
 
                             }

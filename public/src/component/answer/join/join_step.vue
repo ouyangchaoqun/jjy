@@ -471,13 +471,13 @@
                     re = false;
                     tip = "请填写正确的身份证号码";
                 }
-                else if (_this.identityFile1 == '') {
-                    re = false;
-                    tip = "请上传身份证正面照";
-                } else if (_this.identityFile2 == '') {
-                    re = false;
-                    tip = "请上传身份证反面照";
-                }
+//                else if (_this.identityFile1 == '') {
+//                    re = false;
+//                    tip = "请上传身份证正面照";
+//                } else if (_this.identityFile2 == '') {
+//                    re = false;
+//                    tip = "请上传身份证反面照";
+//                }
                 console.log(showTip)
                 if (showTip && !re) {
                     console.log(showTip)
@@ -509,22 +509,25 @@
                     'mobile':mobileVal,
                     'email':_this.email
                 };
+                let url = "come/expert/register";
                 if(_this.isEdit){
                     msg.expertId=cookie.get('expertId');
                     msg.userId= _this.user.id;
-
-                }
-                console.log(msg);
-                let url = "come/expert/register";
-                if(_this.isEdit){
                     url = "come/expert/modify";
                 }
+                console.log(msg);
+
+
                 _this.$http.post(web.API_PATH + url, msg)
                     .then(
                         (response) => {
                             console.log(response)
                             _this.showLoad= false;
-                            _this.$router.replace("/answer/join/joinmore")
+                            let gourl =  "/answer/join/joinmore";
+                            if(_this.isEdit){
+                                gourl +="?edit=true"
+                            }
+                            _this.$router.replace(gourl)
                         }
                     );
             },
