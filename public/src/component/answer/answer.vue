@@ -128,10 +128,15 @@
             this.$http.get(web.API_PATH + 'come/expert/question/detail/'+this.questionId).then(function (data) {//es5写法
                 if (data.body.status == 1) {
                     console.log(data)
-                    this.detail = data.data.data;
-                    if( this.detail.questionStatus==1){
+                    _this.detail = data.data.data;
+                    if( _this.detail.questionStatus==1){
                         xqzs.weui.tip('问题已经完成',function () {
-                            _this.$router.replace("/answer/race/list")
+                            if( _this.detail.questionTypp=2){
+                                _this.$router.replace("/answer/my/answer/list")
+                            }else{
+                                _this.$router.replace("/answer/my/answer/list")
+                            }
+
                         })
 
                     }
