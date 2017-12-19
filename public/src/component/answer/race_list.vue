@@ -22,7 +22,7 @@
                             <img :src="item.faceUrl">
                         </div>
                         <div class="price">赏金 <span>￥{{item.price}}</span></div>
-                        <div class="type">在哪方面：感情感悟{{item.questionClassName}}</div>
+                        <div class="type">在哪方面：{{item.questionClassName}}</div>
                     </div>
 
                     <div class="content">
