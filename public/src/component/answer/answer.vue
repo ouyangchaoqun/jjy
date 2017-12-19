@@ -32,11 +32,6 @@
 
 
 
-
-
-
-
-
         <!--播放状态-->
 
         <div class="addPlayBox" >
@@ -134,6 +129,12 @@
                 if (data.body.status == 1) {
                     console.log(data)
                     this.detail = data.data.data;
+                    if( this.detail.questionStatus==1){
+                        xqzs.weui.tip('问题已经完成',function () {
+                            _this.$router.replace("/answer/race/list")
+                        })
+
+                    }
                 }
             }, function (error) {
 
