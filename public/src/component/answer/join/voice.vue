@@ -105,6 +105,8 @@
                     mediaId:_this.serviceId,
                     voiceLength:_this.voiceLength
                 };
+                console.log("bearb ear")
+                console.log(data);
                 _this.$http.post(web.API_PATH + 'come/expert/modify/voice', data)
                     .then(
                         (response) => {
@@ -168,7 +170,7 @@
                 if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
                     return ;
                 }
-                myVideo.pause(this.play);
+
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(_this.localId,function (serverId) {
                     _this.finish=true;
