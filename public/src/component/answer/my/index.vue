@@ -102,7 +102,7 @@
 
             },
             goJoin:function () {
-                this.$router.push("/answer/join/joinstep");
+                this.$router.push("/answer/join/joinstep?edit=true");
 
             },
             getIncome:function () {

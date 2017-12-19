@@ -77,7 +77,7 @@
                 <li>
                     <span class="li_left">*</span>身份证号
                     <div class="li_right">
-                        <input type="text" class="identityNo"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*" >
+                        <input type="text" class="identityNo" :disabled="isEdit"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*"   @blur="checkId()">
                         <i></i>
                     </div>
                 </li>
@@ -90,8 +90,7 @@
             </div>
         </div>
 
-        <div class="joinStep_nor_btn" v-show="!(realName&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2)"  @click="check_step()">下一步</div>
-        <div class="joinStep_nor_btn joinStep_per_btn" v-show="realName&&provinceName&&identityNo&&mobileVal&&identityFile1&&identityFile2" @click="msgSubmit()">下一步</div>
+        <div class="joinStep_nor_btn" :class="{joinStep_per_btn:check_step(false)}"   @click="msgSubmit()">下一步</div>
 
     </div>
 </template>
@@ -133,11 +132,13 @@
                 mobileBox:false,
                 idcard:'',
                 ema : /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
+                isEdit:false
 
 
             }
         },
         mounted: function () {
+            this.isEdit=this.$route.query.edit;
             xqzs.wx.setConfig(this);
             let realNameVal = $('.realName').val()
             this.realName = realNameVal
@@ -167,13 +168,18 @@
 
             xqzs.wx.setConfig(this);
             let _this = this;
-            this.getExpertByUserId();
+
             xqzs.wx.setConfig(_this);
             this.getUserInfo();
+
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
             this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
         },
         methods: {
+            checkId:function () {
+                let identityNo= $(".identityNo").val();
+                return xqzs.string.isCardID(identityNo)
+            },
             getUserInfo:function () {
                 let _this = this;
                 //用户信息
@@ -219,6 +225,7 @@
                         _this.cityId = _this.user.cityId;
                         _this.areaId = _this.user.areaId;
                         _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                        this.getExpertByUserId();
                     }
                 }, function (error) {
                     //error
@@ -229,7 +236,7 @@
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
                     if (data.body.status == 1&&data.body.data!=null) {
                         _this.faceUrl = data.data.data.faceUrl;
-                        _this.nickName = data.data.data.nickName;
+                        if( data.data.data.nickName&& data.data.data.nickName!='') _this.nickName = data.data.data.nickName;
                     }
                 }, function (error) {
                 });
@@ -243,7 +250,7 @@
                 this.nickName = nickName
             },
             fouceOut:function () {
-                console.log('shiqushiqu')
+                console.log('shiqushiqu');
                 let _this = this;
                 let emailVal = $('.email').val()
                 if (!_this.ema.test(emailVal)){
@@ -444,27 +451,49 @@
             goMobile:function () {
                 $('.mobile_box').show()
             },
-            check_step:function () {
+            check_step:function (showTip) {
                 let _this = this;
-                console.log('check-------------')
-                if(_this.realName==''){
-                    xqzs.weui.tip("请填写真实姓名")
-                }else if(_this.mobileVal==''){
-                    xqzs.weui.tip("请填写手机号码")
-                }else if(_this.provinceName==''){
-                    xqzs.weui.tip("请选择常驻城市")
-                }else if(_this.identityNo==''){
-                    xqzs.weui.tip("请填写身份证号")
-                }else if(_this.identityFile1==''){
-                    xqzs.weui.tip("请上传身份证正面照")
-                }else if(_this.identityFile2==''){
-                    xqzs.weui.tip("请上传身份证反面照")
+                let re=true;
+                let tip = '';
+                if (_this.realName == '') {
+                    re = false;
+                    tip = "请填写真实姓名";
+                } else if (_this.mobileVal == '') {
+                    re = false;
+                    tip = "请填写手机号码";
+                } else if (_this.provinceName == '') {
+                    re = false;
+                    tip = "请选择常驻城市";
+                } else if (_this.identityNo == '') {
+                    re = false;
+                    tip = "请填写身份证号";
+                } else if (!_this.checkId()) {
+                    re = false;
+                    tip = "请填写正确的身份证号码";
                 }
+                else if (_this.identityFile1 == '') {
+                    re = false;
+                    tip = "请上传身份证正面照";
+                } else if (_this.identityFile2 == '') {
+                    re = false;
+                    tip = "请上传身份证反面照";
+                }
+                console.log(showTip)
+                if (showTip && !re) {
+                    console.log(showTip)
+                    xqzs.weui.tip(tip)
+                }
+                return re;
             },
             msgSubmit: function () {
+
                 let _this = this;
+                if(!_this.check_step(true)){
+                    return;
+                }
                 _this.showLoad= true;
                 let mobileVal = $('.li_right .mobile').text();
+
                 let msg = {
                     "id": _this.user.id,
                     "realName": _this.realName,
@@ -480,8 +509,17 @@
                     'mobile':mobileVal,
                     'email':_this.email
                 };
+                if(_this.isEdit){
+                    msg.expertId=cookie.get('expertId');
+                    msg.userId= _this.user.id;
+                    msg.identityNo = '';
+                }
                 console.log(msg);
-                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
+                let url = "come/expert/register";
+                if(_this.isEdit){
+                    url = "come/expert/modify";
+                }
+                _this.$http.post(web.API_PATH + url, msg)
                     .then(
                         (response) => {
                             console.log(response)

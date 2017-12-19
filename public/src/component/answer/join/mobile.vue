@@ -2,31 +2,33 @@
     <div class="answer_join_mobile_box">
         <div v-title>入驻心理咨询师</div>
         <div class="validate_box">
-            <div class="validate_top">
-                <h1>绑定手机号</h1>
-            </div>
-            <div class="validate_div">
-                <div class="validate_phone">
-                    <input class="input_phone" type="tel" oninput="if(value.length>11)value=value.slice(0,11)"
-                           placeholder="请输入您的手机号" v-model="mobile"/>
-                    <p id="errorMobile" v-if="!isMobileRight&&isShowErrorMobileMsg">手机格式错误</p>
+            <div class="mobile__box">
+                <div class="validate_top">
+                    <h1>绑定手机号</h1>
                 </div>
-                <button href="javascript:;" id="_phonebtn" @click="getCode()"
-                        class="weui-btn weui-btn_plain-primary "
-                        :class="{'weui-btn_plain-disabled':!isMobileRight||isGetingCodeIn}">{{getCodeBtnText}}
-                </button>
-            </div>
+                <div class="validate_div">
+                    <div class="validate_phone">
+                        <input class="input_phone" type="tel" oninput="if(value.length>11)value=value.slice(0,11)"
+                               placeholder="请输入您的手机号" v-model="mobile"/>
+                        <p id="errorMobile" v-if="!isMobileRight&&isShowErrorMobileMsg">手机格式错误</p>
+                    </div>
+                    <button href="javascript:;" id="_phonebtn" @click="getCode()"
+                            class="weui-btn weui-btn_plain-primary "
+                            :class="{'weui-btn_plain-disabled':!isMobileRight||isGetingCodeIn}">{{getCodeBtnText}}
+                    </button>
+                </div>
 
 
-            <div class="validate_code">
-                <input class="input_code" type="tel" placeholder="请输入您收到的验证码" maxlength="4" v-model="code"/>
-                <p id="errorCode" v-if="isShowErrorCodeMsg">验证码错误</p>
-                <p id="message" v-if="isShowMessage">{{message}}</p>
-            </div>
-            <div>
-                <button id="sublim" href="javascript:;" class="weui-btn  weui-btn_primary"
-                        :class="{'weui-btn_disabled':!isAllInput}" @click.stop="submit()">确定
-                </button>
+                <div class="validate_code">
+                    <input class="input_code" type="tel" placeholder="请输入您收到的验证码" maxlength="4" v-model="code"/>
+                    <p id="errorCode" v-if="isShowErrorCodeMsg">验证码错误</p>
+                    <p id="message" v-if="isShowMessage">{{message}}</p>
+                </div>
+                <div>
+                    <button id="sublim" href="javascript:;" class="weui-btn  weui-btn_primary"
+                            :class="{'weui-btn_disabled':!isAllInput}" @click.stop="submit()">确定
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -58,7 +60,7 @@
             $('.answer_join_mobile_box').click(function () {
                 $('.answer_join_mobile_box').hide()
             })
-            $('.input_phone,.input_code,#_phonebtn').click(function (e) {
+            $('.mobile__box').click(function (e) {
                 e.stopPropagation();
             });
             $('.input_phone').keyup(function () {
@@ -133,7 +135,7 @@
             getCode: function () {
                 let _this = this;
                 if (_this.isMobileRight&&!_this.isGetingCodeIn) {
-                    _this.$http.post(web.API_PATH + 'base/verification/code/get/code', {mobile: _this.mobile}).then(response => {
+                    _this.$http.post(web.API_PATH + 'base/verification/code/expert/get/code', {mobile: _this.mobile}).then(response => {
                         if (response.data.status === 1) {
                             _this.codeError=false;
                             _this.interValObj = setInterval(function () {
@@ -154,6 +156,10 @@
                             _this.isShowMessage = true;
                             _this.isShowErrorCodeMsg=false;
                             _this.message = "手机号码格式不正确";
+                        }else if (response.data.status === -5) {
+                            _this.isShowMessage = true;
+                            _this.isShowErrorCodeMsg=false;
+                            _this.message = "手机号码已经被注册";
                         }
 
                     }, response => {

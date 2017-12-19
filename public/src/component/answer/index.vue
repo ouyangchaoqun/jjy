@@ -8,8 +8,8 @@
                   :isShowMoreText="isShowMoreText" :bottomHeight="50">
             <div class="class_list">
                 <div class="class_item" v-for="(item,index) in classList" @click="goClass(item.id)"
-                     :class="'aaa_'+item.code">
-                    <div class="addClassImg" :class="{clickImg:index==0}"></div>
+                     :class="{on:item.id==classId}">
+                    <div class="addClassImg" ></div>
                     <span>{{item.title}}</span>
                 </div>
                 <div class="clear"></div>
@@ -306,12 +306,13 @@
     .answer_list .class_s .price b{color:rgba(36,37,61,0.5);font-style: normal;font-weight: normal;}
    .answer_index  .class_list{  padding:0.47rem 0;background: #fff;}
 
-   .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#696969;font-size: 0.6176471rem;padding: 6px 0 ; }
+   .answer_index  .class_list .class_item{  float:left ; width: 20%; text-align: center;color:#999;font-size: 0.6176471rem;padding: 6px 0 ; }
 .itemDetail_class_s{font-size: 0.70588rem;color:rgba(36,37,61,0.5);position: absolute;bottom: 28%;}
    .answer_list .info .other{margin-bottom: 0.88235rem}
    .addClassImg{height:2.5rem; width:2.5rem; margin:0 auto;margin-bottom: 0.3529411rem;background: url("../../images/answer/index_class_nor.png") no-repeat #f1f1f1;background-size: 11.76470588235294rem; border-radius: 1.021176470588235rem}
 
 
+    .class_list .class_item.on,  .class_list .class_item:active{ color:#333; font-weight: bold}
 
     .class_list>div:active:nth-of-type(1) div{ background-color: #6b8be9  }
     .class_list>div:active:nth-of-type(2) div{ background-color: #cb665c  }

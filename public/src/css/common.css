@@ -304,7 +304,7 @@ a{
 
 
 /*专家列表*/
-.answer_list .item{ background: #fff; padding:0.8823529411764706rem; margin-top:0.41176471rem; }
+.answer_list .item{ background: #fff; padding:0.8823529411764706rem; margin-top:0.0588rem }
 .answer_list .itemHeader{height:1.471rem;line-height: 1.471rem;color:rgba(36,37,61,1);font-size: 1.0588235rem;position: relative;margin-bottom: 0.588235rem;font-weight: bold}
 .answer_list .itemHeader span{color:rgba(36,37,61,0.5);font-size: 0.70588235rem;font-weight: normal}
 .answer_list .itemDetail{display: flex}
