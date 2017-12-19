@@ -175,7 +175,7 @@
                 xqzs.wx.voice.upload(_this.localId,function (serverId) {
                     _this.finish=true;
                     cookie.set("mediaId",serverId);
-                    _this.serverId = serverId;
+                    _this.serviceId = serverId;
                     cookie.set("voiceLength",_this.voiceLength)
 
                 });
