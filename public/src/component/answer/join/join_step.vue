@@ -512,7 +512,7 @@
                 if(_this.isEdit){
                     msg.expertId=cookie.get('expertId');
                     msg.userId= _this.user.id;
-                    msg.identityNo = '';
+
                 }
                 console.log(msg);
                 let url = "come/expert/register";
