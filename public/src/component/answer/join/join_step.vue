@@ -77,7 +77,7 @@
                 <li>
                     <span class="li_left">*</span>身份证号
                     <div class="li_right">
-                        <input type="text" class="identityNo" :disabled="isEdit"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*"   @blur="checkId()">
+                        <input type="text" class="identityNo"  @input="idcardChange()" :value="identityNo" pattern="[0-9a-zA-Z]*"   @blur="checkId()">
                         <i></i>
                     </div>
                 </li>
