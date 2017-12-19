@@ -194,7 +194,7 @@
                         _this.user = eval(data.data.data);
                         _this.realName =  _this.user.realName;
                        if(_this.nickName=='') _this.nickName =  _this.user.nickName;
-                        _this.identityNo = cookie.get('identityNo')==null?_this.user.idcard:cookie.get('identityNo');
+                        _this.identityNo = _this.user.idcard ;
                         _this.sex=_this.user.sex==1?'男':'女';
                         _this.cardType=_this.user.cardType;
                         _this.email = _this.user.email;
