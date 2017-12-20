@@ -162,6 +162,7 @@
             },
             reStart:function () {
                 //重新开始录制
+                let _this= this;
                 this.answerTime="00";
                 this.voiceLength=0;
                 this.preAnswer=false;
