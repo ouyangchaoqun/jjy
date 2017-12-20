@@ -265,16 +265,19 @@
                 xqzs.wx.voice.stopRecord();
                 console.log("stopRecord")
                 if(this.localId)xqzs.wx.voice.pausePlay( this.localId);
-                this.clearTimeOut()
+                this.clearTimeOut();
                 xqzs.wx.voice.startRecord();
                 this.answering=true;
                 this.timeout()
                 console.log("startRecordtimeout")
                 xqzs.wx.voice.onRecordEnd(function (localId) {
-                    console.log("onRecordEnd" +localId)
-                    _this.localId=localId;
-                    xqzs.localdb.set("voice_localId",localId);
-                    _this._recordStop();
+                    console.log("onRecordEnd" +localId);
+                    if(localId){
+                        _this.localId=localId;
+                        xqzs.localdb.set("voice_localId",localId);
+                        _this._recordStop();
+                    }
+
                 });
 
             },
@@ -317,15 +320,17 @@
             },
             stop:function () { //停止录制
 
-                console.log("stopstopstopstopstop")
                 let _this = this;
 
                 _this.isOver = true;
                 xqzs.wx.voice.stopRecord(function (localId) {
                     console.log("stopstopstopstopstop"+localId)
-                    _this.localId = localId;
-                    xqzs.localdb.set("voice_localId", localId);
-                    _this._recordStop();
+                    if(localId){
+                        _this.localId = localId;
+                        xqzs.localdb.set("voice_localId", localId);
+                        _this._recordStop();
+                    }
+
                 });
 
 
