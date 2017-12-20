@@ -97,8 +97,7 @@
                 <input type="" readonly  :value="freeTimeText">
             </div>
         </div>
-        <div v-show="!(jobTitle&&freeTimeText&&price>=10&&classType&&sign!='必填'&&introduction&&faceUrl)" class="subBtn_nor" @click="check_step()">提交</div>
-        <div v-show="(jobTitle&&freeTimeText&&price>=10&&classType&&sign!='必填'&&introduction&&faceUrl)" class="subBtn_nor subBtn_per" @click="sub_more()">提交</div>
+        <div   class="subBtn_nor  subBtn_per"   @click="sub_more()">提交</div>
 
         <div id="select_type" class="select_type" v-show="showTypes" @click="select_typeFlag()">
             <div class="dialog_select_type">
@@ -165,7 +164,8 @@
                 expertInfo:null,
                 paused:false,
                 playing:false,
-                isEdit:false
+                isEdit:false,
+                user:{}
 
 
             }
@@ -179,7 +179,7 @@
                     cookie.set('expertId',expertId,300);
                     this.getGoodAt()
                     this.getClassList()
-                    this.getExpertByUserId();
+                    this.getUserInfo();
                 }
             })
 
@@ -206,6 +206,24 @@
                     token:this.uploadpicinfo.token
                 });
             },
+            getUserInfo:function () {
+                let _this = this;
+                //用户信息
+                _this.showLoad = true;
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    _this.showLoad = false;
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                        _this.getExpertByUserId();
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             getExpertByUserId:function () {
                 let _this=this;
                 _this.showLoad = true
@@ -224,7 +242,7 @@
                                     _this.freeTimeText= _this.times[i].label;
                                 }
                             }
-                        _this.price =parseInt (data.data.data.price);
+                      if(data.data.data.price>0)_this.price =data.data.data.price;
                         _this.faceUrl = data.data.data.faceUrl;
                         _this.voicePath=data.data.data.voicePath;
                         _this.voiceLength= data.data.data.voiceLength;
@@ -315,7 +333,8 @@
                 }
                 this.$set(this.types, index, types[index]);
                 //
-                console.log(this.classType)
+                console.log(this.classType);
+
             },
             sureClass:function () {
                 var selectClassTypes = [];
@@ -336,6 +355,17 @@
                     'userId':"_userId_",
                     'questionClassId':_this.ids,
                 };
+                let url = 'come/expert/register';
+                if(_this.isEdit){
+                    msg.userId= "_userId_";
+                    msg.expertId=cookie.get('expertId');
+                    if(_this.isEdit){
+                        url = "come/expert/modify";
+                    }
+                }else{
+                    msg.id= _this.user.id;
+                }
+
                 _this.$http.post(web.API_PATH + 'come/expert/register', msg)
                     .then(
                         (response) => {
@@ -435,27 +465,51 @@
                 }
             },
 
-            check_step:function () {
+            check_step:function (showTip) {
+
                 let _this = this;
+                let re=true;
+                let tip = '';
+
+
                 if(_this.classType.length==0){
-                      xqzs.weui.tip("请选择擅长领域")
+                    re = false;
+                    tip = "请选择擅长领域";
                 }else if(_this.freeTimeText==''){
-                    xqzs.weui.tip("请设置免费时间")
+                    re = false;
+                    tip = "请设置免费时间";
                 }else if(_this.price<10){
-                    xqzs.weui.tip("请设置提问酬金(大于等于10)")
+                    re = false;
+                    tip = "请设置提问酬金(大于等于10)";
                 }else if(_this.jobTitle==''||_this.jobTitle=='必填'){
-                    xqzs.weui.tip("请编辑从业资质")
+                    re = false;
+                    tip = "请编辑从业资质";
                 }else if(_this.introduction==''||_this.introduction=='必填'){
-                    xqzs.weui.tip("请编辑自我介绍")
+                    re = false;
+                    tip = "请编辑自我介绍";
                 }else if(_this.sign==''||_this.sign=='必填'){
-                    xqzs.weui.tip("请编辑个性签名")
-                }else if(_this.faceUrl==''){
-                    xqzs.weui.tip("请上传个人头像")
+                    re = false;
+                    tip = "请编辑个性签名";
                 }
+                else if(_this.faceUrl==''){
+                    re = false;
+                    tip = "请上传个人头像";
+                }
+
+                if (showTip && !re) {
+                    console.log(showTip)
+                    xqzs.weui.tip(tip)
+                }
+                return re;
+
+
             },
             sub_more:function () {
                 console.log('提交')
                 let _this = this;
+                if(!_this.check_step(true)){
+                    return;
+                }
                 _this.showLoad=true;
                 let msg = {
                     'userId':"_userId_",
@@ -469,10 +523,13 @@
                 let url = "come/expert/register";
 
                 if(_this.isEdit){
+                    msg.userId= "_userId_";
                     msg.expertId=cookie.get('expertId');
                     if(_this.isEdit){
                         url = "come/expert/modify";
                     }
+                }else{
+                    msg.id= _this.user.id;
                 }
                 console.log(msg);
                 _this.$http.post(web.API_PATH + url, msg)

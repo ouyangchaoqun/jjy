@@ -470,13 +470,13 @@
                     re = false;
                     tip = "请填写正确的身份证号码";
                 }
-                else if (_this.identityFile1 == '') {
-                    re = false;
-                    tip = "请上传身份证正面照";
-                } else if (_this.identityFile2 == '') {
-                    re = false;
-                    tip = "请上传身份证反面照";
-                }
+//                else if (_this.identityFile1 == '') {
+//                    re = false;
+//                    tip = "请上传身份证正面照";
+//                } else if (_this.identityFile2 == '') {
+//                    re = false;
+//                    tip = "请上传身份证反面照";
+//                }
                 console.log(showTip)
                 if (showTip && !re) {
                     console.log(showTip)
