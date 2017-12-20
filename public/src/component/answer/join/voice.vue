@@ -76,9 +76,6 @@
 
 
 
-        <div class="over_nor_btn" v-if="!finish">保存</div>
-        <div class="over_nor_btn over_per_btn" v-if="finish" @click="goJoinmore()">保存</div>
-
     </div>
 </template>
 
@@ -181,13 +178,11 @@
                 if(_this.voiceLength<_this.MIN_VOICE_LENGTH){
                     return ;
                 }
-
                 //发送到微信服务器并获取serverId
                 xqzs.wx.voice.upload(_this.localId,function (serverId) {
-                    _this.finish=true;
-                    cookie.set("mediaId",serverId);
-                    _this.serviceId = serverId;
-                    cookie.set("voiceLength",_this.voiceLength)
+                     _this.finish=true;
+                     _this.serviceId = serverId;
+                     _this.goJoinmore();
 
                 });
 
@@ -210,7 +205,6 @@
                     _this.localId=localId
                     xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
-                    myVideo.end()
                 });
 
             },
