@@ -404,28 +404,28 @@
                 xqzs.weui.tip("认证中！")
             },
             goQualification:function () {
-                if(this.expertInfo.certificateNoStatus===0){
+                if(this.expertInfo.certificateNoStatus===0&&this.isEdit){
                     this.tip();
                     return ;
                 }
                 this.$router.push('qualification')
             },
             goPersonal:function () {
-                if(this.expertInfo.introductionStatus===0||this.expertInfo.goodatStatus===0||this.expertInfo.experienceStatus===0){
+                if((this.expertInfo.introductionStatus===0||this.expertInfo.goodatStatus===0||this.expertInfo.experienceStatus===0)&&this.isEdit){
                 this.tip();
                 return ;
             }
                 this.$router.push('personal')
             },
             goSign:function () {
-                if(this.expertInfo.signStatus===0){
+                if(this.expertInfo.signStatus===0&&this.isEdit){
                     this.tip();
                     return ;
                 }
                 this.$router.push('sign')
             },
             goVoice:function () {
-                if(this.expertInfo.voiceMessageIdStatus===0){
+                if(this.expertInfo.voiceMessageIdStatus===0&&this.isEdit){
                     this.tip();
                     return ;
                 }
