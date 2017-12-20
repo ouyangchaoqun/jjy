@@ -72,7 +72,7 @@
 
                         </ul>
                     </div>
-                    <div v-show="navLists[typeIndex].list.length==0&&!showLoad">
+                    <div v-show="navList.list.length==0&&!showLoad">
                         <div class="index_nocontent">
                             <div>
                                 <img src="../../images/asker/newNoContent.png" alt="">
@@ -227,8 +227,8 @@
                     }
 
                 },1000);
-                _this.list[index].ct =time;
-                _this.$set(_this.list,index,_this.list[index])
+                _this.navLists[ _this.typeIndex].list[index].ct =time;
+                _this.$set(_this.navLists[ _this.typeIndex].list,index,_this.navLists[ _this.typeIndex].list[index])
             },
 
             clearTimeOut:function () {
@@ -392,16 +392,16 @@
                     }
                     vm.showLoad = false;
                     vm.navLists[ vm.typeIndex].isLoading = false;
-//                    console.log(response)
+                    console.log("1")
 
                     if(response.data.status!=1&&vm.navLists[ vm.typeIndex].page==1){
                         vm.navLists[vm.typeIndex].list = [];
-                        vm.list=[];
                         vm.navLists[ vm.typeIndex].isPageEnd = true;
                         vm.isShowMoreText = false;
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
+                    console.log("21")
                     let arr = response.data.data;
 //
                     if (arr.length < vm.row) {
@@ -412,20 +412,20 @@
                         vm.isShowMoreText = true;
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
-
+                    console.log("3")
                     if (vm.navLists[ vm.typeIndex].page == 1) {
                         vm.navLists[vm.typeIndex].list = arr;
-                        vm.list=arr;
                     } else {
                         vm.navLists[vm.typeIndex].list =  vm.navLists[vm.typeIndex].list.concat(arr);
-                        vm.list=vm.list.concat(arr);
                     }
                      if (arr.length == 0) return;
+                    console.log("4")
                     vm.navLists[ vm.typeIndex].page = vm.navLists[ vm.typeIndex].page + 1;
+                    vm.$set( vm.navLists,vm.typeIndex,vm.navLists[ vm.typeIndex]);
                     vm.$nextTick(function () {
                         vm.initActive()
                     });
-
+                    console.log("5")
 
                 }, (response) => {
                     vm.navLists[ vm.typeIndex].isLoading = false;
