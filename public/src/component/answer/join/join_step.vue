@@ -14,7 +14,7 @@
                     </div>
                 </li>
                 <li>
-                    <span class="li_left">*</span>咨询师昵称
+                    <span class="li_left"></span>咨询师昵称
                     <div class="li_right">
                         <input type="text" class="nickName" @input="changeNickName()" placeholder="还未填写（如张三）" :value="nickName">
                         <i></i>
@@ -193,7 +193,6 @@
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
                         _this.realName =  _this.user.realName;
-                       if(_this.nickName=='') _this.nickName =  _this.user.nickName;
                         _this.identityNo = _this.user.idcard ;
                         _this.sex=_this.user.sex==1?'男':'女';
                         _this.cardType=_this.user.cardType;
@@ -471,13 +470,13 @@
                     re = false;
                     tip = "请填写正确的身份证号码";
                 }
-//                else if (_this.identityFile1 == '') {
-//                    re = false;
-//                    tip = "请上传身份证正面照";
-//                } else if (_this.identityFile2 == '') {
-//                    re = false;
-//                    tip = "请上传身份证反面照";
-//                }
+                else if (_this.identityFile1 == '') {
+                    re = false;
+                    tip = "请上传身份证正面照";
+                } else if (_this.identityFile2 == '') {
+                    re = false;
+                    tip = "请上传身份证反面照";
+                }
                 console.log(showTip)
                 if (showTip && !re) {
                     console.log(showTip)
@@ -493,11 +492,15 @@
                 }
                 _this.showLoad= true;
                 let mobileVal = $('.li_right .mobile').text();
+                let nickName = _this.nickName;
+                if(nickName==''){
+                    nickName = _this.realName
+                }
 
                 let msg = {
                     "id": _this.user.id,
                     "realName": _this.realName,
-                    "nickName": _this.nickName,
+                    "nickName": nickName,
                     "sex": _this.sexIndex,
                     "countryId": 0,
                     'identityNo':_this.identityNo,
