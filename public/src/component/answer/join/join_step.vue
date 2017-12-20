@@ -493,9 +493,7 @@
                 _this.showLoad= true;
                 let mobileVal = $('.li_right .mobile').text();
                 let nickName = _this.nickName;
-                if(nickName==''){
-                    nickName = _this.realName
-                }
+
 
                 let msg = {
                     "id": _this.user.id,
