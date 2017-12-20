@@ -172,7 +172,9 @@
                 this.playing=false;
 
                 this.localId=null;
-                myVideo.start(this.start);
+                myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
+                myVideo.initStart();
+                myVideo.obj.click();
             },
             send:function () {
                 let _this=this;

@@ -155,19 +155,7 @@
                 this.localId=null;
                 myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
                 myVideo.initStart();
-                xqzs.voice.pause();
-                this.clearTimeOut();
-                this.answering=true;
-                this.timeout()
-                console.log("startRecordtimeout")
-                xqzs.wx.voice.startRecord();
-                xqzs.wx.voice.onRecordEnd(function (localId) {
-                    if(localId){
-                        _this.localId=localId;
-                        xqzs.localdb.set("voice_localId",localId);
-                        _this._recordStop();
-                    }
-                });
+                myVideo.obj.click();
 
             },
             send:function () {
