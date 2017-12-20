@@ -143,7 +143,7 @@
                                             <template v-if="!item.playing&&!item.paused">点击播放</template>
                                             <template v-if="item.playing">正在播放..</template>
                                             <template v-if="item.paused">播放暂停</template>
-                                            <div class="second">{{item.length}}”</div>
+                                            <div class="second">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -222,7 +222,8 @@
                 Hflag:true,
                 user:{id:null},
                 scrollHeightBottom:0,
-                showPic:false
+                showPic:false,
+                timeOut:null
             }
         },
         components: {
@@ -304,10 +305,12 @@
                 this.initVoice();
                 let _this=this;
                 let list = _this.answerList;
+
                 xqzs.voice.onEnded=function () {
                     list[index].paused=false;
                     list[index].playing=false;
                     _this.$set(_this.answerList,index,list[index])
+                    if(list[index].playing)_this.clearTimeOut();
                 };
                 //重置其他列表内容
                 for(let i = 0;i<list.length;i++){
@@ -319,6 +322,7 @@
                 }
 
                 let item= list[index];
+                let CT= item.ct? item.ct: item.length;
                 console.log(index)
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
                     console.log(1)
@@ -326,12 +330,15 @@
                     item.playing=true;
                     _this.$set(_this.answerList,index,item)
                     xqzs.voice.play();
+                    _this.clearTimeOut();
+                    _this.timeout(true,CT,index)
                 }else{
                     if(item.playing){    //播放中去做暂停操作
                         console.log(2)
                         item.paused=true;
                         item.playing=false;
-                        _this.$set(_this.answerList,index,item)
+                        _this.$set(_this.answerList,index,item);
+                        _this.clearTimeOut();
                         xqzs.voice.pause();
                     }else{     //重新打开播放
                         this.getVoiceUrlAnswer(item.answerId,function (url) {
@@ -341,7 +348,9 @@
                                 xqzs.voice.play(url);
                                 item.playing=true;
                                 item.paused=false;
-                                _this.$set(_this.answerList,index,item)
+                                _this.$set(_this.answerList,index,item);
+                                _this.clearTimeOut();
+                                _this.timeout(true,CT,index)
                             }
 
                         })
@@ -349,6 +358,31 @@
 
                 }
 
+            },
+            timeout:function (play,time,index) {
+                let _this=this;
+                let list = _this.answerList;
+                let item= list[index];
+                _this.timeOut = setTimeout(function () {
+                    if(play==true){  //试听
+                        if(time>0){
+                            time = time -1 ;
+                            if(time<10)time="0"+time
+                            _this.timeout(play,time,index);
+                        }else{
+                            _this.playing=false;
+                        }
+                    }
+
+                },1000);
+                item.ct =time;
+                _this.$set(_this.answerList,index,item)
+            },
+            clearTimeOut:function () {
+                let _this=this;
+                if(_this.timeOut!==null){
+                    clearTimeout(_this.timeOut);
+                }
             },
             getVoiceUrlAnswer:function (answerId,callFun) {
                 let _this=this;
