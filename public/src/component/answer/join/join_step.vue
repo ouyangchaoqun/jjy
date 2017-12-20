@@ -82,11 +82,13 @@
                     </div>
                 </li>
             </ul>
-            <div class="imgBox">
+            <div class="imgBox"  >
+                <template v-if="!isEdit">
                 <img v-if="identityFile1!=''"  :src="identityFile1" alt="" @click="upload(1)">
                 <img v-else="" src="../../../images/positive.png" alt="" @click="upload(1)">
                 <img v-if="identityFile2!=''" :src="identityFile2" alt="" @click="upload(2)">
                 <img v-else="" src="../../../images/negative.png" alt="" @click="upload(2)">
+                </template>
             </div>
         </div>
 
@@ -139,7 +141,13 @@
         },
         mounted: function () {
             this.isEdit=this.$route.query.edit;
-            xqzs.wx.setConfig(this);
+            if(this.$route.query.edit){
+                this.isEdit=true;
+            }else{
+                this.isEdit=false;
+            }
+
+             xqzs.wx.setConfig(this);
             let realNameVal = $('.realName').val()
             this.realName = realNameVal
             this.uploadpicinfo = {
@@ -154,15 +162,6 @@
                 url:this.uploadpicinfo.aliossgeturl,
                 token:this.uploadpicinfo.token
             });
-            let identityFile1= cookie.get("identityFile1")
-            if(identityFile1&&identityFile1!=''){
-                this.identityFile1= unescape(identityFile1);
-            }
-
-            let identityFile2= cookie.get("identityFile2")
-            if(identityFile2&&identityFile2!=''){
-                this.identityFile2= unescape(identityFile2);
-            }
 
 
 
@@ -418,10 +417,8 @@
                     _this.showLoad=false;
                     if(v==1){
                         _this.identityFile1 = json.data.path;
-                        cookie.set("identityFile1",escape(_this.identityFile1))
                     }else{
                         _this.identityFile2 = json.data.path;
-                        cookie.set("identityFile2",escape(_this.identityFile2))
                     }
 
 
@@ -469,14 +466,16 @@
                 } else if (!_this.checkId()) {
                     re = false;
                     tip = "请填写正确的身份证号码";
+                }else  if(!_this.isEdit){
+                    if (_this.identityFile1 == '') {
+                        re = false;
+                        tip = "请上传身份证正面照";
+                    } else if (_this.identityFile2 == '') {
+                        re = false;
+                        tip = "请上传身份证反面照";
+                    }
                 }
-                else if (_this.identityFile1 == '') {
-                    re = false;
-                    tip = "请上传身份证正面照";
-                } else if (_this.identityFile2 == '') {
-                    re = false;
-                    tip = "请上传身份证反面照";
-                }
+
                 console.log(showTip)
                 if (showTip && !re) {
                     console.log(showTip)
