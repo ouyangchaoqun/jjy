@@ -224,6 +224,7 @@
                 },function () {
                     if(_this.playing)xqzs.wx.voice.pausePlay( _this.localId);
                     //发送到微信服务器并获取serverId
+                    console.log("onRecordEnd" +_this.localId)
                     xqzs.wx.voice.upload(_this.localId,function (serverId) {
                         _this.serverId=serverId;
 
@@ -270,6 +271,7 @@
                 this.timeout()
                 console.log("startRecordtimeout")
                 xqzs.wx.voice.onRecordEnd(function (localId) {
+                    console.log("onRecordEnd" +localId)
                     _this.localId=localId;
                     xqzs.localdb.set("voice_localId",localId);
                     _this._recordStop();
