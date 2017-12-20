@@ -47,8 +47,7 @@
                 </div>
             </div>
         </div>
-        <div v-show="!(jobTitle)||!(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn" @click="check_step()">保存</div>
-        <div v-show="(jobTitle)||(jobTitle&&certificateNo&&certificateFile1&&certificateFile2)" class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
+         <div class="over_nor_btn over_per_btn" @click="qua_sure()">保存</div>
     </div>
 </template>
 
@@ -85,40 +84,40 @@
 
             this.initOss();
             let _this=this;
-
-            let certificateNo= cookie.get("certificateNo")
-
-            if(certificateNo&&certificateNo!=''){
-                this.certificateNo= unescape(certificateNo);
-            }
-            let jobTitle= cookie.get("jobTitle");
-
-            if(jobTitle&&jobTitle!=''){
-               let jobTitleC=unescape(jobTitle);
-                console.log(jobTitleC+"++++++++++++++++++")
-                if(jobTitleC.indexOf("其它")>=0){
-                    let t= jobTitleC.split("：");
-                    _this.jobTitle=t[0];
-                    _this.otherType=true ;
-                    console.log(t[1]+"++++++++++++++++++")
-                }else{
-                    _this.jobTitle = jobTitleC;
-                }
-            }
-
-            let certificateFile1= cookie.get("certificateFile1");
-            if(certificateFile1&&certificateFile1!=''){
-                this.certificateFile1= unescape(certificateFile1);
-            }
-            let certificateFile2= cookie.get("certificateFile2");
-            if(certificateFile2&&certificateFile2!=''){
-                this.certificateFile2= unescape(certificateFile2);
-            }
-            this.check()
+            _this.expertId = cookie.get('expertId');
+            _this.getExpertByUserId();
             xqzs.wx.setConfig(this);
 
         } ,
         methods:{
+            getExpertByUserId:function () {
+                let _this=this;
+                _this.showLoad = true;
+                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad = false;
+                    _this.expertInfo=data.data.data;
+                    _this.certificateFile1=    _this.expertInfo.certificateFile1;
+                    _this.certificateFile2=    _this.expertInfo.certificateFile2;
+                    _this.certificateNo=    _this.expertInfo.certificateNo;
+                    let jobTitle=   _this.expertInfo.jobTitle;
+                    if(jobTitle&&jobTitle!=''){
+                        let jobTitleC=jobTitle;
+                        console.log(jobTitleC+"++++++++++++++++++")
+                        if(jobTitleC.indexOf("其它")>=0){
+                            let t= jobTitleC.split("：");
+                            _this.jobTitle=t[0];
+                            _this.otherType=true ;
+                            console.log(t[1]+"++++++++++++++++++");
+                            _this.otherTitle= t[1];
+                        }else{
+                            _this.jobTitle = jobTitleC;
+                        }
+                    }
+
+
+                }, function (error) {
+                });
+            },
             initOss:function () {
                 this.uploadpicinfo = {
                     token: xqzs.string.guid(),
@@ -144,14 +143,9 @@
 
                     if(v===1){
                         _this.certificateFile1 = json.data.path;
-                        cookie.set("certificateFile1",escape(_this.certificateFile1))
                     }else{
                         _this.certificateFile2 = json.data.path;
-                        cookie.set("certificateFile2",escape(_this.certificateFile2))
                     }
-
-                    this.check()
-
                     console.log(json.data)
                 },function (e) {
                     console.info(e);
@@ -165,24 +159,13 @@
                     return
                 }
                 let otherTitle = $(".changeotherTitle").val();
-                this.otherTitle = otherTitle;
-                console.log(otherTitle);
-                if (otherTitle != '') {
-                    cookie.set("jobTitle", escape('其它：'+otherTitle))
-                } else {
-                    cookie.set("jobTitle", '')
-                }
+                this.otherTitle = '其它：' + otherTitle;
+
             },
 
 
             changeCertificateNo:function (v) {
-                let certificateNo = $(".certificateNo").val();
-                this.certificateNo = certificateNo
-                if(certificateNo!=''){
-                    cookie.set("certificateNo",escape(certificateNo))
-                }else{
-                    cookie.set("certificateNo",'')
-                }
+                this.certificateNo =  $(".certificateNo").val()
             },
             getItemClass:function (index) {
                 let _this = this;
@@ -199,40 +182,41 @@
 
 
             },
-            check_step:function () {
+            check_step:function (showTip) {
                 let _this = this;
-                console.log('check-------------')
-                console.log(_this.otherType)
+                let re= true;
+                let tip = '';
                 if(_this.jobTitle==''){
-                    xqzs.weui.tip("请选择资质")
+                    re=false;
+                    tip="请选择资质";
                 }else if(_this.certificateNo==''){
-                    xqzs.weui.tip("请填写证件编号")
+                    re=false;
+                    tip="请填写证件编号";
                 }else if(_this.certificateFile1==''){
-                    xqzs.weui.tip("请上传证件照")
-                }else if(!_this.otherType&&_this.certificateFile2==''){
-                    xqzs.weui.tip("请上传证件照")
-                }
-            },
-            check:function () {
-                let jobTitle= cookie.get("jobTitle");
-                let certificateNo =(cookie.get("certificateNo"));
-                let certificateFile1 =(cookie.get("certificateFile1"));
-                let certificateFile2 =(cookie.get("certificateFile2"));
+                    re=false;
+                    tip="请上传证件照";
 
-                if(jobTitle&&jobTitle!=''&&certificateNo&&certificateNo!=''&&certificateFile1&&certificateFile1!=''&&certificateFile2&&certificateFile2!=''){
-                    this.canGoNext=true;
-                }else{
-                    this.canGoNext=false;
+                }else if(!_this.otherType&&_this.certificateFile2==''){
+                    re=false;
+                    tip="请上传证件照";
                 }
+                if(showTip&&!re){
+                    xqzs.weui.tip(tip);
+                }
+                return re;
             },
+
             qua_sure:function () {
                 let _this = this;
+                if(!_this.check_step(true)){
+                    return;
+                }
                 let data={
                     userId:"_userId_",
                     expertId:cookie.get("expertId"),
-                    jobTitle:unescape(cookie.get("jobTitle")),
-                    certificateNo:unescape(cookie.get("certificateNo")),
-                    certificateFile:[unescape(cookie.get("certificateFile1")),unescape(cookie.get("certificateFile2"))]
+                    jobTitle:_this.jobTitle,
+                    certificateNo:_this.certificateNo,
+                    certificateFile:[_this.certificateFile1,_this.certificateFile2]
 
                 };
                 _this.$http.post(web.API_PATH + 'come/expert/modify/certificate', data)

@@ -12,6 +12,7 @@
 
 方向3：可以写您擅长的领域问题。
 示例：恋爱技巧、挽回情感、遭遇婚外情、告别前任。" id="" cols="30" rows="10">{{sign}}</textarea>
+            <div class="count" >{{inputLength}}/{{MAX_INPUT_LENGTH}}</div>
         </div>
         <div class="over_nor_btn" v-if="!sign" @click="check_step()">保存</div>
         <div class="over_nor_btn over_per_btn" v-if="sign" @click="goJoinmore()">保存</div>
@@ -32,15 +33,25 @@
             }
         },
         mounted: function () {
-            let sign= (cookie.get("sign"));
-            if(sign&&sign!=''){
-                this.sign=unescape(sign)
-            }
-
-            this.inputLength = this.sign.length
+            let _this=this;
+            _this.expertId = cookie.get('expertId');
+            _this.getExpertByUserId();
             xqzs.wx.setConfig(this);
         },
         methods: {
+            getExpertByUserId:function () {
+                let _this=this;
+                _this.showLoad = true;
+                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad = false;
+                    _this.expertInfo=data.data.data;
+                    _this.sign=    _this.expertInfo.sign;
+                    _this.inputLength =   _this.expertInfo.sign.length;
+
+                }, function (error) {
+                });
+            },
+
             changeSign: function (v) {
                 let sign = $(".sign").val();
                 this.sign = sign;

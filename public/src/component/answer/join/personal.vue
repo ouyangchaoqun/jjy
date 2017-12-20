@@ -63,23 +63,28 @@
 
 
         mounted: function () {
-            let introduction= (cookie.get("introduction"));
-            let experience= (cookie.get("experience"));
-            let field= (cookie.get("field"));
-            if(introduction&&introduction!=''){
-                this.introduction=unescape(introduction)
-            }
-            if(experience&&experience!=''){
-                this.experience=unescape(experience)
-            }
-            if(field&&field!=''){
-                this.field=unescape(field)
-            }
 
-            this.inputLength = this.introduction.length
+            let _this= this;
+            _this.expertId = cookie.get('expertId');
+            _this.getExpertByUserId();
             xqzs.wx.setConfig(this);
         },
         methods: {
+
+            getExpertByUserId:function () {
+                let _this=this;
+                _this.showLoad = true;
+                _this.$http.get(web.API_PATH + 'come/expert/query/detail/for/edit/'+ _this.expertId+'/_userId_' ).then(function (data) {//es5写法
+                    _this.showLoad = false;
+                    _this.expertInfo=data.data.data;
+                    _this.inputLength =   _this.expertInfo.introduction.length;
+                    _this.experience=    _this.expertInfo.experience;
+                    _this.introduction=    _this.expertInfo.introduction;
+                    _this.field=    _this.expertInfo.goodat
+                }, function (error) {
+                });
+            },
+
             changeIntroduction: function (v) {
                 let introduction = $(".introduction").val();
                 this.introduction = introduction
