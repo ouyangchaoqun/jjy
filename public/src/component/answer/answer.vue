@@ -322,6 +322,7 @@
 
                 _this.isOver = true;
                 xqzs.wx.voice.stopRecord(function (localId) {
+                    console.log("stopstopstopstopstop"+localId)
                     _this.localId = localId;
                     xqzs.localdb.set("voice_localId", localId);
                     _this._recordStop();
