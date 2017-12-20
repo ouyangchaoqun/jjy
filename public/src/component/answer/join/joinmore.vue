@@ -360,13 +360,13 @@
                     msg.userId= "_userId_";
                     msg.expertId=cookie.get('expertId');
                     if(_this.isEdit){
-                        url = "come/expert/modify";
+                        url = "come/expert/modify/domain";
                     }
                 }else{
                     msg.id= _this.user.id;
                 }
 
-                _this.$http.post(web.API_PATH + 'come/expert/register', msg)
+                _this.$http.post(web.API_PATH + url, msg)
                     .then(
                         (response) => {
                         }
