@@ -207,8 +207,8 @@
                     $('.record_voice_box .mask i').attr("class","start")
                     $(".tip").html('点击录音(至少录制45秒)')
                     xqzs.wx.voice.startRecord();
-                    this.answering=true;
-                    this.timeout()
+                    _this.answering=true;
+                    _this.timeout()
                     console.log("reStarttimeout")
                     xqzs.wx.voice.onRecordEnd(function (localId) {
                         console.log("onRecordEnd" +localId);

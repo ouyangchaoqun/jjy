@@ -53,6 +53,13 @@
             </div>
             <div class="time_in_tip">至少录制10秒</div>
             <div class="circle">
+                <div class="pie_left_play">
+                    <div class="left_play"></div>
+                </div>
+                <div class="pie_right_play">
+                    <div class="right_play"></div>
+                </div>
+
                 <div class="pie_left">
                     <div class="left"></div>
                 </div>
@@ -138,6 +145,7 @@
             },
             reStart:function () {
                 //重新开始录制
+                let _this=this;
                 this.answerTime="00";
                 this.voiceLength=0;
                 this.preAnswer=false;
@@ -145,7 +153,22 @@
                 this.playing=false;
 
                 this.localId=null;
-                myVideo.start(this.start);
+                myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
+                myVideo.initStart();
+                xqzs.voice.pause();
+                this.clearTimeOut();
+                this.answering=true;
+                this.timeout()
+                console.log("startRecordtimeout")
+                xqzs.wx.voice.startRecord();
+                xqzs.wx.voice.onRecordEnd(function (localId) {
+                    if(localId){
+                        _this.localId=localId;
+                        xqzs.localdb.set("voice_localId",localId);
+                        _this._recordStop();
+                    }
+                });
+
             },
             send:function () {
                 let _this=this;
@@ -189,9 +212,11 @@
                 console.log("startRecordtimeout")
                 xqzs.wx.voice.startRecord();
                 xqzs.wx.voice.onRecordEnd(function (localId) {
-                    _this.localId=localId;
-                    xqzs.localdb.set("voice_localId",localId);
-                    _this._recordStop();
+                    if(localId){
+                        _this.localId=localId;
+                        xqzs.localdb.set("voice_localId",localId);
+                        _this._recordStop();
+                    }
                 });
 
             },
@@ -226,7 +251,6 @@
             },
             stop:function () { //停止录制
                 let _this = this;
-
 
                 xqzs.wx.voice.stopRecord(function (localId) {
                     _this.localId = localId;
