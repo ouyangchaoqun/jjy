@@ -206,7 +206,19 @@
                     myVideo.initStart();
                     $('.record_voice_box .mask i').attr("class","start")
                     $(".tip").html('点击录音(至少录制45秒)')
+                    xqzs.wx.voice.startRecord();
+                    this.answering=true;
+                    this.timeout()
+                    console.log("reStarttimeout")
+                    xqzs.wx.voice.onRecordEnd(function (localId) {
+                        console.log("onRecordEnd" +localId);
+                        if(localId){
+                            _this.localId=localId;
+                            xqzs.localdb.set("voice_localId",localId);
+                            _this._recordStop();
+                        }
 
+                    });
 
 
 
@@ -322,7 +334,6 @@
 
                 let _this = this;
 
-                _this.isOver = true;
                 xqzs.wx.voice.stopRecord(function (localId) {
                     console.log("stopstopstopstopstop"+localId)
                     if(localId){
@@ -339,6 +350,7 @@
             },
             _recordStop:function () {
                 let _this = this;
+                _this.isOver = true;
                 _this.clearTimeOut();
                 _this.answering=false;
 //                _this.preAnswer=true;
