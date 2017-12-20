@@ -246,9 +246,11 @@
 
 
                 xqzs.wx.voice.stopRecord(function (localId) {
-                    _this.localId = localId;
-                    xqzs.localdb.set("voice_localId", localId);
-                    _this._recordStop();
+                    if (localId){
+                        _this.localId = localId;
+                        xqzs.localdb.set("voice_localId", localId);
+                        _this._recordStop();
+                    }
                 });
 
             },

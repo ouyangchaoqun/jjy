@@ -204,24 +204,7 @@
                     _this.clearTimeOut();
                     myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
                     myVideo.initStart();
-                    $('.record_voice_box .mask i').attr("class","start")
-                    $(".tip").html('点击录音(至少录制45秒)')
-                    xqzs.wx.voice.startRecord();
-                    _this.answering=true;
-                    _this.timeout()
-                    console.log("reStarttimeout")
-                    xqzs.wx.voice.onRecordEnd(function (localId) {
-                        console.log("onRecordEnd" +localId);
-                        if(localId){
-                            _this.localId=localId;
-                            xqzs.localdb.set("voice_localId",localId);
-                            _this._recordStop();
-                        }
-
-                    });
-
-
-
+                    myVideo.obj.click();
                 })
 
             },
