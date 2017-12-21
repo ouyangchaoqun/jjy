@@ -16,22 +16,21 @@
                     <div class="swiper-wrapper">
 
                         <div class="swiper-slide" v-for="navList in navLists">
-                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
-                                      :bottomHeight="92"
-                                      :isShowMoreText="isShowMoreText">
-                                  <div class="index_box">
-                    <div v-if="navList.list.length>0" class="index_content_active">
-                        <ul>
-                            <li v-for="(item,index) in navList.list">
-                                <a @click="goDetail(item.questionId)">
-                                    <div class="index_li_header">
-                                        <img :src="item.expertFaceUrl" alt=""><div>{{item.expertName}} <span>回答了</span></div>
-                                    </div>
-                                    <div class="index_li_content">{{item.content}}</div>
-                                    <div class="index_li_bottom">
+                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="92" :isShowMoreText="isShowMoreText">
+                                <div class="index_box">
+                                    <div v-show="navList.list.length>0" class="index_content_active">
+                                        <ul>
+                                            <li v-for="(item,index) in navList.list">
+                                                <a @click="goDetail(item.questionId)">
+                                                    <div class="index_li_header">
+                                                        <img :src="item.expertFaceUrl" alt="">
+                                                        <div>{{item.expertName}} <span>回答了</span></div>
+                                                    </div>
+                                                    <div class="index_li_content">{{item.content}}</div>
+                                                    <div class="index_li_bottom">
 
-                                        <!--免费听-->
-                                        <span class="problem_answer_yy"  v-if="item.answerType==1">
+                                                        <!--免费听-->
+                                                        <span class="problem_answer_yy" v-if="item.answerType==1">
                                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
                                                 <div class="audio_btn" @click.stop="play(index)">
                                                     <div class="radio"><span></span><i></i></div>
@@ -44,18 +43,21 @@
                                             </div>
                                         </span>
 
-                                        <!--付费听-->
-                                        <div class="problem_answer_yy" @click.stop="pay(index)" v-if="item.answerType==2||item.answerType==4">
-                                            <div class="audio">
-                                                <div class="audio_btn pay" >1元偷听
-                                                    <div class="second">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--限时免费听-->
-                                        <span class="problem_answer_yy"   v-if="item.answerType==3">
+                                                        <!--付费听-->
+                                                        <div class="problem_answer_yy" @click.stop="pay(index)"
+                                                             v-if="item.answerType==2||item.answerType==4">
+                                                            <div class="audio">
+                                                                <div class="audio_btn pay">1元偷听
+                                                                    <div class="second">{{(item.ct &&
+                                                                        item.ct!='00')?item.ct:item.length}}”
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--限时免费听-->
+                                                        <span class="problem_answer_yy" v-if="item.answerType==3">
                                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
-                                                <div class="audio_btn"  @click.stop="play(index)" >
+                                                <div class="audio_btn" @click.stop="play(index)">
                                                     <template v-if="!item.playing&&!item.paused">限时免费听</template>
                                                     <template v-if="item.playing">正在播放..</template>
                                                     <template v-if="item.paused">播放暂停</template>
@@ -65,24 +67,24 @@
                                             </div>
                                         </span>
 
-                                        <div class="index_li_count">听过{{item.listenTimes}}</div>
+                                                        <div class="index_li_count">听过{{item.listenTimes}}</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+
+                                        </ul>
                                     </div>
-                                </a>
-                            </li>
+                                    <div v-show="navList.list.length==0&&!showLoad">
+                                        <div class="index_nocontent">
+                                            <div>
+                                                <img src="../../images/asker/newNoContent.png" alt="">
+                                                <div class="nocontent_html">暂无该方面问题</div>
+                                            </div>
 
-                        </ul>
-                    </div>
-                    <div v-show="navList.list.length==0&&!showLoad">
-                        <div class="index_nocontent">
-                            <div>
-                                <img src="../../images/asker/newNoContent.png" alt="">
-                                <div class="nocontent_html">暂无该方面问题</div>
-                            </div>
+                                        </div>
+                                    </div>
 
-                        </div>
-                    </div>
-
-                </div>
+                                </div>
                             </v-scroll>
                         </div>
                     </div>
@@ -142,8 +144,8 @@
         },
         mounted: function () {
             console.log("bbbb")
-            this.getClassList()
-            this.getList();
+            this.getClassList();
+
             xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
         },
@@ -366,6 +368,7 @@
                             _this.navLists[i].isLoading=false;
                         }
                         _this.initView();
+                        _this.getList();
                     }
                 }, function (error) {
                 });
@@ -373,59 +376,62 @@
             getList: function (done) {
 
                 let vm= this;
-                console.log(vm.navLists[ vm.typeIndex])
-                let url =web.API_PATH + 'come/listen/listen/list/_userId_/'+vm.type+'/'+vm.navLists[ vm.typeIndex].page+'/'+vm.row;
+                let item = vm.navLists[ vm.typeIndex]
+
+                let url =web.API_PATH + 'come/listen/listen/list/_userId_/'+vm.type+'/'+item.page+'/'+vm.row;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
-                if (vm.navLists[ vm.typeIndex].isLoading || vm.navLists[ vm.typeIndex].isPageEnd) {
+                if (item.isLoading || item.isPageEnd) {
                     return;
                 }
-                if (vm.navLists[ vm.typeIndex].page == 1) {
+                if (item.page == 1) {
                     vm.showLoad = true;
                 }
-                vm.navLists[ vm.typeIndex].isLoading = true;
+                item.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
                     if(done&&typeof(done)==='function'){
                         done()
                     }
                     vm.showLoad = false;
-                    vm.navLists[ vm.typeIndex].isLoading = false;
-                    console.log("1")
+                    item.isLoading = false;
 
-                    if(response.data.status!=1&&vm.navLists[ vm.typeIndex].page==1){
-                        vm.navLists[vm.typeIndex].list = [];
-                        vm.navLists[ vm.typeIndex].isPageEnd = true;
+
+                    if(response.data.status!=1&&item.page==1){
+                        item.list = [];
+                        item.isPageEnd = true;
                         vm.isShowMoreText = false;
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
-                    console.log("21")
+
                     let arr = response.data.data;
 //
                     if (arr.length < vm.row) {
-                        vm.navLists[ vm.typeIndex].isPageEnd = true;
+                        item.isPageEnd = true;
                         vm.isShowMoreText = false
                     }else{
 
                         vm.isShowMoreText = true;
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
-                    console.log("3")
-                    if (vm.navLists[ vm.typeIndex].page == 1) {
-                        vm.navLists[vm.typeIndex].list = arr;
+
+                    if (item.page == 1) {
+                        item.list = arr;
                     } else {
-                        vm.navLists[vm.typeIndex].list =  vm.navLists[vm.typeIndex].list.concat(arr);
+                        item.list =  item.list.concat(arr);
                     }
                      if (arr.length == 0) return;
-                    console.log("4")
-                    vm.navLists[ vm.typeIndex].page = vm.navLists[ vm.typeIndex].page + 1;
-                    vm.$set( vm.navLists,vm.typeIndex,vm.navLists[ vm.typeIndex]);
+
+                    item.page =item.page + 1;
+                    console.log( vm.navLists)
+                    console.log("vm.typeIndex:"+vm.typeIndex)
+                    console.log(item)
+                    vm.$set( vm.navLists,vm.typeIndex,item);
                     vm.$nextTick(function () {
                         vm.initActive()
                     });
-                    console.log("5")
 
                 }, (response) => {
                     vm.navLists[ vm.typeIndex].isLoading = false;
