@@ -3,7 +3,7 @@
 
         <div v-title>我的收益</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="nothing comment" v-if="income>0">
+        <div class="nothing comment" v-if="income==0&&!showLoad">
             <div>
                 <img src="../../../images/asker/newNoContent.png" alt="">
                 <div class="nothing_bottom">
@@ -12,7 +12,7 @@
             </div>
 
         </div>
-        <div class="my_income"  v-if="income==0&&!showLoad">
+        <div class="my_income"   v-if="income>0">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
             <div class="money">￥{{formatPrice(income)}}</div>
