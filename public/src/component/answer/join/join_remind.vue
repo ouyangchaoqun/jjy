@@ -9,9 +9,9 @@
             <div>入驻流程</div>
         </div>
         <p style="margin-bottom: 0.588235rem">打开电脑端网站</p>
-        <p>www.lanjiang.com</p>
+        <p>http://psy.xqzs.cn</p>
         <img src="../../../images/remind_jt.png" alt="">
-        <p>点击“咨询师入驻申请”按钮</p>
+        <p>点击“立即申请入驻”按钮</p>
         <img src="../../../images/remind_jt.png" alt="">
         <p>打开微信扫一扫二维码登录</p>
         <img src="../../../images/remind_jt.png" alt="">
