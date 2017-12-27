@@ -80,7 +80,7 @@
             },
             goJoin:function () {
                 this.showLoad = true;
-                this.$router.push("/answer/join/joinstep");
+                this.$router.push("/answer/join/join_remind");
             },
             getIncome:function () {
                 let _this= this;
