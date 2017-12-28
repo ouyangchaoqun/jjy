@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: '/dist/',
+        publicPath: '/comeon/dist/',
         filename: 'build.js?[hash:5]', libraryTarget: 'umd',
         umdNamedDefine: true
     },
