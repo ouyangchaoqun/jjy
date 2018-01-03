@@ -12,8 +12,8 @@
                 <div class="clear"></div>
 
             </div>
-            <router-link to = "../my/income"  class="income"  ><i></i>我的收益
-                <div class="price" v-if="income!=0">￥{{formatPrice(income)}}</div>
+            <router-link to = "../my/income"  class="income"  ><i></i>我的余额
+                <div class="price" v-if="user.balance!=0">￥{{formatPrice(user.balance)}}</div>
             </router-link>
             <router-link to = "../my/listen/list" class="listen" ><i></i>我的偷听</router-link>
             <router-link to = "../my/answer/list" class="answer" ><i></i>我的收听</router-link>

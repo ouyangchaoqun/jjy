@@ -6,16 +6,20 @@
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
-
-            <div class="top_tip">每份收入的90%为收益哦</div>
-            <div class="list">
-                <div class="item" v-for="item in list">
-                    <div class="type_txt">{{item.note}}
-                        <div class="time">{{formatTime(item.addTime)}}</div>
+            <ul>
+                <li class="moneyOut_item" v-for="item in list">
+                    <div class="time">
+                        <span>{{getDateTime(item.addTime)}}</span>
                     </div>
-                    <div class="price">¥{{formatPrice(item.amount)}}</div>
-                </div>
-            </div>
+                    <div class="item_type">{{item.type}}</div>
+                    <div class="item_right">
+                        <span v-if="item.status==0">审核中</span>
+                        <template v-if="item.type!='提现'">+</template>
+                        <template v-if="item.type=='提现'">-</template>
+                        ¥{{item.amount}}
+                    </div>
+                </li>
+            </ul>
         </v-scroll>
 
 
@@ -32,7 +36,7 @@
         data() {
             return {
                 page: 1,
-                row: 20,
+                row: 15,
                 isPageEnd: false,
                 isShowMoreText:true,
                 showLoad:false,
@@ -59,8 +63,8 @@
             getList: function (done) {
 
                 let vm= this;
-                let url =web.API_PATH + 'come/user/query/income/page/_userId_/'+vm.page+'/'+vm.row;
-
+               // let url =web.API_PATH + 'come/user/query/income/page/_userId_/'+vm.page+'/'+vm.row;
+                let url = web.API_PATH + 'user/withdraw/detail' + '/_userId_/' + vm.row+ '/' + vm.page;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
@@ -80,7 +84,6 @@
                     }
                     vm.showLoad = false;
                     vm.isLoading = false;
-//                    console.log(response)
 
                     if(response.data.status!=1&&vm.page==1){
                         vm.list = [];
@@ -89,8 +92,7 @@
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
-                    let arr = response.data.data.rows;
-//
+                    let arr = response.data.data;
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
@@ -117,14 +119,41 @@
                 this.getList(done);
 
             },
+            getDateTime:function (t) {
+                return xqzs.dateTime.formatDateTime(t);
+            },
         }
 
 
     }
 </script>
 <style>
-    .ask_my_income_list  .list .item{ height: 3.52rem; line-height: 3.52rem; border-bottom: 0.0588235294117647rem solid rgba(238,238,238,1); position: relative;font-size: 0.88235rem;padding-left: 0.88235rem  }
-    .ask_my_income_list  .list .item .time{padding-top: 0.6rem;font-size: 0.6471rem;color:rgba(36,37,61,0.5);}
-    .ask_my_income_list .list .item .type_txt{line-height: 1;color:rgba(36,37,61,1);padding-top: 0.8rem}
-    .ask_my_income_list .list .item .price{ position: absolute; top:0; right:0.9705882352941176rem; color:#FE7301;}
+    .ask_my_income_list .moneyOut_item{
+        height:2.88235rem;
+        line-height: 2.88235rem;
+        border-bottom: 1px solid rgba(238,238,238,1);
+        padding:0 0.88235rem;
+        display: flex;
+    }
+    .time{
+        color:rgba(153,153,153,1);
+        font-size: 0.6471rem;
+        float: left;
+    }
+    .item_right{
+        font-size: 0.88235rem;
+        float: right;
+        color:rgba(255,157,24,1);
+    }
+    .item_right span{
+        font-size: 0.76471rem;
+        color:rgba(69,75,84,1);
+        margin-right: 0.735rem;
+    }
+    .item_type{
+        margin: 0 auto;
+        text-align: center;
+        color:rgba(36,37,61,0.5);
+        font-size: 0.76471rem;
+    }
 </style>
