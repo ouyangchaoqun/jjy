@@ -127,10 +127,32 @@
     }
 </script>
 <style>
-
-
-    .ask_my_income_list  .list .item{ height: 3.52rem; line-height: 3.52rem; border-bottom: 0.0588235294117647rem solid #eee; position: relative;font-size: 0.88235rem;padding-left: 0.88235rem  }
-    .ask_my_income_list  .list .item .time{padding-top: 0.6rem;font-size: 0.6471rem;color:#999;}
-    .ask_my_income_list .list .item .type_txt{line-height: 1;color:#454B54;padding-top: 0.8rem}
-    .ask_my_income_list .list .item .price{ position: absolute; top:0; right:0.9705882352941176rem; color:#FE7301;}
+    .ask_my_income_list .moneyOut_item{
+        height:2.88235rem;
+        line-height: 2.88235rem;
+        border-bottom: 1px solid rgba(238,238,238,1);
+        padding:0 0.88235rem;
+        display: flex;
+    }
+    .time{
+        color:rgba(153,153,153,1);
+        font-size: 0.6471rem;
+        float: left;
+    }
+    .item_right{
+        font-size: 0.88235rem;
+        float: right;
+        color:rgba(255,157,24,1);
+    }
+    .item_right span{
+        font-size: 0.76471rem;
+        color:rgba(69,75,84,1);
+        margin-right: 0.735rem;
+    }
+    .item_type{
+        margin: 0 auto;
+        text-align: center;
+        color:rgba(36,37,61,0.5);
+        font-size: 0.76471rem;
+    }
 </style>
