@@ -19,7 +19,7 @@
                     <div @click="goDetail(item.expertId)">
                         <div class="itemHeader">
                             <div>{{item.nickName}} <span>{{item.city}}</span></div>
-                            <div class="header_addRightStyle">
+                            <div class="header_addRightStyle" v-if="false">
                                 <div class="headerImg" @click.stop="play(index)">
                                     <div :class="{addPlaying:item.playing,addPaused:item.paused}"></div>
                                 </div>
