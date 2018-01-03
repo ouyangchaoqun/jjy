@@ -1,6 +1,7 @@
 <template >
     <div style="height: 100%" class="answer_my_index_box">
         <div v-title>我的</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="weui-tab__panel main">
             <div class="main">
                 <div class="top" @click="goJoin()">
@@ -8,7 +9,7 @@
                         <div class="name">
                             {{expert.nickName}}
                         </div>
-                        <div class="perfect" >完善资料</div>
+                        <div class="perfect" >更新资质</div>
                         <div class="clear"></div>
                 </div>
                 <div class="main_lists">
@@ -32,15 +33,15 @@
 <script type="es6">
 
     import askerBottom from "../include/bottom.vue";
-
+    import showLoad from '../../include/showLoad.vue';
     export default {
         data() {
             return {
                 user:{
                     income:0
                 },
-                income:0
-
+                income:0,
+                showLoad:false,
             }
         },
         props:{
@@ -49,7 +50,8 @@
             }
         },
         components: {
-            "v-asker-bottom": askerBottom
+            "v-asker-bottom": askerBottom,
+            'v-showLoad':showLoad
         },
 
         mounted: function () {
@@ -102,8 +104,9 @@
 
             },
             goJoin:function () {
-                this.$router.push("/answer/join/joinstep?edit=true");
-
+                //this.$router.push("/answer/join/joinstep?edit=true");
+                this.showLoad = true;
+                this.$router.push("/answer/join/join_update");
             },
             getIncome:function () {
 

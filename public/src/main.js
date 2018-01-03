@@ -46,6 +46,7 @@ let routers =
                 require('./routes/answer/join/personal'),
                 require('./routes/answer/join/base_info'),
                 require('./routes/answer/join/join_remind'),
+                require('./routes/answer/join/join_update'),
                 require('./routes/answer/join/field'),
                 require('./routes/answer/join/qualification'),
                 require('./routes/answer/join/introduce'),

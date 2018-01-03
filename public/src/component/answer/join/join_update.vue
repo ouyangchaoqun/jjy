@@ -1,23 +1,23 @@
 <template >
     <div class="remind_box">
-        <div v-title>入驻心理咨询师</div>
+        <div v-title>更新资质</div>
         <header>
-            欢迎申请入驻“好一点”心理咨询服务平台
+            请按照以下流程更新您的资质信息
         </header>
         <div class="remind_com">
             <img src="../../../images/remind_computerImg.png" alt="">
-            <div>入驻流程</div>
+            <div>更新资质流程</div>
         </div>
         <p style="margin-bottom: 0.588235rem">打开电脑端网站</p>
         <p>http://psy.xqzs.cn</p>
         <img src="../../../images/remind_jt.png" alt="">
-        <p>点击“立即申请入驻”按钮</p>
+        <p>点击“登入”按钮</p>
         <img src="../../../images/remind_jt.png" alt="">
         <p>打开微信扫一扫二维码登录</p>
         <img src="../../../images/remind_jt.png" alt="">
-        <p>填写咨询师入驻资料</p>
+        <p>更新相关资质信息</p>
         <img src="../../../images/remind_jt.png" alt="">
-        <p style="margin-bottom: 3rem;">提交审核</p>
+        <p style="margin-bottom: 3rem;">提交更新审核</p>
 
     </div>
 </template>
