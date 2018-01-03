@@ -5,19 +5,20 @@
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
-            <div>
-                <div class="top_tip">每份收入的90%为收益哦</div>
-                <div class="list">
-                    <div class="item" v-for="item in list">
-                        <div class="type_txt">{{item.note}}
-                            <div class="time">{{formatTime(item.addTime)}}</div>
-                        </div>
-
-
-                        <div class="price">¥{{formatPrice(item.amount)}}</div>
+            <ul>
+                <li class="moneyOut_item" v-for="item in list">
+                    <div class="time">
+                        <span>{{getDateTime(item.addTime)}}</span>
                     </div>
-                </div>
-            </div>
+                    <div class="item_type">{{item.type}}</div>
+                    <div class="item_right">
+                        <span v-if="item.status==0">审核中</span>
+                        <template v-if="item.type!='提现'">+</template>
+                        <template v-if="item.type=='提现'">-</template>
+                        ¥{{item.amount}}
+                    </div>
+                </li>
+            </ul>
         </v-scroll>
 
     </div>
@@ -34,7 +35,7 @@
             return {
                 showLoad:false,
                 page: 1,
-                row: 10,
+                row: 15,
                 isPageEnd: false,
                 isShowMoreText:false,
                 list:[],
@@ -53,10 +54,14 @@
             formatPrice:function (v) {
               return xqzs.string.formatPrice(v)
             },
+            getDateTime:function (t) {
+                return xqzs.dateTime.formatDateTime(t);
+            },
             getList: function (done) {
                 let expertId = cookie.get('expertId')
                 let vm= this;
-                let url =web.API_PATH + 'come/expert/query/income/page/'+expertId+'/_userId_/'+vm.page+'/'+vm.row;
+                //let url =web.API_PATH + 'come/expert/query/income/page/'+expertId+'/_userId_/'+vm.page+'/'+vm.row;
+                let url = web.API_PATH + 'user/withdraw/detail' + '/_userId_/' + vm.row+ '/' + vm.page;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
@@ -75,17 +80,15 @@
                     vm.showLoad = false;
                     vm.isLoading = false;
                     console.log(response)
-
-                    if((response.body.status!=1&&vm.page==1)||response.body.data.total==0){
+                    if(response.data.status!=1&&vm.page==1){
                         vm.list = [];
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false;
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
-                    console.log("ddddddd")
-                    let arr = response.data.data.rows;
-//
+                    let arr = response.data.data;
+
                     if (arr.length < vm.row) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
