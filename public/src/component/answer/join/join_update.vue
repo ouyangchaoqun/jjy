@@ -17,7 +17,7 @@
         <img src="../../../images/remind_jt.png" alt="">
         <p>更新相关资质信息</p>
         <img src="../../../images/remind_jt.png" alt="">
-        <p style="margin-bottom: 3rem;">提交更新审核</p>
+        <p>提交更新审核</p>
 
     </div>
 </template>
@@ -73,13 +73,14 @@
     }
     .remind_box .remind_com img{
         width:9.71rem;
+        margin:0;
     }
     .remind_box .remind_com div{
         font-size: 1.0588rem;
         color:rgba(254,115,1,1);
         width:100%;
         position: absolute;
-        top:32%;
+        top:25%;
     }
     .remind_box img{
         width:0.471rem;

@@ -2,7 +2,7 @@
     <div style="height: 100%" class="asker_my_income_box wbg">
         <div v-title>我的余额</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="nothing income"  v-if="user.balance==0&&!showLoad">
+        <div class="nothing income"  v-if="user.balance==0">
             <div>
                 <img src="../../../images/asker/newNoContent.png" alt="">
                 <div class="nothing_bottom">
@@ -13,7 +13,7 @@
             </div>
 
         </div>
-        <div class="my_income" v-if="user.balance>0">
+        <div class="my_income" v-if="user.balance!=0">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
             <div class="money">￥{{formatPrice(user.balance)}}</div>
