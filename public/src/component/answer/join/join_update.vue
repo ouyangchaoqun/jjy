@@ -84,7 +84,7 @@
     }
     .remind_box img{
         width:0.471rem;
-        margin-top: 1.176rem;
-        margin-bottom: 0.88235rem;
+        margin-top: 0.88235rem;
+        margin-bottom: 0.588235rem;
     }
 </style>
