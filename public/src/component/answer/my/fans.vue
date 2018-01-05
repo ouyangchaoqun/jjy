@@ -1,7 +1,7 @@
 <template id="fans">
     <div class="fansBox">
         <div v-title>我的粉丝</div>
-        <div v-if="count.length>0">
+        <div v-if="count!=0">
             <v-showLoad v-if="showLoad"></v-showLoad>
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                       :bottomHeight="50"
@@ -90,7 +90,7 @@
                         Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                         return;
                     }
-                    console.log(response.data.data.rows)
+                    console.log(response.data.data)
                     vm.count = response.data.data.total
                     let arr = response.data.data.rows;
 //
