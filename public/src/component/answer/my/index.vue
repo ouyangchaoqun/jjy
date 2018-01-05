@@ -37,9 +37,7 @@
     export default {
         data() {
             return {
-                user:{
-                    income:0
-                },
+                user:'',
                 income:0,
                 showLoad:false,
             }
@@ -55,6 +53,7 @@
         },
 
         mounted: function () {
+            this.getUserInfo()
             var obj =  $(".asker_my_index_box .main a")
             xqzs.weui.active(obj);
 
@@ -64,11 +63,25 @@
 
         },
         methods:{
+            getUserInfo:function () {
+                let _this = this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                        console.log( _this.user )
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             resizeImg:function (v) {
                 return   xqzs.oss.resizeImg(v,100,100)
             },
             formatPrice:function(price){
-                console.log(price)
                 return  xqzs.string.formatPrice(price)
             },
             goPerfect:function () {
