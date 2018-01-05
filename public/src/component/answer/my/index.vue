@@ -142,6 +142,7 @@
                         if (data.body.status == 1) {
 
                             _this.expert = data.data.data;
+                            console.log(_this.expert)
                         }
                     }, function (error) {
                     });
