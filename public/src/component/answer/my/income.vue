@@ -1,25 +1,15 @@
 <template >
     <div style="height: 100%" class="answer_my_income_box wbg">
 
-        <div v-title>我的收益</div>
+        <div v-title>我的余额</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="nothing comment" v-if="user.balance==0">
-            <div>
-                <img src="../../../images/asker/newNoContent.png" alt="">
-                <div class="nothing_bottom">
-                    <p>还没有收益</p>
-                </div>
-            </div>
-
-        </div>
-        <div class="my_income"   v-if="user.balance!=0">
+        <div class="my_income">
             <div class="img"></div>
             <div class="my_income_txt">我的收益</div>
             <div class="money">￥{{formatPrice(user.balance)}}</div>
             <div class="get_money" @click="showOut()">提现</div>
             <div class="income_list" @click="incomeList()"><span>收益明细</span></div>
         </div>
-
         <div class="moneyOut_box" v-if="isOut" @click="hideOut()">
             <div class="money_dialog" @click.stop>
                 <div class="money_dialog_title">
