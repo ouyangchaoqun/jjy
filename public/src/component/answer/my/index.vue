@@ -14,7 +14,7 @@
                 </div>
                 <div class="main_lists">
                     <router-link to = "/answer/my/income"  class="income"  ><i></i>我的余额
-                        <div class="price" v-if="user.balance!=0">￥{{formatPrice(user.balance)}}</div>
+                        <div class="price">￥{{formatPrice(user.balance)}}</div>
                     </router-link>
                     <!--<router-link to = "/answer/my/level" class="level" ><i></i>我的等级</router-link>-->
                     <!--<router-link to = "/answer/my/setanswer" class="setanswer" ><i></i>解答设置</router-link>-->

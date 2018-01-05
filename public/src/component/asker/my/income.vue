@@ -7,7 +7,7 @@
             <div class="my_income_txt">我的余额</div>
             <div class="money">￥{{formatPrice(user.balance)}}</div>
             <div class="get_money" @click="showOut()">提现</div>
-            <div class="income_list" @click="incomeList()"><span>收益明细</span></div>
+            <div class="income_list" @click="incomeList()"><span>余额明细</span></div>
         </div>
         <div class="moneyOut_box" v-if="isOut" @click="hideOut()">
             <div class="money_dialog" @click.stop>

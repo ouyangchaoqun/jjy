@@ -1,7 +1,7 @@
 <template >
     <div style="height: 100%" class="ask_my_income_list wbg">
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div v-title>收益明细</div>
+        <div v-title>余额明细</div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :bottomHeight="0"
                   :isShowMoreText="isShowMoreText">
