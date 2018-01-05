@@ -22,7 +22,10 @@
                 <div class="item" v-for="(item,index) in list">
                     <a @click="goDetail(item.questionId)">
                         <div class="question">
-                            <img class="img" :src="item.questionUserFaceUrl" alt="">
+                            <div class="imgBox">
+                                <img class="img" :src="item.questionUserFaceUrl" alt="">
+                            </div>
+
                             <div class="title">{{item.question}}
                             </div>
                         </div>
@@ -308,7 +311,10 @@
     .asker_my_listen_list_box .questCount{height:2.588235rem;text-align: center;background: #F4F4F7;font-size: 0.88235rem;line-height: 2.588235rem;color:rgba(36,37,61,0.5);}
     .asker_my_listen_list_box .item{ border-bottom: 1px solid #eee; padding-bottom: 0.85rem;}
     .asker_my_listen_list_box .question{ padding: 0.88235rem;display: flex;display: -webkit-box;display: -webkit-flex;}
-    .asker_my_listen_list_box .question .img{border-radius: 50%; width:2rem; height: 2rem;display: block; margin-right:0.8235294117647059rem;}
+    .asker_my_listen_list_box .question .imgBox{border-radius: 50%; width:2rem; height: 2rem;display: block; margin-right:0.8235294117647059rem;overflow: hidden}
+    .asker_my_listen_list_box .question .imgBox img{
+        width:100%;height:100%;display: block;
+    }
     .asker_my_listen_list_box .question .title{ font-size: 0.88235rem; color:rgba(36,37,61,1) }
 
     .asker_my_listen_list_box .answer .img{ width: 2.588235294117647rem; height: 2.588235294117647rem; float:left; margin-left: 0.88235rem; margin-right: 0.5rem;}
