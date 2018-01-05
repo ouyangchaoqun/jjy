@@ -11,7 +11,7 @@
         <ul>
             <li class="steal_detail_answer" v-for="(item,index) in detail.answerList">
                 <div class="steal_answer_top">
-                    <img class="steal_answer_topimg" :src="item.expertUrl" alt="">
+                    <img class="steal_answer_topimg" :src="item.expertUrl" alt="" @click="goDetail(item.expertId)">
                     <div class="steal_answer_yy">
 
                         <!--* const GRAB_NOT_BEST    = 1;抢答一般的答案-->
@@ -56,7 +56,7 @@
                 </div>
                 <div class="steal_expert_info">
                     <div>
-                        <span class="steal_expert_name">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
+                        <span class="steal_expert_name" @click="goDetail(item.expertId)">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
                     </div>
                     <div class="steal_expert_des">{{item.sign}}</div>
                     <div class="followed_box" v-if="item.isFollowed==0" @click="follow(index)"> 收听</div>
@@ -257,6 +257,9 @@
                     _this.showLoad=false;
                 });
 
+            },
+            goDetail:function (extId) {
+                this.$router.push('/answer/detail/?id='+extId)
             },
             follow:function (index) {
 
