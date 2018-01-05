@@ -23,7 +23,7 @@
                     <a @click="goDetail(item.questionId)">
                         <div class="question">
                             <!--<img class="img" v-bind:src="item.questionUserFaceUrl" alt="">-->
-                            <div class="img" :style="{background:'url('+item.questionUserFaceUrl+')no-repeat','background-size':'100% 100%'}"></div>
+                            <div class="img" :style="{'background':'url('+item.questionUserFaceUrl+')no-repeat','background-size':'100% 100%'}"></div>
                             <div class="title">{{item.question}}
                             </div>
                         </div>
