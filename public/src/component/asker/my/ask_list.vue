@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
-                                    <div>听过 {{item.listenCount}}</div>
+                                    <div>听过 {{item.listenTimes}}</div>
                                     <div class="my_problem_money">收入分成￥{{formatPrice(item.inCome)}}</div>
                                 </div>
                             </a>

@@ -270,9 +270,13 @@
                 that.$http.put(web.API_PATH + "come/expert/follow/expert/"+id+"/_userId_", {})
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
-                            if(item.isFollowed){
+                            if(item.isFollowed==0){
+                                item.isFollowed==1
+                                item.followCount = item.followCount + 1
                                 xqzs.weui.toast("success","收听成功")
                             }else{
+                                item.isFollowed==0
+                                item.followCount = item.followCount - 1
                                 xqzs.weui.toast("success","取消成功")
                             }
                             item.isFollowed=!item.isFollowed;

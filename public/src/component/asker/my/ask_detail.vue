@@ -23,7 +23,7 @@
 
             <template v-for="(item,index) in detail.answers">
                 <div class="problem_answer_info">
-                    <img :src="item.expertFaceUrl" alt="">
+                    <img :src="item.expertFaceUrl" alt="" @click="goDetail(item.expertId)">
                     <!--回答，专家语音-->
                     <div class="problem_answer_yy" v-if="detail.questionStatus==1">
                         <div class="audio" :class="{playing:item.playing,paused:item.paused}">
@@ -50,8 +50,8 @@
              </template>
             <div class="steal_expert_info">
                 <div>
-                    <span class="steal_expert_name">{{detail.expert.nickName}}</span><span
-                        class="steal_expert_fans">{{detail.expert.listenCount}}人收听</span>
+                    <span class="steal_expert_name" @click="goDetail(detail.expertId)">{{detail.expert.nickName}}</span><span
+                        class="steal_expert_fans">{{followCount}}人收听</span>
                 </div>
                 <div class="steal_expert_des">{{detail.expert.sign}}</div>
                 <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">收听</div>
@@ -104,6 +104,7 @@
                 isOver:false,
                 contentOver:'',
                 showLoad: false,
+                followCount:0
             }
         },
         mounted: function () {
@@ -115,7 +116,9 @@
             xqzs.wx.setConfig(this);
         },
         methods: {
-
+            goDetail:function (extId) {
+                this.$router.push('/answer/detail/?id='+extId)
+            },
             like:function (index) {
                 let  item = this.detail.answers[index];
                 if(item.isLiked){
@@ -310,9 +313,11 @@
                         if (bt.data && bt.data.status == 1) {
                             if(that.detail.expert.isFollow==0){
                                 that.detail.expert.isFollow=1;
+                                that.followCount = that.followCount+1;
                                 xqzs.weui.toast("success","收听成功")
                             }else {
                                 that.detail.expert.isFollow=0;
+                                that.followCount = that.followCount-1;
                                 xqzs.weui.toast("success","取消成功")
                             }
 
@@ -334,7 +339,9 @@
                     if (data.body.status == 1) {
                         _this.showLoad = false
                         console.log(data.body.data.data)
-                        _this.detail= data.body.data.data
+                        _this.detail= data.body.data.data;
+                        _this.followCount = _this.detail.expert.followCount;
+                        console.log(_this.detail)
                     }
                 }, function (error) {
                 });
