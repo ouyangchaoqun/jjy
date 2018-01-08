@@ -317,6 +317,7 @@ var xqzs = {
             xqzs.weui.textareaAutoOldHeight = xqzs.weui.textareaAutoBaseH;
             xqzs.weui.textareaHeight = [];
 
+
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
