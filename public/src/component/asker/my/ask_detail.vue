@@ -1,29 +1,48 @@
 <template id="my_problem_detail">
-    <div><!--:class="{problem_box_background:problem_assess_flag}"-->
+    <div class="ask_detailBox">
         <div v-title>问题详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_problem_detail">
             <div class="problem_detail_header">
                 问题类型:  <div>{{detail.title}}</div>
+                <!---->
+            </div>
+            <div class="add_askerInfo">
+                <img :src="user.faceUrl" alt="">
+                <span>{{user.nickName}}</span>
                 <div>￥{{formatPrice(detail.price)}}</div>
             </div>
             <div class="problem_detail_content">
                 {{detail.question}}
             </div>
-            <div class="problem_answer_info" :class="{addContentStyle:detail.questionStatus==0||detail.questionStatus==2}">
+            <div class="problem_wait_style">
                 <!--待回答-->
-                <div class="problem_wait_style" v-if="detail.questionStatus==0">
+                <div v-if="detail.questionStatus==0">
                     <span>待回答</span><span>还{{formatTimeLastText(detail.endTime)}}</span>
                 </div>
                 <!--超时未回答-->
-                <div class="problem_wait_style" v-if="detail.questionStatus==2">
+                <div v-if="detail.questionStatus==2">
                     <span>超时未回答</span><span>提问酬金已原路返还</span>
+                </div>
+                <!--解答-->
+                <div v-if="detail.questionStatus==1">
+                    <span>已解答</span>
                 </div>
             </div>
 
+
+            <div class="steal_expert_info" :class="{answerInfo_border:detail.answerCount==0}">
+                <img :src="detail.expert.faceUrl" alt="" @click="goDetail(detail.expertId)">
+                <div>
+                    <span class="steal_expert_name" @click="goDetail(detail.expertId)">{{detail.expert.nickName}}</span><span
+                        class="steal_expert_fans">{{followCount}}人收听</span>
+                </div>
+                <div class="steal_expert_des">{{detail.expert.sign}}</div>
+                <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">收听</div>
+                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" @click="follow(detail.expertId)" >已收听</div>
+            </div>
             <template v-for="(item,index) in detail.answers">
-                <div class="problem_answer_info">
-                    <img :src="item.expertFaceUrl" alt="" @click="goDetail(item.expertId)">
+                <div class="problem_answer_info" >
                     <!--回答，专家语音-->
                     <div class="problem_answer_yy" v-if="detail.questionStatus==1">
                         <div class="audio" :class="{playing:item.playing,paused:item.paused}">
@@ -37,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="yy_bottomBorder"></div>
                 <!--回答后底部显示详情-->
                 <div class="problem_answer_bottom" v-if="detail.answerCount>0">
                     <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
@@ -47,16 +66,8 @@
                         <div @click="like(index)" class="good_care" :class="{good_cared:item.isLiked}"><span>{{item.likeTimes}}</span></div>
                     </div>
                 </div>
-             </template>
-            <div class="steal_expert_info">
-                <div>
-                    <span class="steal_expert_name" @click="goDetail(detail.expertId)">{{detail.expert.nickName}}</span><span
-                        class="steal_expert_fans">{{followCount}}人收听</span>
-                </div>
-                <div class="steal_expert_des">{{detail.expert.sign}}</div>
-                <div class="followed_box" v-if="!detail.expert.isFollow" @click="follow(detail.expertId)">收听</div>
-                <div class="followed_box isfollow_style"  v-if="detail.expert.isFollow" @click="follow(detail.expertId)" >已收听</div>
-            </div>
+                <div style="height:0.588235rem;background: rgba(245,245,245,1)"></div>
+            </template>
         </div>
 
 
@@ -107,6 +118,11 @@
                 followCount:0
             }
         },
+        props:{
+            user:{
+                type:Object
+            }
+        },
         mounted: function () {
             this.showLoad = true;
             this.id= parseInt(this.$route.query.id);
@@ -114,6 +130,7 @@
 //            this.getTags();
             xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
+            console.log(this.user)
         },
         methods: {
             goDetail:function (extId) {
@@ -360,12 +377,67 @@
     }
 </script>
 <style>
+    .ask_detailBox{
+        background: #fff;
+    }
+    .ask_detailBox .good_care{
+        margin-right:0;
+    }
+    .problem_detail_header>div:nth-of-type(1){
+        color:rgba(102,102,153,1);
+    }
+    .ask_detailBox .problem_detail_header{
+        line-height: 2.11764rem;
+        background: rgba(245,245,245,1);
+        padding:0;
+        padding-left: 0.88235rem;
+        margin-bottom: 0.88235rem;
+    }
+    .ask_detailBox .my_problem_detail .add_askerInfo{
+        line-height: 1.70588rem;
+        display: flex;
+        font-size: 0.76471rem;
+        padding:0 0.88235rem;
+        position: relative;
+        margin-bottom: 0.588235rem;
+    }
+    .ask_detailBox .my_problem_detail .add_askerInfo img{
+        width:1.70588rem;
+        height:1.70588rem;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+    .ask_detailBox .my_problem_detail .add_askerInfo span{
+        color:rgba(51,51,51,0.5);
+    }
+    .ask_detailBox .my_problem_detail .add_askerInfo div{
+        color:rgba(253,87,57,1);
+        position: absolute;
+        right:0.88235rem;
+    }
+    .ask_detailBox .steal_expert_info{
+        padding-left:4.176rem;
+        padding-bottom: 1.5rem;
+        border-top:0.588235rem solid rgba(245,245,245,1);
+    }
+    .problem_wait_style{
+        color:rgba(36,37,61,0.5);
+        font-size: 0.70588rem;
+        line-height: 1;
+        padding:0.88235rem;
+    }
+    .problem_wait_style span{
+        margin-right: 0.88235rem;
+    }
+    .ask_detailBox .answerInfo_border{border-bottom:1px solid rgba(224,224,225,1);}
+    .ask_detailBox .yy_bottomBorder{height:0.5px;width:80%;margin: 0 auto;border-bottom: 1px solid rgba(210,210,210,1);margin-bottom: 1.058rem;padding-top:1.5rem;}
+    .ask_detailBox .problem_answer_bottom{padding:0;margin:0 auto;width:80%;margin-bottom: 0.8235rem;}
     .problem_assess_btn .weui-btn{border-radius: 50px;}
     .problem_assess .star>div{display: inline-block;line-height: 1;color:rgba(36,37,61,0.5);font-size: 0.6471rem;margin-bottom: 1.852rem}
     .problem_assess .star span{ position:relative;display: inline-block;  height:1.6470588235rem; width: 1.735294rem; background: url(../../../images/starNew_no.png) no-repeat; background-size: 1.735294rem; margin: 1.176471rem  0.70588235rem 0.67647rem 0.70588235rem;  }
     .problem_assess .star span.on{ background: url(../../../images/starNew.png) no-repeat; background-size: 1.735294rem;}
     .problem_assess .star>div .color_on{color:rgba(253,198,10,1)}
-    .problem_answer_info{
+    .ask_detailBox .problem_answer_info{
         padding:0 0.88235rem;
         display: -webkit-box;
         display: -webkit-flex;
@@ -373,14 +445,6 @@
         line-height: 2.8235rem;
         font-size: 0.8235rem;
         color: rgba(36,37,61,0.5);
-        margin-bottom: 0.88235rem;
-    }
-    .problem_answer_info img{
-        height:44px;
-        display: block;
-        width:44px;
-        border-radius: 50%;
-        margin-right: 0.88235rem;
     }
     .problem_assess{
         background: #fff;
@@ -442,21 +506,17 @@
         padding: 0 0.88235rem;
     }
     .problem_wait_style>span:nth-of-type(1){
-        font-size: 0.88235rem;
+        font-size: 0.70588rem;
         margin-right: 1.235294rem;;
     }
     .problem_wait_style>span:nth-of-type(2){
         color: rgba(36,37,61,0.5) ;
-        font-size: 0.76471rem;
+        font-size: 0.70588rem;
     }
     .problem_box_background{
         background: #F4F4F7;
     }
-    .problem_answer_info .problem_answer_yy{margin-top: 3px}
+    .problem_answer_info .problem_answer_yy{margin:0 auto;}
     .problem_assess_input .addIsOverHtml{text-align: left;background: #EBEBEC;border-radius: 0.294rem;padding:0.294rem 0.88235rem;}
-    .addContentStyle{margin-bottom: 0}
-    /*.steal_expert_info .img{color:rgba(254,115,1,1);padding:0 0.588235rem;border:1px solid rgba(253,87,57,1);border-radius: 2.5px;height:1.235rem;line-height: 1.235rem;position: absolute;*/
-    /*right:0.88235rem;top:50%;margin-top: -0.6176471rem}*/
-    /*.steal_expert_info .isFollow_style{color:rgba(36,37,61,0.5)}*/
-    /*.steal_expert_info .img img{display: inline-block;width: 0.5294rem;height:auto;margin-right: 0.294rem;}*/
+    .ask_detailBox .addContentStyle{margin-bottom: 0}
 </style>

@@ -388,13 +388,12 @@ a{
     line-height: 1.176471rem;
 }
 .steal_expert_info img{
-    height:30px;
-    width:30px;
+    height:2.588rem;
+    width:2.588rem;
     display: block;
     position: absolute;
-    right:15px;
-    top:50%;
-    margin-top:-15px;
+    left:0.88235rem;
+    border-radius: 50%;
 }
 .steal_expert_name{
     color:rgba(36,37,61,1);
@@ -459,7 +458,6 @@ a{
     margin-bottom: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(1){
-    color: rgba(36,37,61,1);
     margin-left: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(2){
@@ -471,7 +469,6 @@ a{
     padding:0 0.88235rem;
     color: rgba(36,37,61,1);
     font-size: 0.8235rem;
-    line-height: 1.4rem;
 }
 /*底部 信息展示 听过 点赞*/
 .problem_answer_bottom{
