@@ -126,7 +126,7 @@
                     xqzs.voice.audio=document.createElement("audio");
                     xqzs.voice.audio.autoplay="auto";
                     xqzs.voice.audio.src= 'http://oss.xqzs.cn/2017-08/17/36D52D026C189BC32B92AE3E1CA322EE.mp3';
-                    xqzs.voice.audio.muted=true;
+                    xqzs.voice.audio.play()
                 }
             },
             timeout:function (play,time,index) {
