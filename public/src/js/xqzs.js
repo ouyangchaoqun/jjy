@@ -242,26 +242,26 @@ var xqzs = {
         textareaAutoOldHeight: 20,
         textareaAutoBaseH: 20,
         textareaHeight: [],
+        textareaHover:false,
         textareaAutoHeight: function () {
             var textareaScrollHeight = document.getElementById("textarea").scrollHeight;
 
-            if (xqzs.mood.textareaAutoOldHeight < textareaScrollHeight) {
-                xqzs.mood.textareaHeight.push({
+            if (xqzs.weui.textareaAutoOldHeight < textareaScrollHeight) {
+                xqzs.weui.textareaHeight.push({
                     length: $("#textarea").val().length - 1,
                     height: textareaScrollHeight - 28
                 });
             }
-            console.log(xqzs.mood.textareaHeight)
-            var isset = false;
-            for (var i = 0; i < xqzs.mood.textareaHeight.length; i++) {
-                if ($("#textarea").val().length == xqzs.mood.textareaHeight[i].length) {
+             var isset = false;
+            for (var i = 0; i < xqzs.weui.textareaHeight.length; i++) {
+                if ($("#textarea").val().length == xqzs.weui.textareaHeight[i].length) {
 
                     //处理到达高度
                     isset = true;
-                    $("#textarea").height(xqzs.mood.textareaHeight[i].height);
+                    $("#textarea").height(xqzs.weui.textareaHeight[i].height);
                     console.log("set");
                     //清除 数组
-                    xqzs.mood.textareaHeight.splice(i, 1)
+                    xqzs.weui.textareaHeight.splice(i, 1)
 
 
                 }
@@ -269,14 +269,46 @@ var xqzs = {
 
 
             if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
-            xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
+            xqzs.weui.textareaAutoOldHeight = textareaScrollHeight
         },
-        actionSheetEdit: function (sendText, doFun, cancelFun, placeholder, maxLength, defaultValue) {
-            if (!maxLength) {
-                maxLength = 1000;
-            }
-            if (!defaultValue) {
-                defaultValue = '';
+        //
+        actionSheetEditTimeout:function () {
+            setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                if (xqzs.isIos()) {
+                    //document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                    var localdbkey = "max_edit_height_scrool_top_last3";
+                    var nowSH = $('body').scrollTop();
+                    var oldH = xqzs.localdb.get(localdbkey);
+
+                    if (nowSH == 0) {
+                        xqzs.weui.actionSheetEditTimeout();
+                    } else {
+                        if (nowSH && nowSH != 0) {
+                            if (oldH && oldH != 0) {
+                                if (oldH < nowSH) {
+                                    xqzs.weui.actionSheetEditTimeout();
+                                    xqzs.localdb.set(localdbkey, nowSH)
+                                } else {
+                                    var lastH = oldH - nowSH;
+                                    lastH = lastH + 38;
+                                    console.log("oldH:"+oldH);
+                                    console.log("nowSH:"+nowSH);
+                                    console.log("bottom-lastH:"+lastH);
+                                    if(xqzs.weui.textareaHover){
+                                        $(".comment_box").animate({bottom: lastH}, 150)
+                                    }
+                                }
+                            } else {
+                                xqzs.localdb.set(localdbkey, nowSH)
+                            }
+                        }
+                    }
+                }
+            }, 800)
+        },
+        actionSheetEdit: function ( sendText, doFun, cancelFun, placeholder,maxLength,noHide) {
+            if(!maxLength){
+                maxLength=1000;
             }
             //判断是否已经存在输入框
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
@@ -289,26 +321,35 @@ var xqzs = {
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<div class="box"><textarea contenteditable="true" maxlength="' + maxLength + '"  oninput="xqzs.weui.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" >' + defaultValue + '</textarea></div>';
+            html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.weui.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
+            if(xqzs.isIos()){
+                html +='<div style=" height: 44px;    background: #f5f5f5;width: 100%;position: absolute;bottom: -44px;text-align: center;font-size: 12px;color: #ddd; line-height: 30px">一切都好一点</div>';
+            }
+
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
 
-            var interval;
-            //解决第三方软键盘唤起时底部input输入框被遮挡问题
-            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+
+            var timeout ;
+            // //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            // var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            //
             $(".comment_text").focus(function () {
-                interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
-                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                }, 180)
-            }).blur(function () {//设定输入框失去焦点时的事件
-                clearTimeout(interval);//清除计时器
-                document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+                xqzs.weui.textareaHover=true;
+                xqzs.weui.actionSheetEditTimeout();
+            }).blur(function () {
+                xqzs.weui.textareaHover=false;
+                $(".comment_box").animate({bottom: 0}, 150)
             });
+            //.blur(function () {//设定输入框失去焦点时的事件
+            //     clearTimeout(interval);//清除计时器
+            //      document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+            // });
 
 
-            $(".comment_text").focus().keyup(function () {
+            $(".comment_text").keyup(function () {
                 var val = $(this).val();
                 if (val.length > 0) {
                     $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
@@ -318,7 +359,9 @@ var xqzs = {
                     $(".comment_p").css('display', 'block');
                 }
             });
-
+            if(!noHide){
+                $(".comment_text").focus();
+            }
 
             setTimeout(function () {
                 $(".comment_box").removeClass('subactive').addClass("addactive");
@@ -338,12 +381,17 @@ var xqzs = {
                 if (v !== "") {
                     doFun(v);
                 }
-                xqzs.weui.weuiMaskClose();
+                if(noHide){
 
-                $(".comment_box").removeClass('addactive').addClass("subactive");
-                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
-                    $(".action-sheet-edit").remove();
-                });
+                }else{
+                    xqzs.weui.weuiMaskClose();
+
+                    $(".comment_box").removeClass('addactive').addClass("subactive");
+                    $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                        $(".action-sheet-edit").remove();
+                    });
+                }
+
 
             })
 
