@@ -307,7 +307,6 @@
 
 </script>
 <style>
-
     .position_change_detail{
         color:#fff;
         position: absolute;
@@ -325,12 +324,12 @@
         display: -webkit-box;
         color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
-        line-height: 29px;
+        line-height: 2rem;
     }
     .steal_detail_top img{
         display: block;
-        height:29px;
-        width:29px;
+        height:2rem;
+        width:2rem;
         border-radius: 50%;
         margin-right: 0.588235rem;
         margin-bottom: 0.70588rem;
@@ -363,8 +362,8 @@
     }
     .steal_answer_topimg{
         display: block;
-        height:44px;
-        width: 44px;
+        height:3rem;
+        width: 3rem;
         border-radius: 50%;
         margin-right: 0.588235rem;
     }
@@ -374,11 +373,11 @@
         margin-right:0.41176471rem;
     }
 
-     .steal_answer_ly{
+    .steal_answer_ly{
         display: block;
         height:2.6471rem;
-         width:auto;
-         border-radius: 0;
+        width:auto;
+        border-radius: 0;
     }
     .steal_answer_zan{
         color:rgba(36,37,61,0.5);
@@ -401,7 +400,7 @@
     }
     .steal_answer_zan div:nth-of-type(1) span{
         float: left;
-        margin-top:1px;
+        margin-top:0rem;
     }
     .steal_answer_sond{
         display: block;
@@ -411,5 +410,6 @@
         top:50%;
         left:0.88235rem;
     }
+
 
 </style>
