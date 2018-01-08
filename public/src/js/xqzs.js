@@ -614,25 +614,39 @@ var xqzs = {
         },
         play: function (url) {
             console.log("xqzs.voice.2121 play"+xqzs.voice.audio);
+            console.log(navigator);
             if(xqzs.voice.audio!=null){
                 if (url && url != '') {
                     // if (!xqzs.voice.audio.paused) xqzs.voice.audio.pause();
+                    xqzs.voice.audio.autobuffer = true;
                     xqzs.voice.audio.src = url;//路径
                     console.log("url"+url);
-                    xqzs.voice.audio.autobuffer = true;
-                    xqzs.voice.audio.preload="auto";
-                    // xqzs.voice.audio.play();
 
+                    // xqzs.voice.audio.preload="auto";
+                    // xqzs.voice.audio.play();
+                    xqzs.voice.audio.defaultMuted=false;
+                    xqzs.voice.audio.muted=false;
 
                     xqzs.voice.audio.load();
                     xqzs.voice.audio.play();
+                    console.log("readyState1"+ xqzs.voice.audio.readyState);
+                    if(xqzs.voice.audio.readyState==0){
+
+                        setTimeout(function () {
+                            xqzs.voice.audio.pause()
+                            xqzs.voice.audio.play();
+                            console.log("readyState2"+ xqzs.voice.audio.readyState);
+                        },1000)
+                    }
+
                     document.addEventListener("WeixinJSBridgeReady", function () {
+
                         WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
                             console.log(e.err_msg.split(":")[1]);
                             xqzs.voice.audio.play();
                         });
                     }, false);
-
+                    console.log( xqzs.voice);
 
                     console.log("xqzs.voice.audio.pa222used" + xqzs.voice.audio.paused)
                 } else {
