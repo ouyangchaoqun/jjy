@@ -22,6 +22,8 @@
 <div id="app">
 
 </div>
+<audio src="http://oss.xqzs.cn/2017-08/17/36D52D026C189BC32B92AE3E1CA322EE.mp3" id="audicomeon"  autoplay="autoplay"></audio>
+
 <script src="<?=env("BASE_PATH")?>src/js/vconsole.min.js"></script>
 
 <script>

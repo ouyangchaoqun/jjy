@@ -603,7 +603,7 @@ var xqzs = {
     },
 
     voice: {
-        audio: null,
+        audio: document.getElementById("audicomeon"),
         listenEnded:function () {
             xqzs.voice.audio.addEventListener('ended', function () {
                 xqzs.voice.onEnded()
@@ -630,22 +630,12 @@ var xqzs = {
                     xqzs.voice.audio.load();
                     xqzs.voice.audio.play();
                     console.log("readyState1"+ xqzs.voice.audio.readyState);
-                    if(xqzs.voice.audio.readyState==0){
-
-                        setTimeout(function () {
-                            xqzs.voice.audio.pause()
-                            xqzs.voice.audio.play();
-                            console.log("readyState2"+ xqzs.voice.audio.readyState);
-                        },1000)
-                    }
 
                     document.addEventListener("WeixinJSBridgeReady", function () {
-
-                        WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
-                            console.log(e.err_msg.split(":")[1]);
-                            xqzs.voice.audio.play();
-                        });
+                        console.log("pWeixinJSBridgeReadylayplayplayplayplayplayplay");
+                        xqzs.voice.audio.play();
                     }, false);
+
                     console.log( xqzs.voice);
 
                     console.log("xqzs.voice.audio.pa222used" + xqzs.voice.audio.paused)
