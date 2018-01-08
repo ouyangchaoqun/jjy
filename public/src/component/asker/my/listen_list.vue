@@ -23,7 +23,7 @@
                     <a @click="goDetail(item.questionId)">
                         <div class="question">
                             <!--<img class="img" v-bind:src="item.questionUserFaceUrl" alt="">-->
-                            <div class="img" :style="{'background':'url('+item.questionUserFaceUrl+')no-repeat','background-size':'100%'}"></div>
+                            <div class="img" :style="{'background':'url('+getLittleFace(item.questionUserFaceUrl)+')no-repeat','background-size':'100%'}"></div>
                             <div class="title">{{item.question}}
                             </div>
                         </div>
@@ -93,6 +93,9 @@
 
         },
         methods:{
+            getLittleFace:function (url) {
+                return url.replace("/0",'/132')
+            },
             initActive:function () {
 
                 var obj =  $(".asker_my_listen_list_box .item")
