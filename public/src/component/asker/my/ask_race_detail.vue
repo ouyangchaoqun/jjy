@@ -273,6 +273,9 @@
     }
 </script>
 <style>
+    .problem_detail_header>div:nth-of-type(1){
+        color: rgba(51,51,51,1);
+    }
     .submit_best_answer{ background: #fff; height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:rgba(36,37,61,1); font-size: 0.76471rem; position: fixed; bottom:0;left:0; width: 100%;box-shadow: 2px 0px 10px rgba(0,0,0,0.3);padding-left:0.5rem;}
     .submit_btn { position: absolute;right:1.176471rem; top:50%; height: 1.588235rem;line-height: 1.588235rem; text-align: center; width: 4.71rem;border:0.0294rem solid rgba(252,66,42,1);color:rgba(252,66,42,1);border-radius: 0.88235rem;margin-top:-0.794rem;}
     .submit_btn:active{ background: #FE7301;color:#fff;}
