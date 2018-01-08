@@ -90,7 +90,7 @@
             this.getList();
             xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
-
+            this.initVoice();
         },
         methods:{
             getLittleFace:function (url) {
@@ -124,9 +124,7 @@
             initVoice:function () {
                 if(xqzs.voice.audio==null){
                     xqzs.voice.audio=document.createElement("audio");
-                    xqzs.voice.audio.autoplay="auto";
-                    xqzs.voice.audio.src= 'http://oss.xqzs.cn/2017-08/17/36D52D026C189BC32B92AE3E1CA322EE.mp3';
-                    xqzs.voice.audio.play()
+
                 }
             },
             timeout:function (play,time,index) {
@@ -154,7 +152,7 @@
                 }
             },
             play:function (index) {
-                this.initVoice();
+
                 let _this=this;
                 let list = _this.list;
                 let CT= list[index].ct? list[index].ct: list[index].answerVoiceLength;
