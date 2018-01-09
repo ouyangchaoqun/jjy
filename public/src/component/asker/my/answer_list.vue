@@ -25,14 +25,14 @@
                 <div class="item" v-for="(item,index) in list">
                     <div @click="goDetail(item.expertId)">
                         <div class="itemHeader">
-                            <div>{{item.nickName}}/ <span>{{item.cityName}}</span></div>
+                            <div>{{item.nickName}} <span>{{item.cityName}}</span></div>
                         </div>
                         <div class="itemDetail">
                             <div class="img"><img :src="item.faceUrl"></div>
                             <div class="itemDetail_right">
                                 <div class="title">{{item.sign}}</div>
                                 <div class="class_s">
-                                    <span v-for="(tag,tagIndex) in item.domains">{{tag.title}} <i v-if="tagIndex<2">、</i></span>
+                                    <span v-for="(tag,tagIndex) in item.domains" class="tab_i_i" >{{tag.title}}</span>
                                 </div>
                                 <div class="class_s other"><span v-if="item.answerCount!=null">{{item.answerCount||0}}个回答</span><span>{{item.followCount||0}}人收听</span></div>
                             </div>
@@ -154,4 +154,10 @@
     .asker_my_answer_list_box .item{border-bottom: 1px solid #E0E0E1;}
     .asker_my_answer_list_box .item:active{background: #f5f5f5}
     .asker_my_answer_list_box .answer_list .item{margin-top: 0}
+    .answer_list .item .class_s{margin-top: 2rem}
+    .tab_i_i{color: #FF9966;
+        background: rgba(204,204,204,0.3);
+        border-radius: 0.1470588235294118rem;
+        padding: 0.2rem 0.3rem;
+        margin: 0 0.3rem;}
 </style>
