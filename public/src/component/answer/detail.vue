@@ -301,7 +301,6 @@
 
             //回答播放
             playAnswer:function (index) {
-                this.initVoice();
                 let _this=this;
                 let list = _this.answerList;
 
