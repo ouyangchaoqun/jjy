@@ -634,11 +634,28 @@ var xqzs = {
                 xqzs.voice.listenEnded()
             }
         },
-
         pause: function () {
             if (xqzs.voice.audio && xqzs.voice.audio != null) {
                 xqzs.voice.audio.pause()
             }
+        },
+        getAnswerVoice:function (answerId,callFun) {
+
+            $.ajax({
+                url: web.API_PATH + "come/listen/get/voice/_userId_/"+answerId,
+                data:{},
+                async: false,
+                type: 'PUT',
+                success: function( bt ) {
+                    if (bt.data && bt.data.status == 1) {
+                        if(typeof (callFun) =="function"){
+                            callFun(bt.data.data.path)
+                        }
+                    }
+                }
+            });
+
+
         }
 
     },
