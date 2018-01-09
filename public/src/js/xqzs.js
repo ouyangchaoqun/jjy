@@ -613,8 +613,9 @@ var xqzs = {
 
         },
         play: function (url) {
-            console.log(xqzs.voice.audio)
-            console.log(url)
+            if(xqzs.voice.audio==null){
+                xqzs.voice.audio=document.createElement("audio");
+            }
             if(xqzs.voice.audio!=null){
                 if (url && url != '') {
                     xqzs.voice.audio.autobuffer = true;
