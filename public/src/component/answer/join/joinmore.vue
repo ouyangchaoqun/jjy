@@ -434,13 +434,8 @@
             beforeDestroy:function () {
                 xqzs.image.hideClip()
             },
-            initVoice:function () {
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
+
             play:function () {
-                this.initVoice();
                 let _this=this;
 
                 xqzs.voice.onEnded=function () {

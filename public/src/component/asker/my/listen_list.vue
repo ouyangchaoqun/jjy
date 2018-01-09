@@ -88,7 +88,6 @@
 
         mounted: function () {
             this.getList();
-            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
 
         },

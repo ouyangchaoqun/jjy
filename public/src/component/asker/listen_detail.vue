@@ -100,7 +100,6 @@
         mounted: function () {
             this.questionId=this.$route.query.questionId;
             this.getDetail();
-            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
 
         },
@@ -161,12 +160,6 @@
                 this.detail.needPay=0;
                 this.$set( this.detail.answerList,index,item);
             },
-
-            initVoice:function () {
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
             timeout:function (play,time,index) {
                 let _this=this;
                 _this.timeOut = setTimeout(function () {
@@ -193,8 +186,7 @@
                 }
             },
             play:function (index) {
-                this.initVoice();
-                let _this=this;
+                 let _this=this;
                 let list = _this.detail.answerList;
                 let CT= list[index].ct? list[index].ct: list[index].length;
                 let T = list[index].length;
@@ -231,7 +223,7 @@
                         _this.playing = false;
                     }else{     //重新打开播放
                         let answerId= item.answerId;
-                        this.getVoiceUrl(answerId,function (url) {
+                        xqzs.voice.getAnswerVoice(answerId,function (url) {
                             xqzs.voice.play(url);
                            list[index].playing=true;
                            list[index].paused=false;
@@ -245,23 +237,7 @@
                 }
 
             },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (answerId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data.path)
-                            }
-                        }
-                    });
-            },
+
 
             getDetail:function () {
                 let _this= this;

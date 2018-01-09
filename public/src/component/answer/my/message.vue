@@ -256,16 +256,8 @@
             getTime:function (time) {
                 return xqzs.dateTime.getTimeFormatText(time)
             },
-
-
-            initVoice:function () {
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
             playV:function () {
-                this.initVoice();
-                let _this=this;
+                 let _this=this;
 
                 xqzs.voice.onEnded=function () {
                     _this.vPaused=false;
@@ -285,7 +277,7 @@
                         console.log("2")
                     }else{     //重新打开播放
                         let expertId=  cookie.get("expertId");
-                        this.getVoiceUrl(expertId,function (url) {
+                        xqzs.voice.getExpertVoice(expertId,function (url) {
                             _this.vPaused=false;
                             _this.vPlaying=true;
                             xqzs.voice.play(url);
@@ -296,23 +288,7 @@
                 }
 
             },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (expertId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.get(web.API_PATH + "come/expert/voice/message/"+expertId)
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data)
-                            }
-                        }
-                    });
-            },
+
             getExpertByUserId:function () {
                 let _this=this;
                 this.$http.get(web.API_PATH + 'come/expert/query/detail/by/userId/_userId_' ).then(function (data) {//es5写法
@@ -343,7 +319,6 @@
 
             });
             xqzs.wx.setConfig(_this);
-            xqzs.voice.audio=null;
             this.getExpertByUserId();
             myVideo.config({obj:$('.circle')}).init(_this.start,_this.stop,_this.play,_this.play);
         },

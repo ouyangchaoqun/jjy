@@ -144,10 +144,7 @@
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-            console.log("bbbb")
             this.getClassList();
-
-            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
         },
         methods:{

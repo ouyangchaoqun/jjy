@@ -81,8 +81,6 @@
         mounted: function () {
             this.name= this.$route.query.name;
             this.getList();
-            xqzs.voice.audio=null;
-            this.initVoice();
             xqzs.wx.setConfig(this);
         },
         methods:{
@@ -94,13 +92,9 @@
                     event.stopPropagation();
                 })
             },
-            initVoice:function () {
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
+
             play:function (index) {
-                this.initVoice();
+
                 let _this=this;
                 let list = _this.list;
                 xqzs.voice.onEnded=function () {
@@ -129,7 +123,7 @@
                         _this.$set(_this.list,index,list[index])
                         xqzs.voice.pause();
                     }else{     //重新打开播放
-                        this.getVoiceUrl(item.expertId,function (url) {
+                        xqzs.voice.getExpertVoice(item.expertId,function (url) {
                             xqzs.voice.play(url);
                             list[index].playing=true;
                             list[index].paused=false;
@@ -140,23 +134,7 @@
                 }
 
             },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (expertId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.get(web.API_PATH + "come/expert/voice/message/"+expertId)
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data)
-                            }
-                        }
-                    });
-            },
+
             goDetail:function (extId) {
 
                 this.$router.push('./detail/?id='+extId)
