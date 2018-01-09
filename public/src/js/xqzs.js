@@ -603,7 +603,7 @@ var xqzs = {
     },
 
     voice: {
-        audio:document.createElement("audio"),
+        audio:null,
         listenEnded:function () {
             xqzs.voice.audio.addEventListener('ended', function () {
                 xqzs.voice.onEnded()
@@ -613,6 +613,8 @@ var xqzs = {
 
         },
         play: function (url) {
+            console.log(xqzs.voice.audio)
+            console.log(url)
             if(xqzs.voice.audio!=null){
                 if (url && url != '') {
                     xqzs.voice.audio.autobuffer = true;

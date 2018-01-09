@@ -88,6 +88,7 @@
 
         mounted: function () {
             this.getList();
+            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
 
         },
@@ -145,7 +146,14 @@
                     clearTimeout(_this.timeOut);
                 }
             },
+            initVoice:function () {
+                console.log("xqzs.voice.audio"+xqzs.voice.audio);
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
             play:function (index) {
+                this.initVoice();
                 let _this=this;
                 let list = _this.list;
                 let CT= list[index].ct? list[index].ct: list[index].answerVoiceLength;
