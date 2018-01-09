@@ -7,6 +7,7 @@
             <div class="steal_detail_top"><img :src="detail.faceUrl" alt="">
                 <!--<div>在<span>{{detail.title}}</span>方面</div>-->
                 <div>{{user.nickName}}</div>
+                <div class="steal_detail_top_price">赏金￥{{detail.price}}</div>
             </div>
             <div class="steal_detail_content">{{detail.content}}</div>
         </div>
@@ -326,6 +327,7 @@
 
 </script>
 <style>
+
     .listenDetail_box{
         background: #fff;
     }
@@ -352,6 +354,12 @@
         color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         line-height: 2rem;
+        position: relative;
+    }
+    .steal_detail_top .steal_detail_top_price{
+        color:#FE7301;
+        position: absolute;
+        right:0.88235rem;
     }
     .steal_detail_top img{
         display: block;
