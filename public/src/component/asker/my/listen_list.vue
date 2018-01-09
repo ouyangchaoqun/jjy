@@ -121,11 +121,7 @@
                         }
                     });
             },
-            initVoice:function () {
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
+
             timeout:function (play,time,index) {
                 let _this=this;
                 _this.timeOut = setTimeout(function () {
@@ -151,7 +147,6 @@
                 }
             },
             play:function (index) {
-                this.initVoice();
                 let _this=this;
                 let list = _this.list;
                 let CT= list[index].ct? list[index].ct: list[index].answerVoiceLength;
