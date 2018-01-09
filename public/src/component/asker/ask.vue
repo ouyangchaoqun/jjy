@@ -3,17 +3,17 @@
         <div v-title>提问</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="change_height">
-            <div class="ask_type_new" v-if="isSelectAnswer">
-                <div class="tab">问题类型 <span>点击选择</span></div>
-                <div class="select_box">
-                    <div v-for="item in types">{{item.title}}</div>
-                </div>
-            </div>
-            <div class="ask_type" v-if="!isSelectAnswer" @click="selectType()">
-                <div class="tab">选择问题类型：</div>
-                <div class="select_box">{{type}}</div>
-                <div class="clear"></div>
-            </div>
+            <!--<div class="ask_type_new" v-if="isSelectAnswer">-->
+                <!--<div class="tab">问题类型 <span>点击选择</span></div>-->
+                <!--<div class="select_box">-->
+                    <!--<div v-for="item in types">{{item.title}}</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="ask_type" v-if="!isSelectAnswer" @click="selectType()">-->
+                <!--<div class="tab">选择问题类型：</div>-->
+                <!--<div class="select_box">{{type}}</div>-->
+                <!--<div class="clear"></div>-->
+            <!--</div>-->
             <div class="text_area">
                 <textarea v-if="isSelectAnswer" placeholder="请详细描述您的问题，专家将第一时间帮您解答。" class="content answer_select" maxlength="200"></textarea>
                 <textarea v-if="!isSelectAnswer" placeholder="请输入您的问题，好一点将为您匹配专业咨询师进行抢答。" class="content" maxlength="140"></textarea>
@@ -110,7 +110,7 @@
                 isSelectAnswer: false, //是否针对专家提问
                 type:'',
                 typeSelectIndex:null,
-                questionClass:0,
+                questionClass:1,//0
                 expertId:0,
                 expertDetail:{},
                 contentLength:0,
@@ -181,7 +181,8 @@
                 _this.$http.get(web.API_PATH + 'come/listen/question/class/list' ).then(function (data) {//es5写法
                     _this.showLoad = false
                     if (data.body.status == 1) {
-                            _this.types= data.body.data
+                            _this.types= data.body.data;
+
                     }
                 }, function (error) {
                 });
@@ -307,6 +308,7 @@
                     }else{
                         _this.type= _this.types[_this.typeSelectIndex].title;
                         _this.questionClass=_this.types[_this.typeSelectIndex].id;
+                        console.log(_this.questionClass)
                         if( _this.questionClass==undefined){
                             _this.questionClass=_this.types[_this.typeSelectIndex].classId;
                         }

@@ -1,17 +1,31 @@
 <template >
-    <div>
+    <div class="listenDetail_box">
         <!--详情头部-->
         <div v-title>问题详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="steal_detail_header" v-if="detail.title">
-            <div class="steal_detail_top"><img :src="detail.faceUrl" alt=""><div>在<span>{{detail.title}}</span>方面</div></div>
+            <div class="steal_detail_top"><img :src="detail.faceUrl" alt="">
+                <!--<div>在<span>{{detail.title}}</span>方面</div>-->
+                <div>{{user.nickName}}</div>
+                <div class="steal_detail_top_price">赏金￥{{detail.price}}</div>
+            </div>
             <div class="steal_detail_content">{{detail.content}}</div>
         </div>
         <!--专家回答列表-->
         <ul>
             <li class="steal_detail_answer" v-for="(item,index) in detail.answerList">
+
+                <div class="steal_expert_info">
+                    <img :src="item.expertUrl" alt="" @click="goDetail(item.expertId)">
+                    <div>
+                        <span class="steal_expert_name" @click="goDetail(item.expertId)">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
+                    </div>
+                    <div class="steal_expert_des">{{item.sign}}</div>
+                    <div class="followed_box" v-if="item.isFollowed==0" @click="follow(index)"> 收听</div>
+                    <div class="followed_box isfollow_style"  v-if="item.isFollowed==1" @click="follow(index)" >已收听</div>
+                </div>
                 <div class="steal_answer_top">
-                    <img class="steal_answer_topimg" :src="item.expertUrl" alt="" @click="goDetail(item.expertId)">
+                    <!--<img class="steal_answer_topimg" :src="item.expertUrl" alt="" >-->
                     <div class="steal_answer_yy">
 
                         <!--* const GRAB_NOT_BEST    = 1;抢答一般的答案-->
@@ -51,16 +65,15 @@
                     <div :class="{position_change2:(item.answerType==2||item.answerType==4)&&detail.needPay==1}">{{(item.ct && item.ct!='00')?item.ct:item.length}}”</div>
                 </div>
                 <div class="steal_answer_zan">
-                    <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span>{{item.likeTimes}}</span></div>
-                    <div>听过  <span>{{item.listenTimes}}</span></div>
-                </div>
-                <div class="steal_expert_info">
-                    <div>
-                        <span class="steal_expert_name" @click="goDetail(item.expertId)">{{item.expertName}}</span><span class="steal_expert_fans">{{item.followCount}}人收听</span>
+                    <div class="problem_answer_time">{{formatDateText(item.addTime)}}</div>
+                    <div class="problem_answer_zan">
+                        <div>
+                            <span>听过</span>
+                            <span>{{item.listenTimes}}</span>
+                        </div>
+                        <div @click="like(index)" class="good_care" :class="{good_cared:item.isCared}"><span>{{item.likeTimes}}</span></div>
                     </div>
-                    <div class="steal_expert_des">{{item.sign}}</div>
-                    <div class="followed_box" v-if="item.isFollowed==0" @click="follow(index)"> 收听</div>
-                    <div class="followed_box isfollow_style"  v-if="item.isFollowed==1" @click="follow(index)" >已收听</div>
+
                 </div>
             </li>
 
@@ -91,6 +104,11 @@
             xqzs.wx.setConfig(this);
 
         },
+        props:{
+            user:{
+                type:Object
+            }
+        },
         components: {
             'v-showLoad': showLoad
         },
@@ -111,7 +129,9 @@
                         }
                     });
             },
-
+            formatDateText:function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
             pay:function (index) {
                 let  item = this.detail.answerList[index];
                 let _this=this;
@@ -307,6 +327,15 @@
 
 </script>
 <style>
+
+    .listenDetail_box{
+        background: #fff;
+    }
+    .steal_expert_info{
+        padding-left: 4.176rem;
+        padding-bottom: 1.5rem;
+        border-top: 0.588235rem solid rgba(245,245,245,1);
+    }
     .position_change_detail{
         color:#fff;
         position: absolute;
@@ -325,6 +354,12 @@
         color: rgba(36,37,61,0.5);
         font-size: 0.70588rem;
         line-height: 2rem;
+        position: relative;
+    }
+    .steal_detail_top .steal_detail_top_price{
+        color:#FE7301;
+        position: absolute;
+        right:0.88235rem;
     }
     .steal_detail_top img{
         display: block;
@@ -357,8 +392,11 @@
         line-height: 2.8235rem;
         color: rgba(36,37,61,0.5);
         font-size: 0.8235rem;
-        margin-bottom: 0.471rem;
-        padding:0 0.88235rem;
+        padding-bottom: 1.176rem;
+        margin-left: 2.588235rem;
+        margin-right: 1.76rem;
+        margin-bottom: 0.588235rem;
+        border-bottom: 1px solid rgba(238,238,238,1);
     }
     .steal_answer_topimg{
         display: block;
@@ -384,16 +422,19 @@
         font-size: 0.70588rem;
         height:0.941176471rem;
         line-height: 0.941176471rem;
-        margin-bottom:0.588235rem;
-        padding-right: 0.88235rem;
+        padding-bottom:0.588235rem;
+        padding-right: 1.76rem;
+        padding-left: 2.588235rem;
+        border-bottom: 0.588235rem solid rgba(245,245,245,1);
     }
-    .steal_answer_zan div{
-        float: right;
-    }
+    /*.steal_answer_zan div{*/
+        /*float: right;*/
+        /*margin-right: 0;*/
+    /*}*/
 
-    .steal_answer_zan div:nth-of-type(2){
-        margin-right:1.235rem;
-    }
+    /*.steal_answer_zan div:nth-of-type(2){*/
+        /*margin-right:1.235rem;*/
+    /*}*/
     .steal_answer_zan div:nth-of-type(1) img{
         float: left;
         margin-right:0.29411rem;

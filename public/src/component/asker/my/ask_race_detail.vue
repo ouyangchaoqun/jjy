@@ -3,7 +3,9 @@
         <div v-title>问题详情</div>
         <div class="my_problem_detail">
             <div class="problem_detail_header">
-                问题类型:  <div>{{detail.title}}</div>
+                <!--问题类型:  <div class="race_titleColor">{{detail.title}}</div>-->
+                <img :src="user.faceUrl" alt="">
+                <div>{{user.nickName}}</div>
                 <div>赏金￥{{detail.price}}</div>
             </div>
             <div class="problem_detail_content">
@@ -22,21 +24,24 @@
             <!--正在进行中-->
             <div class="rob_status_box"  v-if="detail.questionStatus==0">
                 <div>还{{formatTimeLastText(detail.endTime)}}</div>
-                <div>已有{{detail.answerCount}}人抢答，可以选择一个最佳答案，其答主将获得全部赏金，且该回答将产生偷偷听收入</div>
+                <div>已有<span>{{detail.answerCount}}</span>人抢答，可以选择一个最佳答案，其答主将获得全部赏金，且该回答将产生偷偷听收入</div>
             </div>
             <div class="rob_status_box" v-if="detail.questionStatus==2&&detail.answerCount!=0">
                 <div>已解答</div>
-                <div>共有{{detail.answerCount}}人抢答，抢答者平分赏金。</div>
+                <div>共有<span>{{detail.answerCount}}</span>人抢答，抢答者平分赏金。</div>
             </div>
             <div class="rob_status_box" v-if="detail.questionStatus==1">
                 <div>已解答</div>
-                <div>共有{{detail.answerCount}}人抢答，{{bestAnswer.expertNickName}}的回答被选为最佳回答。</div>
+                <div>共有<span>{{detail.answerCount}}</span>人抢答，{{bestAnswer.expertNickName}}的回答被选为最佳回答。</div>
             </div>
             <ul class="rob_lists">
                 <li v-for="(item,index) in detail.answers">
                     <div class="rob_box_top">
                         <img :src="item.expertFaceUrl" alt="">
-                        <div>{{item.expertNickName}}</div>
+                        <div class="expertInfo">
+                            <span>{{item.expertNickName}}</span>
+                            <div>心理健康、情绪管理、个人成长</div>
+                        </div>
                     </div>
                     <div class="rob_answer">
                         <div class="audio" :class="{playing:item.playing,paused:item.paused}">
@@ -108,6 +113,11 @@
                 isOver:true
 
 
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         mounted: function () {
@@ -254,8 +264,6 @@
                 });
 
             },
-
-
             best_qx:function () {
                 this.changeFlg = false;
                 this.isactive=true;
@@ -273,8 +281,15 @@
     }
 </script>
 <style>
-    .problem_detail_header>div:nth-of-type(1){
+    .problem_detail_header .race_titleColor{
         color: rgba(51,51,51,1);
+    }
+    .problem_detail_header img {
+        height: 1.70588235rem;
+        width: 1.70588235rem;
+        display: block;
+        border-radius: 50%;
+        margin-right: 0.588235rem;
     }
     .submit_best_answer{ background: #fff; height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:rgba(36,37,61,1); font-size: 0.76471rem; position: fixed; bottom:0;left:0; width: 100%;box-shadow: 2px 0px 10px rgba(0,0,0,0.3);padding-left:0.5rem;}
     .submit_btn { position: absolute;right:1.176471rem; top:50%; height: 1.588235rem;line-height: 1.588235rem; text-align: center; width: 4.71rem;border:0.0294rem solid rgba(252,66,42,1);color:rgba(252,66,42,1);border-radius: 0.88235rem;margin-top:-0.794rem;}
@@ -283,32 +298,52 @@
         background: #fff;
     }
     .rob_status_box{
-        padding:0 0.88235rem;
         color: rgba(36,37,61,0.5);
         font-size: 0.70588235rem;
-        border-bottom: 0.41176471rem solid #f4f4f8;
     }
     .rob_status_box>div:nth-of-type(1){
-        margin-bottom: 0.2rem;
-        line-height: 1.0588235rem;
+        margin-bottom: 0.8235rem;
+        line-height: 1;
         padding-top: 0.5rem;
+        padding-left: 0.88235rem;
     }
     .rob_status_box>div:nth-of-type(2){
-        margin-bottom: 0.6rem;
+        background: rgba(245,245,245,1);
+       padding: 0.3rem 1.647rem;
+        line-height: 1.176rem;
+    }
+    .rob_status_box span{
+        color:rgba(255,153,0,1);
     }
     .rob_lists li{
         background: #fff;
-        padding:0.88235rem 0.88235rem 0px 0.88235rem;
-        border-bottom: 0.41176471rem solid #f4f4f8;
+        padding:1.176rem 0.88235rem 0px 0.88235rem;
+        border-bottom: 0.588235rem solid rgba(245,245,245,1);
+    }
+    .rob_problem .audio{
+        margin:0;
+        padding-bottom: 1.1764rem;
+        border-bottom: 1px solid rgba(238,238,238,1);
     }
     .rob_box_top{
         display: flex;
         display: -webkit-box;
         display: -webkit-flex;
-        font-size: 0.70588235rem;
+        font-size: 0.76471rem;
         color: rgba(36,37,61,1);
         line-height: 2rem;
-        margin-bottom: 0.4rem;
+        margin-bottom: 1.0588rem;
+    }
+    .rob_box_top .expertInfo{
+        line-height: 1;
+    }
+    .rob_box_top .expertInfo span{
+        margin-bottom: 0.5rem;
+        display: inline-block;
+    }
+    .rob_box_top .expertInfo div{
+        color:rgba(36,37,61,0.4);
+        font-size: 0.70588235rem;
     }
     .rob_box_top img{
         width: 2rem;

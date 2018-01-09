@@ -3,10 +3,10 @@
         <div v-title>问题详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_problem_detail">
-            <div class="problem_detail_header">
-                问题类型:  <div>{{detail.title}}</div>
-                <!---->
-            </div>
+            <!--<div class="problem_detail_header">-->
+                <!--问题类型:  <div class="titleColor">{{detail.title}}</div>-->
+                <!--&lt;!&ndash;&ndash;&gt;-->
+            <!--</div>-->
             <div class="add_askerInfo">
                 <img :src="user.faceUrl" alt="">
                 <span>{{user.nickName}}</span>
@@ -383,7 +383,7 @@
     .ask_detailBox .good_care{
         margin-right:0;
     }
-    .problem_detail_header>div:nth-of-type(1){
+    .problem_detail_header .titleColor{
         color:rgba(102,102,153,1);
     }
     .ask_detailBox .problem_detail_header{
@@ -400,6 +400,7 @@
         padding:0 0.88235rem;
         position: relative;
         margin-bottom: 0.588235rem;
+        padding-top: 0.88235rem;
     }
     .ask_detailBox .my_problem_detail .add_askerInfo img{
         width:1.70588rem;
