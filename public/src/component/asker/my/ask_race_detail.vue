@@ -3,7 +3,9 @@
         <div v-title>问题详情</div>
         <div class="my_problem_detail">
             <div class="problem_detail_header">
-                问题类型:  <div class="race_titleColor">{{detail.title}}</div>
+                <!--问题类型:  <div class="race_titleColor">{{detail.title}}</div>-->
+                <img :src="user.faceUrl" alt="">
+                <div>{{user.nickName}}</div>
                 <div>赏金￥{{detail.price}}</div>
             </div>
             <div class="problem_detail_content">
@@ -111,6 +113,11 @@
                 isOver:true
 
 
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         mounted: function () {
@@ -276,6 +283,13 @@
 <style>
     .problem_detail_header .race_titleColor{
         color: rgba(51,51,51,1);
+    }
+    .problem_detail_header img {
+        height: 1.70588235rem;
+        width: 1.70588235rem;
+        display: block;
+        border-radius: 50%;
+        margin-right: 0.588235rem;
     }
     .submit_best_answer{ background: #fff; height:2.588235294117647rem; line-height: 2.588235294117647rem;  color:rgba(36,37,61,1); font-size: 0.76471rem; position: fixed; bottom:0;left:0; width: 100%;box-shadow: 2px 0px 10px rgba(0,0,0,0.3);padding-left:0.5rem;}
     .submit_btn { position: absolute;right:1.176471rem; top:50%; height: 1.588235rem;line-height: 1.588235rem; text-align: center; width: 4.71rem;border:0.0294rem solid rgba(252,66,42,1);color:rgba(252,66,42,1);border-radius: 0.88235rem;margin-top:-0.794rem;}

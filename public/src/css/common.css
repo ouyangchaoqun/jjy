@@ -448,7 +448,7 @@ a{
     background: #fff;
 }
 .problem_detail_header{
-    padding:1.1176rem 0.88235rem 0 0.88235rem;
+    padding:0.88235rem 0.88235rem 0 0.88235rem;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -456,6 +456,7 @@ a{
     font-size: 0.7647rem;
     position: relative;
     margin-bottom: 0.588235rem;
+    line-height: 1.70588rem;
 }
 .problem_detail_header>div:nth-of-type(1){
     margin-left: 0.588235rem;

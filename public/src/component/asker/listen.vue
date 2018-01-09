@@ -4,6 +4,7 @@
         <div v-title>偷听</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="weui-tab__panel main">
+            <!--导航栏-->
             <nav>
                 <div class="swiper-container navSwiper">
                     <div class="swiper-wrapper">
@@ -15,7 +16,7 @@
                 <div class="swiper-container con_swiper_c">
                     <div class="swiper-wrapper">
 
-                        <div class="swiper-slide" v-for="navList in navLists">
+                        <div class="swiper-slide swiper-no-swiping" v-for="navList in navLists" >
                             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="92" :isShowMoreText="isShowMoreText">
                                 <div class="index_box">
                                     <div v-show="navList.list.length>0" class="index_content_active">
@@ -171,6 +172,7 @@
                 });
 
                 conSwiper = new Swiper('.con_swiper_c', {
+                    noSwiping : true,
                     onSlideChangeStart: function(){
                         _this.initTopView(navSwiper,conSwiper.activeIndex);
 
@@ -465,6 +467,7 @@
         color: rgba(36,37,61,1);
         text-align: center;
         border-bottom: 1px solid #E0E0E1;
+        display: none;
     }
     .navSwiper .swiper-slide{
         width:4rem;

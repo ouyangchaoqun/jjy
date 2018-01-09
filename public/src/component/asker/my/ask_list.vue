@@ -55,9 +55,10 @@
                     <ul>
                         <li class="my_problem_list1" v-if="type==1" v-for="item in list">
                             <a @click="goRaceDetail(item.questionId)">
-                                <div class="problem_header headerStyle">
-                                    问题类型：
-                                    <div class="wait_style">情感困惑</div>
+                                <div class="problem_header">
+                                    <!--问题类型：-->
+                                    <img :src="user.faceUrl" alt="">
+                                    <div>{{user.nickName}}</div>
                                     <div class="wait_Answer wait_style" v-if="item.questionStatus==0">正在进行</div>
                                     <div class="wait_Answer over_style" v-if="item.questionStatus==1">已回答</div>
                                     <div class="wait_Answer over_style" v-if="item.questionStatus==2">结束</div>
@@ -101,7 +102,11 @@
                 type: 2
             }
         },
-
+        props:{
+            user:{
+                type:Object
+            }
+        },
 
         components: {
             'v-showLoad': showLoad,
@@ -109,7 +114,7 @@
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
-
+            console.log(this.user)
             this.getList();
             xqzs.wx.setConfig(this);
         },
@@ -192,6 +197,7 @@
                     } else {
                         vm.list = vm.list.concat(arr);
                     }
+                    console.log(vm.list)
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;
 
