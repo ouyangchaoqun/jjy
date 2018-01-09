@@ -53,6 +53,14 @@
 
             </div>
         </div>
+        <div class="weui-mask weui-animate-fade-in" v-if="is_checked">
+            <div class="addAnonymous_dialog">
+                <div class="addAnonymous_title">匿名开启</div>
+                <div class="addAnonymous_content">匿名后您的个人信息将保密</div>
+                <div class="addAnonymous_btn" @click="hideAddAnonymous()">我知道了</div>
+            </div>
+        </div>
+
         <div id="tip" style="display: none">
             <div class="dialog_select_type dialog_select_Height">
                 <div class="select_title">提问须知</div>
@@ -121,7 +129,8 @@
                 MAX_LENGTH:200,
                 isSubFlag:false,
                 checked:false,
-                isAnonymous:0
+                isAnonymous:0,
+                is_checked:false,
 
             }
         },
@@ -171,10 +180,18 @@
         methods: {
             getChecked:function () {
                 if(!(this.checked)){
-                  this.isAnonymous = 1
+                    this.is_checked = true;
                 }else{
                     this.isAnonymous = 0
                 }
+                //this.checked = !this.checked;
+                console.log(this.isAnonymous)
+            },
+            hideAddAnonymous:function () {
+                this.is_checked = false;
+                this.checked = true;
+                this.isAnonymous = 1;
+                console.log( this.isAnonymous)
             },
             getExpert:function () {
                 let _this= this;
@@ -351,6 +368,38 @@
     }
 </script>
 <style>
+    .addAnonymous_dialog{
+        width:74%;
+        background: #fff;
+        border-radius: 0.3rem;
+        position: absolute;
+        top:40%;
+        text-align: center;
+        padding-top: 1.70588rem;
+        font-size: 1.0588rem;
+        left:50%;
+        margin-left: -37%;
+        overflow: hidden;
+    }
+    .addAnonymous_title{
+        color:rgba(36,37,61,1);
+    }
+    .addAnonymous_dialog div{
+        line-height: 1;
+    }
+    .addAnonymous_content{
+        color:rgba(36,37,61,0.5);
+        font-size: 0.88235rem;
+        padding:0.94rem 0;
+        border-bottom: 1px solid rgba(224,224,225,1);
+    }
+    .addAnonymous_btn{
+        color:rgba(253,87,57,1);
+        padding:0.94rem 0;
+    }
+    .addAnonymous_btn:active{
+        background: #f5f5f5;
+    }
     .addAnonymous{
         color:rgba(36,37,61,0.5);
         float: left;
