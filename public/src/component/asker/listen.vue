@@ -17,7 +17,7 @@
                     <div class="swiper-wrapper">
 
                         <div class="swiper-slide swiper-no-swiping" v-for="navList in navLists" >
-                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="92" :isShowMoreText="isShowMoreText">
+                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="50" :isShowMoreText="isShowMoreText">
                                 <div class="index_box">
                                     <div v-show="navList.list.length>0" class="index_content_active">
                                         <ul>
@@ -151,7 +151,7 @@
             initView:function () {
                 let _this=this;
                 var minHeight = $(window).height()-$('nav').height()-100;
-                $(".con_swiper_c .swiper-slide ").height($(document).height()-92)
+                $(".con_swiper_c .swiper-slide ").height($(document).height()-50)
                 //$('.index_box').css('minHeight',minHeight)
                 $('.index_nocontent').css('minHeight',minHeight)
                 var navSwiper = new Swiper('.navSwiper', {
