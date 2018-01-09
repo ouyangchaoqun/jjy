@@ -237,7 +237,6 @@
             this.getUser();
             this.getComment();
             this.getAnswer();
-            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
 
         },
@@ -341,7 +340,7 @@
                         _this.clearTimeOut();
                         xqzs.voice.pause();
                     }else{     //重新打开播放
-                        this.getVoiceUrlAnswer(item.answerId,function (url) {
+                        xqzs.voice.getAnswerVoice(item.answerId,function (url) {
                             console.log(3)
 
                             if(url!=null&&url!=undefined&&url!=''){
@@ -384,19 +383,6 @@
                     clearTimeout(_this.timeOut);
                 }
             },
-            getVoiceUrlAnswer:function (answerId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data.path)
-                            }
-                        }
-                    });
-            },
 
             formatTime:function (time) {
               return xqzs.dateTime.formatDate(time)
@@ -422,14 +408,8 @@
                 let _this=this;
                 _this.Hflag = !this.Hflag
             },
-            initVoice:function () {
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
             play:function () {
-                this.initVoice();
-                let _this=this;
+                 let _this=this;
                 xqzs.voice.onEnded=function () {
                     _this.paused2=false;
                     _this.playing2=false;
@@ -448,7 +428,7 @@
                         console.log( _this.playing2)
                         console.log("2")
                     }else{     //重新打开播放
-                        this.getVoiceUrl(_this.detail.expertId,function (url) {
+                       xqzs.voice.getExpertVoice(_this.detail.expertId,function (url) {
                             xqzs.voice.play(url);
                             _this.playing2=true;
                             _this.paused2=false;
@@ -459,23 +439,7 @@
                 }
 
             },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (expertId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.get(web.API_PATH + "come/expert/voice/message/"+expertId)
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data)
-                            }
-                        }
-                    });
-            },
+
 
             follow:function () {
 

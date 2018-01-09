@@ -640,22 +640,39 @@ var xqzs = {
             }
         },
         getAnswerVoice:function (answerId,callFun) {
-
             $.ajax({
                 url: web.API_PATH + "come/listen/get/voice/_userId_/"+answerId,
                 data:{},
                 async: false,
                 type: 'PUT',
+                dataType: 'json',
                 success: function( bt ) {
-                    if (bt.data && bt.data.status == 1) {
+                    console.log(bt.data)
+                    if (bt.data) {
                         if(typeof (callFun) =="function"){
-                            callFun(bt.data.data.path)
+                            callFun(bt.data.path)
                         }
                     }
                 }
             });
-
-
+        },
+        getExpertVoice:function (expertId,callFun) {
+            //
+            $.ajax({
+                url: web.API_PATH + "come/expert/voice/message/"+expertId,
+                data:{},
+                async: false,
+                type: 'GET',
+                dataType: 'json',
+                success: function( bt ) {
+                    console.log(bt.data)
+                    if (bt.data && bt.data.status == 1) {
+                        if(typeof (callFun) =="function"){
+                            callFun(bt.data.data)
+                        }
+                    }
+                }
+            });
         }
 
     },
