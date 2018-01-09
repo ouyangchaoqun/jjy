@@ -88,7 +88,6 @@
 
         mounted: function () {
             this.getList();
-            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
 
         },
@@ -183,41 +182,21 @@
                         _this.clearTimeOut();
                         _this.playing = false;
                     }else{     //重新打开播放
-                        let answerId= item.answerId;
-                        let url = 'http://oss.hh-idea.com/voice/2018-01/05/C63BB64C-9E15-F777-88F1-0AFCC4889782.mp3';
-                          xqzs.voice.play(url);
-//                        this.getVoiceUrl(answerId,function (url) {
-//                            xqzs.voice.play(url);
-//                            xqzs.voice.audio.play();
-//                            list[index].playing=true;
-//                            list[index].paused=false;
-//                            _this.$set(_this.list,index,list[index])
-//                            _this.playing=true;
-//                            _this.clearTimeOut();
-//                            _this.timeout(true,T,index)
-//                        })
+                        let url = item.path;
+                        xqzs.voice.play(url);
+                        list[index].playing = true;
+                        list[index].paused = false;
+                        _this.$set(_this.list, index, list[index])
+                        _this.playing = true;
+                        _this.clearTimeOut();
+                        _this.timeout(true, T, index)
+//
                     }
 
                 }
 
             },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (answerId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data.path)
-                            }
-                        }
-                    });
-            },
+
 
 
             formatTime:function (time) {
