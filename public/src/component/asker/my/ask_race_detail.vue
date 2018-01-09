@@ -150,9 +150,10 @@
                 }
                 let item= this.detail.answers[index];
                 if(item.paused){  //暂停中也就是已经获取到且为当前音频
+                    console.log(list[index])
                     list[index].paused=false;
                     list[index].playing=true;
-                    _this.$set(_this.list,index,list[index])
+                    _this.$set(_this.detail.answers,index,list[index])
                     xqzs.voice.play();
                 }else{
                     if(item.playing){    //播放中去做暂停操作
