@@ -664,6 +664,9 @@ a{
 .weui-btn_primary{
     background: linear-gradient(to right, rgba(255,158,25,1), rgba(253,114,6,1));
 }
+.weui-btn:after{
+    border: 1px solid rgba(0,0,0,0) !important;
+}
 .stepStyle{height: 2.1176471rem;line-height: 2.1176471rem;text-align: center;color:rgba(36,37,61,0.7);font-size: 0.8235rem;border-bottom: 1px solid #eee;margin-bottom: 0.8235rem}
 .joinStep_title{color:#454B54;font-size: 0.941176471rem;text-align: center;line-height: 1;font-weight: bold;margin-bottom: 0.88235rem}
 

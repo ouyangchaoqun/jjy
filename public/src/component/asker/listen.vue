@@ -14,10 +14,12 @@
             </nav>
             <div>
                 <div class="swiper-container con_swiper_c">
+
                     <div class="swiper-wrapper">
 
                         <div class="swiper-slide swiper-no-swiping" v-for="navList in navLists" >
-                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="50" :isShowMoreText="isShowMoreText">
+                            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :bottomHeight="92" :isShowMoreText="isShowMoreText">
+                                <div style="height:0.88235rem;background: #f5f5f5"></div>
                                 <div class="index_box">
                                     <div v-show="navList.list.length>0" class="index_content_active">
                                         <ul>
@@ -144,14 +146,17 @@
             "v-asker-bottom": askerBottom
         },
         mounted: function () {
+            console.log("bbbb")
             this.getClassList();
+
+            xqzs.voice.audio=null;
             xqzs.wx.setConfig(this);
         },
         methods:{
             initView:function () {
                 let _this=this;
                 var minHeight = $(window).height()-$('nav').height()-100;
-                $(".con_swiper_c .swiper-slide ").height($(document).height()-50)
+                $(".con_swiper_c .swiper-slide ").height($(document).height()-92)
                 //$('.index_box').css('minHeight',minHeight)
                 $('.index_nocontent').css('minHeight',minHeight)
                 var navSwiper = new Swiper('.navSwiper', {
@@ -272,8 +277,14 @@
                 })
 
             },
-
+            initVoice:function () {
+                console.log("xqzs.voice.audio"+xqzs.voice.audio);
+                if(xqzs.voice.audio==null){
+                    xqzs.voice.audio=document.createElement("audio");
+                }
+            },
             play:function (index) {
+                this.initVoice();
                 let _this=this;
                 let list = _this.navLists[_this.typeIndex].list;
                 let CT= list[index].ct? list[index].ct: list[index].length;
@@ -313,7 +324,7 @@
                         _this.playing = false;
                     }else{     //重新打开播放
                         let answerId= item.answerId;
-                        xqzs.voice.getAnswerVoice(answerId,function (url) {
+                        this.getVoiceUrl(answerId,function (url) {
                             xqzs.voice.play(url);
                             list[index].playing=true;
                             list[index].paused=false;
@@ -327,7 +338,23 @@
                 }
 
             },
-
+            /**
+             * 获取音频地址
+             * callFun(url) 回调 用户播放
+             */
+            getVoiceUrl:function (answerId,callFun) {
+                let _this=this;
+                this.showLoad=true;
+                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
+                    .then(function (bt) {
+                        _this.showLoad=false;
+                        if (bt.data && bt.data.status == 1) {
+                            if(typeof (callFun) =="function"){
+                                callFun(bt.data.data.path)
+                            }
+                        }
+                    });
+            },
             goDetail:function (questionId) {
               this.$router.push("/asker/listen/detail/?questionId="+questionId)
             },
@@ -429,6 +456,7 @@
 
 </script>
 <style>
+    .asker_listen_box{background: #fff;}
     .con_swiper_c .swiper-slide{ overflow-y: scroll}
    .asker_listen_box .audio .audio_btn{ width: 52%}
     .index_li_bottom .problem_answer_yy{width:100%}
@@ -474,7 +502,7 @@
     .index_box li{
         background: #fff;
         padding:0.88235rem 0.88235rem 1.176471rem 0.88235rem;
-        margin-bottom: 0.41176471rem;
+        border-bottom: 0.41176471rem solid #f5f5f5;
     }
 
 

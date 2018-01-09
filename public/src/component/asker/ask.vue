@@ -22,6 +22,10 @@
                 <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
                 <div class="price" v-if="!isSelectAnswer">¥10.00</div>
             </div>
+            <div class="addAnonymous">
+                <span>匿名 </span>
+                <input type="checkbox" class="weui-switch" v-model="checked" @click="getChecked()">
+            </div>
             <div class="tip" @click="tip()">提问须知</div>
             <div class="clear"></div>
             <!--<div class="set_price" v-if="!isSelectAnswer">-->
@@ -115,7 +119,9 @@
                 expertDetail:{},
                 contentLength:0,
                 MAX_LENGTH:200,
-                isSubFlag:false
+                isSubFlag:false,
+                checked:false,
+                isAnonymous:0
 
             }
         },
@@ -163,7 +169,13 @@
 
         },
         methods: {
-
+            getChecked:function () {
+                if(!(this.checked)){
+                  this.isAnonymous = 1
+                }else{
+                    this.isAnonymous = 0
+                }
+            },
             getExpert:function () {
                 let _this= this;
                 let id=  this.expertId;
@@ -188,7 +200,7 @@
                 });
             },
             submit:function () {
-
+                console.log(this.isAnonymous)
                  if(this.questionClass==0){
                     xqzs.weui.tip("请选择问题类型")
                     return;
@@ -199,10 +211,9 @@
                     return;
                 }
                 let _this = this;
-                console.log(_this.questionClass)
                 if( this.expertId&& this.expertId!=''){
                     _this.showLoad=true;
-                    this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: _this.questionClass,expertId:this.expertId})
+                    this.$http.post(web.API_PATH + "come/expert/post/expert/question", {userId:"_userId_",content:content, questionClass: _this.questionClass,expertId:this.expertId,isAnonymous:this.isAnonymous})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 let result = bt.data.data;
@@ -237,12 +248,11 @@
 //                    }
                     _this.showLoad=true;
 
-                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:10})
+                    this.$http.post(web.API_PATH + "come/user/post/grab/question", {userId:"_userId_",content:content, questionClass: this.questionClass,price:10,isAnonymous:this.isAnonymous})
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 let result = bt.data.data;
                                 let config =result.config;
-                                console.log(config);
                                 _this.showLoad=false;
 
 
@@ -341,7 +351,27 @@
     }
 </script>
 <style>
-
+    .addAnonymous{
+        color:rgba(36,37,61,0.5);
+        float: left;
+        margin-top: 0.8rem;
+        margin-left: 0.88235rem;
+        font-size: 0.7058823529411765rem;
+        line-height: 20px;
+    }
+    .addAnonymous span{
+        float: left;
+        margin-right: 0.294rem;
+    }
+    .addAnonymous .weui-switch, .weui-switch-cp__box{
+        width:42px;height:22px;
+    }
+    .addAnonymous .weui-switch-cp__box:before, .weui-switch:before{
+        width:40px;height:20px;
+    }
+    .addAnonymous .weui-switch-cp__box:after, .weui-switch:after{
+        width:20px;height:20px;
+    }
     .change_height{ height: 100%; overflow-y: scroll; width: 100%;}
     .asker_ask_box {
         background: #fff

@@ -4,9 +4,12 @@
         <div v-title>问题详情</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="steal_detail_header" v-if="detail.title">
-            <div class="steal_detail_top"><img :src="detail.faceUrl" alt="">
+            <div class="steal_detail_top">
+                <img v-if="detail.isAnonymous==0" :src="detail.faceUrl" alt="">
+                <img v-if="detail.isAnonymous==1" src="../../images/isAnonymousImg.png" alt="">
                 <!--<div>在<span>{{detail.title}}</span>方面</div>-->
-                <div>{{user.nickName}}</div>
+                <div v-if="detail.isAnonymous==0">{{user.nickName}}</div>
+                <div v-if="detail.isAnonymous==1">匿名</div>
                 <div class="steal_detail_top_price">赏金￥{{detail.price}}</div>
             </div>
             <div class="steal_detail_content">{{detail.content}}</div>

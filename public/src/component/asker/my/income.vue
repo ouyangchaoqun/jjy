@@ -160,7 +160,7 @@
    .asker_my_income_box .my_income .my_income_txt{ width: 100%; text-align: center; margin-top: 0.76471rem;font-size: 0.8823529411764706rem; color:rgba(36,37,61,1);}
    .asker_my_income_box .my_income .money{ margin-top: 0.7058823529411765rem; text-align: center; width: 100%; font-size: 2.117647058823529rem;line-height: 1;color:#FE7301}
 
-   .asker_my_income_box  .my_income .get_money{color:rgba(255,255,255,1); margin:0 auto;line-height:2.1176471rem;text-align: center; font-size: 1.0588235rem; margin-top: 2.941176471rem;background: rgba(255,157,24,1);border: 1px solid rgba(229,135,6,1);width: 42%;border-radius: 1.0588235rem;}
+   .asker_my_income_box  .my_income .get_money{color:rgba(255,255,255,1); margin:0 auto;line-height:2.1176471rem;text-align: center; font-size: 1.0588235rem; margin-top: 2.941176471rem;background: rgba(255,157,24,1);border: 1px solid rgba(229,135,6,0);width: 42%;border-radius: 1.0588235rem;}
     .asker_my_income_box  .my_income .get_money:active{background:rgba(229,135,6,1) ;}
    .asker_my_income_box .my_income .income_list{ position: absolute;bottom:6rem; text-align: center;  width: 100%}
    .asker_my_income_box .my_income .income_list span{border-bottom: 1px solid rgba(36,37,61,0.5); font-size: 0.7647058823529412rem; color:rgba(36,37,61,0.5); padding-bottom: 0.35294rem;border-radius: 1px;}
