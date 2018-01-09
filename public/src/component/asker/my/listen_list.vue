@@ -32,7 +32,7 @@
                                    :src="item.expertFaceUrl">
                             </div>
                             <div class="audio" :class="{playing:item.playing,paused:item.paused}">
-                                <div class="audio_btn" @click.stop="play(index)">
+                                <div class="audio_btn"   :index="index" >
                                     <template v-if="!item.playing&&!item.paused">点击播放</template>
                                     <template v-if="item.playing">正在播放..</template>
                                     <template v-if="item.paused">播放暂停</template>
@@ -285,7 +285,13 @@
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;
 
-
+                    vm.$nextTick(function () {
+                        $(".list .item .audio_btn").click(function (e) {
+                            let index= $(this).attr("index");
+                            vm.play(index);
+                            e.stopPropagation()
+                        })
+                    })
                 }, (response) => {
                     vm.isLoading = false;
                     vm.showLoad = false;

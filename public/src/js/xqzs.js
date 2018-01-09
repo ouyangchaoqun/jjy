@@ -636,6 +636,19 @@ var xqzs = {
                         xqzs.voice.audio.play();
                     }, false);
 
+
+                    xqzs.voice.audio.play();
+                    document.addEventListener("WeixinJSBridgeReady", function () {
+                        xqzs.voice.audio.play()
+                    }, false);
+                    document.addEventListener('YixinJSBridgeReady', function() {
+                        xqzs.voice.audio.play()
+                    }, false);
+                    document.addEventListener("touchstart",function () {
+                        xqzs.voice.audio.play()
+                    }, false);
+
+
                     console.log( xqzs.voice);
 
                     console.log("xqzs.voice.audio.pa222used" + xqzs.voice.audio.paused)
