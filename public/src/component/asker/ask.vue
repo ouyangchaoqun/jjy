@@ -16,7 +16,7 @@
             <!--</div>-->
             <div class="text_area">
                 <textarea v-if="isSelectAnswer" placeholder="请详细描述您的问题，专家将第一时间帮您解答。" class="content answer_select" maxlength="200"></textarea>
-                <textarea v-if="!isSelectAnswer" placeholder="请输入您的问题，好一点将为您匹配专业咨询师进行抢答。" class="content" maxlength="140"></textarea>
+                <textarea v-if="!isSelectAnswer" placeholder="请告知您的性别，年龄，症状或具体问题，有助于提高回复的准确性。48小时内无人抢答将全额退款。" class="content" maxlength="140"></textarea>
                 <div v-if="!isSelectAnswer" class="last_word_count">{{contentLength}}/140</div>
                 <div v-if="isSelectAnswer" class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
                 <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
@@ -538,6 +538,6 @@
     .asker_ask_box .ask_type_new .select_box div{flex:1;color:rgba(36,37,61,0.7);font-size: 0.88235rem;background: rgba(245,245,245,1);border-radius: 5px;}
     .asker_ask_box .ask_type_new .select_box div:nth-of-type(2){margin:0 0.88235rem;}
     .asker_ask_box .ask_type_new .select_box .on_new{background: rgba(253,114,6,1);color:#fff;}
-    .asker_ask_box  .text_area .content{ font-size: 0.8235rem; color:rgba(36,37,61,1); height: 90%; line-height: 1.41rem}
+    .asker_ask_box  .text_area .content{ font-size: 0.76471rem; color:rgba(36,37,61,1); height: 90%; line-height: 1.41rem}
     /*.asker_ask_box  .text_area  .answer_select{ height: 90%}*/
 </style>

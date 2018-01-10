@@ -53,6 +53,7 @@
                             </div>
 
                             <div class="clear"></div>
+                            <div class="addBest_text" v-if="detail.bestAnswerId!=0&&detail.questionStatus!=0&&detail.bestAnswerId==item.answerId" >此回答为<a>最佳答案</a>，答主获得全部赏金</div>
                         </div>
 
 
@@ -261,6 +262,15 @@
     }
 </script>
 <style>
+    .rob_problem .addBest_text{
+        color:rgba(153,153,153,1);
+        font-size: 0.70588rem;
+        line-height: 1;
+        padding-top: 1rem;
+    }
+    .rob_problem .addBest_text a{
+        color:rgba(253,87,57,1);
+    }
     .problem_detail_header .race_titleColor{
         color: rgba(51,51,51,1);
     }
