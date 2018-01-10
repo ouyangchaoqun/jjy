@@ -30,7 +30,7 @@
                     <li v-for="(item,index) in list" v-if="type==1" :class="{li_border:list.length>1}">
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
-                            <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
+                            <span>{{item.askUserNickName}}</span>
                             <div class="problem_item_right" v-if="item.wageType!=0">
                                 <template v-if="item.wageType==4">赏金<i>￥{{formatPrice(item.wage)}}</i></template>
                                 <template v-if="item.wageType==5">平分<i>￥{{formatPrice(item.wage)}}</i></template>
@@ -72,7 +72,7 @@
                     <li v-if="type==2" v-for="(item,index) in list" :class="{li_border:list.length>1}">
                         <div class="problem_item_top">
                             <img :src="item.askUserFaceUrl" alt="">
-                            <span>{{item.askUserNickName}}</span>在哪方面：<div>{{item.questionClassName}}</div>
+                            <span>{{item.askUserNickName}}</span>
                             <div class="problem_item_right">酬金<i>￥{{formatPrice(item.wage)}} </i></div>
                         </div>
                         <div class="problem_item_del">{{item.questionContent}}</div>
