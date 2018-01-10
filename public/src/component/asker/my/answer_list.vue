@@ -154,7 +154,8 @@
     .asker_my_answer_list_box .item{border-bottom: 1px solid #E0E0E1;}
     .asker_my_answer_list_box .item:active{background: #f5f5f5}
     .asker_my_answer_list_box .answer_list .item{margin-top: 0}
-    .answer_list .item .class_s{margin-top: 2rem}
+    .answer_list .item .class_s{position: absolute;bottom:28%;margin-bottom: 0}
+    .answer_list .item .other{bottom:0!important;padding-left: 0.294rem;}
     .tab_i_i{color: #FF9966;
         background: rgba(204,204,204,0.3);
         border-radius: 0.1470588235294118rem;
