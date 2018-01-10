@@ -24,7 +24,7 @@
             </div>
             <div class="addAnonymous">
                 <span>匿名 </span>
-                <input type="checkbox" class="weui-switch" v-model="checked" @click="getChecked()">
+                <input type="checkbox" class="weui-switch" v-model="checked" :checked="checked" @click="getChecked()">
             </div>
             <div class="tip" @click="tip()">提问须知</div>
             <div class="clear"></div>
@@ -179,8 +179,9 @@
         },
         methods: {
             getChecked:function () {
+                var checkedVal = $('.weui-switch').prop('checked')
                 console.log(this.checked)
-                if(this.checked){
+                if(checkedVal){
                     this.is_checked = true;
                 }else{
                     this.isAnonymous = 0
