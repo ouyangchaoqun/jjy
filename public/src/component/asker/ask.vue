@@ -24,7 +24,7 @@
             </div>
             <div class="addAnonymous">
                 <span>匿名 </span>
-                <input type="checkbox" class="weui-switch" v-model="checked" :checked="checked" @click="getChecked()">
+                <input type="checkbox" class="weui-switch" :checked="checked" @click="getChecked()">
             </div>
             <div class="tip" @click="tip()">提问须知</div>
             <div class="clear"></div>
@@ -179,7 +179,8 @@
         },
         methods: {
             getChecked:function () {
-                var checkedVal = $('.weui-switch').prop('checked')
+                var checkedVal = $('.weui-switch').prop('checked');
+                this.checked = checkedVal;
                 if(checkedVal){
                     this.is_checked = true;
                 }else{
@@ -188,7 +189,6 @@
             },
             hideAddAnonymous:function () {
                 this.is_checked = false;
-                this.checked = true;
                 this.isAnonymous = 1;
             },
             getExpert:function () {
