@@ -117,7 +117,9 @@
                 <div class="list">
                     <div class="item" v-for="(item,index) in answerList" :class="{addBorder_bottom:answerList.length>1}">
                         <div class="question">
-                            <div class="img"><img :src="item.faceUrl">
+                            <div class="img">
+                                <img v-if="item.isAnonymous==0" :src="item.faceUrl">
+                                <img v-if="item.isAnonymous==1" src="../../images/isAnonymousImg.png">
                             </div>
                             <div class="info">
                                 <div class="word">
@@ -545,6 +547,7 @@
                             _this.answerList = _this.answerList.concat(arr);
                         }
                         if (arr.length == 0) return;
+                        console.log(_this.answerList)
                         _this.page = _this.page + 1;
                     }
                 }, function (error) {
@@ -759,7 +762,7 @@
     .answer_detail_box  .list .star span.on{background: url(../../images/star.png);background-size: 0.7647058823529412rem; }
 
     .answer_detail_box  .list .item .img{ width: 2rem;height: 2rem; float:left; }
-    .answer_detail_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%; border: 1px solid #EEEAEA }
+    .answer_detail_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%;}
     .answer_detail_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%}
     .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:rgba(36,37,61,0.5); margin-bottom: 0.2rem; width: 14.11764705882353rem;line-height: 1}
     .answer_detail_box  .list .info .star{line-height: 1;margin-bottom: 0.35rem}
