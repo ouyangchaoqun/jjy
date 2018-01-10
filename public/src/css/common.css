@@ -310,7 +310,7 @@ a{
 .answer_list .itemDetail{display: flex}
 .answer_list .itemDetail_right{width:65%;margin-left: 0.588235rem;color:rgba(36,37,61,1);position: relative}
 .answer_list .itemDetail_right .title{font-size: 0.8235rem;font-weight: bold;margin-bottom: 0.588235rem;}
-.answer_list .class_s{color:rgba(36,37,61,0.5);font-size: 0.70588rem;line-height: 1;margin-bottom: 0.76471rem;}
+.answer_list .class_s{color:rgba(36,37,61,0.5);font-size: 0.70588rem;line-height: 1.2;margin-bottom: 0.76471rem;}
 .answer_list .other{display: flex;display: -webkit-flex;margin-bottom: 0.294rem;position: absolute;bottom: 0;width: 100%;}
 .answer_list .other span{flex:1;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 .answer_list .other .ml{text-align: center}
