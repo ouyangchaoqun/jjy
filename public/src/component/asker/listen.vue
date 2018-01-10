@@ -277,14 +277,9 @@
                 })
 
             },
-            initVoice:function () {
-                console.log("xqzs.voice.audio"+xqzs.voice.audio);
-                if(xqzs.voice.audio==null){
-                    xqzs.voice.audio=document.createElement("audio");
-                }
-            },
+
             play:function (index) {
-                this.initVoice();
+
                 let _this=this;
                 let list = _this.navLists[_this.typeIndex].list;
                 let CT= list[index].ct? list[index].ct: list[index].length;
@@ -324,7 +319,7 @@
                         _this.playing = false;
                     }else{     //重新打开播放
                         let answerId= item.answerId;
-                        this.getVoiceUrl(answerId,function (url) {
+                        xqzs.voice.getAnswerVoice(answerId,function (url) {
                             xqzs.voice.play(url);
                             list[index].playing=true;
                             list[index].paused=false;
@@ -338,23 +333,7 @@
                 }
 
             },
-            /**
-             * 获取音频地址
-             * callFun(url) 回调 用户播放
-             */
-            getVoiceUrl:function (answerId,callFun) {
-                let _this=this;
-                this.showLoad=true;
-                this.$http.put(web.API_PATH + "come/listen/get/voice/_userId_/"+answerId, {})
-                    .then(function (bt) {
-                        _this.showLoad=false;
-                        if (bt.data && bt.data.status == 1) {
-                            if(typeof (callFun) =="function"){
-                                callFun(bt.data.data.path)
-                            }
-                        }
-                    });
-            },
+
             goDetail:function (questionId) {
               this.$router.push("/asker/listen/detail/?questionId="+questionId)
             },
