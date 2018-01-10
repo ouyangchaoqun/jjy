@@ -377,7 +377,6 @@ a{
 
 /*专家头像及个人描述*/
 .steal_expert_info{
-    border-top: 1px solid #E0E0E1;
     background: #fff;
     position: relative;
     padding:0.88235rem;

@@ -8,7 +8,7 @@
                 <img v-if="detail.isAnonymous==0" :src="detail.faceUrl" alt="">
                 <img v-if="detail.isAnonymous==1" src="../../images/isAnonymousImg.png" alt="">
                 <!--<div>在<span>{{detail.title}}</span>方面</div>-->
-                <div v-if="detail.isAnonymous==0">{{user.nickName}}</div>
+                <div v-if="detail.isAnonymous==0">{{detail.nickName}}</div>
                 <div v-if="detail.isAnonymous==1">匿名</div>
                 <div class="steal_detail_top_price">赏金￥{{detail.price}}</div>
             </div>
@@ -313,7 +313,6 @@
     .steal_expert_info{
         padding-left: 4.176rem;
         padding-bottom: 1.5rem;
-        border-top: 0.588235rem solid rgba(245,245,245,1);
     }
     .position_change_detail{
         color:#fff;
@@ -323,8 +322,9 @@
     .position_change2{ margin-top: 1rem;}
     .pay_listen{ width: 10.35294117647059rem; height: auto}
     .steal_detail_header{
-        padding:0.70588rem 0.88235rem 0 0.88235rem;
+        padding:0.70588rem 0.88235rem 1.176471rem 0.88235rem;
         background: #fff;
+        border-bottom: 0.588235rem solid rgba(245,245,245,1);
     }
     .steal_detail_top{
         display: flex;
@@ -360,7 +360,6 @@
     }
     .steal_detail_answer{
         background: #fff;
-        padding-top:1.176471rem;
         margin-bottom: 0.588235rem;
     }
     .steal_answer_top{
