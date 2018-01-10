@@ -180,7 +180,7 @@
         methods: {
             getChecked:function () {
                 console.log(this.checked)
-                if(!(this.checked)){
+                if(this.checked){
                     this.is_checked = true;
                 }else{
                     this.isAnonymous = 0
