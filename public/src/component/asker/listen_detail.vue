@@ -144,7 +144,7 @@
                             let result = bt.data.data;
 
                             xqzs.wx.pay.pay(result.order, function () {
-                                xqzs.weui.tip("正在跳转支付")
+
                             }, function () {//success
                                 xqzs.weui.tip("支付成功", function () {
                                     _this.setPayed(index);
