@@ -180,21 +180,16 @@
         methods: {
             getChecked:function () {
                 var checkedVal = $('.weui-switch').prop('checked')
-                console.log(this.checked)
                 if(checkedVal){
                     this.is_checked = true;
                 }else{
                     this.isAnonymous = 0
                 }
-                //this.checked = !this.checked;
-                console.log('getChecked:'+this.isAnonymous)
             },
             hideAddAnonymous:function () {
                 this.is_checked = false;
                 this.checked = true;
                 this.isAnonymous = 1;
-
-                console.log( 'hideAddAnonymous:'+this.isAnonymous)
             },
             getExpert:function () {
                 let _this= this;
