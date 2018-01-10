@@ -179,6 +179,7 @@
         },
         methods: {
             getChecked:function () {
+                console.log(this.checked)
                 if(!(this.checked)){
                     this.is_checked = true;
                 }else{
