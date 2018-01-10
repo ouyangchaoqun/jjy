@@ -185,13 +185,14 @@
                     this.isAnonymous = 0
                 }
                 //this.checked = !this.checked;
-                console.log(this.isAnonymous)
+                console.log('getChecked:'+this.isAnonymous)
             },
             hideAddAnonymous:function () {
                 this.is_checked = false;
                 this.checked = true;
                 this.isAnonymous = 1;
-                console.log( this.isAnonymous)
+
+                console.log( 'hideAddAnonymous:'+this.isAnonymous)
             },
             getExpert:function () {
                 let _this= this;
