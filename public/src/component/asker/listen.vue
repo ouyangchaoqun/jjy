@@ -500,6 +500,7 @@
     .index_li_header .header_className{
         position: absolute;
         right:0;
+        font-size: 0.8235rem;
     }
     .index_li_header img{
         height:1.70588235rem;
