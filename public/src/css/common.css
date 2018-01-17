@@ -461,7 +461,7 @@ a{
     margin-left: 0.588235rem;
 }
 .problem_detail_header>div:nth-of-type(2){
-    color:#FE7301;
+    color: rgba(36,37,61,0.5);
     position: absolute;
     right:0.88235rem;
 }

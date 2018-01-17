@@ -6,7 +6,7 @@
                 <!--问题类型:  <div class="race_titleColor">{{detail.title}}</div>-->
                 <img :src="user.faceUrl" alt="">
                 <div>{{user.nickName}}</div>
-                <div>赏金￥{{detail.price}}</div>
+                <div>{{detail.title}}</div> <!--赏金￥{{detail.price}}-->
             </div>
             <div class="problem_detail_content">
                 {{detail.question}}

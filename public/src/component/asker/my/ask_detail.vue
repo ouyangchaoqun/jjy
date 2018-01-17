@@ -10,7 +10,7 @@
             <div class="add_askerInfo">
                 <img :src="user.faceUrl" alt="">
                 <span>{{user.nickName}}</span>
-                <div>￥{{formatPrice(detail.price)}}</div>
+                <div>{{detail.title}}</div>  <!--￥{{formatPrice(detail.price)}}-->
             </div>
             <div class="problem_detail_content">
                 {{detail.question}}
@@ -391,7 +391,7 @@
         color:rgba(51,51,51,0.5);
     }
     .ask_detailBox .my_problem_detail .add_askerInfo div{
-        color:rgba(253,87,57,1);
+        color:rgba(51,51,51,0.5);
         position: absolute;
         right:0.88235rem;
     }
