@@ -3,21 +3,21 @@
         <div v-title>提问</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="change_height">
-            <!--<div class="ask_type_new" v-if="isSelectAnswer">-->
-                <!--<div class="tab">问题类型 <span>点击选择</span></div>-->
-                <!--<div class="select_box">-->
-                    <!--<div v-for="item in types">{{item.title}}</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="ask_type" v-if="!isSelectAnswer" @click="selectType()">-->
-                <!--<div class="tab">选择问题类型：</div>-->
-                <!--<div class="select_box">{{type}}</div>-->
-                <!--<div class="clear"></div>-->
-            <!--</div>-->
+            <div class="ask_type_new" v-if="isSelectAnswer">
+                <div class="tab">问题类型 <span>点击选择</span></div>
+                <div class="select_box">
+                    <div v-for="item in types">{{item.title}}</div>
+                </div>
+            </div>
+            <div class="ask_type" v-if="!isSelectAnswer" @click="selectType()">
+                <div class="tab">选择问题类型：</div>
+                <div class="select_box">{{type}}</div>
+                <div class="clear"></div>
+            </div>
             <div class="text_area">
                 <textarea v-if="isSelectAnswer" placeholder="请详细描述您的问题，专家将第一时间帮您解答。" class="content answer_select" maxlength="200"></textarea>
-                <textarea v-if="!isSelectAnswer" placeholder="请告知您的性别，年龄，症状或具体问题，有助于提高回复的准确性。48小时内无人抢答将全额退款。" class="content" maxlength="140"></textarea>
-                <div v-if="!isSelectAnswer" class="last_word_count">{{contentLength}}/140</div>
+                <textarea v-if="!isSelectAnswer" placeholder="请详细描述你的问题，专家将尽快为你解答！" class="content" maxlength="200"></textarea>
+                <div v-if="!isSelectAnswer" class="last_word_count">{{contentLength}}/200</div>
                 <div v-if="isSelectAnswer" class="last_word_count">{{contentLength}}/{{MAX_LENGTH}}</div>
                 <div class="price" v-if="isSelectAnswer">¥{{expertDetail.price}}</div>
                 <div class="price" v-if="!isSelectAnswer">¥10.00</div>
@@ -122,7 +122,7 @@
                 isSelectAnswer: false, //是否针对专家提问
                 type:'',
                 typeSelectIndex:null,
-                questionClass:1,//0
+                questionClass:0,//0(有类型)1（取消类型）
                 expertId:0,
                 expertDetail:{},
                 contentLength:0,

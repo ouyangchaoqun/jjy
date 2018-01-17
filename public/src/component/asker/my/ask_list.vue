@@ -43,7 +43,7 @@
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
                                     <div>听过 {{item.listenTimes}}</div>
-                                    <div class="my_problem_money">收入分成￥{{formatPrice(item.inCome)}}</div>
+                                    <!--<div class="my_problem_money">收入分成￥{{formatPrice(item.inCome)}}</div>-->
                                 </div>
                             </a>
                         </li>
@@ -70,7 +70,7 @@
                                 <div class="my_problem_bottom">
                                     <div>{{formatDateText(item.addTime)}}</div>
                                     <div>{{item.answerCount}}个回答</div>
-                                    <div class="my_problem_money">￥{{formatPrice(item.price)}}</div>
+                                    <!--<div class="my_problem_money">￥{{formatPrice(item.price)}}</div>-->
                                 </div>
                             </a>
                         </li>
@@ -313,11 +313,12 @@
         font-size: 0.701588235rem;
         line-height: 1;
     }
-
-    .my_problem_bottom > div {
-        margin-right: 0.88235rem;
+    .my_problem_bottom>div{
+        flex-grow: 1;
     }
-
+    .my_problem_bottom>div:nth-of-type(2){
+        text-align: right;
+    }
     .my_problem_bottom .my_problem_money {
         position: absolute;
         right: 0;

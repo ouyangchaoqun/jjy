@@ -10,7 +10,7 @@
                 <!--<div>在<span>{{detail.title}}</span>方面</div>-->
                 <div v-if="detail.isAnonymous==0">{{detail.nickName}}</div>
                 <div v-if="detail.isAnonymous==1">匿名</div>
-                <div class="steal_detail_top_price">赏金￥{{detail.price}}</div>
+                <div class="steal_detail_top_price">{{detail.title}}</div>
             </div>
             <div class="steal_detail_content">{{detail.content}}</div>
         </div>
@@ -336,7 +336,6 @@
         position: relative;
     }
     .steal_detail_top .steal_detail_top_price{
-        color:#FE7301;
         position: absolute;
         right:0.88235rem;
     }

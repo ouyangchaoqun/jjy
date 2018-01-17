@@ -28,6 +28,7 @@
                                                     <div class="index_li_header">
                                                         <img :src="item.expertFaceUrl" alt="">
                                                         <div>{{item.expertName}} <span>回答了</span></div>
+                                                        <div class="header_className">{{item.title}}</div>
                                                     </div>
                                                     <div class="index_li_content">{{item.content}}</div>
                                                     <div class="index_li_bottom">
@@ -50,7 +51,7 @@
                                                         <div class="problem_answer_yy" @click.stop="pay(index)"
                                                              v-if="item.answerType==2||item.answerType==4">
                                                             <div class="audio">
-                                                                <div class="audio_btn pay">1元偷听
+                                                                <div class="audio_btn pay">偷听
                                                                     <div class="second">{{(item.ct &&
                                                                         item.ct!='00')?item.ct:item.length}}”
                                                                     </div>
@@ -494,6 +495,11 @@
         display: flex;
         line-height: 1.70588235rem;
         margin-bottom: 0.5294rem;
+        position: relative;
+    }
+    .index_li_header .header_className{
+        position: absolute;
+        right:0;
     }
     .index_li_header img{
         height:1.70588235rem;

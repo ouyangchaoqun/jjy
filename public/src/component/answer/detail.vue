@@ -29,7 +29,7 @@
                         <div class="line_1"></div>
                     </div>
                     <div class="answer_countBox">
-                        <div class="counts">{{detail.evaluate}}</div>
+                        <div class="counts">{{toPercent(detail.goodPercent||0)}}</div>
                         <div class="nr">好评率</div>
                         <div class="line_1"></div>
                     </div>
@@ -125,7 +125,7 @@
                                 <div class="word">
                                     {{item.content}}
                                 </div>
-                                <div class="price">￥{{item.price}}</div>
+                                <!--<div class="price">￥{{item.price}}</div>-->
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -252,6 +252,9 @@
             })
         },
         methods:{
+            toPercent:function (p) {
+                return (p*100).toFixed(2)+'%';
+            },
             showPicker:function () {
                 let _this = this;
                 _this.showPic = !_this.showPic;
@@ -668,7 +671,7 @@
         padding-bottom: 0.9rem;
     }
     .answer_detail_box .counts{
-        font-size:1.05rem;
+        font-size:0.94rem;
         line-height: 1;
         color:rgba(36,37,61,0.8);
         margin-bottom: 0.5rem;
@@ -763,7 +766,7 @@
 
     .answer_detail_box  .list .item .img{ width: 2rem;height: 2rem; float:left; }
     .answer_detail_box  .list .item .img img{ width: 100%; height: 100%; border-radius: 50%;}
-    .answer_detail_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%}
+    .answer_detail_box  .list .info{ float:left; margin-left:0.8823529411764706rem;  width: 83%;line-height: 2rem;}
     .answer_detail_box  .list .info .name{ font-size: 0.7058823529411765rem; color:rgba(36,37,61,0.5); margin-bottom: 0.2rem; width: 14.11764705882353rem;line-height: 1}
     .answer_detail_box  .list .info .star{line-height: 1;margin-bottom: 0.35rem}
     .answer_detail_box  .list .word{ font-size:0.8235rem;  color:rgba(36,37,61,1); margin-bottom: 0.4rem; overflow: hidden;word-wrap:break-word;}
